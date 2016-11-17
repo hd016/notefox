@@ -1,4 +1,4 @@
-package de.hdm.notefox.shared.bo;
+package de.hdm.notefox.shared;
 
 public class Permisson {
 	

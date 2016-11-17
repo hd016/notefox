@@ -1,5 +1,8 @@
 package de.hdm.notefox.shared.bo;
 
+import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Notizquelle;
+
 public class Notiz extends Notizobjekt {
 
 	/** Unique IDentifier

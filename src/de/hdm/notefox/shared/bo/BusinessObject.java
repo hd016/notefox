@@ -3,8 +3,8 @@ package de.hdm.notefox.shared.bo;
 import java.io.Serializable;
 
 /**
- * „BusinessObjekt.java ist die Superklasse aller relevanten Klassen im Objekt. 
- * Die Business Objects repräsentieren reale betriebswirtschaftliche Objekte, 
+ * „BusinessObject.java ist die Superklasse aller relevanten Klassen im Objekt. 
+ * Die Business Objekts repräsentieren reale betriebswirtschaftliche Objekte, 
  * die für die Umsetzung des Fachkonzepts wichtig sind. Jedes Businessobjekt 
  * hat einen Primärschlüssel, die das Objekt in einer relationalen 
  * Datenbankeindeutig identifizieren. 
