@@ -1,6 +1,6 @@
 package de.hdm.notefox.shared;
 
-public class Permisson {
+public class Berechtigung {
 	
 
 
@@ -8,28 +8,28 @@ public class Permisson {
 	   * Variablen von Permission.
 	  */
 
-	private int permissionId;
-	private String permissionName = "";
+	private int berechtigungId;
+	private String berechtigungName = "";
 	
 
 	  
 	/**Auslesen und Setzen der Variablen
 	 */
 	
-	public int getPermissionId() {
-		return permissionId;
+	public int getBrechtigungId() {
+		return berechtigungId;
 	}
 	
-	public void setPermissionId(int permissionId) {
-		this.permissionId = permissionId;
+	public void setBerechtigungId(int berechtigungId) {
+		this.berechtigungId = berechtigungId;
 	}
 	
-	public String getPermissionName() {
-		return permissionName;
+	public String getBerechtigungName() {
+		return berechtigungName;
 	}
 	
-	public void setPermissionName(String permissionName) {
-		this.permissionName = permissionName;
+	public void setBerechtigungName(String berechtigungName) {
+		this.berechtigungName = berechtigungName;
 	}
 
 }
