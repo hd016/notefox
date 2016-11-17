@@ -9,6 +9,9 @@ public class Notiz extends Notizobjekt {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Variablen Notizquelle und Datum 
+	 */
 	private Notizquelle notizquelle;
 	private Datum datum;
 	

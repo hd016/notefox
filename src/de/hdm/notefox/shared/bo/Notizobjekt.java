@@ -2,11 +2,19 @@ package de.hdm.notefox.shared.bo;
 
 import java.util.Date;
 
+import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Nutzer;
+
 public abstract class Notizobjekt extends BusinessObject {
   
 	/** Unique IDentifier
 	 */
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * Varibale Nutzer
+   */
+  private Nutzer nutzer;
   
   /** Variablen des Notizobjekts
    */
