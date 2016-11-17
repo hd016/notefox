@@ -1,4 +1,4 @@
-package de.hdm.notefox.bo;
+package de.hdm.notefox.shared.bo;
 
 import java.util.Date;
 
