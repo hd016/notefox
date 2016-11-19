@@ -1,6 +1,10 @@
 package de.hdm.notefox.shared.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Nutzer;
 
 public abstract class Notizobjekt extends BusinessObject {
   
@@ -28,6 +32,17 @@ public abstract class Notizobjekt extends BusinessObject {
   public Notizobjekt() {
     super();
   }
+  
+  /**
+	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert +
+	 * via parametrisiertem Konstruktor initialisiert
+	 */
+  
+  private ArrayList<Nutzer> nutzerliste; 
+  public Notizobjekt(ArrayList<Nutzer> nListe){ 
+  this.nutzerliste = nListe; 
+  } 
+  
 
   
   /** Auslesen und Setzen der Variablen

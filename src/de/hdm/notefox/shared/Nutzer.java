@@ -1,5 +1,9 @@
 package de.hdm.notefox.shared;
 
+import java.util.ArrayList;
+
+import de.hdm.notefox.shared.bo.Notizobjekt;
+
 public class Nutzer {
 
   /**
@@ -9,7 +13,14 @@ public class Nutzer {
 private int nutzerid;
 private String name = "";
 private String passwort = "";
+
+
+/**
+ * ArrayList mit Objekten der verbundenen Klasse 
+ */
+private ArrayList<Notizobjekt> notizobjektliste = new ArrayList <Notizobjekt>(); 
   
+
 /**Auslesen und Setzen der Variablen
  */
   public int getNutzerId() {

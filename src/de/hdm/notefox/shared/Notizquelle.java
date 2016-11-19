@@ -1,5 +1,9 @@
 package de.hdm.notefox.shared;
 
+import java.util.ArrayList;
+
+import de.hdm.notefox.shared.bo.Notiz;
+
 public class Notizquelle {
 	
 	/**Variablen der Notizquelle
@@ -10,7 +14,14 @@ public class Notizquelle {
 	private String notizquelleName;
 	
 	private String url;
+	
+	
+	/**
+	 * ArrayList mit Objekten der verbundenen Klasse 
+	 */
+	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>(); 
 
+	
 /**Auslesen und Setzen der Variablen
  */
 	public int getNotizquelleId() {

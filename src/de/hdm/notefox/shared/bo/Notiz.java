@@ -8,15 +8,27 @@ public class Notiz extends Notizobjekt {
 	/** Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private Notizquelle notizquelle;
-	private Datum datum;
-	
 
 	  /** Variablen der Notiz
 	   */
 	private int notizId;
 
+	/**
+	 * Objekt der verbundenen Klasse Datum als Attribut deklariert
+	 */
+	private Datum datum;
+	
+	
+	/**
+	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert +
+	 * via parametrisiertem Konstruktor initialisiert
+	 */
+	private Notizquelle notizquelle;
+	public Notiz(Notizquelle n){
+		this.notizquelle = n;
+	}
+	
+	
 	  /** Auslesen und Setzen der Variablen
 	   */
 	public int getNotizId() {
@@ -27,5 +39,7 @@ public class Notiz extends Notizobjekt {
 	public void setNotizId(int notizId) {
 		this.notizId = notizId;
 	}
+	
+	
 	
 }
