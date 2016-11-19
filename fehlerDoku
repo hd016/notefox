@@ -1,0 +1,28 @@
+Bei der Ausführung(Run) des Projektes können immer wieder Probleme und Fehler entstehen.
+Für das Erste kann man diese Fehler mit ein paar Klicks beheben.
+(globale settings files kommen später)
+
+Bekannte Fehler:
+####################################################################################################################################
+[ERROR] Unable to find 'x' on your classpath; could be a typo, or maybe you forgot to include a classpath entry for source?
+1. Rechtsklick auf das Projekt
+2. Run As -> Run Configurations
+3. Tab: Arguments
+4. Kopieren und Einfügen bei Program arguments(Editieren von Ordnerpfad nicht vergessen![Sieht möglicherweise so aus: /Benutzer/x/Dokumente/Workspace/notefox/war ]) 
+-remoteUI "${gwt_remote_ui_server_port}:${unique_id}" -startupUrl Notefox.html -logLevel INFO -codeServerPort 9997 -port 8888 -server com.google.appengine.tools.development.gwt.AppEngineLauncher -war /Benutzer/x/Dokumente/Workspace/notefox/war de.hdm.notefox.Notefox
+5.Apply
+6.Run
+####################################################################################################################################
+[ERROR]Unsupported major.minor version 52.0
+1. Java Build Path
+2. Libaries
+3. JRE System Libary -> edit..
+4. Execution Environment -> JavaSE-1.7
+5. Finish
+6. Java Compiler -> Hacken -> Use compliance from execution environment.
+####################################################################################################################################
+
+
+
+
+
