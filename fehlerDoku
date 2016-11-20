@@ -21,6 +21,9 @@ Bekannte Fehler:
 5. Finish
 6. Java Compiler -> Hacken -> Use compliance from execution environment.
 ####################################################################################################################################
+[ERROR]The import com.google.gwt cannot be resolved.
+1. Aktualisieren von Libaries unter Build Path.
+####################################################################################################################################
 
 
 
