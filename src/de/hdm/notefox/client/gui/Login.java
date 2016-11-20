@@ -7,10 +7,12 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class Login extends Composite {
 // Login 
-	private VerticalPanel hPanel = new VerticalPanel();
+	private HorizontalPanel hPanel = new HorizontalPanel();
+	private LoginView menu;
+	
 
 	
-	public Login() {
+	public Login(LoginMenu menu) {
 		initWidget(this.hPanel);
 
 		HorizontalPanel hPanel = new HorizontalPanel();
