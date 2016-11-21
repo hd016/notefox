@@ -20,6 +20,7 @@ public class NotizbuchMapper {
 	   * Eimalige Instantierung der Klasse NotizbuchMapper (Singleton)
 	   * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
 	   * speichert die eizige Instanz dieser Klasse
+	   * 
 	   */
 	
   private static NotizbuchMapper notizbuchMapper = null;
@@ -47,10 +48,10 @@ public class NotizbuchMapper {
 
   /**
    * Notizbuch nach NotizbuchId suchen.   
-   * als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
+   * Als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
   public Notizbuch nachNotizbuchId(int id) {
-	// Es wird eine DB-Verbindung hergestellt.
+	// Es wird eine DB-Verbindung hergestellt
     Connection con = DBConnection.connection();
 
     try {
