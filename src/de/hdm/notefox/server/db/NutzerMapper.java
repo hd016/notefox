@@ -212,7 +212,7 @@ public class NutzerMapper {
       e.printStackTrace();
     }
 
-    // Um ähnliche Strukturen wie zu anlegenNotizquelle(Notizquelle a) zu wahren, geben wir nun a zurück
+    // Um ähnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren, geben wir nun c zurück
     return c;
   }
 
