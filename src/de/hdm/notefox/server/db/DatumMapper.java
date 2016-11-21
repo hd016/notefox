@@ -3,6 +3,8 @@ package de.hdm.notefox.server.db;
 import java.sql.*;
 import java.util.Vector;
 
+import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
 /**
