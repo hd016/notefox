@@ -84,7 +84,6 @@ public class NotizbuchMapper {
 
   /**
    * Auslesen aller Notizbücher.
-   * 
    */
   
   public Vector<Notizbuch> nachAllenNotizbuecherSuchen() {
