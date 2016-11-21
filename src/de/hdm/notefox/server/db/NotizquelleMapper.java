@@ -12,9 +12,7 @@ import de.hdm.notefox.shared.bo.*;
  * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
  * und speichern.Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
  * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.“
-
  */
-//commitmansur
 
 public class NotizquelleMapper {
 
