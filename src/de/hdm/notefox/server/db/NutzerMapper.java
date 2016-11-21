@@ -21,7 +21,7 @@ public class NutzerMapper {
    * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
    * speichert die einzige Instanz dieser Klasse
    */
-	
+	//commitmansur
   private static NutzerMapper nutzerMapper = null;
 
   /**

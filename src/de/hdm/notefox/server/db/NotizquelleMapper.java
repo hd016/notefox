@@ -14,6 +14,7 @@ import de.hdm.notefox.shared.bo.*;
  * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.“
 
  */
+//commitmansur
 
 public class NotizquelleMapper {
 
