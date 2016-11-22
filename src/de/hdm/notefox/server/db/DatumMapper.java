@@ -75,7 +75,7 @@ public class DatumMapper {
       if (rs.next()) {
         // Das daraus ergebene Tupel muss in ein Objekt überführt werden.
     	  Datum a = new Datum();
-        a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
+        a.setFaelligkeitId(rs.getInt("FaelligkeitId"));
         return a;
       }
     }
