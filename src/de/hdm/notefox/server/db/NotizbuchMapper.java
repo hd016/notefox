@@ -5,38 +5,56 @@ import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
+import de.hdm.notefox.shared.bo.*;
+
 
 /**
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Unsere Mapper-Klassen erfüllen den Zweck unsere Objekte auf eine relationale Datenbank abzubilden. 
  * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
  * und speichern. Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
- * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden. 
+ * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.
+ * <p>
  * 
+ * @see DatumMapper, NotizMapper, NotizquelleMapper, NutzerMapper
  */
 
 public class NotizbuchMapper {
 
-	  /**
-	   * Eimalige Instantierung der Klasse NotizbuchMapper (Singleton)
-	   * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
-	   * speichert die eizige Instanz dieser Klasse
-	   * 
-	   */
+/**
+ * 
+ * Die Klasse NotizbuchMapper wird nur einmal instantiiert. Man spricht hierbei
+ * von einem sogenannten <b>Singleton</b>.
+ * <p>
+ * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal fuer
+ * saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+ * einzige Instanz dieser Klasse.
+ * 
+ */
 	
   private static NotizbuchMapper notizbuchMapper = null;
 
-  /**
-   * Konstruktor verhindert durch protected weitere Instanzen aus dieser Klasse zu erzeugen
-   */
+ /**
+  * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit new neue
+  * Instanzen dieser Klasse zu erzeugen.
+  * 
+  */
   protected NotizbuchMapper() {
   }
 
   /**
-   * NotizbuchMapper-Objekt
-   * Die statische Methode verhindert, 
-   * dass von einer Klasse mehr als ein Objekt gebildet werden kann. 
-   * (Bewahrung der Singleton-Eigenschaft)
+   * Diese statische Methode kann aufgrufen werden durch
+   * <code>NotizbuchMapper.notizbuchMapper()</code>. Sie stellt die
+   * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine einzige
+   * Instanz von <code>NotizbuchMapper</code> existiert.
+   * <p>
+   * 
+   * <b>Fazit:</b> NotizbuchMapper sollte nicht mittels <code>new</code>
+   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
+   * 
+   * @return DAS <code>NotizbuchMapper</code>-Objekt.
+   * @see notizbuchMapper
    */
   
   public static NotizbuchMapper notizbuchMapper() {
@@ -51,28 +69,28 @@ public class NotizbuchMapper {
    * Notizbuch nach NotizbuchId suchen.   
    * Als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notizbuch nachNotizbuchId(int id) {
-	// Es wird eine DB-Verbindung hergestellt
+  public Notizbuch nachNotizbuchIdSuchen(int notizbuchId) {
+	// DB-Verbindung holen
     Connection con = DBConnection.connection();
 
     try {
-    // Es wird ein leeres SQL Statement von dem Connector (JDBC) angelegt
+    // Leeres SQL-Statement (JDBC) anlegen
     Statement stmt = con.createStatement();
 
-      // Das Statement wird ausgefüllt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id, notizbuchId FROM notizbuch "
-          + "WHERE id=" + id + " ORDER BY notizbuchId");
+    // Statement ausfuellen und als Query an die DB schicken
+     ResultSet rs = stmt.executeQuery("SELECT notizbuchId FROM notizbuch "
+          + "WHERE notizbuchId=" + notizbuchId + " ORDER BY notizbuchId");
 
-      /*
-       * An dieser Stelle kann man prüfen ob bereits ein Ergebnis vorliegt. 
-       * Man erhält maximal 1 Tupel, da es sich bei id um einen Primärschlüssel handelt.
-       */
+     /*
+      * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
+      * werden. Pruefe, ob ein Ergebnis vorliegt.
+      */
       if (rs.next()) {
-    	// Das daraus ergebene Tupel muss in ein Objekt überführt werden.
+    	  // Ergebnis-Tupel in Objekt umwandeln
     	  Notizbuch a = new Notizbuch();
-        a.setId(rs.getInt("id"));
-        a.setNotizbuchId(rs.getInt("NotizbuchId"));
-        return a;
+    	  a.setId(rs.getInt("id"));
+    	  a.setNotizbuchId(rs.getInt("notizbuchId"));
+    	  return a;
       }
     }
     catch (SQLException e2) {
@@ -90,7 +108,7 @@ public class NotizbuchMapper {
   public Vector<Notizbuch> nachAllenNotizbuecherSuchen() {
     Connection con = DBConnection.connection();
 
-    // Der Vektor der das Ergebnis bereitstellen soll wird vorbereitet
+    // Ergebnisvektor vorbereiten
     Vector<Notizbuch> result = new Vector<Notizbuch>();
 
     try {
@@ -102,10 +120,10 @@ public class NotizbuchMapper {
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
     	  Notizbuch a = new Notizbuch();
-        a.setNotizbuchId(rs.getInt("NotizbuchId"));
+    	  a.setNotizbuchId(rs.getInt("NotizbuchId"));
    
 
-        // Das neue Objekt Ergebnisvektor
+    	// Hinzufuegen des neuen Objekts zum Ergebnisvektor
         result.addElement(a);
       }
     }
@@ -113,7 +131,7 @@ public class NotizbuchMapper {
       e2.printStackTrace();
     }
 
-    // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
+    // Ergebnisvektor zurueckgeben
     return result;
   }
 
@@ -128,10 +146,12 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, owner FROM notizbuch "
-          + "WHERE owner=" + notizbuchId + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT notizbuchId, eigentuermer"
+    	+ "FROM notizbuch " + "INNER JOIN notizobjekt"
+        + "WHERE notizbuchId" + notizbuchId + " ORDER BY notizbuchId");
 
-      // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
+      // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
+      // erstellt.
       while (rs.next()) {
     	  Notizbuch a = new Notizbuch();
         a.setId(rs.getInt("id"));
@@ -145,7 +165,7 @@ public class NotizbuchMapper {
       e2.printStackTrace();
     }
 
-    // Der Ergebnisvektor wird zurückgegeben
+    // Ergebnisvektor zurueckgeben
     return result;
   }
 
@@ -165,7 +185,7 @@ public class NotizbuchMapper {
    * Anlegen einer Notizbuch.
    * 
    */
-  public Notizbuch anlegenNotiz(Notizbuch a) {
+  public Notizbuch anlegenNotizbuch(Notizbuch a) {
     Connection con = DBConnection.connection();
 
     try {
@@ -209,7 +229,7 @@ public class NotizbuchMapper {
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Notizbuch update(Notizbuch a) {
+  public Notizbuch aktualisierenNotizbuch(Notizbuch a) {
     Connection con = DBConnection.connection();
 
     try {
@@ -228,15 +248,17 @@ public class NotizbuchMapper {
   }
 
   /**
-   * Löschen der Daten eines Notizbuch-Objekts aus der Datenbank.
+   * Loeschen der Daten eines <code>Notizbuch</code>-Objekts aus der Datenbank.
+   * 
+   * @param a das aus der DB zu loeschende "Objekt"
    */
-  public void loeschenNotiz(Notizbuch a) {
+  public void loeschenNotizbuch(Notizbuch a) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE id=" + a.getId());
+      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE notizbuchId=" + a.getId());
 
     }
     catch (SQLException e2) {
@@ -248,7 +270,7 @@ public class NotizbuchMapper {
    *Löschen sämtlicher Notizbücher eines Nutzers 
    *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
    */
-  public void loeschenNotizVon(Nutzer c) {
+  public void loeschenNotizbuchVon(Nutzer c) {
     Connection con = DBConnection.connection();
 
     try {
