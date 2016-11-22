@@ -15,7 +15,7 @@ public class Notefox implements EntryPoint {
 
 	
 	public void onModuleLoad() {
-		LoginView login = new LoginView();
+		LoginView login = new LoginView(null);
 		RootPanel.get().add(login);
 	}
 	
