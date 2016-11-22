@@ -11,7 +11,6 @@ import de.hdm.notefox.shared.bo.*;
  * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
  * und speichern.Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
  * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.“
-
  */
 
 public class NutzerMapper {
@@ -21,7 +20,7 @@ public class NutzerMapper {
    * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
    * speichert die einzige Instanz dieser Klasse
    */
-	//commitmansur
+	
   private static NutzerMapper nutzerMapper = null;
 
   /**

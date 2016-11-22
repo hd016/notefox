@@ -1,10 +1,6 @@
 package de.hdm.notefox.shared;
 
-import java.util.ArrayList;
 import java.util.Date;
-
-import de.hdm.notefox.shared.bo.Notiz;
-
 
 public class Datum {
 	
@@ -16,17 +12,6 @@ public class Datum {
 	private boolean status;
 	
 	private Date faelligkeitsdatum;
-	
-	
-	/**
-	 * ArrayList mit Objekten der verbundenen Klasse + 
-	 * übergeben Liste im Konstruktor 
-	 */
-	private ArrayList<Notiz> notizliste; 
-	public Datum(ArrayList<Notiz> nListe){ 
-		this.notizliste = nListe; 
-	} 
-	
 	
 /**Auslesen und Setzen der Variablen.
  */

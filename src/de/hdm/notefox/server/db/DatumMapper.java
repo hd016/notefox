@@ -13,8 +13,6 @@ import de.hdm.notefox.shared.bo.*;
  * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
  * und speichern. Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
  * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden. 
- * 
- *
  */
 
 public class DatumMapper {
@@ -56,7 +54,7 @@ public class DatumMapper {
    * Datum nach FaelligkeitID suchen.   * 
    * als return: Datum-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Datum nachFaelligkeitId(int id) {
+  public Datum nachFaelligkeitIdSuchen(int id) {
     // Es wird eine DB-Verbindung hergestellt 
     Connection con = DBConnection.connection();
 
@@ -126,43 +124,43 @@ public class DatumMapper {
    * Auslesen aller Datum-Objekte eines durch Fremdschlüssel (NutzerId) gegebenen
    * Nutzern.
    */
-  public Vector<Datum> nachEigentuemerSuchen(int notizId) {
-    Connection con = DBConnection.connection();
-    Vector<Datum> result = new Vector<Datum>();
-
-    try {
-      Statement stmt = con.createStatement();
-
-      ResultSet rs = stmt.executeQuery("SELECT id, owner FROM datum "
-          + "WHERE owner=" + notizId + " ORDER BY id");
-
-      // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
-      while (rs.next()) {
-    	  Datum a = new Datum();
-        a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
-
-        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(a);
-      }
-    }
-    catch (SQLException e2) {
-      e2.printStackTrace();
-    }
-
-    // Der Ergebnisvektor wird zurückgegeben
-    return result;
-  }
-
-  /**
-   * Auslesen aller Datum-Objekte eines Nutzers
-   */
-  public Vector<Datum> nachEigentuemerSuchen(Nutzer eigentuemer) {
-
-   
-	  
-	  
-    return nachEigentuemerSuchen(eigentuemer.getNutzerId());
-  }
+//  public Vector<Datum> nachEigentuemerSuchen(int notizId) {
+//    Connection con = DBConnection.connection();
+//    Vector<Datum> result = new Vector<Datum>();
+//
+//    try {
+//      Statement stmt = con.createStatement();
+//
+//      ResultSet rs = stmt.executeQuery("SELECT id, eigentuemer FROM datum "
+//          + "WHERE owner=" + notizId + " ORDER BY id");
+//
+//      // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
+//      while (rs.next()) {
+//    	  Datum a = new Datum();
+//        a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
+//
+//        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+//        result.addElement(a);
+//      }
+//    }
+//    catch (SQLException e2) {
+//      e2.printStackTrace();
+//    }
+//
+//    // Der Ergebnisvektor wird zurückgegeben
+//    return result;
+//  }
+//
+//  /**
+//   * Auslesen aller Datum-Objekte eines Nutzers
+//   */
+//  public Vector<Datum> nachEigentuemerSuchen(Nutzer eigentuemer) {
+//
+//   
+//	  
+//	  
+//    return nachEigentuemerSuchen(eigentuemer.getNutzerId());
+//  }
 
   /**
    * Anlegen eines Datum-Objekts.
