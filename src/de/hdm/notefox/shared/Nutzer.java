@@ -12,8 +12,6 @@ public class Nutzer {
 
 private int nutzerid;
 private String name = "";
-private String passwort = "";
-
 
 /**
  * ArrayList mit Objekten der verbundenen Klasse 
@@ -38,14 +36,5 @@ private ArrayList<Notizobjekt> notizobjektliste = new ArrayList <Notizobjekt>();
   public void setName(String name) {
     this.name = name;
   }
-  
-  public String getPasswort() {
-    return this.passwort;
-  }
-
-  public void setPasswort(String passwort) {
-    this.passwort = passwort;
-  }
-
 
 }
