@@ -4,42 +4,55 @@ import java.sql.*;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Datum;
-import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
 /**
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Unsere Mapper-Klassen erfüllen den Zweck unsere Objekte auf eine relationale Datenbank abzubilden. 
  * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
  * und speichern. Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
- * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden. 
+ * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.
+ * <p>
+ * 
+ * @see NotizMapper, NotizbuchMapper, NotizquelleMapper, NutzerMapper
  */
 
 public class DatumMapper {
 
-	  /**
-	   * 
-	   * Eimalige Instantierung der Klasse DatumMapper (Singleton)
-	   * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
-	   * speichert die eizige Instanz dieser Klasse
-	   * 
-	   */
+	/**
+	 * 
+	 * Die Klasse DatumMapper wird nur einmal instantiiert. Man spricht hierbei
+	 * von einem sogenannten <b>Singleton</b>.
+	 * <p>
+	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal fuer
+	 * saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie speichert die
+	 * einzige Instanz dieser Klasse.
+	 * 
+	 */
 	
   private static DatumMapper datumMapper = null;
 
   /**
-   * 
-   * Konstruktor verhindert durch protected weitere Instanzen aus dieser Klasse zu erzeugen
+   * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit new neue
+   * Instanzen dieser Klasse zu erzeugen.
    * 
    */
   protected DatumMapper() {
   }
-
+  
   /**
-   * DatumMapper-Objekt
-   * Die statische Methode verhindert, 
-   * dass von einer Klasse mehr als ein Objekt gebildet werden kann. 
-   * (Bewahrung der Singleton-Eigenschaft)
+   * Diese statische Methode kann aufgrufen werden durch
+   * <code>DatumMapper.datumMapper()</code>. Sie stellt die
+   * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine einzige
+   * Instanz von <code>DatumMapper</code> existiert.
+   * <p>
+   * 
+   * <b>Fazit:</b> DatumMapper sollte nicht mittels <code>new</code>
+   * instantiiert werden, sondern stets durch Aufruf dieser statischen Methode.
+   * 
+   * @return DAS <code>DatumMapper</code>-Objekt.
+   * @see datumMapper
    */
   
   public static DatumMapper datumMapper() {
@@ -52,28 +65,30 @@ public class DatumMapper {
 
   /**
    * Datum nach FaelligkeitID suchen.   * 
-   * als return: Datum-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
+   * Als return: Datum-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
   public Datum nachFaelligkeitIdSuchen(int id) {
-    // Es wird eine DB-Verbindung hergestellt 
+	// DB-Verbindung holen
     Connection con = DBConnection.connection();
 
     try {
-      // Es wird ein leeres SQL Statement von dem Connector (JDBC) angelegt
-      Statement stmt = con.createStatement();
+    	// Leeres SQL-Statement (JDBC) anlegen
+    	Statement stmt = con.createStatement();
 
-      // Das Statement wird ausgefüllt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id, faelligkeitID FROM datum "
-          + "WHERE id=" + id + " ORDER BY faelligkeitID");
+    	// Statement ausfuellen und als Query an die DB schicken
+    	ResultSet rs = stmt.executeQuery("SELECT faelligkeitId, status, faelligkeitsdatum FROM datum "
+          + "WHERE faelligkeitId=" + id + " ORDER BY faelligkeitsdatum");
 
-      /*
-       * An dieser Stelle kann man prüfen ob bereits ein Ergebnis vorliegt. 
-       * Man erhält maximal 1 Tupel, da es sich bei id um einen Primärschlüssel handelt.
-       */
+     /*
+      * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
+      * werden. Pruefe, ob ein Ergebnis vorliegt.
+      */
       if (rs.next()) {
-        // Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-    	  Datum a = new Datum();
+    	// Ergebnis-Tupel in Objekt umwandeln
+    	Datum a = new Datum();
         a.setFaelligkeitId(rs.getInt("FaelligkeitId"));
+        a.setStatus(rs.getBoolean("Status"));
+        a.setFaelligkeitsdatum(rs.getDate("Faelligkeitsdatum"));
         return a;
       }
     }
@@ -93,7 +108,7 @@ public class DatumMapper {
   public Vector<Datum> nachAllenDatumObjektenSuchen() {
     Connection con = DBConnection.connection();
 
-    // Der Vektor der das Ergebnis bereitstellen soll wird vorbereitet
+    // Ergebnisvektor vorbereiten
     Vector<Datum> result = new Vector<Datum>();
 
     try {
@@ -108,7 +123,7 @@ public class DatumMapper {
         a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
    
 
-        // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
+        // Hinzufuegen des neuen Objekts zum Ergebnisvektor
         result.addElement(a);
       }
     }
@@ -116,51 +131,9 @@ public class DatumMapper {
       e2.printStackTrace();
     }
 
-    // Der Ergebnisvektor wird zurückgegeben
+    // Ergebnisvektor zurueckgeben
     return result;
   }
-
-  /**
-   * Auslesen aller Datum-Objekte eines durch Fremdschlüssel (NutzerId) gegebenen
-   * Nutzern.
-   */
-//  public Vector<Datum> nachEigentuemerSuchen(int notizId) {
-//    Connection con = DBConnection.connection();
-//    Vector<Datum> result = new Vector<Datum>();
-//
-//    try {
-//      Statement stmt = con.createStatement();
-//
-//      ResultSet rs = stmt.executeQuery("SELECT id, eigentuemer FROM datum "
-//          + "WHERE owner=" + notizId + " ORDER BY id");
-//
-//      // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
-//      while (rs.next()) {
-//    	  Datum a = new Datum();
-//        a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
-//
-//        // Hinzufügen des neuen Objekts zum Ergebnisvektor
-//        result.addElement(a);
-//      }
-//    }
-//    catch (SQLException e2) {
-//      e2.printStackTrace();
-//    }
-//
-//    // Der Ergebnisvektor wird zurückgegeben
-//    return result;
-//  }
-//
-//  /**
-//   * Auslesen aller Datum-Objekte eines Nutzers
-//   */
-//  public Vector<Datum> nachEigentuemerSuchen(Nutzer eigentuemer) {
-//
-//   
-//	  
-//	  
-//    return nachEigentuemerSuchen(eigentuemer.getNutzerId());
-//  }
 
   /**
    * Anlegen eines Datum-Objekts.
@@ -190,7 +163,7 @@ public class DatumMapper {
 
         // Hier erfolgt die entscheidende Einfügeoperation
         stmt.executeUpdate("INSERT INTO datum (id, faelligkeitID) " + "VALUES ("
-            + a.getFaelligkeitId() + ")");
+        	+ "," + a.getFaelligkeitId() + ")");
       }
     }
     catch (SQLException e2) {
@@ -210,7 +183,7 @@ public class DatumMapper {
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Datum update(Datum a) {
+  public Datum aktualisierenDatum(Datum a) {
     Connection con = DBConnection.connection();
 
     try {
@@ -229,7 +202,9 @@ public class DatumMapper {
   }
 
   /**
-   * Löschen der Daten eines Datum-Objekts aus der Datenbank.
+   * Loeschen der Daten eines <code>Datum</code>-Objekts aus der Datenbank.
+   * 
+   * @param a das aus der DB zu loeschende "Objekt"
    */
   public void loeschenDatum(Datum a) {
     Connection con = DBConnection.connection();
@@ -237,7 +212,7 @@ public class DatumMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM datum " + "WHERE id=" + a.getFaelligkeitId());
+      stmt.executeUpdate("DELETE FROM datum " + "WHERE faelligkeitId=" + a.getFaelligkeitId());
 
     }
     catch (SQLException e2) {
@@ -245,23 +220,6 @@ public class DatumMapper {
     }
   }
 
-  /**
-   *Löschen sämtlicher Datum-Objekte eines Nutzers 
-   *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
-   */
-  public void loeschenDatumVon(Nutzer c) {
-    Connection con = DBConnection.connection();
-
-    try {
-      Statement stmt = con.createStatement();
-
-      stmt.executeUpdate("DELETE FROM datum " + "WHERE nutzerId=" + c.getNutzerId());
-
-    }
-    catch (SQLException e2) {
-      e2.printStackTrace();
-    }
-  }
 
   /**
    * Auslesen des zugehörigen Notiz-Objekts zu einem gegebenen
