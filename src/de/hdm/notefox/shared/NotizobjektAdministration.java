@@ -12,7 +12,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 /**
  * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine RPC-fähige Klasse.
  */
-@RemoteServiceRelativePath("bankadministration")
+@RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
 
 	/**
