@@ -6,5 +6,5 @@ public class Baumstruktur {
 
 	
 	
-	CellTree ct = new CellTree(null, null, null);
+	
 }
