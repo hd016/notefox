@@ -228,7 +228,7 @@ public class NotizbuchMapper {
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Notizbuch aktualisierenNotizbuch(Notizbuch a) {
+  public Notizbuch update(Notizbuch a) {
     Connection con = DBConnection.connection();
 
     try {
