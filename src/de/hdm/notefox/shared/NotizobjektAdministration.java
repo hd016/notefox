@@ -61,14 +61,21 @@ public interface NotizobjektAdministration extends RemoteService {
    */
   public Notizbuch nachNotizbuchId(int id) throws IllegalArgumentException;
 
-  void nachNutzerNamenSuchen(String name);
+  /**
+   * Suchen eines Nutzer-Objekts mit gegebenem Namen.
+   */
+  public Vector<Nutzer> nachNutzerNamenSuchen(String name)
+      throws IllegalArgumentException;
 
   /**
    * Suchen eines Nutzers nach NutzerId.
    */
   public Nutzer nachNutzerIdSuchen(int nutzerid) throws IllegalArgumentException;
 
-  void nachAllenNutzernSuchen();
+  /**
+   * Alle Nutzer auslesen.
+   */
+  public Vector<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException;
 
   /**
    * Alle Notizen auslesen.

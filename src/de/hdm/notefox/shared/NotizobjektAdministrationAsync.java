@@ -34,11 +34,11 @@ void nachNotizId(int id, AsyncCallback<Notiz> callback);
 
 void nachNotizbuchId(int id, AsyncCallback<Notizbuch> callback);
 
-void nachNutzerNamenSuchen(String name, AsyncCallback<Void> callback);
+void nachNutzerNamenSuchen(String name, AsyncCallback<Vector<Nutzer>> callback);
 
 void nachNutzerIdSuchen(int nutzerid, AsyncCallback<Nutzer> callback);
 
-void nachAllenNutzernSuchen(AsyncCallback<Void> callback);
+void nachAllenNutzernSuchen(AsyncCallback<Vector<Nutzer>> callback);
 
 void nachAllenNotizenSuchen(AsyncCallback<Vector<Notiz>> callback);
 
