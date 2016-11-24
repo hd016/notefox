@@ -12,7 +12,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 /**
  * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine RPC-fähige Klasse.
  */
-@RemoteServiceRelativePath("notizobjektadministration")
+@RemoteServiceRelativePath("bankadministration")
 public interface NotizobjektAdministration extends RemoteService {
 
 	/**
@@ -20,11 +20,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	   */
   public void initialisieren() throws IllegalArgumentException;
 
-  /**
-   * Anlegen eines Nutzers.
-   */
-  public Nutzer anlegenNutzer(int notizId, String name)
-      throws IllegalArgumentException;
+  void anlegenNutzer(int id, String name, String passwort);
 
   /**
    * Eine neue Notiz für einen gegebenen Nutzer anlegen.

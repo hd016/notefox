@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
-import de.hdm.notefox.shared.bo.*;
 
 
 /**

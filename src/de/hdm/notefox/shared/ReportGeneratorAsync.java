@@ -15,17 +15,13 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
  */
 public interface ReportGeneratorAsync {
 	
-  void erstelleAlleNotizenAllerNutzerReport(Nutzer c,
-      AsyncCallback<AlleNotizenAllerNutzerReport> callback);
+  void erstelleAlleNotizenAllerNutzerReport(AsyncCallback<AlleNotizenAllerNutzerReport> callback);
 		  
-  void erstelleAlleNotizbuecherAllerNutzerReport(Nutzer c,
-	  AsyncCallback<AlleNotizbuecherAllerNutzerReport> callback);
+  void erstelleAlleNotizbuecherAllerNutzerReport(AsyncCallback<AlleNotizbuecherAllerNutzerReport> callback);
 
-  void erstelleAlleNotizenDesNutzersReport(
-      AsyncCallback<AlleNotizenDesNutzersReport> callback);
+  void erstelleAlleNotizenDesNutzersReport(Nutzer c, AsyncCallback<AlleNotizenDesNutzersReport> callback);
   
-  void erstelleAlleNotizbuecherDesNutzersReport(
-	      AsyncCallback<AlleNotizbuecherDesNutzersReport> callback);
+  void erstelleAlleNotizbuecherDesNutzersReport(Nutzer c, AsyncCallback<AlleNotizbuecherDesNutzersReport> callback);
 
   void initialisieren(AsyncCallback<Void> callback);
 
