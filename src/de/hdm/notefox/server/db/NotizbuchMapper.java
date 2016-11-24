@@ -104,7 +104,7 @@ public class NotizbuchMapper {
    * Auslesen aller Notizbücher.
    */
   
-  public Vector<Notizbuch> nachAllenNotizbuecherSuchen() {
+  public Vector<Notizbuch> nachAllenNotizbuechernSuchen() {
     Connection con = DBConnection.connection();
 
     // Ergebnisvektor vorbereiten
