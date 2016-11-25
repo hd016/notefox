@@ -1,19 +1,51 @@
-.Logo{
-	float: right;
-	width: 279;
-    height: 400px;
-    position:absolute;
-	right: 0px;
-	top:55px;
-	border:0px;
-   
-  }
-.Button{
-	width: 300px;
-	
+/* Webseite notefox (2016)
+Author: Neriman Kocak & Harun Dalici
+		Package: client.gui & war
+		*/
+		
+/* 
+Initialisierung
+*/
+
+ * {
+	padding: 0vw;
+	margin: 0vw;
+	border: 0vw;
 }
-#LandingText {
-  
-  font-size:15pt;  /* Größe 28pt   */
-	
+
+html {
+	overflow-y: scroll;
 }
+
+body {
+	font-size: 1.5vw;
+	background-color: #008cc6;
+}
+
+#clearright {
+	clear: right;
+}
+
+#clearleft {
+	clear: left;
+}
+
+#clear {
+	clear: both;
+}
+
+#wrapper {
+	margin: 1vw auto;
+	width: 95vw;
+}
+
+
+
+
+
+
+
+
+
+
+
