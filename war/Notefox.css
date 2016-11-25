@@ -101,5 +101,11 @@ body {
 	margin-top: 1vw;
 }
 
-
-
+#footer {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	height: 3vw;
+	width: 22vw;
+	top: 40vw;
+	margin: 1vw 0;
+}
