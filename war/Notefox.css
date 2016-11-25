@@ -39,13 +39,67 @@ body {
 	width: 95vw;
 }
 
+#head {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	heigth: 3vw;
+	width: 72vw;
+	margin-bottom: 1vw;
+}
 
+#nav {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	heigth: 9vw;
+	width: 72vw;
+}
 
+#logobox {
+	border-radius: 0.5vw;
+	max-heigt: 13vw;
+	width: 22vw;
+	background-color: #FFFFFF;
+	float: right;
+}
 
+.logo {
+	margin: 0.5vw;
+	max-width: auto;
+	max-height: 12vw;
+}
 
+#leftmenu {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 17vw;
+	min-height: 50vw;
+	float: left;
+	margin-top: 1vw;
+	padding-left: 2vw;
+	padding-top: 1vw;
+	border: 0;
+}
 
+#text {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 52vw;
+	min-height: 51vw;
+	float: left;
+	margin-top: 1vw;
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
 
-
+#rightmenu
+{
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 22vw;
+	min-height: 50vw;
+	float: right;
+	margin-top: 1vw;
+}
 
 
 
