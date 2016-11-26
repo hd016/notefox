@@ -3,7 +3,6 @@ package de.hdm.notefox.shared.bo;
 import java.util.ArrayList;
 import java.util.Date;
 
-import de.hdm.notefox.shared.Datum;
 import de.hdm.notefox.shared.Nutzer;
 
 public abstract class Notizobjekt extends BusinessObject {

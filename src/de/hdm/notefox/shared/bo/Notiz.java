@@ -20,13 +20,9 @@ public class Notiz extends Notizobjekt {
 	
 	
 	/**
-	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert +
-	 * via parametrisiertem Konstruktor initialisiert
+	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert 
 	 */
 	private Notizquelle notizquelle;
-	public Notiz(Notizquelle n){
-		this.notizquelle = n;
-	}
 	
 	
 	  /** Auslesen und Setzen der Variablen

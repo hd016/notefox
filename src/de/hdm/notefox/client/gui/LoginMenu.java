@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 
 
 public class LoginMenu extends Composite {
@@ -31,6 +32,17 @@ public LoginMenu(LoginView main){
 	Button registerButton = new Button("Registrieren");
 	registerButton.addClickHandler(new RegisterClickHandler());
 	this.hPanel.add(registerButton);
+	
+	final Button notizbuchButton = new Button("Notizbuch");
+	final Button nutzerButton = new Button ("Nutzer");
+	final Button profilButton = new Button ("Profil");
+	
+	notizbuchButton.addStyleName("sendButton");
+	nutzerButton.addStyleName("sendButton");
+	profilButton.addStyleName("sendButton");
+	
+	
+	
 	
 	
 	}

@@ -59,8 +59,24 @@ body {
 	height: 9vw;
 	width: 72vw;
 	
+=======
+/* Webseite notefox (2016)
+Author: Neriman Kocak & Harun Dalici
+		Package: client.gui & war
+		*/
+		
+/* 
+Initialisierung
+*/
+
+ * {
+	padding: 0vw;
+	margin: 0vw;
+	border: 0vw;
+>>>>>>> branch 'master' of https://github.com/hd016/notefox.git
 }
 
+<<<<<<< HEAD
 #logobox {
 	border-radius: 0.5vw;
 	max-height: 13vw;
@@ -153,3 +169,139 @@ h1{
    text-align: center;
 }
 	
+=======
+html {
+	overflow-y: scroll;
+}
+
+body {
+	font-size: 1.5vw;
+	background-color: #008cc6;
+}
+
+#clearright {
+	clear: right;
+}
+
+#clearleft {
+	clear: left;
+}
+
+#clear {
+	clear: both;
+}
+
+#wrapper {
+	margin: 1vw auto;
+	width: 95vw;
+}
+
+#head {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	heigth: 3vw;
+	width: 72vw;
+	margin-bottom: 1vw;
+}
+
+#nav {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	heigth: 9vw;
+	width: 72vw;
+}
+
+#logobox {
+	border-radius: 0.5vw;
+	max-heigt: 13vw;
+	width: 22vw;
+	background-color: #FFFFFF;
+	float: right;
+}
+
+.logo {
+	margin: 0.5vw;
+	max-width: auto;
+	max-height: 12vw;
+}
+
+#leftmenu {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 17vw;
+	min-height: 50vw;
+	float: left;
+	margin-top: 1vw;
+	padding-left: 2vw;
+	padding-top: 1vw;
+	border: 0;
+}
+
+#text {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 52vw;
+	min-height: 51vw;
+	float: left;
+	margin-top: 1vw;
+	margin-left: 1vw;
+	margin-right: 1vw;
+}
+
+#rightmenu
+{
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	width: 22vw;
+	min-height: 50vw;
+	float: right;
+	margin-top: 1vw;
+}
+
+#footer {
+	border-radius: 0.5vw;
+	background-color: #FFFFFF;
+	height: 3vw;
+	width: 22vw;
+	top: 40vw;
+	margin: 1vw 0;
+}
+
+h5 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.gwt-Button {
+	color: red;
+}
+
+
+.gwt-Green-Button {
+	color: green;
+	margin: 0;
+	width: 10.2vw;
+	height: 2.5vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
+}
+
+.gwt-Blue-Button {
+	color: blue;
+}
+
+.main {
+	color: yellow;
+}
+
+h1 {
+	font-size: 2vw;
+	font-weight: bold;
+	color: #777777;
+	text-align: center;
+}
+
