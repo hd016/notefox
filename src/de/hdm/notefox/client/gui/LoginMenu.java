@@ -17,10 +17,14 @@ public LoginMenu(LoginView main){
 	initWidget(this.hPanel);
 	this.main = main;
 	Label landingText = new Label();
-	landingText.addStyleName("LandingText");
+	landingText.addStyleName("leftmenu");
 	this.hPanel.add(landingText);
 	Button anmeldeButton = new Button("Anmelden");
 	anmeldeButton.addStyleName("Button");
+	
+	
+	
+	
 	anmeldeButton.addClickHandler(new AnmeldenClickHandler());
 	this.hPanel.add(anmeldeButton);
 	

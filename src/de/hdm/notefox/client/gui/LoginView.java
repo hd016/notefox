@@ -14,7 +14,7 @@ public class LoginView extends Composite {
 	NutzerMenu menuVonNutzer = new NutzerMenu();
 
 
-	public LoginView(NutzerMenu menuVonNutzer){
+	public LoginView(){
 		initWidget(this.vPanel); 
 		this.menuVonNutzer = menuVonNutzer;
 		LoginMenu menu = new LoginMenu(this);

@@ -24,6 +24,7 @@ public class NutzerMenu extends Composite {
 		Button meineNotizBuecher = new Button("Meine Notizbücher");
 		Button meineBerechtigungen = new Button("Meine Berechtigungen");
 		Button meineFalligkeiten = new Button("Meine Fälligkeiten");
+		meineFalligkeiten.setStyleName("Button");
 		
 		this.hPanel.add(meineNotizen);
 		this.hPanel.add(meineNotizBuecher);
