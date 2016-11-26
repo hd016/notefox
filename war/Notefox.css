@@ -109,3 +109,43 @@ body {
 	top: 40vw;
 	margin: 1vw 0;
 }
+
+h5 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+	margin: 40px 0px 70px;
+	text-align: center;
+}
+
+.gwt-Button {
+	color: red;
+}
+
+
+.gwt-Green-Button {
+	color: green;
+	margin: 0;
+	width: 10.2vw;
+	height: 2.5vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
+}
+
+.gwt-Blue-Button {
+	color: blue;
+}
+
+.main {
+	color: yellow;
+}
+
+h1 {
+	font-size: 2vw;
+	font-weight: bold;
+	color: #777777;
+	text-align: center;
+}
+
+
