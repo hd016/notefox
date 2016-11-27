@@ -37,13 +37,9 @@ public class ClientsideSettings extends CommonSettings {
 	
 
 	/**
-	 * Anlegen und Auslesen der applikationsweit eindeutigen
-	 * PartnerboerseAdministration. Diese Methode erstellt die
-	 * PartnerboerseAdministration, sofern sie noch nicht existiert. Bei
-	 * wiederholtem Aufruf dieser Methode wird stets das bereits zuvor angelegte
-	 * Objekt zurueckgegeben.
+
 	 * 
-	 * @return Instanz des Typs PartnerboerseAdministrationAsync
+	 * @return NotizobjektAdministrationAsync
 	 */
 	public static NotizobjektAdministrationAsync getNotizobjektAdministrationAsync() {
 
@@ -67,10 +63,7 @@ public class ClientsideSettings extends CommonSettings {
 	}
 	
 	/**
-	 * Anlegen und Auslesen des applikationsweit eindeutigen LoginService.
-	 * Diese Methode erstellt den LoginService, sofern dieser noch nicht
-	 * existiert. Bei wiederholtem Aufruf dieser Methode wird stets das bereits
-	 * zuvor angelegte Objekt zurueckgegeben.
+	 *
 	 * 
 	 * @return Instanz des Typs LoginServiceAsync
 	 */
