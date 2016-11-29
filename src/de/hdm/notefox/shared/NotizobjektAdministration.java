@@ -25,30 +25,30 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Eine neue Notiz für einen gegebenen Nutzer anlegen.
    */
-  public Notiz anlegenNotizFür(Nutzer c) throws IllegalArgumentException;
+  public Notiz anlegenNotizFür(Nutzer n) throws IllegalArgumentException;
   
   /**
    * Eine neues Notizbuch für einen gegebenen Nutzer anlegen.
    */
-  public Notizbuch anlegenNotizbuecherFür(Nutzer c) throws IllegalArgumentException;
+  public Notizbuch anlegenNotizbuecherFür(Nutzer n) throws IllegalArgumentException;
 
   /**
    * Auslesen und Setzen der zugeordneten Notizobjekte.
    */
   public Notizobjekt getNotizobjekt() throws IllegalArgumentException;
   
-  public void setNotizobjekt(Notizobjekt b) throws IllegalArgumentException;
+  public void setNotizobjekt(Notizobjekt nobj) throws IllegalArgumentException;
 
   /**
    * Alle Notizen eines Nutzers auslesen.
    */
-  public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer c)
+  public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
       throws IllegalArgumentException;
   
   /**
    * Alle Notizbücher eines Nutzers auslesen.
    */
-  public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer c)
+  public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
       throws IllegalArgumentException;
 
   /**
@@ -83,12 +83,12 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Speichern eines Notiz-Objekts in der Datenbank.
    */
-  public void speichern(Notiz a) throws IllegalArgumentException;
+  public void speichern(Notiz n) throws IllegalArgumentException;
   
   /**
    * Speichern eines Notizbuch-Objekts in der Datenbank.
    */
-  public void speichern(Notizbuch a) throws IllegalArgumentException;
+  public void speichern(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Speichern eines Nutzer-Objekts in der Datenbank.
@@ -98,16 +98,16 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Löschen der Daten eines übergegebenen Notiz-Objekts.
    */
-  public void loeschenNotiz(Notiz a) throws IllegalArgumentException;
+  public void loeschenNotiz(Notiz no) throws IllegalArgumentException;
   
   /**
    * Löschen der Daten eines übergegebenen Notizbuch-Objekts.
    */
-  public void loeschenNotizbuch(Notizbuch a) throws IllegalArgumentException;
+  public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Löschen der Daten eines übergegebenen Nutzer-Objekts.
    */
-  public void loeschenNutzer(Nutzer c) throws IllegalArgumentException;
+  public void loeschenNutzer(Nutzer n) throws IllegalArgumentException;
 
 }
