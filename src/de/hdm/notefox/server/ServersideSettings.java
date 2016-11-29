@@ -22,7 +22,7 @@ import de.hdm.notefox.shared.CommonSettings;
  * 
  */
 public class ServersideSettings extends CommonSettings {
-  private static final String LOGGER_NAME = "Notefox Server";
+  private static final String LOGGER_NAME = "IT Projekt Server";
   private static final Logger log = Logger.getLogger(LOGGER_NAME);
 
   
