@@ -31,8 +31,9 @@ public interface ReportGenerator extends RemoteService {
    * Erstellen eines alleNotizenDesNutzersReport-Reports. 
    * Alle Notizen des Nutzers werden mit diesem Report-Typ dargestellt.
    */
+  
   public abstract AlleNotizenDesNutzersReport erstelleAlleNotizenDesNutzersReport(
-      Nutzer n) throws IllegalArgumentException;
+	      Nutzer n) throws IllegalArgumentException;
   
   /**
    * Erstellen eines alleNotizbuecherDesNutzersReport-Reports. 
