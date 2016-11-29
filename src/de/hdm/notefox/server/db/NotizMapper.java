@@ -67,10 +67,16 @@ public class NotizMapper {
     */
       if (rs.next()) {
     	//Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-    	  Notiz a = new Notiz();
-        a.setId(rs.getInt("id"));
-        a.setNotizId(rs.getInt("NotizId"));
-        return a;
+    	  Notiz no = new Notiz();
+    	  no.setId(rs.getInt("id"));
+          no.setNotizId(rs.getInt("NotizId"));
+          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setErstelldatum(rs.getDate("erstelldatum"));
+          no.setInhalt(rs.getString("inhalt"));
+          no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+          no.setSubtitel(rs.getString("subtitel"));
+          no.setTitel(rs.getString("titel"));
+        return no;
       }
     }
     catch (SQLException e2) {
@@ -103,10 +109,16 @@ public class NotizMapper {
        */
       if (rs.next()) {
     //Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-    	  Notiz a = new Notiz();
-        a.setId(rs.getInt("id"));
-        a.setNotizId(rs.getInt("NotizId"));
-        return a;
+    	  Notiz no = new Notiz();
+        no.setId(rs.getInt("id"));
+        no.setNotizId(rs.getInt("NotizId"));
+        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setErstelldatum(rs.getDate("erstelldatum"));
+        no.setInhalt(rs.getString("inhalt"));
+        no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+        no.setSubtitel(rs.getString("subtitel"));
+        no.setTitel(rs.getString("titel"));
+        return no;
       }
     }
     catch (SQLException e2) {
@@ -139,10 +151,16 @@ public class NotizMapper {
        */
       if (rs.next()) {
     //Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-    	  Notiz a = new Notiz();
-        a.setId(rs.getInt("id"));
-        a.setNotizId(rs.getInt("NotizId"));
-        return a;
+    	  Notiz no = new Notiz();
+        no.setId(rs.getInt("id"));
+        no.setNotizId(rs.getInt("NotizId"));
+        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setErstelldatum(rs.getDate("erstelldatum"));
+        no.setInhalt(rs.getString("inhalt"));
+        no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+        no.setSubtitel(rs.getString("subtitel"));
+        no.setTitel(rs.getString("titel"));
+        return no;
       }
     }
     catch (SQLException e2) {
@@ -174,12 +192,19 @@ public class NotizMapper {
 
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
-    	  Notiz a = new Notiz();
-        a.setNotizId(rs.getInt("NotizId"));
+    	  Notiz no = new Notiz();
+    	  no.setId(rs.getInt("id"));
+          no.setNotizId(rs.getInt("NotizId"));
+          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setErstelldatum(rs.getDate("erstelldatum"));
+          no.setInhalt(rs.getString("inhalt"));
+          no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+          no.setSubtitel(rs.getString("subtitel"));
+          no.setTitel(rs.getString("titel"));
    
 
    // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(a);
+        result.addElement(no);
       }
     }
     catch (SQLException e2) {
@@ -187,6 +212,51 @@ public class NotizMapper {
     }
 
     // Der Ergebnisvektor wird zurückgegeben
+    return result;
+  }
+  
+  /**
+   * Auslesen aller Notizen eines durch FremdschlÃ¼ssel (NotizbuchId) gegebenen
+   * Notizbuches.
+   * 
+   * @param notizbuchId SchlÃ¼ssel des zugehÃ¶rigen Notizbuches.
+   * @return Ein Vektor mit Notiz-Objekten, die sÃ¤mtliche Notizen des
+   *         betreffenden Notizbuches reprÃ¤sentieren. Bei evtl. Exceptions wird ein
+   *         partiell gefÃ¼llter oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
+   */
+  public Vector<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int notizbuchId) {
+    Connection con = DBConnection.connection();
+    Vector<Notiz> result = new Vector<Notiz>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt
+          .executeQuery("SELECT id, eigentuemer, erstelldatum, inhalt, modifikationsdatum,"
+          		+ " subtitel, titel, notizId FROM notizen "
+              + "WHERE notizId=" + notizbuchId + " ORDER BY id");
+
+      // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt erstellt.
+      while (rs.next()) {
+        Notiz no = new Notiz();
+        no.setId(rs.getInt("id"));
+        no.setNotizId(rs.getInt("notizid"));
+        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setErstelldatum(rs.getDate("erstelldatum"));
+        no.setInhalt(rs.getString("inhalt"));
+        no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+        no.setSubtitel(rs.getString("subtitel"));
+        no.setTitel(rs.getString("titel"));
+        
+
+        // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
+        result.addElement(no);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+    // Ergebnisvektor zurÃ¼ckgeben
     return result;
   }
 
@@ -206,12 +276,18 @@ public class NotizMapper {
 
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
-    	  Notiz a = new Notiz();
-        a.setId(rs.getInt("id"));
-        a.setNotizId(rs.getInt("NotizId"));
+    	  Notiz no = new Notiz();
+    	  no.setId(rs.getInt("id"));
+          no.setNotizId(rs.getInt("NotizId"));
+          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setErstelldatum(rs.getDate("erstelldatum"));
+          no.setInhalt(rs.getString("inhalt"));
+          no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+          no.setSubtitel(rs.getString("subtitel"));
+          no.setTitel(rs.getString("titel"));
 
     // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(a);
+        result.addElement(no);
       }
     }
     catch (SQLException e2) {
@@ -237,7 +313,7 @@ public class NotizMapper {
    * Anlegen einer Notiz.
    * 
    */
-  public Notiz anlegenNotiz(Notiz a) {
+  public Notiz anlegenNotiz(Notiz no) {
     Connection con = DBConnection.connection();
 
     try {
@@ -250,13 +326,13 @@ public class NotizMapper {
     //Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
     //a kriegt nun den maximalen Primärschlüssel, welcher mit dem Wert 1 inkrementiert wird
-        a.setId(rs.getInt("maxid") + 1);
+        no.setId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
      //Hier erfolgt die entscheidende Einfügeoperation
         stmt.executeUpdate("INSERT INTO notiz (id, notizId) " + "VALUES ("
-            + a.getId() + "," + a.getNotizId() + ")");
+            + no.getId() + "," + no.getNotizId() + ")");
       }
     }
     catch (SQLException e2) {
@@ -268,21 +344,21 @@ public class NotizMapper {
      * 
      *So besteht die Möglichkeit anzudeuten ob sich ein Objekt verändert hat, während die Methode ausgeführt wurde
      */
-    return a;
+    return no;
   }
 
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Notiz update(Notiz a) {
+  public Notiz update(Notiz no) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notiz " + "SET notizId=\"" + a.getNotizId()
-          + "\" " + "WHERE id=" + a.getId());
+      stmt.executeUpdate("UPDATE notiz " + "SET notizId=\"" + no.getNotizId()
+          + "\" " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {
@@ -290,19 +366,19 @@ public class NotizMapper {
     }
 
   //Um ähnliche Strukturen wie zu anlegenNotiz(Notiz a) zu wahren, geben wir nun a zurück
-    return a;
+    return no;
   }
 
   /**
    * Löschen der Daten eines Notiz-Objekts aus der Datenbank.
    */
-  public void loeschenNotiz(Notiz a) {
+  public void loeschenNotiz(Notiz no) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notiz " + "WHERE id=" + a.getId());
+      stmt.executeUpdate("DELETE FROM notiz " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {
@@ -314,13 +390,13 @@ public class NotizMapper {
    *Löschen sämtlicher Notizen eines Nutzers 
    *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
    */
-  public void loeschenNotizVon(Nutzer c) {
+  public void loeschenNotizVon(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notiz " + "WHERE nutzerId=" + c.getNutzerId());
+      stmt.executeUpdate("DELETE FROM notiz " + "WHERE nutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
@@ -332,8 +408,8 @@ public class NotizMapper {
    * Auslesen des zugehörigen Nutzer-Objekts zu einem gegebenen
    * Notiz.
    */
-  public Nutzer getNutzerId(Notiz a) {
-    return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(a.getNotizId());
+  public Nutzer getNutzerId(Notiz no) {
+    return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(no.getNotizId());
   }
 
 }
