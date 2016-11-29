@@ -1,5 +1,6 @@
 package de.hdm.notefox.shared;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,19 +17,37 @@ public interface NotizobjektAdministrationAsync {
 
 void initialisieren(AsyncCallback<Void> callback);
 
-void anlegenNutzer(int id, String name, String passwort, AsyncCallback<Void> callback);
+void anlegenNutzer(int id, String name, AsyncCallback<Nutzer> callback);
+
 
 void anlegenNotizFür(Nutzer c, AsyncCallback<Notiz> callback);
 
+
+
 void anlegenNotizbuecherFür(Nutzer c, AsyncCallback<Notizbuch> callback);
+
+void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
+
+void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
+
+void anlegenNotizquelleFuer(Notiz no, AsyncCallback<Notizquelle> callback);
+
+void anlegenFaelligkeitFuer(Notiz no, AsyncCallback<Datum> callback);
+
+void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Notizquelle>> callback);
+
+void nachAllenFaelligkeitenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Datum>> callback);
+
+void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<ArrayList<Notiz>> callback);
+
 
 void getNotizobjekt(AsyncCallback<Notizobjekt> callback);
 
-void setNotizobjekt(Notizobjekt b, AsyncCallback<Void> callback);
+void setNotizobjekt(Notizobjekt nobj, AsyncCallback<Void> callback);
 
-void nachAllenNotizenDesNutzersSuchen(Nutzer c, AsyncCallback<Vector<Notiz>> callback);
+void nachAllenNotizenDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notiz>> callback);
 
-void nachAllenNotizbuechernDesNutzersSuchen(Nutzer c, AsyncCallback<Vector<Notizbuch>> callback);
+void nachAllenNotizbuechernDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notizbuch>> callback);
 
 void nachNotizId(int id, AsyncCallback<Notiz> callback);
 
@@ -44,16 +63,20 @@ void nachAllenNotizenSuchen(AsyncCallback<Vector<Notiz>> callback);
 
 void nachAllenNotizbuechernSuchen(AsyncCallback<Vector<Notizbuch>> callback);
 
-void speichern(Notiz a, AsyncCallback<Void> callback);
+void speichern(Notiz no, AsyncCallback<Void> callback);
 
-void speichern(Notizbuch a, AsyncCallback<Void> callback);
+void speichern(Notizbuch nb, AsyncCallback<Void> callback);
 
-void speichern(Nutzer c, AsyncCallback<Void> callback);
+void speichern(Nutzer n, AsyncCallback<Void> callback);
 
-void loeschenNotiz(Notiz a, AsyncCallback<Void> callback);
+void loeschenNotiz(Notiz no, AsyncCallback<Void> callback);
 
-void loeschenNotizbuch(Notizbuch a, AsyncCallback<Void> callback);
+void loeschenNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
-void loeschenNutzer(Nutzer c, AsyncCallback<Void> callback);
+void loeschenNutzer(Nutzer n, AsyncCallback<Void> callback);
+
+void loeschenNotizquelleVon(Notizquelle nq, AsyncCallback<Void> callback);
+
+void loeschenDatumVon(Datum d, AsyncCallback<Void> callback);
 
 }
