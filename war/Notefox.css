@@ -69,14 +69,12 @@ Author: Neriman Kocak & Harun Dalici
 Initialisierung
 */
 
- * {
+* {
 	padding: 0vw;
 	margin: 0vw;
 	border: 0vw;
->>>>>>> branch 'master' of https://github.com/hd016/notefox.git
 }
 
-<<<<<<< HEAD
 #logobox {
 	border-radius: 0.5vw;
 	max-height: 13vw;
@@ -281,13 +279,15 @@ h5 {
 
 
 .gwt-Green-Button {
-	color: green;
-	margin: 0;
-	width: 10.2vw;
-	height: 2.5vw;
-	position: inherit;
-	font-size: 1vw;
-	border-radius: 0.9vw;
+ color: #008cc6;   
+   margin: 0;
+   margin-bottom: 1vw;
+   width: 10.2vw;
+   height: 2.5vw;
+   position: inherit;
+   font-size: 1vw;
+   border-radius: 0.9vw;
+  
 }
 
 .gwt-Blue-Button {
