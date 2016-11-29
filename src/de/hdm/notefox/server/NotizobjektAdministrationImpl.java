@@ -1,4 +1,4 @@
-package de.notefox.server;
+package de.hdm.notefox.server;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -6,10 +6,10 @@ import java.util.Vector;
 import de.hdm.notefox.server.db.*;
 import de.hdm.notefox.shared.*;
 import de.hdm.notefox.shared.bo.*;
-import de.hdm.thies.bankProjekt.server.ReportGeneratorImpl;
-import de.hdm.thies.bankProjekt.shared.BankAdministration;
-import de.hdm.thies.bankProjekt.shared.BankAdministrationAsync;
-import de.hdm.thies.bankProjekt.shared.bo.Customer;
+import de.hdm.notefox.server.ReportGeneratorImpl;
+import de.hdm.notefox.shared.BankAdministration;
+import de.hdm.notefox.shared.BankAdministrationAsync;
+import de.hdm.notefox.shared.bo.Customer;
 import de.hdm.notefox.shared.NotizojektAdministration.java;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
