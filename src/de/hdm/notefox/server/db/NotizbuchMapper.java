@@ -1,10 +1,11 @@
 package de.hdm.notefox.server.db;
 
+
+
 import java.sql.*;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
-import de.hdm.notefox.shared.bo.*;
 import de.hdm.notefox.shared.bo.*;
 
 
@@ -87,10 +88,10 @@ public class NotizbuchMapper {
       */
       if (rs.next()) {
     	  // Ergebnis-Tupel in Objekt umwandeln
-    	  Notizbuch a = new Notizbuch();
-    	  a.setId(rs.getInt("id"));
-    	  a.setNotizbuchId(rs.getInt("notizbuchId"));
-    	  return a;
+    	  Notizbuch nb = new Notizbuch();
+    	  nb.setId(rs.getInt("id"));
+    	  nb.setNotizbuchId(rs.getInt("notizbuchId"));
+    	  return nb;
       }
     }
     catch (SQLException e2) {
@@ -105,7 +106,7 @@ public class NotizbuchMapper {
    * Auslesen aller Notizbücher.
    */
   
-  public Vector<Notizbuch> nachAllenNotizbuecherSuchen() {
+  public Vector<Notizbuch> nachAllenNotizbuechernSuchen() {
     Connection con = DBConnection.connection();
 
     // Ergebnisvektor vorbereiten
@@ -119,12 +120,12 @@ public class NotizbuchMapper {
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
-    	  Notizbuch a = new Notizbuch();
-    	  a.setNotizbuchId(rs.getInt("NotizbuchId"));
+    	  Notizbuch nb = new Notizbuch();
+    	  nb.setNotizbuchId(rs.getInt("NotizbuchId"));
    
 
     	// Hinzufuegen des neuen Objekts zum Ergebnisvektor
-        result.addElement(a);
+        result.addElement(nb);
       }
     }
     catch (SQLException e2) {
@@ -153,12 +154,12 @@ public class NotizbuchMapper {
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
       // erstellt.
       while (rs.next()) {
-    	  Notizbuch a = new Notizbuch();
-        a.setId(rs.getInt("id"));
-        a.setNotizbuchId(rs.getInt("NotizbuchId"));
+    	  Notizbuch nb = new Notizbuch();
+        nb.setId(rs.getInt("id"));
+        nb.setNotizbuchId(rs.getInt("NotizbuchId"));
 
         // Hinzufügen des neuen Objekts zum Ergebnisvektor
-        result.addElement(a);
+        result.addElement(nb);
       }
     }
     catch (SQLException e2) {
@@ -185,7 +186,7 @@ public class NotizbuchMapper {
    * Anlegen einer Notizbuch.
    * 
    */
-  public Notizbuch anlegenNotizbuch(Notizbuch a) {
+  public Notizbuch anlegenNotizbuch(Notizbuch nb) {
     Connection con = DBConnection.connection();
 
     try {
@@ -200,16 +201,16 @@ public class NotizbuchMapper {
       // Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
     	   /*
-           * a erhält den bisher maximalen, nun um 1 inkrementierten
+           * nb erhält den bisher maximalen, nun um 1 inkrementierten
            * Primärschlüssel.
            */
-        a.setId(rs.getInt("maxid") + 1);
+        nb.setId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
         // Hier erfolgt die entscheidende Einfügeoperation
         stmt.executeUpdate("INSERT INTO notizbuch (id, notizbuchId) " + "VALUES ("
-            + a.getId() + "," + a.getNotizbuchId() + ")");
+            + nb.getId() + "," + nb.getNotizbuchId() + ")");
       }
     }
     catch (SQLException e2) {
@@ -222,29 +223,29 @@ public class NotizbuchMapper {
      * So besteht die Möglichkeit anzudeuten, ob sich ein Objekt verändert hat, 
      * während die Methode ausgeführt wurde
      */
-    return a;
+    return nb;
   }
 
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Notizbuch aktualisierenNotizbuch(Notizbuch a) {
+  public Notizbuch update(Notizbuch nb) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notizbuch " + "SET notizbuchId=\"" + a.getNotizbuchId()
-          + "\" " + "WHERE id=" + a.getId());
+      stmt.executeUpdate("UPDATE notizbuch " + "SET notizbuchId=\"" + nb.getNotizbuchId()
+          + "\" " + "WHERE id=" + nb.getId());
 
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Um Analogie zu anlegenDatum(Datum a) zu wahren, geben wir a zurück
-    return a;
+    // Um Analogie zu anlegenDatum(Datum a) zu wahren, geben wir nb zurück
+    return nb;
   }
 
   /**
@@ -252,13 +253,13 @@ public class NotizbuchMapper {
    * 
    * @param a das aus der DB zu loeschende "Objekt"
    */
-  public void loeschenNotizbuch(Notizbuch a) {
+  public void loeschenNotizbuch(Notizbuch nb) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE notizbuchId=" + a.getId());
+      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE notizbuchId=" + nb.getId());
 
     }
     catch (SQLException e2) {
@@ -270,13 +271,13 @@ public class NotizbuchMapper {
    *Löschen sämtlicher Notizbücher eines Nutzers 
    *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
    */
-  public void loeschenNotizbuchVon(Nutzer c) {
+  public void loeschenNotizbuchVon(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE nutzerId=" + c.getNutzerId());
+      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE nutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
@@ -288,8 +289,9 @@ public class NotizbuchMapper {
    * Auslesen des zugehörigen Nutzer-Objekts zu einem gegebenen
    * Notizbuch.
    */
-  public Nutzer getNutzerId(Notizbuch a) {
-    return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(a.getNotizbuchId());
+  public Nutzer getNutzerId(Notizbuch nb) {
+    return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(nb.getNotizbuchId());
   }
 
 }
+
