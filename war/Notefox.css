@@ -118,12 +118,7 @@ h5 {
 	text-align: center;
 }
 
-.gwt-Button {
-	color: red;
-}
-
-
-.gwt-Green-Button {
+.gwt-Main-Button {
 	color: green;
 	margin: 0;
 	width: 10.2vw;
@@ -131,10 +126,6 @@ h5 {
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
-}
-
-.gwt-Blue-Button {
-	color: blue;
 }
 
 .main {

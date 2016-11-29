@@ -10,7 +10,7 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
- * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine RPC-fähige Klasse.
+ * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse.
  */
 @RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
@@ -23,14 +23,14 @@ public interface NotizobjektAdministration extends RemoteService {
   void anlegenNutzer(int id, String name, String passwort);
 
   /**
-   * Eine neue Notiz für einen gegebenen Nutzer anlegen.
+   * Eine neue Notiz fï¿½r einen gegebenen Nutzer anlegen.
    */
-  public Notiz anlegenNotizFür(Nutzer c) throws IllegalArgumentException;
+  public Notiz anlegenNotizFÃ¼r(Nutzer c) throws IllegalArgumentException;
   
   /**
-   * Eine neues Notizbuch für einen gegebenen Nutzer anlegen.
+   * Eine neues Notizbuch fï¿½r einen gegebenen Nutzer anlegen.
    */
-  public Notizbuch anlegenNotizbuecherFür(Nutzer c) throws IllegalArgumentException;
+  public Notizbuch anlegenNotizbuecherFÃ¼r(Nutzer c) throws IllegalArgumentException;
 
   /**
    * Auslesen und Setzen der zugeordneten Notizobjekte.
@@ -46,7 +46,7 @@ public interface NotizobjektAdministration extends RemoteService {
       throws IllegalArgumentException;
   
   /**
-   * Alle Notizbücher eines Nutzers auslesen.
+   * Alle Notizbï¿½cher eines Nutzers auslesen.
    */
   public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer c)
       throws IllegalArgumentException;
@@ -83,7 +83,7 @@ public interface NotizobjektAdministration extends RemoteService {
   public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
   
   /**
-   * Alle Notizbücher auslesen.
+   * Alle Notizbï¿½cher auslesen.
    */
   public Vector<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
 
@@ -103,17 +103,17 @@ public interface NotizobjektAdministration extends RemoteService {
   public void speichern(Nutzer c) throws IllegalArgumentException;
 
   /**
-   * Löschen der Daten eines übergegebenen Notiz-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Notiz-Objekts.
    */
   public void loeschenNotiz(Notiz a) throws IllegalArgumentException;
   
   /**
-   * Löschen der Daten eines übergegebenen Notizbuch-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Notizbuch-Objekts.
    */
   public void loeschenNotizbuch(Notizbuch a) throws IllegalArgumentException;
 
   /**
-   * Löschen der Daten eines übergegebenen Nutzer-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Nutzer-Objekts.
    */
   public void loeschenNutzer(Nutzer c) throws IllegalArgumentException;
 
