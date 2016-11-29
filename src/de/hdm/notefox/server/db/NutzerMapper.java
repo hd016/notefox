@@ -244,7 +244,7 @@ public class NutzerMapper {
    * Auslesen der zugehörigen Notizbücher-Objekte zu einem gegebenen
    * Nutzer.
    */
-  public Vector<Notizbuch> getNotizbuchOf(Nutzer c) {
-	return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(c);
+  public Vector<Notizbuch> getNotizbuchOf(Nutzer n) {
+	return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(n);
 	  }
 }
