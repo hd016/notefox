@@ -1,8 +1,12 @@
 package de.hdm.notefox.server.db;
 
+
+
+
 import java.sql.*;
 import java.util.Vector;
 
+import de.hdm.notefox.server.db.NotizMapper;
 import de.hdm.notefox.shared.Notizquelle;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
@@ -58,7 +62,7 @@ public class NotizquelleMapper {
       Statement stmt = con.createStatement();
 
       // Das Statement wird ausgefüllt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id, notizquelleId FROM notizquelle "
+      ResultSet rs = stmt.executeQuery("SELECT notizquelleId FROM notizquelle "
           + "WHERE id=" + id + " ORDER BY notizquelleId");
 
       /*
@@ -67,9 +71,11 @@ public class NotizquelleMapper {
        */
       if (rs.next()) {
         //Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-    	  Notizquelle a = new Notizquelle();
-        a.setNotizquelleId(rs.getInt("NotizquelleId"));
-        return a;
+    	  Notizquelle nq = new Notizquelle();
+        nq.setNotizquelleId(rs.getInt("NotizquelleId"));
+        nq.setNotizquelleName(rs.getString("notizquelleName"));
+        nq.setUrl(rs.getString("url"));
+        return nq;
       }
     }
     catch (SQLException e2) {
@@ -99,12 +105,14 @@ public class NotizquelleMapper {
 
       // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Notizquelle Objekt erstellt
       while (rs.next()) {
-    	  Notizquelle a = new Notizquelle();
-        a.setNotizquelleId(rs.getInt("NotizquelleId"));
+    	  Notizquelle nq = new Notizquelle();
+        nq.setNotizquelleId(rs.getInt("NotizquelleId"));
+        nq.setNotizquelleName(rs.getString("notizquelleName"));
+        nq.setUrl(rs.getString("url"));
    
 
         // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(a);
+        result.addElement(nq);
       }
     }
     catch (SQLException e2) {
@@ -112,6 +120,44 @@ public class NotizquelleMapper {
     }
 
     // Der Ergebnisvektor wird zurückgegeben
+    return result;
+  }
+  
+  /**
+   * Auslesen aller Notizquellen eines durch Fremdschlüssel (NotizId) gegebenen
+   * Notizen.
+   * 
+   * @param notizId Schlüssel der zugehörigen Notiz.
+   * @return Ein Vektor mit Notizquellen-Objekten, die sämtliche Notizquellen der
+   *         betreffenden Notiz repräsentieren. Bei evtl. Exceptions wird ein
+   *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
+   */
+  public Vector<Notizquelle> nachAllenNotizquellenDerNotizSuchen(int notizId) {
+    Connection con = DBConnection.connection();
+    Vector<Notizquelle> result = new Vector<Notizquelle>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt
+          .executeQuery("SELECT id, notizquelleName, url, notizquelleId FROM notizquellen "
+              + "WHERE notizquelleId=" + notizId + " ORDER BY id");
+
+      // Für jeden Eintrag im Suchergebnis wird nun ein Notizquelle-Objekt erstellt.
+      while (rs.next()) {
+        Notizquelle nq = new Notizquelle();
+        nq.setNotizquelleId(rs.getInt("notizquelleId"));
+        nq.setNotizquelleName(rs.getString("name"));
+        nq.setUrl(rs.getString("url"));
+
+        // Hinzufügen des neuen Objekts zum Ergebnisvektor
+        result.addElement(nq);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+    // Ergebnisvektor zurückgeben
     return result;
   }
 
@@ -126,16 +172,18 @@ public class NotizquelleMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, owner FROM notizquelle "
-          + "WHERE owner=" + notizId + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT NotizquelleId, owner FROM notizquelle "
+          + "WHERE owner=" + notizId + " ORDER BY NotizquelleId");
 
       // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Notizquelle Objekt erstellt
       while (rs.next()) {
-    	  Notizquelle a = new Notizquelle();
-        a.setNotizquelleId(rs.getInt("NotizquelleId"));
+    	  Notizquelle nq = new Notizquelle();
+        nq.setNotizquelleId(rs.getInt("NotizquelleId"));
+        nq.setNotizquelleName(rs.getString("notizquelleName"));
+        nq.setUrl(rs.getString("url"));
 
      // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(a);
+        result.addElement(nq);
       }
     }
     catch (SQLException e2) {
@@ -163,7 +211,7 @@ public class NotizquelleMapper {
    * Anlegen einer Notizquelle.
    * 
    */
-  public Notizquelle anlegenNotizquelle(Notizquelle a) {
+  public Notizquelle anlegenNotizquelle(Notizquelle nq) {
     Connection con = DBConnection.connection();
 
     try {
@@ -171,7 +219,7 @@ public class NotizquelleMapper {
 
       //Der höchste Primärschlüsselwert wird überprüft
       
-      ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
+      ResultSet rs = stmt.executeQuery("SELECT MAX(NotizquelleId) AS maxid "
           + "FROM notizquelle ");
 
       // Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
@@ -179,13 +227,13 @@ public class NotizquelleMapper {
     	   /*
            * a kriegt nun den maximalen Primärschlüssel, welcher mit dem Wert 1 inkrementiert wird
            */
-        a.setNotizquelleId(rs.getInt("maxid") + 1);
+        nq.setNotizquelleId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
         //Hier erfolgt die entscheidende Einfügeoperation
         stmt.executeUpdate("INSERT INTO notizquelle (id, notizquelleId) " + "VALUES ("
-            + a.getNotizquelleId() + ")");
+            + nq.getNotizquelleId() + ")");
       }
     }
     catch (SQLException e2) {
@@ -197,21 +245,21 @@ public class NotizquelleMapper {
      * 
      * So besteht die Möglichkeit anzudeuten ob sich ein Objekt verändert hat, während die Methode ausgeführt wurde
      */
-    return a;
+    return nq;
   }
 
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Notizquelle update(Notizquelle a) {
+  public Notizquelle update(Notizquelle nq) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notizquelle " + "SET notizquelleId=\"" + a.getNotizquelleId()
-          + "\" " + "WHERE id=" + a.getNotizquelleId());
+      stmt.executeUpdate("UPDATE notizquelle " + "SET notizquelleId=\"" + nq.getNotizquelleId()
+          + "\" " + "WHERE id=" + nq.getNotizquelleId());
 
     }
     catch (SQLException e2) {
@@ -219,19 +267,19 @@ public class NotizquelleMapper {
     }
 
     // Um ähnliche Strukturen wie zu anlegenNotizquelle(Notizquelle a) zu wahren, geben wir nun a zurück
-    return a;
+    return nq;
   }
 
   /**
    * Löschen der Daten eines Notizquelle-Objekts aus der Datenbank.
    */
-  public void loeschenNotizquelle(Notizquelle a) {
+  public void loeschenNotizquelle(Notizquelle nq) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizquelle " + "WHERE id=" + a.getNotizquelleId());
+      stmt.executeUpdate("DELETE FROM notizquelle " + "WHERE id=" + nq.getNotizquelleId());
 
     }
     catch (SQLException e2) {
@@ -243,13 +291,13 @@ public class NotizquelleMapper {
    *Löschen sämtlicher Notizquellen eines Nutzers 
    *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
    */
-  public void loeschenNotizquelleVon(Nutzer c) {
+  public void loeschenNotizquelleVon(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizquelle " + "WHERE nutzerId=" + c.getNutzerId());
+      stmt.executeUpdate("DELETE FROM notizquelle " + "WHERE nutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
@@ -261,8 +309,8 @@ public class NotizquelleMapper {
    * Auslesen des zugehörigen Notiz-Objekts zu einem gegebenen
    * Notizquelle.
    */
-  public Notiz getNotizId(Notizquelle a) {
-    return NotizMapper.notizMapper().nachNotizquelleIdSuchen(a.getNotizquelleId());
+  public Notiz getNotizId(Notizquelle nq) {
+    return NotizMapper.notizMapper().nachNotizquelleIdSuchen(nq.getNotizquelleId());
   }
 
 }

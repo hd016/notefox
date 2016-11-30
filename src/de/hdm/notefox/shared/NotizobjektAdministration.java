@@ -187,8 +187,4 @@ public interface NotizobjektAdministration extends RemoteService {
    */
   public void loeschenDatumVon(Datum d) throws IllegalArgumentException;
 
-Notiz anlegenNotizFür(Nutzer c);
-
-Notizbuch anlegenNotizbuecherFür(Nutzer c);
-
 }
