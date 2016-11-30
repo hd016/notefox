@@ -1,4 +1,6 @@
-package de.hdm.notefox.client.gui;
+
+
+	package de.hdm.notefox.client.gui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,7 @@ import de.hdm.notefox.shared.*;
 		// 		return false;
 		// 	}
 
-// }
+// }  
 
 // }
+
