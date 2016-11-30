@@ -19,12 +19,12 @@ public interface ReportGeneratorAsync {
 		  
   void erstelleAlleNotizbuecherAllerNutzerReport(AsyncCallback<AlleNotizbuecherAllerNutzerReport> callback);
 
-  void erstelleAlleNotizenDesNutzersReport(Nutzer c, AsyncCallback<AlleNotizenDesNutzersReport> callback);
+  void erstelleAlleNotizenDesNutzersReport(Nutzer n, AsyncCallback<AlleNotizenDesNutzersReport> callback);
   
-  void erstelleAlleNotizbuecherDesNutzersReport(Nutzer c, AsyncCallback<AlleNotizbuecherDesNutzersReport> callback);
+  void erstelleAlleNotizbuecherDesNutzersReport(Nutzer n, AsyncCallback<AlleNotizbuecherDesNutzersReport> callback);
 
   void initialisieren(AsyncCallback<Void> callback);
 
-  void setNotizobjekt(Notizobjekt b, AsyncCallback<Void> callback);
+  void setNotizobjekt(Notizobjekt nobj, AsyncCallback<Void> callback);
 
 }
