@@ -11,19 +11,19 @@ import com.google.gwt.view.client.TreeViewModel.DefaultNodeInfo;
 import com.google.gwt.view.client.TreeViewModel.NodeInfo;
 import de.hdm.notefox.shared.*;
 
-public class NutzerBaumModel implements TreeViewModel {
+//public class //NutzerBaumModel implements TreeViewModel {
 
-	public <T> NodeInfo<?> getNodeInfo(T value) {
-		if (value == null) {
-			List<Nutzer> nutzerlist = new ArrayList<>();
+	//public <T> NodeInfo<?> getNodeInfo(T value) {
+//	if (value == null) {
+//		List<Nutzer> nutzerlist = new ArrayList<>();
 
 		//	Notizbuch notizbuch = new Notizbuch();
 		//	notizbuch.setTitel("Meine Notizbücher");
 		//	notizbuchlist.add(notizbuch);
 
-			Nutzer nutzer = new Nutzer();
-			nutzer.setName("Freigebene Nutzer");
-			nutzerlist.add(nutzer);
+			// 		Nutzer nutzer = new Nutzer();
+			// 	nutzer.setName("Freigebene Nutzer");
+			// 	nutzerlist.add(nutzer);
 			
 			// List<Nutzer> nutzerlist = new ArrayList<>();
 
@@ -38,13 +38,13 @@ public class NutzerBaumModel implements TreeViewModel {
 			
 			
 
-			return new DefaultNodeInfo<Nutzer>(new ListDataProvider<Nutzer>(nutzerlist),
-					new AbstractCell<Nutzer>() {
-						@Override
-						public void render(com.google.gwt.cell.client.Cell.Context context, Nutzer value,
-								SafeHtmlBuilder sb) {
-							sb.appendEscaped(value.getName());
-						}
+			// 	return new DefaultNodeInfo<Nutzer>(new ListDataProvider<Nutzer>(nutzerlist),
+			// 			new AbstractCell<Nutzer>() {
+			// 			@Override
+						// 			public void render(com.google.gwt.cell.client.Cell.Context context, Nutzer value,
+			// 					SafeHtmlBuilder sb) {
+			// 				sb.appendEscaped(value.getName());
+			// 			}
 	//				});
 	//	} else if (value instanceof Nutzer) {
 //			Nutzer nutzer = (Nutzer) value;
@@ -61,18 +61,18 @@ public class NutzerBaumModel implements TreeViewModel {
 
 //	return null;}
 
-	@Override
-	public boolean isLeaf(Object value) {
+//@Override
+	// 	public boolean isLeaf(Object value) {
 
-		if (value instanceof Nutzer) {
-			Nutzer notizbuch = (Nutzer) value;
+		// 	if (value instanceof Nutzer) {
+	// 	Nutzer notizbuch = (Nutzer) value;
 			// return notizbuch.getNotizen().isEmpty();
-		} else if (value instanceof Nutzer) {
-			return true;
-		}
+			// 		} else if (value instanceof Nutzer) {
+			// 		return true;
+			// 		}
 
-		return false;
-	}
+		// 		return false;
+		// 	}
 
 // }
 
