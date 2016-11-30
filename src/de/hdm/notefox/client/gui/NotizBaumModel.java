@@ -24,21 +24,21 @@ public class NotizBaumModel implements TreeViewModel {
 			notizbuch.setTitel("Meine Notizbücher");
 			notizbuchlist.add(notizbuch);
 
-			Notizbuch notizbuch1 = new Notizbuch();
-			notizbuch1.setTitel("Nutzer");
-			notizbuchlist.add(notizbuch1);
+		//	Notizbuch notizbuch1 = new Notizbuch();
+			//	notizbuch1.setTitel("Nutzer");
+			//	notizbuchlist.add(notizbuch1);
 
 			List<Notiz> notizlist = new ArrayList<>();
 			Notiz notiz = new Notiz();
 			notiz.setTitel("Meine Notizen");
 			notizlist.add(notiz);
-			//notizbuch.setNotizen(notizlist);
+			notizbuch.setNotizen(notizlist);
 			
-			List<Nutzer> eigentuemerlist = new ArrayList<>();
-			Nutzer eigentuemer = new Nutzer();
-			eigentuemer.setName("Namen");
-			eigentuemerlist.add(eigentuemer);
-			eigentuemerlist.isEmpty();
+			//	List<Nutzer> eigentuemerlist = new ArrayList<>();
+			//	Nutzer eigentuemer = new Nutzer();
+			//eigentuemer.setName("Namen");
+			//eigentuemerlist.add(eigentuemer);
+			//	eigentuemerlist.isEmpty();
 
 		   
 			
