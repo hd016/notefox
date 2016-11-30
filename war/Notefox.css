@@ -273,7 +273,6 @@ h5 {
 	text-align: center;
 }
 
-<<<<<<< HEAD
 .gwt-Main-Button {
 	color: green;
 	margin: 0;
@@ -282,7 +281,8 @@ h5 {
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
-=======
+
+}
 .gwt-Button {
 	color: red;
 }
@@ -302,7 +302,6 @@ h5 {
 
 .gwt-Blue-Button {
 	color: blue;
->>>>>>> branch 'master' of https://github.com/hd016/notefox.git
 }
 
 .main {
