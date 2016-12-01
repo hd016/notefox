@@ -78,7 +78,7 @@ public class DatumMapper {
 
     	// Statement ausfuellen und als Query an die DB schicken
     	ResultSet rs = stmt.executeQuery("SELECT faelligkeitId, status, faelligkeitsdatum FROM datum "
-          + "WHERE faelligkeitId=" + id + " ORDER BY faelligkeitsdatum");
+          + "WHERE faelligkeitId=" + " ORDER BY faelligkeitsdatum");
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
@@ -87,9 +87,9 @@ public class DatumMapper {
       if (rs.next()) {
     	// Ergebnis-Tupel in Objekt umwandeln
     	Datum d = new Datum();
-        d.setFaelligkeitId(rs.getInt("FaelligkeitId"));
-        d.setStatus(rs.getBoolean("Status"));
-        d.setFaelligkeitsdatum(rs.getDate("Faelligkeitsdatum"));
+        d.setFaelligkeitId(rs.getInt("faelligkeitId"));
+        d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
         return d;
       }
     }
@@ -119,15 +119,17 @@ public class DatumMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt
-          .executeQuery("SELECT id, faelligkeitsdatum, status, faelligkeitId FROM faelligkeiten "
-              + "WHERE faelligkeitId=" + notizId + " ORDER BY id");
-
+          .executeQuery("SELECT notiz.notizId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM notiz "
+              + "LEFT JOIN datum.faelligkeitId = notiz.notizId" + notizId + " ORDER BY notiz.notizId ASC");
+      
       // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
         Datum d = new Datum();
-        d.setFaelligkeitId(rs.getInt("faelligkeitid"));
-        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+//      d.setNotizId(rs.getInt("notizId")); --> muss noch geklärt werden!
+        d.setFaelligkeitId(rs.getInt("faelligkeitId"));
         d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+
 
         // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
         result.addElement(d);
@@ -204,8 +206,8 @@ public class DatumMapper {
         stmt = con.createStatement();
 
         // Hier erfolgt die entscheidende Einfügeoperation
-        stmt.executeUpdate("INSERT INTO datum (id, faelligkeitID) " + "VALUES ("
-        	+ "," + d.getFaelligkeitId() + ")");
+        stmt.executeUpdate("INSERT INTO datum (faelligkeitId, status, faelligkeitsdatum) " + "VALUES ("
+        	+ "," + d.getFaelligkeitId() + d.isStatus() + d.getFaelligkeitsdatum() + ")");
       }
     }
     catch (SQLException e2) {
@@ -231,8 +233,8 @@ public class DatumMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE datum " + "SET faelligkeitID=\"" + d.getFaelligkeitId()
-          + "\" " + "WHERE id=" + d.getFaelligkeitId());
+      stmt.executeUpdate("UPDATE datum " + "SET faelligkeit=\"" + d.getFaelligkeitId()
+          + "\" " + "WHERE faelligkeitId=" + d.getFaelligkeitId());
 
     }
     catch (SQLException e2) {

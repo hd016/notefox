@@ -145,10 +145,10 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT notizbuchId, eigentuermer"
-    	+ "FROM notizbuch " + "INNER JOIN notizobjekt"
+      ResultSet rs = stmt.executeQuery("SELECT notizbuch.notizbuchId, notizobjekt.eigentuermer"
+    	+ "FROM notizbuch, notizobjekt"
         + "WHERE notizbuchId" + notizbuchId + " ORDER BY notizbuchId");
-
+      
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
       // erstellt.
       while (rs.next()) {
