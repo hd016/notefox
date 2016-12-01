@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
 /**
@@ -77,7 +78,7 @@ public class DatumMapper {
 
     	// Statement ausfuellen und als Query an die DB schicken
     	ResultSet rs = stmt.executeQuery("SELECT faelligkeitId, status, faelligkeitsdatum FROM datum "
-          + "WHERE faelligkeitId=" + id + " ORDER BY faelligkeitsdatum");
+          + "WHERE faelligkeitId=" + " ORDER BY faelligkeitsdatum");
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
@@ -85,11 +86,11 @@ public class DatumMapper {
       */
       if (rs.next()) {
     	// Ergebnis-Tupel in Objekt umwandeln
-    	Datum a = new Datum();
-        a.setFaelligkeitId(rs.getInt("FaelligkeitId"));
-        a.setStatus(rs.getBoolean("Status"));
-        a.setFaelligkeitsdatum(rs.getDate("Faelligkeitsdatum"));
-        return a;
+    	Datum d = new Datum();
+        d.setFaelligkeitId(rs.getInt("faelligkeitId"));
+        d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+        return d;
       }
     }
     catch (SQLException e2) {
@@ -100,6 +101,49 @@ public class DatumMapper {
     return null;
   }
 
+  
+  /**
+   * Auslesen aller Fälligkeiten eines durch FremdschlÃ¼ssel (NotizId) gegebener
+   * Notiz.
+   * 
+   * @param notizId SchlÃ¼ssel der zugehÃ¶rigen Notiz.
+   * @return Ein Vektor mit Datum-Objekten, die sÃ¤mtliche Fälligkeiten der
+   *         betreffenden Notiz reprÃ¤sentieren. Bei evtl. Exceptions wird ein
+   *         partiell gefÃ¼llter oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
+   */
+  public Vector<Datum> nachAllenFaelligkeitenDerNotizSuchen(int notizId) {
+    Connection con = DBConnection.connection();
+    Vector<Datum> result = new Vector<Datum>();
+
+    try {
+      Statement stmt = con.createStatement();
+
+      ResultSet rs = stmt
+          .executeQuery("SELECT notiz.notizId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM notiz "
+              + "LEFT JOIN datum.faelligkeitId = notiz.notizId" + notizId + " ORDER BY notiz.notizId ASC");
+      
+      // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
+      while (rs.next()) {
+        Datum d = new Datum();
+//      d.setNotizId(rs.getInt("notizId")); --> muss noch geklärt werden!
+        d.setFaelligkeitId(rs.getInt("faelligkeitId"));
+        d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+
+
+        // HinzufÃ¼gen des neuen Objekts zum Ergebnisvektor
+        result.addElement(d);
+      }
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+    // Ergebnisvektor zurÃ¼ckgeben
+    return result;
+  }  
+  
+  
+  
   /**
    * Auslesen aller Datum-Objekte.
    * 
@@ -119,12 +163,12 @@ public class DatumMapper {
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
-    	  Datum a = new Datum();
-        a.setFaelligkeitId(rs.getInt("FaelligkeitID"));
+    	  Datum d = new Datum();
+        d.setFaelligkeitId(rs.getInt("FaelligkeitID"));
    
 
         // Hinzufuegen des neuen Objekts zum Ergebnisvektor
-        result.addElement(a);
+        result.addElement(d);
       }
     }
     catch (SQLException e2) {
@@ -139,7 +183,7 @@ public class DatumMapper {
    * Anlegen eines Datum-Objekts.
    * 
    */
-  public Datum anlegenDatum(Datum a) {
+  public Datum anlegenDatum(Datum d) {
     Connection con = DBConnection.connection();
 
     try {
@@ -157,13 +201,13 @@ public class DatumMapper {
            * a erhält den bisher maximalen, nun um 1 inkrementierten
            * Primärschlüssel.
            */
-        a.setFaelligkeitId(rs.getInt("maxid") + 1);
+        d.setFaelligkeitId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
         // Hier erfolgt die entscheidende Einfügeoperation
-        stmt.executeUpdate("INSERT INTO datum (id, faelligkeitID) " + "VALUES ("
-        	+ "," + a.getFaelligkeitId() + ")");
+        stmt.executeUpdate("INSERT INTO datum (faelligkeitId, status, faelligkeitsdatum) " + "VALUES ("
+        	+ "," + d.getFaelligkeitId() + d.isStatus() + d.getFaelligkeitsdatum() + ")");
       }
     }
     catch (SQLException e2) {
@@ -176,29 +220,29 @@ public class DatumMapper {
      * So besteht die Möglichkeit anzudeuten, ob sich ein Objekt verändert hat, 
      * während die Methode ausgeführt wurde
      */
-    return a;
+    return d;
   }
 
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Datum aktualisierenDatum(Datum a) {
+  public Datum aktualisierenDatum(Datum d) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE datum " + "SET faelligkeitID=\"" + a.getFaelligkeitId()
-          + "\" " + "WHERE id=" + a.getFaelligkeitId());
+      stmt.executeUpdate("UPDATE datum " + "SET faelligkeit=\"" + d.getFaelligkeitId()
+          + "\" " + "WHERE faelligkeitId=" + d.getFaelligkeitId());
 
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Um Analogie zu anlegenDatum(Datum a) zu wahren, geben wir a zurück
-    return a;
+    // Um Analogie zu anlegenDatum(Datum d) zu wahren, geben wir d zurück
+    return d;
   }
 
   /**
@@ -206,13 +250,13 @@ public class DatumMapper {
    * 
    * @param a das aus der DB zu loeschende "Objekt"
    */
-  public void loeschenDatum(Datum a) {
+  public void loeschenDatum(Datum d) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM datum " + "WHERE faelligkeitId=" + a.getFaelligkeitId());
+      stmt.executeUpdate("DELETE FROM datum " + "WHERE faelligkeitId=" + d.getFaelligkeitId());
 
     }
     catch (SQLException e2) {
@@ -220,13 +264,31 @@ public class DatumMapper {
     }
   }
 
+  /**
+   *Löschen sämtlicher Datum-Objekte eines Nutzers 
+   *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
+   */
+  public void loeschenDatumVon(Nutzer n) {
+    Connection con = DBConnection.connection();
 
+    try {
+      Statement stmt = con.createStatement();
+
+      stmt.executeUpdate("DELETE FROM datum " + "WHERE nutzerId=" + n.getNutzerId());
+
+    }
+    catch (SQLException e2) {
+      e2.printStackTrace();
+    }
+  }
+  
+  
   /**
    * Auslesen des zugehörigen Notiz-Objekts zu einem gegebenen
    * Datum.
    */
-  public Notiz getNotizId(Datum a) {
-    return NotizMapper.notizMapper().nachFaelligkeitIdSuchen(a.getFaelligkeitId());
+  public Notiz getNotizId(Datum d) {
+    return NotizMapper.notizMapper().nachFaelligkeitIdSuchen(d.getFaelligkeitId());
   }
 
 }
