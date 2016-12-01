@@ -110,7 +110,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
    * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
    * abgleicht.
    */
-  private NutzerMapper nuMapper = null;
+  private NutzerMapper nuMapper = null; 
 
   /**
    * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
