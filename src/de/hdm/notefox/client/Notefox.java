@@ -32,11 +32,14 @@ public class Notefox implements EntryPoint {
 
 	
 	HorizontalPanel hPanel = new HorizontalPanel();
+	VerticalPanel vPanel_inhalt = new VerticalPanel();
 	Button loeschen = new Button("Löschen");
 	Button editieren = new Button("Editieren");
 	Button suchen = new Button("Suchen");
 	Button freigeben = new Button("Freigeben");
-	Label test = new Label("Klick erfolgreich!");
+	Label test = new Label("Notizbuch Klick erfolgreich!");
+	Label test_nutzer = new Label("Nutzer Klick erfolgreich!");
+
 	
 	VerticalPanel vPanel = new VerticalPanel();
 	Button NotizBuch = new Button("Notizbuch");
@@ -61,6 +64,7 @@ public class Notefox implements EntryPoint {
 			// landscape1Btn.addClickHandler(new LS1ClickHandler());
 			
 			NotizBuch.addClickHandler(new CellTreeClickHandler());
+			Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
 			
 			RootPanel.get("gwtContainer").add(vPanel);
 			
@@ -71,14 +75,29 @@ public class Notefox implements EntryPoint {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			RootPanel.get("text").add(test);
-			RootPanel.get("text").add(celltree);
+			vPanel_inhalt.clear();
+			vPanel_inhalt.addStyleName("vPanel");
+			vPanel_inhalt.add(test);
+			vPanel_inhalt.add(celltree);
+			RootPanel.get("text").add(vPanel_inhalt);
+
 			
 			
 		}
 
 	
 	
+		
+	}
+	private class CellTreeClickHandler_Nutzer implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+				vPanel_inhalt.clear();
+				vPanel_inhalt.add(test_nutzer);
+			
+		}
+		
 		
 	}
 	
