@@ -11,7 +11,7 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
- * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine RPC-fähige Klasse.
+ * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse.
  */
 @RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
@@ -27,22 +27,22 @@ public interface NotizobjektAdministration extends RemoteService {
   public Nutzer anlegenNutzer(int id, String name) throws IllegalArgumentException;
 
   /**
-   * Eine neue Notiz für einen gegebenen Nutzer anlegen.
+   * Eine neue Notiz fï¿½r einen gegebenen Nutzer anlegen.
    */
   public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException;
   
   /**
-   * Eine neues Notizbuch für einen gegebenen Nutzer anlegen.
+   * Eine neues Notizbuch fï¿½r einen gegebenen Nutzer anlegen.
    */
   public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException;
   
   /**
-   * Eine neue Notizquelle für eine gegebene Notiz anlegen.
+   * Eine neue Notizquelle fï¿½r eine gegebene Notiz anlegen.
    */
   public Notizquelle anlegenNotizquelleFuer(Notiz no) throws IllegalArgumentException;
   
   /**
-   * Eine neue Faelligkeit für eine gegebene Notiz anlegen.
+   * Eine neue Faelligkeit fï¿½r eine gegebene Notiz anlegen.
    */
   public Datum anlegenFaelligkeitFuer(Notiz no) throws IllegalArgumentException;
   
@@ -100,7 +100,7 @@ public interface NotizobjektAdministration extends RemoteService {
       throws IllegalArgumentException;
   
   /**
-   * Alle Notizbücher eines Nutzers auslesen.
+   * Alle Notizbï¿½cher eines Nutzers auslesen.
    */
   public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
       throws IllegalArgumentException;
@@ -137,7 +137,7 @@ public interface NotizobjektAdministration extends RemoteService {
   public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
   
   /**
-   * Alle Notizbücher auslesen.
+   * Alle Notizbï¿½cher auslesen.
    */
   public Vector<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
 
@@ -157,17 +157,17 @@ public interface NotizobjektAdministration extends RemoteService {
   public void speichern(Nutzer n) throws IllegalArgumentException;
 
   /**
-   * Löschen der Daten eines übergegebenen Notiz-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Notiz-Objekts.
    */
   public void loeschenNotiz(Notiz no) throws IllegalArgumentException;
   
   /**
-   * Löschen der Daten eines übergegebenen Notizbuch-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Notizbuch-Objekts.
    */
   public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException;
 
   /**
-   * Löschen der Daten eines übergegebenen Nutzer-Objekts.
+   * Lï¿½schen der Daten eines ï¿½bergegebenen Nutzer-Objekts.
    */
   public void loeschenNutzer(Nutzer n) throws IllegalArgumentException;
   

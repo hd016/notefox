@@ -1,32 +1,16 @@
 package de.hdm.notefox.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.CellTree;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.view.client.ListDataProvider;
-import com.google.gwt.view.client.TreeViewModel;
 
 import de.hdm.notefox.client.gui.NotizBaumModel;
-//import de.hdm.notefox.shared.LoginInfo;
-//import de.hdm.notefox.shared.LoginServiceAsync;
-import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
-import de.hdm.notefox.shared.Nutzer;
-import de.hdm.notefox.shared.bo.Notiz;
-import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class Notefox implements EntryPoint {
 
@@ -104,3 +88,7 @@ public class Notefox implements EntryPoint {
 	
 }
 	
+ 
+
+
+

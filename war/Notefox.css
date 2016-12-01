@@ -273,6 +273,16 @@ h5 {
 	text-align: center;
 }
 
+.gwt-Main-Button {
+	color: green;
+	margin: 0;
+	width: 10.2vw;
+	height: 2.5vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
+
+}
 .gwt-Button {
 	color: red;
 }

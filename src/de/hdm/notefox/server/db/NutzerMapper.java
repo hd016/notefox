@@ -67,11 +67,11 @@ public class NutzerMapper {
        */
       if (rs.next()) {
     	//Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-        Nutzer c = new Nutzer();
-        c.setNutzerId(rs.getInt("NutzerId"));
-        c.setName(rs.getString("name"));
+        Nutzer n = new Nutzer();
+        n.setNutzerId(rs.getInt("NutzerId"));
+        n.setName(rs.getString("name"));
 
-        return c;
+        return n;
       }
     }
     catch (SQLException e) {
@@ -101,12 +101,12 @@ public class NutzerMapper {
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
       
       while (rs.next()) {
-    	Nutzer c = new Nutzer();
-        c.setNutzerId(rs.getInt("nutzerId"));
-        c.setName(rs.getString("name"));
+    	Nutzer n = new Nutzer();
+        n.setNutzerId(rs.getInt("nutzerId"));
+        n.setName(rs.getString("name"));
 
      // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(c);
+        result.addElement(n);
       }
     }
     catch (SQLException e) {
@@ -135,12 +135,12 @@ public class NutzerMapper {
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
       
       while (rs.next()) {
-        Nutzer c = new Nutzer();
-        c.setNutzerId(rs.getInt("NutzerId"));
-        c.setName(rs.getString("name"));
+        Nutzer n = new Nutzer();
+        n.setNutzerId(rs.getInt("NutzerId"));
+        n.setName(rs.getString("name"));
 
      // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(c);
+        result.addElement(n);
       }
     }
     catch (SQLException e) {
@@ -155,7 +155,7 @@ public class NutzerMapper {
    * Anlegen eines Nutzers.
    * 
    */
-  public Nutzer anlegenNutzer(Nutzer c) {
+  public Nutzer anlegenNutzer(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
@@ -171,13 +171,13 @@ public class NutzerMapper {
     	  /*
            * c kriegt nun den maximalen Primärschlüssel, welcher mit dem Wert 1 inkrementiert wird
            */
-        c.setNutzerId(rs.getInt("maxid") + 1);
+        n.setNutzerId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
       //Hier erfolgt die entscheidende Einfügeoperation
         stmt.executeUpdate("INSERT INTO nutzer (NutzerId, name) "
-            + "VALUES (" + c.getNutzerId() + ",'" + c.getName() + "')");
+            + "VALUES (" + n.getNutzerId() + ",'" + n.getName() + "')");
       }
     }
     catch (SQLException e) {
@@ -189,22 +189,22 @@ public class NutzerMapper {
      * 
      * So besteht die Möglichkeit anzudeuten ob sich ein Objekt verändert hat, während die Methode ausgeführt wurde
      */
-    return c;
+    return n;
   }
 
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
    */
-  public Nutzer update(Nutzer c) {
+  public Nutzer update(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE nutzer " + "SET name=\""
-          + c.getName() + "\", " + "\" "
-          + "WHERE NutzerId=" + c.getNutzerId());
+          + n.getName() + "\", " + "\" "
+          + "WHERE NutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e) {
@@ -212,19 +212,19 @@ public class NutzerMapper {
     }
 
     // Um ähnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren, geben wir nun c zurück
-    return c;
+    return n;
   }
 
   /**
    * Löschen der Daten eines Nutzer-Objekts aus der Datenbank.
    */
-  public void loeschenNutzer(Nutzer c) {
+  public void loeschenNutzer(Nutzer n) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId=" + c.getNutzerId());
+      stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId=" + n.getNutzerId());
     }
     catch (SQLException e) {
       e.printStackTrace();
@@ -236,8 +236,8 @@ public class NutzerMapper {
    * Nutzer.
    */
   
-  public Vector<Notiz> getNotizOf(Nutzer c) {
-    return NotizMapper.notizMapper().nachEigentuemerSuchen(c);
+  public Vector<Notiz> getNotizOf(Nutzer n) {
+    return NotizMapper.notizMapper().nachEigentuemerSuchen(n);
   }
   
   /**

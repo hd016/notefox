@@ -19,7 +19,6 @@ void initialisieren(AsyncCallback<Void> callback);
 
 void anlegenNutzer(int id, String name, AsyncCallback<Nutzer> callback);
 
-
 void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
 
 void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
@@ -33,6 +32,7 @@ void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Not
 void nachAllenFaelligkeitenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Datum>> callback);
 
 void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<ArrayList<Notiz>> callback);
+
 
 void getNotizobjekt(AsyncCallback<Notizobjekt> callback);
 
