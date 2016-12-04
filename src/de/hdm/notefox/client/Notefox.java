@@ -5,6 +5,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -14,6 +16,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
+import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notefox implements EntryPoint {
 
@@ -63,7 +67,23 @@ public class Notefox implements EntryPoint {
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					administration.anlegenNotizFuer(null, null);
+					Nutzer nutzer = new Nutzer();
+					nutzer.setName("Testuser");
+					
+					administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
+						
+						@Override
+						public void onSuccess(Notiz result) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
 				}
 			});
 			vPanel.add(button);

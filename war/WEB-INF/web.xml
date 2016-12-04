@@ -29,7 +29,7 @@
 
   <servlet-mapping>
     <servlet-name>notizobjektadministration</servlet-name>
-    <url-pattern>/notefox/administration</url-pattern>
+    <url-pattern>notefox/notizobjektadministration</url-pattern>
   </servlet-mapping>
 
 </web-app>

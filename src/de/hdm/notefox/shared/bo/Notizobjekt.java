@@ -23,7 +23,7 @@ public abstract class Notizobjekt extends BusinessObject {
   
   private String inhalt;
   
-  private String eigentuemer;
+  private Nutzer eigentuemer;
 
   
 
@@ -74,12 +74,12 @@ public void setInhalt(String inhalt) {
 }
 
 
-public String getEigentuemer() {
+public Nutzer getEigentuemer() {
 	return eigentuemer;
 }
 
 
-public void setEigentuemer(String eigentuemer) {
+public void setEigentuemer(Nutzer eigentuemer) {
 	this.eigentuemer = eigentuemer;
 }
 
