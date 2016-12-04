@@ -47,10 +47,10 @@ public class NotizMapper {
   }
 
   /**
-   * Notiz nach NotizId suchen.   * 
+   * Notiz nach NotizTitel suchen.   * 
    * als return: Notiz-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notiz nachNotizIdSuchen(int id) {
+  public Notiz nachNotizTitelSuchen(int id) {
 	// Es wird eine DB-Verbindung angeschafft 
     Connection con = DBConnection.connection();
 
@@ -58,8 +58,8 @@ public class NotizMapper {
     //Es wird ein leeres SQL Statement von dem Connector (JDBC) angelegt
       Statement stmt = con.createStatement();
 
-   // Das Statement wird ausgef�llt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id FROM notiz "
+   // Das Statement wird ausgefuellt und an die Datebank verschickt
+      ResultSet rs = stmt.executeQuery("SELECT id,  FROM notizobjekt "
           + "WHERE id=" + id + " ORDER BY id");
 
    /*
@@ -91,7 +91,7 @@ public class NotizMapper {
    * Notiz nach NotizquelleId suchen.   * 
    * als return: Notiz-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notiz nachNotizquelleIdSuchen(int id) {
+  public Notiz nachNotizquelleSuchen(int id) {
 	// Es wird eine DB-Verbindung angeschafft 
     Connection con = DBConnection.connection();
 
@@ -257,7 +257,7 @@ public class NotizMapper {
   }
 
   /**
-   * Auslesen aller Notizen eines durch Fremdschl�ssel (NutzerId) gegebenen
+   * Auslesen aller Notizen eines durch Fremdschl�ssel (NutzerId) gegebenen //TODO
    * Nutzern.
    */
   public Vector<Notiz> nachEigentuemerSuchen(int id) {
@@ -295,9 +295,9 @@ public class NotizMapper {
   }
 
   /**
-   * Auslesen aller Notizen eines Nutzers
+   * Auslesen aller Notizen eines Nutzers //TODO
    */
-  public Vector<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) {
+  public Vector<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) { //TODO
 
     //Die Id des Notiz Objekts wird ausgelesen, und die Methode ist f�r die weitere Bearbeitung zust�ndig.
      
