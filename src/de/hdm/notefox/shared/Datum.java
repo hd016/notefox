@@ -5,6 +5,11 @@ import java.util.Date;
 
 public class Datum implements Serializable {
 	
+	/**
+	 * Unique IDentifier
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**Variablen der Klasse Datum.
 	 */
 
