@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
 import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
@@ -19,6 +20,9 @@ import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notefox implements EntryPoint {
+
+	
+    // NotizobjektAdministrationAsync notizVerwaltung = ClientsideSettings.getNotizobjektAdministrationAsync();
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
@@ -33,6 +37,9 @@ public class Notefox implements EntryPoint {
 	Button NotizBuch = new Button("Notizbuch");
 	Button Nutzer = new Button("Nutzer");
 	Button Profil = new Button("Profil");
+	
+	Button neuesNotiz = new Button("Notiz Erstellen");
+	
 
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
@@ -66,11 +73,15 @@ public class Notefox implements EntryPoint {
 			NotizBuch.addStyleName("gwt-Green-Button");
 			Nutzer.addStyleName("gwt-Green-Button");
 			Profil.addStyleName("gwt-Green-Button");
+			neuesNotiz.addStyleName("gwt-Green-Button");
 			
 			// landscape1Btn.addClickHandler(new LS1ClickHandler());
 			
 			NotizBuch.addClickHandler(new CellTreeClickHandler());
 			Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
+			
+			
+			
 			
 			RootPanel.get("gwtContainer").add(vPanel);
 			
@@ -110,8 +121,10 @@ public class Notefox implements EntryPoint {
 			vPanel_inhalt.addStyleName("vPanel");
 			vPanel_inhalt.add(test);
 			vPanel_inhalt.add(celltree);
-			
-			RootPanel.get("text").add(vPanel_inhalt);
+
+			neuesNotiz.addClickHandler(new NeuesNotizClickHandler());
+			vPanel_inhalt.add(neuesNotiz);
+
 			RootPanel.get("text").add(vPanel_inhalt);
 			
 
@@ -130,5 +143,37 @@ public class Notefox implements EntryPoint {
 		}
 
 	}
+
+	
+	private class NeuesNotizClickHandler implements ClickHandler{
+
+		NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
+		
+		@Override
+		public void onClick(ClickEvent event) {
+			de.hdm.notefox.shared.Nutzer nutzer = new Nutzer();
+			nutzer.setNutzerId(2000);
+			nutzer.setName("Mansur");
+			
+			administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
+				
+				@Override
+				public void onSuccess(Notiz result) {
+					vPanel_inhalt.clear();
+					NotizEditorPanel notizeditorpanel = new NotizEditorPanel(new Notiz());
+					vPanel_inhalt.add(notizeditorpanel);
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+			
+		}
+		
+	}
+
 
 }
