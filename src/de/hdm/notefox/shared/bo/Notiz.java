@@ -23,7 +23,9 @@ public class Notiz extends Notizobjekt {
 	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert 
 	 */
 	private Notizquelle notizquelle;
-	
+
+	public Notiz() {
+	}
 	
 	  /** Auslesen und Setzen der Variablen
 	   */

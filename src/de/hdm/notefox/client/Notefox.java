@@ -1,6 +1,7 @@
 package de.hdm.notefox.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
@@ -11,6 +12,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.notefox.client.gui.NotizBaumModel;
+import de.hdm.notefox.shared.NotizobjektAdministration;
+import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 
 public class Notefox implements EntryPoint {
 
@@ -33,10 +36,13 @@ public class Notefox implements EntryPoint {
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 
 
+	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 	
 	
 	@Override
 	public void onModuleLoad() {
+		
+		
 		
 			vPanel.add(NotizBuch);
 			vPanel.add(Nutzer);
@@ -52,7 +58,15 @@ public class Notefox implements EntryPoint {
 			
 			RootPanel.get("gwtContainer").add(vPanel);
 			
-			
+			Button button = new Button("Click me");
+			button.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					administration.anlegenNotizFuer(null, null);
+				}
+			});
+			vPanel.add(button);
 		
 	}
 	private class CellTreeClickHandler implements ClickHandler{

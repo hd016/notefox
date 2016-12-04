@@ -25,22 +25,6 @@ public abstract class Notizobjekt extends BusinessObject {
   
   private String eigentuemer;
 
-  /**
-   * Konstruktur
-   */
-  public Notizobjekt() {
-    super();
-  }
-  
-  /**
-	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert +
-	 * via parametrisiertem Konstruktor initialisiert
-	 */
-  
-  private ArrayList<Nutzer> nutzerliste; 
-  public Notizobjekt(ArrayList<Nutzer> nListe){ 
-  this.nutzerliste = nListe; 
-  } 
   
 
   
