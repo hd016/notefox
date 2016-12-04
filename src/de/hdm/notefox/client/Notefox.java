@@ -37,16 +37,11 @@ public class Notefox implements EntryPoint {
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
-<<<<<<< HEAD
-=======
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
-	
-	
->>>>>>> refs/remotes/origin/master
+
 	@Override
 	public void onModuleLoad() {
-<<<<<<< HEAD
 
 		vPanel.add(NotizBuch);
 		vPanel.add(Nutzer);
@@ -62,9 +57,7 @@ public class Notefox implements EntryPoint {
 
 		RootPanel.get("gwtContainer").add(vPanel);
 	
-
-=======
-		
+	
 		
 		
 			vPanel.add(NotizBuch);
@@ -107,7 +100,6 @@ public class Notefox implements EntryPoint {
 			});
 			vPanel.add(button);
 		
->>>>>>> refs/remotes/origin/master
 	}
 
 	private class CellTreeClickHandler implements ClickHandler {
