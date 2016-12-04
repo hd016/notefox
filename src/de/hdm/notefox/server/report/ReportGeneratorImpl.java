@@ -98,7 +98,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     imprint.addSubParagraph(new SimpleParagraph(notizobjekt.getTitel() + " "
             + notizobjekt.getSubtitel()));
     imprint.addSubParagraph(new SimpleParagraph(notizobjekt.getErstelldatum()));
-    imprint.addSubParagraph(new SimpleParagraph(notizobjekt.getEigentuemer()));
+    imprint.addSubParagraph(new SimpleParagraph("TODO"));
 
     // Das eigentliche Hinzufügen des Impressums zum Report.
     r.setImprint(imprint);

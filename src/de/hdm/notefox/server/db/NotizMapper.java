@@ -71,7 +71,7 @@ public class NotizMapper {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
           no.setNotizId(rs.getInt("NotizId"));
-          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setEigentuemer(null); // TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -113,7 +113,7 @@ public class NotizMapper {
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
         no.setNotizId(rs.getInt("NotizId"));
-        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setEigentuemer(null); // TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -155,7 +155,7 @@ public class NotizMapper {
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
         no.setNotizId(rs.getInt("NotizId"));
-        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setEigentuemer(null); // TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -196,7 +196,7 @@ public class NotizMapper {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
           no.setNotizId(rs.getInt("NotizId"));
-          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setEigentuemer(null); // TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -242,7 +242,7 @@ public class NotizMapper {
         Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
         no.setNotizId(rs.getInt("notizid"));
-        no.setEigentuemer(rs.getString("eigentuemer"));
+        no.setEigentuemer(null);// TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -280,7 +280,7 @@ public class NotizMapper {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
           no.setNotizId(rs.getInt("NotizId"));
-          no.setEigentuemer(rs.getString("eigentuemer"));
+          no.setEigentuemer(null); // TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
