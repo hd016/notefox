@@ -50,10 +50,10 @@ public class NotizquelleMapper {
   }
 
   /**
-   * Notizquelle nach NotizquelleId suchen.   * 
+   * Notizquelle nach Notizquelle suchen.   * 
    * als return: Notizquelle-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notizquelle nachNotizquelleId(int id) {
+  public Notizquelle nachNotizquelleSuchen(int id) {
     // Es wird eine DB-Verbindung angeschafft 
     Connection con = DBConnection.connection();
 
@@ -310,7 +310,7 @@ public class NotizquelleMapper {
    * Notizquelle.
    */
   public Notiz getNotizId(Notizquelle nq) {
-    return NotizMapper.notizMapper().nachNotizquelleIdSuchen(nq.getNotizquelleId());
+    return NotizMapper.notizMapper().nachNotizquelleSuchen(nq.getNotizquelleId());
   }
 
 }
