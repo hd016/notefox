@@ -392,7 +392,6 @@ public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
   @Override
 public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
     Notiz no = new Notiz();
-    no.setNotizId(n.getNutzerId());
 
     /*
      * Setzen einer vorläufigen NotizId. Der anlegenNotiz-Aufruf liefert dann ein

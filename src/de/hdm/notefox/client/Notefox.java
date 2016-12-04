@@ -1,9 +1,12 @@
 package de.hdm.notefox.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -11,6 +14,10 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
+import de.hdm.notefox.shared.NotizobjektAdministration;
+import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
+import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notefox implements EntryPoint {
 
@@ -31,8 +38,16 @@ public class Notefox implements EntryPoint {
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
+<<<<<<< HEAD
+=======
+
+	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
+	
+	
+>>>>>>> refs/remotes/origin/master
 	@Override
 	public void onModuleLoad() {
+<<<<<<< HEAD
 
 		vPanel.add(NotizBuch);
 		vPanel.add(Nutzer);
@@ -49,6 +64,51 @@ public class Notefox implements EntryPoint {
 		RootPanel.get("gwtContainer").add(vPanel);
 	
 
+=======
+		
+		
+		
+			vPanel.add(NotizBuch);
+			vPanel.add(Nutzer);
+			vPanel.add(Profil);
+			NotizBuch.addStyleName("gwt-Green-Button");
+			Nutzer.addStyleName("gwt-Green-Button");
+			Profil.addStyleName("gwt-Green-Button");
+			
+			// landscape1Btn.addClickHandler(new LS1ClickHandler());
+			
+			NotizBuch.addClickHandler(new CellTreeClickHandler());
+			Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
+			
+			RootPanel.get("gwtContainer").add(vPanel);
+			
+			Button button = new Button("Click me");
+			button.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					Nutzer nutzer = new Nutzer();
+					nutzer.setName("Testuser");
+					
+					administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
+						
+						@Override
+						public void onSuccess(Notiz result) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+				}
+			});
+			vPanel.add(button);
+		
+>>>>>>> refs/remotes/origin/master
 	}
 
 	private class CellTreeClickHandler implements ClickHandler {

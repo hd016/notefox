@@ -68,7 +68,7 @@ public class DatumMapper {
    * Datum nach FaelligkeitID suchen.   * 
    * Als return: Datum-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Datum nachFaelligkeitIdSuchen(int id) {
+  public Datum nachFaelligkeitDesNutzerSuchen(int id) {
 	// DB-Verbindung holen
     Connection con = DBConnection.connection();
 
@@ -77,8 +77,8 @@ public class DatumMapper {
     	Statement stmt = con.createStatement();
 
     	// Statement ausfuellen und als Query an die DB schicken
-    	ResultSet rs = stmt.executeQuery("SELECT faelligkeitId, status, faelligkeitsdatum FROM datum "
-          + "WHERE faelligkeitId=" + " ORDER BY faelligkeitsdatum");
+    	ResultSet rs = stmt.executeQuery("SELECT nutzer.nutzerId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, datum "
+          + "WHERE faelligkeitId=" + id + " ORDER BY faelligkeitsdatum ASC");
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
@@ -111,7 +111,7 @@ public class DatumMapper {
    *         betreffenden Notiz repräsentieren. Bei evtl. Exceptions wird ein
    *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
    */
-  public Vector<Datum> nachAllenFaelligkeitenDerNotizSuchen(int notizId) {
+  public Vector<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(int notizId) {
     Connection con = DBConnection.connection();
     Vector<Datum> result = new Vector<Datum>();
 
@@ -119,8 +119,8 @@ public class DatumMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt
-          .executeQuery("SELECT notiz.notizId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM notiz "
-              + "LEFT JOIN datum.faelligkeitId = notiz.notizId" + notizId + " ORDER BY notiz.notizId ASC");
+          .executeQuery("SELECT nutzer.nutzerId, notiz.notizId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, notiz "
+              + "LEFT JOIN datum ON datum.faelligkeitId = notiz.notizId" + notizId + " ORDER BY datum.faelligkeitsdatum ASC");
       
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
@@ -149,7 +149,7 @@ public class DatumMapper {
    * 
    */
   
-  public Vector<Datum> nachAllenDatumObjektenSuchen() {
+  public Vector<Datum> nachAllenDatumObjektenDesNutzerSuchen() {
     Connection con = DBConnection.connection();
 
     // Ergebnisvektor vorbereiten
@@ -290,5 +290,10 @@ public class DatumMapper {
   public Notiz getNotizId(Datum d) {
     return NotizMapper.notizMapper().nachFaelligkeitIdSuchen(d.getFaelligkeitId());
   }
+
+public Vector<Datum> nachAllenFaelligkeitenDerNotizSuchen(int id) {
+	// TODO Auto-generated method stub
+	return null;
+}
 
 }

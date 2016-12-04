@@ -20,5 +20,16 @@
   <welcome-file-list>
     <welcome-file>Notefox.html</welcome-file>
   </welcome-file-list>
+  
+   <!-- Servlets -->
+  <servlet>
+    <servlet-name>notizobjektadministration</servlet-name>
+    <servlet-class>de.hdm.notefox.server.NotizobjektAdministrationImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>notizobjektadministration</servlet-name>
+    <url-pattern>notefox/notizobjektadministration</url-pattern>
+  </servlet-mapping>
 
 </web-app>

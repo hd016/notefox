@@ -1,10 +1,11 @@
 package de.hdm.notefox.shared;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.hdm.notefox.shared.bo.Notiz;
 
-public class Notizquelle {
+public class Notizquelle implements Serializable {
 	
 	/**Variablen der Notizquelle
 	 */

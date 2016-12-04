@@ -1,8 +1,9 @@
 package de.hdm.notefox.shared;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Datum {
+public class Datum implements Serializable {
 	
 	/**Variablen der Klasse Datum.
 	 */
