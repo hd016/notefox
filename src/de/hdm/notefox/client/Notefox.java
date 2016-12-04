@@ -38,9 +38,6 @@ public class Notefox implements EntryPoint {
 	Button Nutzer = new Button("Nutzer");
 	Button Profil = new Button("Profil");
 	
-	Button neuesNotiz = new Button("Notiz Erstellen");
-	
-
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
@@ -73,7 +70,6 @@ public class Notefox implements EntryPoint {
 			NotizBuch.addStyleName("gwt-Green-Button");
 			Nutzer.addStyleName("gwt-Green-Button");
 			Profil.addStyleName("gwt-Green-Button");
-			neuesNotiz.addStyleName("gwt-Green-Button");
 			
 			// landscape1Btn.addClickHandler(new LS1ClickHandler());
 			
@@ -122,6 +118,8 @@ public class Notefox implements EntryPoint {
 			vPanel_inhalt.add(test);
 			vPanel_inhalt.add(celltree);
 
+			Button neuesNotiz = new Button("Notiz Erstellen");
+			
 			neuesNotiz.addClickHandler(new NeuesNotizClickHandler());
 			vPanel_inhalt.add(neuesNotiz);
 
@@ -160,7 +158,7 @@ public class Notefox implements EntryPoint {
 				@Override
 				public void onSuccess(Notiz result) {
 					vPanel_inhalt.clear();
-					NotizEditorPanel notizeditorpanel = new NotizEditorPanel(new Notiz());
+					NotizEditorPanel notizeditorpanel = new NotizEditorPanel(result);
 					vPanel_inhalt.add(notizeditorpanel);
 				}
 				

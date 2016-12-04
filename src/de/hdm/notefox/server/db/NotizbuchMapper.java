@@ -205,8 +205,11 @@ public class NotizbuchMapper {
         stmt = con.createStatement();
 
         // Hier erfolgt die entscheidende Einf�geoperation
-        stmt.executeUpdate("INSERT INTO notizbuch (id) " + "VALUES ("
-            + nb.getId() + "," + nb.getId() + ")");
+     
+        stmt.executeUpdate("INSERT INTO notizobjekt (id, subtitel, erstelldatum, modifikationsdatum, titel, inhalt, eigentuemer, typ) " + "VALUES ("
+                + nb.getId() + ", \"\", NOW(), NOW(), \"" + nb.getTitel()+"\", \"" + nb.getInhalt()+"\", "+nb.getEigentuemer().getNutzerId()+", \"NOTIZ\" )");
+        
+        
       }
     }
     catch (SQLException e2) {
@@ -232,8 +235,8 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notizbuch " + "SET id=\"" + nb.getId()
-          + "\" " + "WHERE id=" + nb.getId());
+      stmt.executeUpdate("UPDATE notizobjekt " + "SET id=\"" + nb.getId()
+              + "\", titel=\"" + nb.getTitel()+"\", inhalt=\"" + nb.getInhalt()+"\", modifikationsdatum=NOW() " + "WHERE id=" + nb.getId());
 
     }
     catch (SQLException e2) {

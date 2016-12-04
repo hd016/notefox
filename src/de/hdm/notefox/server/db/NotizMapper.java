@@ -316,7 +316,7 @@ public class NotizMapper {
 
     //Der h�chste Prim�rschl�sselwert wird �berpr�ft
       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-          + "FROM notiz ");
+          + "FROM notizobjekt ");
 
     //Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
@@ -324,10 +324,11 @@ public class NotizMapper {
         no.setId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
-
+        
      //Hier erfolgt die entscheidende Einf�geoperation
-        stmt.executeUpdate("INSERT INTO notiz (id) " + "VALUES ("
-            + no.getId() + ")");
+        stmt.executeUpdate("INSERT INTO notizobjekt (id, subtitel, erstelldatum, modifikationsdatum, titel, inhalt, eigentuemer, typ) " + "VALUES ("
+                + no.getId() + ", \"\", NOW(), NOW(), \""+no.getTitel()+"\", \""+no.getInhalt()+"\", "+no.getEigentuemer().getNutzerId()+", \"NOTIZ\" )");
+        
       }
     }
     catch (SQLException e2) {
@@ -352,8 +353,8 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notiz " + "SET id=\"" + no.getId()
-          + "\" " + "WHERE id=" + no.getId());
+      stmt.executeUpdate("UPDATE notizobjekt " + "SET id=\"" + no.getId()
+          + "\", titel=\""+no.getTitel()+"\", inhalt=\""+no.getInhalt()+"\", modifikationsdatum=NOW() " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {

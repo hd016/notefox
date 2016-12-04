@@ -116,7 +116,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
    * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
    * abgleicht.
    */
-  private NotizMapper noMapper = null;
+  private NotizMapper noMapper = NotizMapper.notizMapper();
   
   /**
    * Referenz auf den DatenbankMapper, der Notizbuchobjekte mit der Datenbank
@@ -392,6 +392,7 @@ public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
   @Override
 public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
     Notiz no = new Notiz();
+    no.setEigentuemer(n);
 
     /*
      * Setzen einer vorläufigen NotizId. Der anlegenNotiz-Aufruf liefert dann ein
