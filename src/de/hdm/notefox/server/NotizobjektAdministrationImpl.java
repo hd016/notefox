@@ -225,7 +225,7 @@ public Nutzer anlegenNutzer(int nutzerId, String name)
     n.setName(name);
 
     /*
-     * Setzen einer vorläufigen ButzerId Der anlegen-Aufruf liefert dann ein
+     * Setzen einer vorläufigen NutzerId Der anlegen-Aufruf liefert dann ein
      * Objekt, dessen Id mit der Datenbank konsistent ist.
      */
     n.setNutzerId(1);
@@ -248,8 +248,8 @@ public Vector<Nutzer> nachNutzerNamenSuchen(String name)
    * Auslesen eines Nutzers anhand seiner NutzerId.
    */
   @Override
-public Nutzer nachNutzerIdSuchen(int id) throws IllegalArgumentException {
-    return this.nuMapper.nachNutzerIdSuchen(id);
+public Nutzer nachNutzerIdSuchen(int nutzerId) throws IllegalArgumentException {
+    return this.nuMapper.nachNutzerIdSuchen(nutzerId);
   }
 
   /**
@@ -343,7 +343,7 @@ public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
    * Auslesen der Notiz mit einer bestimmten Id
    */
   @Override
-public Notiz nachNotizId(int id) throws IllegalArgumentException {
+public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
 	  return noMapper.nachNotizIdSuchen(id);
   }
 
@@ -360,7 +360,7 @@ public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
      * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des Nutzers aus der DB entfernt.
      */
     ArrayList<Notizquelle> notizquellen = this.nachAllenNotizquellenDesNutzersSuchen(no);
-    ArrayList<Datum> faelligkeiten = this.nachAllenFaelligkeitenDesNutzersSuchen(no);
+    ArrayList<Datum> faelligkeiten = this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
    
 
     if (notizquellen != null) {
@@ -436,12 +436,12 @@ public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
    * @throws IllegalArgumentException
    */
   @Override
-  public ArrayList<Datum> nachAllenFaelligkeitenDesNutzersSuchen(Notiz n)
+  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz n)
 	      throws IllegalArgumentException {
 	    ArrayList<Datum> result = new ArrayList<Datum>();
 
 	    if (n != null && this.dMapper != null) {
-	      Vector<Datum> faelligkeiten = this.dMapper.nachAllenFaelligkeitenDerNotizSuchen(n
+	      Vector<Datum> faelligkeiten = this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(n
 	          .getId());
 	      if (faelligkeiten != null) {
 	        result.addAll(faelligkeiten);
@@ -493,7 +493,7 @@ public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
    * Auslesen des Notizbuches mit einer bestimmten Id.
    */
   @Override
-public Notizbuch nachNotizbuchId(int id) throws IllegalArgumentException {
+public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
 	  return nbMapper.nachNotizbuchIdSuchen(id);
   }
 
@@ -535,7 +535,7 @@ public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException {
   @Override
 public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
     Notizbuch nb = new Notizbuch();
-    nb.setNotizbuchId(n.getNutzerId());
+    nb.setId(n.getNutzerId());
 
     /*
      * Setzen einer vorläufigen NotizbuchId. Der anlegenNotizbuch-Aufruf liefert dann ein

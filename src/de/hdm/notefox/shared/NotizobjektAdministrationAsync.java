@@ -17,7 +17,7 @@ public interface NotizobjektAdministrationAsync {
 
 void initialisieren(AsyncCallback<Void> callback);
 
-void anlegenNutzer(int id, String name, AsyncCallback<Nutzer> callback);
+void anlegenNutzer(int nutzerId, String name, AsyncCallback<Nutzer> callback);
 
 void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
 
@@ -29,7 +29,7 @@ void anlegenFaelligkeitFuer(Notiz no, AsyncCallback<Datum> callback);
 
 void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Notizquelle>> callback);
 
-void nachAllenFaelligkeitenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Datum>> callback);
+void nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no, AsyncCallback<ArrayList<Datum>> callback);
 
 void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<ArrayList<Notiz>> callback);
 
@@ -42,9 +42,9 @@ void nachAllenNotizenDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notiz>> cal
 
 void nachAllenNotizbuechernDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notizbuch>> callback);
 
-void nachNotizId(int id, AsyncCallback<Notiz> callback);
+void nachNotizIdSuchen(int id, AsyncCallback<Notiz> callback);
 
-void nachNotizbuchId(int id, AsyncCallback<Notizbuch> callback);
+void nachNotizbuchIdSuchen(int id, AsyncCallback<Notizbuch> callback);
 
 void nachNutzerNamenSuchen(String name, AsyncCallback<Vector<Nutzer>> callback);
 

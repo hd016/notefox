@@ -7,6 +7,11 @@ import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notizquelle implements Serializable {
 	
+	/**
+	 * Unique IDentifier
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**Variablen der Notizquelle
 	 */
 

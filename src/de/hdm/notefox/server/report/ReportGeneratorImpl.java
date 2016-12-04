@@ -21,8 +21,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     implements ReportGenerator {
 
   /**
-   * Zugriff auf die NotizobjektAdministration ist für den ReportGenerator notwendig,
-   * da diese die essentiellen Methoden für die Koexistenz von Datenobjekten bietet.
+   * Zugriff auf die NotizobjektAdministration ist fï¿½r den ReportGenerator notwendig,
+   * da diese die essentiellen Methoden fï¿½r die Koexistenz von Datenobjekten bietet.
    */
   private NotizobjektAdministration administration = null;
 
@@ -180,7 +180,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
       Row notizRow = new Row();
 
       // Erste Spalte: Kontonummer hinzufÃ¼gen
-      notizRow.addColumn(new Column(String.valueOf(no.getNotizId())));
+      notizRow.addColumn(new Column(String.valueOf(no.getId())));
 
       // und schlieÃŸlich die Zeile dem Report hinzufÃ¼gen.
       result.addRow(notizRow);
@@ -323,15 +323,15 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
       // Leere Zeile
       Row notizbuchRow = new Row();
 
-      // Erste Spalte: NotizbuchId hinzufügen.
-      notizbuchRow.addColumn(new Column(String.valueOf(nb.getNotizbuchId())));
+      // Erste Spalte: NotizbuchId hinzufï¿½gen.
+      notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));
 
-      // Dem Report die Zeile hinzufügen
+      // Dem Report die Zeile hinzufï¿½gen
       result.addRow(notizbuchRow);
     }
 
     /*
-     * Report zurückgeben
+     * Report zurï¿½ckgeben
      */
     return result;
   }
@@ -355,7 +355,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     // Reporttitel.
     result.setTitle("Alle Notizbuecher aller Nutzer");
 
-    // Hinzufügen des Impressums
+    // Hinzufï¿½gen des Impressums
     this.addImprint(result);
 
     /*
@@ -383,13 +383,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
     for (Nutzer n : alleNutzer) {
       /*
-       * Erstellen des Teil-Reports und hizufügen zum Gesamt-Report
+       * Erstellen des Teil-Reports und hizufï¿½gen zum Gesamt-Report
        */
       result.addSubReport(this.erstelleAlleNotizbuecherDesNutzersReport(n));
     }
 
     /*
-     * Report zurückgeben
+     * Report zurï¿½ckgeben
      */
     return result;
   }

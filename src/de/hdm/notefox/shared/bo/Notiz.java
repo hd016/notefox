@@ -11,7 +11,12 @@ public class Notiz extends Notizobjekt {
 
 	  /** Variablen der Notiz
 	   */
-	private int notizId;
+	
+	  /** Konstruktor
+	   */
+	public Notiz() {
+	}
+	
 
 	/**
 	 * Objekt der verbundenen Klasse Datum als Attribut deklariert
@@ -24,20 +29,5 @@ public class Notiz extends Notizobjekt {
 	 */
 	private Notizquelle notizquelle;
 
-	public Notiz() {
-	}
-	
-	  /** Auslesen und Setzen der Variablen
-	   */
-	public int getNotizId() {
-		return notizId;
-	}
-
-
-	public void setNotizId(int notizId) {
-		this.notizId = notizId;
-	}
-	
-	
 	
 }

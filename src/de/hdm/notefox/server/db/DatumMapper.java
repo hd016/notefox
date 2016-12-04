@@ -10,10 +10,10 @@ import de.hdm.notefox.shared.bo.*;
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
- * Unsere Mapper-Klassen erfüllen den Zweck unsere Objekte auf eine relationale Datenbank abzubilden. 
- * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
- * und speichern. Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
- * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.
+ * Unsere Mapper-Klassen erfï¿½llen den Zweck unsere Objekte auf eine relationale Datenbank abzubilden. 
+ * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, lï¿½schen, teilen 
+ * und speichern. Objekte kï¿½nnen auf diese Weise in Datenbankstrukturen umgewandelt werden. 
+ * Datenbankstrukturen kï¿½nnen umgekehrt auch in Objekte umgewandelt werden.
  * <p>
  * 
  * @see NotizMapper, NotizbuchMapper, NotizquelleMapper, NutzerMapper
@@ -103,15 +103,15 @@ public class DatumMapper {
 
   
   /**
-   * Auslesen aller Fälligkeiten eines durch FremdschlÃ¼ssel (NotizId) gegebener
+   * Auslesen aller Fï¿½lligkeiten eines durch FremdschlÃ¼ssel (Id) gegebener
    * Notiz.
    * 
-   * @param notizId SchlÃ¼ssel der zugehÃ¶rigen Notiz.
-   * @return Ein Vektor mit Datum-Objekten, die sÃ¤mtliche Fälligkeiten der
+   * @param Id SchlÃ¼ssel der zugehÃ¶rigen Notiz.
+   * @return Ein Vektor mit Datum-Objekten, die sÃ¤mtliche Fï¿½lligkeiten der
    *         betreffenden Notiz reprÃ¤sentieren. Bei evtl. Exceptions wird ein
    *         partiell gefÃ¼llter oder ggf. auch leerer Vetor zurÃ¼ckgeliefert.
    */
-  public Vector<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(int notizId) {
+  public Vector<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(int id) {
     Connection con = DBConnection.connection();
     Vector<Datum> result = new Vector<Datum>();
 
@@ -119,13 +119,13 @@ public class DatumMapper {
       Statement stmt = con.createStatement();
 
       ResultSet rs = stmt
-          .executeQuery("SELECT nutzer.nutzerId, notiz.notizId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, notiz "
-              + "LEFT JOIN datum ON datum.faelligkeitId = notiz.notizId" + notizId + " ORDER BY datum.faelligkeitsdatum ASC");
+          .executeQuery("SELECT nutzer.id, notiz.id, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, notiz "
+              + "LEFT JOIN datum ON datum.faelligkeitId = notiz.id" + id + " ORDER BY datum.faelligkeitsdatum ASC");
       
       // FÃ¼r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
         Datum d = new Datum();
-//      d.setNotizId(rs.getInt("notizId")); --> muss noch geklärt werden!
+//      d.setId(rs.getInt("Id")); --> muss noch geklï¿½rt werden!
         d.setFaelligkeitId(rs.getInt("faelligkeitId"));
         d.setStatus(rs.getBoolean("status"));
         d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
@@ -161,7 +161,7 @@ public class DatumMapper {
       ResultSet rs = stmt.executeQuery("SELECT faelligkeitID" + "FROM datum "
           + " ORDER BY faelligkeitID");
 
-      // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
+      // Fï¿½r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
     	  Datum d = new Datum();
         d.setFaelligkeitId(rs.getInt("FaelligkeitID"));
@@ -190,22 +190,22 @@ public class DatumMapper {
       Statement stmt = con.createStatement();
 
       /*
-       *  Der höchste Primärschlüsselwert wird überprüft
+       *  Der hï¿½chste Primï¿½rschlï¿½sselwert wird ï¿½berprï¿½ft
        */
       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
           + "FROM datum ");
 
-      // Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
+      // Sollte etwas zurï¿½ckgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
     	   /*
-           * a erhält den bisher maximalen, nun um 1 inkrementierten
-           * Primärschlüssel.
+           * a erhï¿½lt den bisher maximalen, nun um 1 inkrementierten
+           * Primï¿½rschlï¿½ssel.
            */
         d.setFaelligkeitId(rs.getInt("maxid") + 1);
 
         stmt = con.createStatement();
 
-        // Hier erfolgt die entscheidende Einfügeoperation
+        // Hier erfolgt die entscheidende Einfï¿½geoperation
         stmt.executeUpdate("INSERT INTO datum (faelligkeitId, status, faelligkeitsdatum) " + "VALUES ("
         	+ "," + d.getFaelligkeitId() + d.isStatus() + d.getFaelligkeitsdatum() + ")");
       }
@@ -215,10 +215,10 @@ public class DatumMapper {
     }
 
     /*
-     * Sollte es korrigierte Daten geben, so werden diese zurückgegeben
+     * Sollte es korrigierte Daten geben, so werden diese zurï¿½ckgegeben
      * 
-     * So besteht die Möglichkeit anzudeuten, ob sich ein Objekt verändert hat, 
-     * während die Methode ausgeführt wurde
+     * So besteht die Mï¿½glichkeit anzudeuten, ob sich ein Objekt verï¿½ndert hat, 
+     * wï¿½hrend die Methode ausgefï¿½hrt wurde
      */
     return d;
   }
@@ -241,7 +241,7 @@ public class DatumMapper {
       e2.printStackTrace();
     }
 
-    // Um Analogie zu anlegenDatum(Datum d) zu wahren, geben wir d zurück
+    // Um Analogie zu anlegenDatum(Datum d) zu wahren, geben wir d zurï¿½ck
     return d;
   }
 
@@ -265,8 +265,8 @@ public class DatumMapper {
   }
 
   /**
-   *Löschen sämtlicher Datum-Objekte eines Nutzers 
-   *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelöscht wird)
+   *Lï¿½schen sï¿½mtlicher Datum-Objekte eines Nutzers 
+   *(sollte dann aufgerufen werden, bevor ein Nutzer-Objekt gelï¿½scht wird)
    */
   public void loeschenDatumVon(Nutzer n) {
     Connection con = DBConnection.connection();
@@ -274,7 +274,7 @@ public class DatumMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM datum " + "WHERE nutzerId=" + n.getNutzerId());
+      stmt.executeUpdate("DELETE FROM datum " + "WHERE id=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
@@ -284,16 +284,12 @@ public class DatumMapper {
   
   
   /**
-   * Auslesen des zugehörigen Notiz-Objekts zu einem gegebenen
+   * Auslesen des zugehï¿½rigen Notiz-Objekts zu einem gegebenen
    * Datum.
    */
-  public Notiz getNotizId(Datum d) {
+  public Notiz getId(Datum d) {
     return NotizMapper.notizMapper().nachFaelligkeitIdSuchen(d.getFaelligkeitId());
   }
 
-public Vector<Datum> nachAllenFaelligkeitenDerNotizSuchen(int id) {
-	// TODO Auto-generated method stub
-	return null;
-}
 
 }

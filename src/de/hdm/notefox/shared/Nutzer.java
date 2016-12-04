@@ -8,10 +8,14 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 public class Nutzer implements Serializable {
 
   /**
+	 * Unique IDentifier
+	 */
+	private static final long serialVersionUID = 1L;
+/**
    * Variablen des Nutzers.
   */
 
-private int nutzerid;
+private int nutzerId;
 private String name = "";
 
 /**
@@ -23,11 +27,11 @@ private ArrayList<Notizobjekt> notizobjektliste = new ArrayList <Notizobjekt>();
 /**Auslesen und Setzen der Variablen
  */
   public int getNutzerId() {
-    return this.nutzerid;
+    return this.nutzerId;
   }
 
   public void setNutzerId(int nutzerid) {
-    this.nutzerid = nutzerid;
+    this.nutzerId = nutzerid;
   }
 
   public String getName() {

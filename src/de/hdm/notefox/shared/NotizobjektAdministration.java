@@ -24,7 +24,7 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Einen Nutzer anlegen.
    */
-  public Nutzer anlegenNutzer(int id, String name) throws IllegalArgumentException;
+  public Nutzer anlegenNutzer(int nutzerId, String name) throws IllegalArgumentException;
 
   /**
    * Eine neue Notiz f�r einen gegebenen Nutzer anlegen.
@@ -69,7 +69,7 @@ public interface NotizobjektAdministration extends RemoteService {
    * @return eine Liste aller Faelligkeiten
    * @throws IllegalArgumentException
    */
-  public ArrayList<Datum> nachAllenFaelligkeitenDesNutzersSuchen(Notiz no)
+  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
       throws IllegalArgumentException;
   
   /**
@@ -108,12 +108,12 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Suchen eines Notiz-Objekts mit gegebener NotizId.
    */
-  public Notiz nachNotizId(int id) throws IllegalArgumentException;
+  public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException;
   
   /**
    * Suchen eines Notizbuch-Objekts mit gegebener NotizbuchId.
    */
-  public Notizbuch nachNotizbuchId(int id) throws IllegalArgumentException;
+  public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException;
 
   /**
    * Suchen eines Nutzer-Objekts mit gegebenem Namen.
