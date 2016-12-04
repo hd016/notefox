@@ -2,6 +2,9 @@ package de.hdm.notefox.shared;
 
 public class Berechtigung {
 	
+	public static enum Berechtigungsart{
+		LESEN, EDITIEREN
+	}
 
 
 	  /**
@@ -9,7 +12,7 @@ public class Berechtigung {
 	  */
 
 	private int berechtigungId;
-	private String berechtigungName = "";
+	private Berechtigungsart berechtigungName;
 	
 
 	  
@@ -24,11 +27,11 @@ public class Berechtigung {
 		this.berechtigungId = berechtigungId;
 	}
 	
-	public String getBerechtigungName() {
+	public Berechtigungsart getBerechtigungName() {
 		return berechtigungName;
 	}
 	
-	public void setBerechtigungName(String berechtigungName) {
+	public void setBerechtigungName(Berechtigungsart berechtigungName) {
 		this.berechtigungName = berechtigungName;
 	}
 

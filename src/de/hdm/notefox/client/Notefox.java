@@ -9,12 +9,11 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
+import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 
 public class Notefox implements EntryPoint {
 
-	
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
 	Button loeschen = new Button("Löschen");
@@ -24,38 +23,35 @@ public class Notefox implements EntryPoint {
 	Label test = new Label("Notizbuch Klick erfolgreich!");
 	Label test_nutzer = new Label("Nutzer Klick erfolgreich!");
 
-	
 	VerticalPanel vPanel = new VerticalPanel();
 	Button NotizBuch = new Button("Notizbuch");
 	Button Nutzer = new Button("Nutzer");
 	Button Profil = new Button("Profil");
 
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
+	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
-
-	
-	
 	@Override
 	public void onModuleLoad() {
-		
-			vPanel.add(NotizBuch);
-			vPanel.add(Nutzer);
-			vPanel.add(Profil);
-			NotizBuch.addStyleName("gwt-Green-Button");
-			Nutzer.addStyleName("gwt-Green-Button");
-			Profil.addStyleName("gwt-Green-Button");
-			
-			// landscape1Btn.addClickHandler(new LS1ClickHandler());
-			
-			NotizBuch.addClickHandler(new CellTreeClickHandler());
-			Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
-			
-			RootPanel.get("gwtContainer").add(vPanel);
-			
-			
-		
+
+		vPanel.add(NotizBuch);
+		vPanel.add(Nutzer);
+		vPanel.add(Profil);
+		NotizBuch.addStyleName("gwt-Green-Button");
+		Nutzer.addStyleName("gwt-Green-Button");
+		Profil.addStyleName("gwt-Green-Button");
+
+		// landscape1Btn.addClickHandler(new LS1ClickHandler());
+
+		NotizBuch.addClickHandler(new CellTreeClickHandler());
+		Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
+
+		RootPanel.get("gwtContainer").add(vPanel);
+	
+
 	}
-	private class CellTreeClickHandler implements ClickHandler{
+
+	private class CellTreeClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
@@ -63,32 +59,25 @@ public class Notefox implements EntryPoint {
 			vPanel_inhalt.addStyleName("vPanel");
 			vPanel_inhalt.add(test);
 			vPanel_inhalt.add(celltree);
+			
 			RootPanel.get("text").add(vPanel_inhalt);
+			RootPanel.get("text").add(vPanel_inhalt);
+			
 
-			
-			
 		}
 
-	
-	
-		
 	}
-	private class CellTreeClickHandler_Nutzer implements ClickHandler{
+
+	private class CellTreeClickHandler_Nutzer implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
-				vPanel_inhalt.clear();
-				vPanel_inhalt.add(test_nutzer);
-			
+			vPanel_inhalt.clear();
+			vPanel_inhalt.add(celltree2);
+			vPanel_inhalt.add(test_nutzer);
+
 		}
-		
-		
+
 	}
-	
-	
+
 }
-	
- 
-
-
-
