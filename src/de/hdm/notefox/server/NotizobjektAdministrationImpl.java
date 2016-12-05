@@ -344,7 +344,7 @@ public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
    */
   @Override
 public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-	  return noMapper.nachNotizIdSuchen(id);
+	  return noMapper.nachNotizTitelSuchen(id);
   }
 
   /**
