@@ -77,8 +77,8 @@ public class DatumMapper {
     	Statement stmt = con.createStatement();
 
     	// Statement ausfuellen und als Query an die DB schicken
-    	ResultSet rs = stmt.executeQuery("SELECT * FROM datum " + "LEFT JOIN notizobjekt ON datum.faelligkeitId = notizobjekt.id"
-          + " ORDER BY datum.faelligkeitsdatum ASC");
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM nutzer " + "LEFT JOIN datum ON datum.faelligkeitId = nutzer.nutzerId"
+          + " ORDER BY faelligkeitsdatum ASC");
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben

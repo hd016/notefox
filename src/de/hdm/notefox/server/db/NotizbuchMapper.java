@@ -65,10 +65,10 @@ public class NotizbuchMapper {
   }
 
   /**
-   * Notizbuch nach NotizbuchId suchen.   
+   * Notizbuch nach NotizbuchTitel suchen.   
    * Als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notizbuch nachNotizbuchIdSuchen(int id) {
+  public Notizbuch nachNotizbuchTitelSuchen(int id) {
 	// DB-Verbindung holen
     Connection con = DBConnection.connection();
 
@@ -77,7 +77,7 @@ public class NotizbuchMapper {
     Statement stmt = con.createStatement();
 
     // Statement ausfuellen und als Query an die DB schicken
-     ResultSet rs = stmt.executeQuery("SELECT id FROM notizbuch "
+     ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel FROM notizobjekt"
           + "WHERE id=" + id + " ORDER BY id");
 
      /*
@@ -88,6 +88,8 @@ public class NotizbuchMapper {
     	  // Ergebnis-Tupel in Objekt umwandeln
     	  Notizbuch nb = new Notizbuch();
     	  nb.setId(rs.getInt("id"));
+    	  nb.setTitel(rs.getString("titel"));
+    	  nb.setSubtitel(rs.getString("subtitel"));
     	  return nb;
       }
     }
@@ -112,13 +114,15 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id" + "FROM notizbuch "
+      ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel FROM notizobjekt "
           + " ORDER BY id");
 
       // F�r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
     	  nb.setId(rs.getInt("id"));
+    	  nb.setTitel(rs.getString("titel"));
+    	  nb.setSubtitel(rs.getString("subtitel"));
    
 
     	// Hinzufuegen des neuen Objekts zum Ergebnisvektor
@@ -137,22 +141,23 @@ public class NotizbuchMapper {
    * Auslesen aller Notizb�cher eines durch Fremdschl�ssel (NutzerId) gegebenen
    * Nutzern.
    */
-  public Vector<Notizbuch> nachEigentuemerSuchen(int id) {
+  public Vector<Notizbuch> nachEigentuemerDerNotizbuchSuchen(int id) { //TODO
     Connection con = DBConnection.connection();
     Vector<Notizbuch> result = new Vector<Notizbuch>();
 
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT notizbuch.id, notizobjekt.eigentuermer"
-    	+ "FROM notizbuch, notizobjekt"
-        + "WHERE id" + id + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id, notizobjekt.titel, notizobjekt.subtitel, nutzer.nutzerId, nutzer.name FROM nutzer, notizobjekt "
+              + "WHERE nutzerId=" + id + " ORDER BY notizobjekt.id");
       
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
       // erstellt.
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
-        nb.setId(rs.getInt("id"));
+    	  nb.setId(rs.getInt("id"));
+    	  nb.setTitel(rs.getString("titel"));
+    	  nb.setSubtitel(rs.getString("subtitel"));
 
         // Hinzuf�gen des neuen Objekts zum Ergebnisvektor
         result.addElement(nb);
@@ -175,7 +180,7 @@ public class NotizbuchMapper {
      * Wir lesen einfach die NutzerId (Primärschlüssel) des Nutzer-Objekts
      * aus und delegieren die weitere Bearbeitung an nachEigentuemerSuchen(eigentuemer.getNutzerId()).
      */
-    return nachEigentuemerSuchen(eigentuemer.getNutzerId());
+    return nachEigentuemerDerNotizbuchSuchen(eigentuemer.getNutzerId());
   }
 
   /**
@@ -192,7 +197,7 @@ public class NotizbuchMapper {
        * Der h�chste Prim�rschl�sselwert wird �berpr�ft
        */
       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-          + "FROM notizbuch ");
+          + "FROM notizobjekt ");
 
       // Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
@@ -258,7 +263,7 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE id=" + nb.getId());
+      stmt.executeUpdate("DELETE FROM notizobjekt " + "WHERE id=" + nb.getId());
 
     }
     catch (SQLException e2) {
@@ -276,7 +281,7 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizbuch " + "WHERE nutzerId=" + n.getNutzerId());
+      stmt.executeUpdate("DELETE FROM notizobjekt " + "WHERE nutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
