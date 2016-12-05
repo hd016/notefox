@@ -495,7 +495,7 @@ public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
    */
   @Override
 public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-	  return nbMapper.nachNotizbuchIdSuchen(id);
+	  return nbMapper.nachNotizbuchTitelSuchen(id);
   }
 
   /**
