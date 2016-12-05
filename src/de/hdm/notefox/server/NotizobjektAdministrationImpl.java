@@ -327,7 +327,7 @@ public void loeschenNutzer(Nutzer n) throws IllegalArgumentException {
    */
   @Override
 public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
-    return this.noMapper.nachAllenNotizenSuchen();
+    return this.noMapper.nachAllenNotizenDesNutzerSuchen();
   }
 
   /**
