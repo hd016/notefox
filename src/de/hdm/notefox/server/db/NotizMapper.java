@@ -91,7 +91,7 @@ public class NotizMapper {
    * Notiz nach NotizquelleId suchen.   * 
    * als return: Notiz-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notiz nachNotizquelleSuchen(int id) {
+  public Notiz nachNotizquelleDerNotizSuchen(int id) {
 	// Es wird eine DB-Verbindung angeschafft 
     Connection con = DBConnection.connection();
 
@@ -260,7 +260,7 @@ public class NotizMapper {
    * Auslesen aller Notizen eines durch Fremdschl�ssel (NutzerId) gegebenen //TODO
    * Nutzern.
    */
-  public Vector<Notiz> nachEigentuemerSuchen(int id) {
+  public Vector<Notiz> nachEigentuemerDerNotizSuchen(int id) {
     Connection con = DBConnection.connection();
     Vector<Notiz> result = new Vector<Notiz>();
 
@@ -301,7 +301,7 @@ public class NotizMapper {
 
     //Die Id des Notiz Objekts wird ausgelesen, und die Methode ist f�r die weitere Bearbeitung zust�ndig.
      
-    return nachEigentuemerSuchen(eigentuemer.getNutzerId());
+    return nachEigentuemerDerNotizSuchen(eigentuemer.getNutzerId());
   }
 
   /**
