@@ -59,8 +59,8 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgefuellt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id,  FROM notizobjekt "
-          + "WHERE id=" + id + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel  FROM notizobjekt "
+          + "WHERE id=" + id + " ORDER BY id ASC");
 
    /*
     * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis vorliegt. 
@@ -100,8 +100,8 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgef�llt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT notizquelleId FROM notizquelle "
-          + "WHERE notizquelleId=" + id + " ORDER BY notizquelleId");
+      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id ,notizobjekt.titel, notizquelle.notizquelleId, notizquelle.notizquelleName, notizquelle.url FROM notizobjekt, notizquelle "
+          + "WHERE notizquelleId=" + id + " ORDER BY notizquelle.notizquelleId ASC");
 
       /*
        * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis vorliegt. 
@@ -141,8 +141,8 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgef�llt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT notizquelleId FROM notizquelle "
-          + "WHERE notizquelleId=" + id + " ORDER BY notizquelleId");
+      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id, datum.faelligkeitsId, datum.status, datum.faelligkeitsdatum FROM notizobjekt, datum "
+          + "WHERE faelligkeitId=" + id + " ORDER BY datum.faelligkeitId ASC");
 
       /*
        * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis vorliegt. 
@@ -176,7 +176,7 @@ public class NotizMapper {
    * 
    */
   
-  public Vector<Notiz> nachAllenNotizenSuchen() {
+  public Vector<Notiz> nachAllenNotizenDesNutzerSuchen() {
     Connection con = DBConnection.connection();
 
   //Der Vektor der das Ergebnis bereitstellen soll wird vorbereitet
@@ -185,8 +185,8 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id" + "FROM notiz "
-          + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT nutzer.nutzerId, nutzer.name, notizobjekt.id, notizobjekt.titel, notizobjekt.subtitel" + "FROM nutzer, notizobjekt "
+          + " ORDER BY nutzer.nutzerId");
 
    // Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
@@ -221,7 +221,7 @@ public class NotizMapper {
    *         betreffenden Notizbuches repräsentieren. Bei evtl. Exceptions wird ein
    *         partiell gefüllter oder ggf. auch leerer Vetor zurückgeliefert.
    */
-  public Vector<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int id) {
+  public Vector<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int id) {//TODO
     Connection con = DBConnection.connection();
     Vector<Notiz> result = new Vector<Notiz>();
 
@@ -267,8 +267,8 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT id, owner FROM notiz "
-          + "WHERE owner=" + id + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id, notizobjekt.titel, notizobjekt.subtitel, nutzer.nutzerId, nutzer.name FROM nutzer, notizobjekt "
+          + "WHERE nutzerId=" + id + " ORDER BY notizobjekt.id");
 
    // Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
@@ -374,7 +374,7 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notiz " + "WHERE id=" + no.getId());
+      stmt.executeUpdate("DELETE FROM notizobjekt " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {
