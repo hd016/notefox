@@ -58,21 +58,7 @@ body {
 	background-color: #FFFFFF;
 	height: 9vw;
 	width: 72vw;
-	
-=======
-/* Webseite notefox (2016)
-Author: Neriman Kocak & Harun Dalici
-		Package: client.gui & war
-		*/
-		
-/* 
-Initialisierung
-*/
 
-* {
-	padding: 0vw;
-	margin: 0vw;
-	border: 0vw;
 }
 
 #logobox {
@@ -85,8 +71,8 @@ Initialisierung
 
 .logo {
 	margin: 0.5vw;
-	max-width: auto;
-	max-height: 12vw;
+	max-width: 21vw;
+	max-height: auto;
 }
 
 	#leftmenu {
@@ -238,7 +224,7 @@ body {
 #text {
 	border-radius: 0.5vw;
 	background-color: #FFFFFF;
-	width: 52vw;
+	width: 74vw;
 	min-height: 51vw;
 	float: left;
 	margin-top: 1vw;
@@ -300,8 +286,17 @@ h5 {
   
 }
 
-.gwt-Blue-Button {
-	color: blue;
+.gwt-Green-Button-big {
+   color: #008cc6;   
+   margin: 0;
+   margin-bottom: 1vw;
+   margin-right: 1vw;
+   margin-top: 1vw;
+   width: 10.2vw;
+   height: 5vw;
+   position: inherit;
+   font-size: 1vw;
+   border-radius: 0.9vw;
 }
 
 .main {
@@ -318,4 +313,13 @@ h1 {
 .vPanel {
 	
 	width: 50vw;
+}
+
+.textarea {
+	border-style: outset;
+	width: 73vw;
+	height: 35vw;
+	border-width: 0.5vw;
+	border-color: #008cc6;
+	
 }
