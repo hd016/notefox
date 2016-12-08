@@ -118,8 +118,8 @@ public class DatumMapper {
     try {
       Statement stmt = con.createStatement();
 
-  	ResultSet rs = stmt.executeQuery("SELECT * FROM datum " + "LEFT JOIN notizobjekt ON datum.faelligkeitId = notizobjekt.id"
-            + " ORDER BY datum.faelligkeitsdatum ASC");
+  	ResultSet rs = stmt.executeQuery("SELECT datum*, notiz.titel, nutzer.email FROM datum, notiz, nutzer" + ""
+            + " ORDER BY nutzer.email ASC");
       
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
@@ -164,6 +164,8 @@ public class DatumMapper {
       while (rs.next()) {
     	  Datum d = new Datum();
         d.setFaelligkeitId(rs.getInt("FaelligkeitID"));
+        d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
    
 
         // Hinzufuegen des neuen Objekts zum Ergebnisvektor

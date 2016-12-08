@@ -59,7 +59,7 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgefuellt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel  FROM notizobjekt "
+      ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel  FROM notiz "
           + "WHERE id=" + id + " ORDER BY id ASC");
 
    /*
@@ -70,13 +70,14 @@ public class NotizMapper {
     	//Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
-          no.setEigentuemer(null); // TODO
-          no.setErstelldatum(rs.getDate("erstelldatum"));
-          no.setInhalt(rs.getString("inhalt"));
-          no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-          no.setSubtitel(rs.getString("subtitel"));
-          no.setTitel(rs.getString("titel"));
-        return no;
+    	  no.setSubtitel(rs.getString("subtitel"));
+    	  no.setTitel(rs.getString("titel"));
+    	  return no;
+//          no.setEigentuemer(null); // TODO
+//          no.setErstelldatum(rs.getDate("erstelldatum"));
+//          no.setInhalt(rs.getString("inhalt"));
+//          no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+
       }
     }
     catch (SQLException e2) {
@@ -100,7 +101,7 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgef�llt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id ,notizobjekt.titel, notizquelle.notizquelleId, notizquelle.notizquelleName, notizquelle.url FROM notizobjekt, notizquelle "
+      ResultSet rs = stmt.executeQuery("SELECT notiz.id, notiz.eigentuemer, notiz.titel, notizquelle.notizquelleId, notizquelle.notizquelleName, notizquelle.url FROM notiz, notizquelle "
           + "WHERE notizquelleId=" + id + " ORDER BY notizquelle.notizquelleId ASC");
 
       /*
@@ -111,7 +112,7 @@ public class NotizMapper {
     //Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(null); // TODO
+        no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -141,7 +142,7 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
    // Das Statement wird ausgef�llt und an die Datebank verschickt
-      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id, datum.faelligkeitsId, datum.status, datum.faelligkeitsdatum FROM notizobjekt, datum "
+      ResultSet rs = stmt.executeQuery("SELECT notiz.id, datum.faelligkeitsId, datum.status, datum.faelligkeitsdatum FROM notiz, datum "
           + "WHERE faelligkeitId=" + id + " ORDER BY datum.faelligkeitId ASC");
 
       /*
@@ -152,7 +153,7 @@ public class NotizMapper {
     //Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(null); // TODO
+        no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -185,14 +186,14 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT nutzer.nutzerId, nutzer.name, notizobjekt.id, notizobjekt.titel, notizobjekt.subtitel" + "FROM nutzer, notizobjekt "
+      ResultSet rs = stmt.executeQuery("SELECT nutzer.nutzerId, nutzer.name, notiz.id, notiz.titel, notiz.subtitel" + "FROM nutzer, notiz "
           + " ORDER BY nutzer.nutzerId");
 
    // Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
-          no.setEigentuemer(null); // TODO
+          no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -230,14 +231,14 @@ public class NotizMapper {
 
       ResultSet rs = stmt
           .executeQuery("SELECT id, eigentuemer, erstelldatum, inhalt, modifikationsdatum,"
-          		+ " subtitel, titel FROM notizen "
+          		+ " subtitel, titel FROM notiz "
               + "WHERE id=" + id + " ORDER BY id");
 
       // Für jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt erstellt.
       while (rs.next()) {
         Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(null);// TODO
+        no.setEigentuemer(rs.getNutzer("eigentuemer"));// TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -267,14 +268,14 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT notizobjekt.id, notizobjekt.titel, notizobjekt.subtitel, nutzer.nutzerId, nutzer.name FROM nutzer, notizobjekt "
-          + "WHERE nutzerId=" + id + " ORDER BY notizobjekt.id");
+      ResultSet rs = stmt.executeQuery("SELECT notiz.id, notiz.titel, notiz.subtitel, nutzer.nutzerId, nutzer.name FROM nutzer, notiz "
+          + "WHERE nutzerId=" + id + " ORDER BY notiz.id");
 
    // Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene ein Notiz Objekt erstellt
       while (rs.next()) {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
-          no.setEigentuemer(null); // TODO
+          no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -316,7 +317,7 @@ public class NotizMapper {
 
     //Der h�chste Prim�rschl�sselwert wird �berpr�ft
       ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-          + "FROM notizobjekt ");
+          + "FROM notiz ");
 
     //Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig sein
       if (rs.next()) {
@@ -326,8 +327,9 @@ public class NotizMapper {
         stmt = con.createStatement();
         
      //Hier erfolgt die entscheidende Einf�geoperation
-        stmt.executeUpdate("INSERT INTO notiz (notiz.id, notizobjekt.subtitel, notizobjekt.erstelldatum, notizobjekt.modifikationsdatum, notizobjekt.titel, notiz.inhalt, notizobjekt.eigentuemer, notizobjekt.typ) " + "VALUES ("
+        stmt.executeUpdate("INSERT INTO notiz (notiz.id, notiz.subtitel, notiz.erstelldatum, notiz.modifikationsdatum, notiz.titel, notiz.inhalt, notiz.eigentuemer, notiz.typ) " + "VALUES ("
                 + no.getId() + ", \"\", NOW(), NOW(), \""+no.getTitel()+"\", \""+no.getInhalt()+"\", "+no.getEigentuemer().getNutzerId()+", \"NOTIZ\" )");
+             
         
       }
     }
@@ -354,7 +356,7 @@ public class NotizMapper {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE notiz " + "SET notiz.id=\"" + no.getId()
-          + "\", notizobjekt.titel=\""+no.getTitel()+"\", notiz.inhalt=\""+no.getInhalt()+"\", notizobjekt.modifikationsdatum=NOW() " + "WHERE notiz.id=" + no.getId());
+          + "\", notiz.titel=\""+no.getTitel()+"\", notiz.inhalt=\""+no.getInhalt()+"\", notiz.modifikationsdatum=NOW() " + "WHERE notiz.id=" + no.getId());
 
     }
     catch (SQLException e2) {
@@ -374,7 +376,7 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizobjekt " + "WHERE id=" + no.getId());
+      stmt.executeUpdate("DELETE FROM notiz " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {
@@ -392,7 +394,7 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("DELETE FROM notizobjekt " + "WHERE nutzerId=" + n.getNutzerId());
+      stmt.executeUpdate("DELETE FROM notiz " + "WHERE nutzerId=" + n.getNutzerId());
 
     }
     catch (SQLException e2) {
