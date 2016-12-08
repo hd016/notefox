@@ -238,10 +238,10 @@ public Nutzer anlegenNutzer(int nutzerId, String email)
    * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
    */
   @Override
-public Vector<Nutzer> nachNutzerNamenSuchen(String name)
+public Vector<Nutzer> nachNutzerEmailSuchen(String email)
       throws IllegalArgumentException {
 
-    return this.nuMapper.nachNutzerNamenSuchen(name);
+    return this.nuMapper.nachNutzerEmailSuchen(email);
   }
 
   /**

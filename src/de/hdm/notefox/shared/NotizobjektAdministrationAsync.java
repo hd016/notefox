@@ -49,7 +49,7 @@ void nachNotizIdSuchen(int id, AsyncCallback<Notiz> callback);
 
 void nachNotizbuchIdSuchen(int id, AsyncCallback<Notizbuch> callback);
 
-void nachNutzerNamenSuchen(String name, AsyncCallback<Vector<Nutzer>> callback);
+void nachNutzerEmailSuchen(String email, AsyncCallback<Vector<Nutzer>> callback);
 
 void nachNutzerIdSuchen(int nutzerid, AsyncCallback<Nutzer> callback);
 
