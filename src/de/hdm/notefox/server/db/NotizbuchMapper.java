@@ -121,7 +121,7 @@ public class NotizbuchMapper {
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
     	  nb.setId(rs.getInt("id"));
-    	  nb.setId(rs.getNutzer("eigentuemer"));
+          nb.setEigentuemer(null); //TODO
     	  nb.setTitel(rs.getString("titel"));
     	  nb.setSubtitel(rs.getString("subtitel"));
     	  nb.setErstelldatum(rs.getDate("erstelldatum"));
@@ -159,7 +159,7 @@ public class NotizbuchMapper {
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
     	  nb.setId(rs.getInt("id"));
-    	  nb.setId(rs.getNutzer("eigentuemer"));
+          nb.setEigentuemer(null); //TODO
     	  nb.setTitel(rs.getString("titel"));
     	  nb.setSubtitel(rs.getString("subtitel"));
 
