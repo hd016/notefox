@@ -4,6 +4,7 @@ import java.util.Date;
 
 import de.hdm.notefox.shared.Datum;
 import de.hdm.notefox.shared.Notizquelle;
+import de.hdm.notefox.shared.Nutzer;
 
 public class Notiz extends BusinessObject {
 
@@ -13,7 +14,7 @@ public class Notiz extends BusinessObject {
 
 	  /** Variablen der Notiz
 	   */
-	private int eigentuemerId;
+	private Nutzer eigentuemer;
 	
 	private String titel;
 
@@ -46,13 +47,13 @@ public class Notiz extends BusinessObject {
 	/** Setzen und Auslesen der Variablen
 	 */
 
-	public int getEigentuemerId() {
-		return eigentuemerId;
+	public Nutzer getEigentuemer() {
+		return eigentuemer;
 	}
 
 
-	public void setEigentuemerId(int eigentuemerId) {
-		this.eigentuemerId = eigentuemerId;
+	public void setEigentuemer(Nutzer eigentuemer) {
+		this.eigentuemer = eigentuemer;
 	}
 
 
@@ -94,6 +95,26 @@ public class Notiz extends BusinessObject {
 
 	public void setModifikationsdatum(Date modifikationsdatum) {
 		this.modifikationsdatum = modifikationsdatum;
+	}
+
+
+	public Datum getDatum() {
+		return datum;
+	}
+
+
+	public void setDatum(Datum datum) {
+		this.datum = datum;
+	}
+
+
+	public Notizquelle getNotizquelle() {
+		return notizquelle;
+	}
+
+
+	public void setNotizquelle(Notizquelle notizquelle) {
+		this.notizquelle = notizquelle;
 	}
 
 	

@@ -8,7 +8,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
-import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
  * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle f�r eine RPC-f�hige Klasse.
@@ -87,11 +86,15 @@ public interface NotizobjektAdministration extends RemoteService {
   
 
   /**
-   * Auslesen und Setzen der zugeordneten Notizobjekte.
+   * Auslesen und Setzen der zugeordneten Notizen und Notzibuecher.
    */
-  public Notizobjekt getNotizobjekt() throws IllegalArgumentException;
+  public Notiz getNotiz() throws IllegalArgumentException;
   
-  public void setNotizobjekt(Notizobjekt nobj) throws IllegalArgumentException;
+  public void setNotiz(Notiz no) throws IllegalArgumentException;
+  
+  public Notizbuch getNotizbuch() throws IllegalArgumentException;
+  
+  public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Alle Notizen eines Nutzers auslesen.

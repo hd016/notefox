@@ -87,7 +87,7 @@ public class Notefox implements EntryPoint {
 				@Override
 				public void onClick(ClickEvent event) {
 					Nutzer nutzer = new Nutzer();
-					nutzer.setName("Testuser");
+					nutzer.setEmail("Testuser");
 					
 					administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
 						
@@ -151,7 +151,7 @@ public class Notefox implements EntryPoint {
 		public void onClick(ClickEvent event) {
 			de.hdm.notefox.shared.Nutzer nutzer = new Nutzer();
 			nutzer.setNutzerId(2000);
-			nutzer.setName("Mansur");
+			nutzer.setEmail("Mansur@gmail.com");
 			
 			administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
 				
