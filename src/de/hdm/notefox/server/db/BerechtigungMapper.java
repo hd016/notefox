@@ -89,7 +89,7 @@ public class BerechtigungMapper {
 	    	//Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
 	    	  Berechtigung be = new Berechtigung();
 	    	  be.setBerechtigungId(rs.getInt("berechtigungId"));
-	    	  be.setBerechtigungName(rs.getString("berechtigungName"));
+	    	//  be.setBerechtigungName(rs.getString("berechtigungName"));
 	    	  
 	    	  //TODO
 
