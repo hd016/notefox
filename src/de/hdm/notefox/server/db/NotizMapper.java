@@ -112,7 +112,7 @@ public class NotizMapper {
     //Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
+        no.setEigentuemer(null); //TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -153,7 +153,7 @@ public class NotizMapper {
     //Das daraus ergebene Tupel muss in ein Objekt �berf�hrt werden.
     	  Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
+        no.setEigentuemer(null); //TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -193,7 +193,7 @@ public class NotizMapper {
       while (rs.next()) {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
-          no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
+          no.setEigentuemer(null); //TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -238,7 +238,7 @@ public class NotizMapper {
       while (rs.next()) {
         Notiz no = new Notiz();
         no.setId(rs.getInt("id"));
-        no.setEigentuemer(rs.getNutzer("eigentuemer"));// TODO
+        no.setEigentuemer(null); //TODO
         no.setErstelldatum(rs.getDate("erstelldatum"));
         no.setInhalt(rs.getString("inhalt"));
         no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
@@ -275,7 +275,7 @@ public class NotizMapper {
       while (rs.next()) {
     	  Notiz no = new Notiz();
     	  no.setId(rs.getInt("id"));
-          no.setEigentuemer(rs.getNutzer("eigentuemer")); // TODO
+          no.setEigentuemer(null); //TODO
           no.setErstelldatum(rs.getDate("erstelldatum"));
           no.setInhalt(rs.getString("inhalt"));
           no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
