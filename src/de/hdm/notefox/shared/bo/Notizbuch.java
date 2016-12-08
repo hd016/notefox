@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.hdm.notefox.shared.Nutzer;
+
 public class Notizbuch extends BusinessObject {
 
 	/**
@@ -15,7 +17,7 @@ public class Notizbuch extends BusinessObject {
 	 * Variablen des Notizbuches
 	 */
 	
-	private int eigentuemerId;
+	private Nutzer eigentuemer;
 	
 	private String titel;
 
