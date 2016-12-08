@@ -34,12 +34,12 @@ public class Notizbuch extends BusinessObject {
 	 * Auslesen und Setzen der Variablen
 	 */
 
-	public int getEigentuemerId() {
-		return eigentuemerId;
+	public Nutzer getEigentuemer() {
+		return eigentuemer;
 	}
 
-	public void setEigentuemerId(int eigentuemerId) {
-		this.eigentuemerId = eigentuemerId;
+	public void setEigentuemer(Nutzer eigentuemerId) {
+		this.eigentuemer = eigentuemerId;
 	}
 
 	public String getTitel() {
