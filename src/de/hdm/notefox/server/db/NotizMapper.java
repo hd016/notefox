@@ -327,8 +327,8 @@ public class NotizMapper {
         stmt = con.createStatement();
         
      //Hier erfolgt die entscheidende Einf�geoperation
-        stmt.executeUpdate("INSERT INTO notiz (notiz.id, notiz.subtitel, notiz.erstelldatum, notiz.modifikationsdatum, notiz.titel, notiz.inhalt, notiz.eigentuemer, notiz.typ) " + "VALUES ("
-                + no.getId() + ", \"\", NOW(), NOW(), \""+no.getTitel()+"\", \""+no.getInhalt()+"\", "+no.getEigentuemer().getNutzerId()+", \"NOTIZ\" )");
+        stmt.executeUpdate("INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum ) " + "VALUES ("
+                + no.getId()+"\", \""+no.getEigentuemer().getNutzerId()+"\", \""+no.getTitel()+"\", \""+no.getSubtitel()+"\", \""+no.getInhalt()+"\", "+ ", \"\", NOW(), NOW(), \"" );
              
         
       }
@@ -355,8 +355,8 @@ public class NotizMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE notiz " + "SET notiz.id=\"" + no.getId()
-          + "\", notiz.titel=\""+no.getTitel()+"\", notiz.inhalt=\""+no.getInhalt()+"\", notiz.modifikationsdatum=NOW() " + "WHERE notiz.id=" + no.getId());
+      stmt.executeUpdate("UPDATE notiz " + "SET id=\"" + no.getId()
+          + "\", titel=\""+no.getTitel()+"\", inhalt=\""+no.getInhalt()+"\", modifikationsdatum=NOW() " + "WHERE id=" + no.getId());
 
     }
     catch (SQLException e2) {

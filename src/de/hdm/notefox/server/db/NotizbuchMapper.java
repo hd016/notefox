@@ -215,8 +215,8 @@ public class NotizbuchMapper {
 
         // Hier erfolgt die entscheidende Einf�geoperation
      
-        stmt.executeUpdate("INSERT INTO notizobjekt (id, subtitel, erstelldatum, modifikationsdatum, titel, eigentuemer) " + "VALUES ("
-                + nb.getId() + ", \"\", NOW(), NOW(), \"" + nb.getTitel()+"\", \"" + "\", "+nb.getEigentuemer().getNutzerId()+",  )");
+        stmt.executeUpdate("INSERT INTO notizbuch (id,  eigentuemer, titel, subtitel, erstelldatum, modifikationsdatum ) " + "VALUES ("
+                + nb.getId() + nb.getSubtitel()+"\", \"" +", \"\", NOW(), NOW(), \"" + nb.getTitel()+"\", \"" + "\", "+nb.getEigentuemer().getNutzerId()+",  )");
         
       }
     }
