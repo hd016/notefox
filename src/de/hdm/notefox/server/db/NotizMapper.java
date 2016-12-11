@@ -376,7 +376,7 @@ public class NotizMapper {
 				stmt = con.createStatement();
 
 				// Hier erfolgt die entscheidende Einf�geoperation
-				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum ) "
+				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch ) "
 						+ "VALUES ("
 						+ no.getId()
 						+ ", "
@@ -388,7 +388,10 @@ public class NotizMapper {
 						+ "\", \""
 						+ no.getInhalt()
 						+ "\""
-						+ ", NOW(), NOW())";
+						+ ", NOW(), NOW()"
+						+ ", "
+						+ no.getNotizbuchId()
+						+ " )";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
 
