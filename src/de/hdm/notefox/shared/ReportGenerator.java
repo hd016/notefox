@@ -3,7 +3,8 @@ package de.hdm.notefox.shared;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.notefox.shared.bo.Notizobjekt;
+import de.hdm.notefox.shared.bo.Notiz;
+import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizbuecherDesNutzersReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
@@ -11,7 +12,7 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 
 /**
- * Zur Erstellung von Reports eine synchrone Schnittstelle für eine RPC-fähige Klasse.
+ * Zur Erstellung von Reports eine synchrone Schnittstelle fï¿½r eine RPC-fï¿½hige Klasse.
  */
 
 @RemoteServiceRelativePath("reportgenerator")
@@ -23,9 +24,11 @@ public interface ReportGenerator extends RemoteService {
   public void initialisieren() throws IllegalArgumentException;
 
   /**
-   * Setzen des zugeordneten Notizobjekts.
+   * Setzen des zugeordneten Notizen und Notizbuecher.
    */
-  public void setNotizobjekt(Notizobjekt nobj) throws IllegalArgumentException;
+  public void setNotiz(Notiz no) throws IllegalArgumentException;
+  
+  public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Erstellen eines alleNotizenDesNutzersReport-Reports. 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Nov 2016 um 17:42
+-- Erstellungszeit: 04. Dez 2016 um 21:59
 -- Server-Version: 10.1.16-MariaDB
 -- PHP-Version: 5.6.24
 
@@ -25,32 +25,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `business object`
---
-
-CREATE TABLE `business object` (
-  `id` int(50) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `erstelltVon` varchar(50) NOT NULL,
-  `erstelltDatum` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `business object`
---
-
-INSERT INTO `business object` (`id`, `name`, `erstelltVon`, `erstelltDatum`) VALUES
-(1, '1.Business_Object', 'Mansur', '2016-11-24'),
-(2, '2.Business_Object', 'Mansur', '2016-11-25');
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `datum`
 --
 
 CREATE TABLE `datum` (
-  `faelligkeitId` int(50) NOT NULL,
+  `faelligkeitId` int(50) UNSIGNED NOT NULL,
   `status` tinyint(1) NOT NULL,
   `faelligkeitsdatum` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -60,45 +39,10 @@ CREATE TABLE `datum` (
 --
 
 INSERT INTO `datum` (`faelligkeitId`, `status`, `faelligkeitsdatum`) VALUES
-(1, 1, '2016-11-02'),
-(2, 0, '2016-11-08');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `notiz`
---
-
-CREATE TABLE `notiz` (
-  `NotizId` int(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `notiz`
---
-
-INSERT INTO `notiz` (`NotizId`) VALUES
-(1),
-(2);
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `notizbuch`
---
-
-CREATE TABLE `notizbuch` (
-  `NotizbuchId` int(50) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Daten für Tabelle `notizbuch`
---
-
-INSERT INTO `notizbuch` (`NotizbuchId`) VALUES
-(1),
-(2),
-(3);
+(4000, 1, '2016-12-01'),
+(4001, 0, '2016-12-02'),
+(4002, 1, '2016-12-01'),
+(4003, 0, '2016-12-02');
 
 -- --------------------------------------------------------
 
@@ -107,21 +51,22 @@ INSERT INTO `notizbuch` (`NotizbuchId`) VALUES
 --
 
 CREATE TABLE `notizobjekt` (
+  `id` int(11) UNSIGNED NOT NULL,
   `titel` char(100) NOT NULL,
   `subtitel` char(100) NOT NULL,
   `erstelldatum` date NOT NULL,
   `modifikationsdatum` date NOT NULL,
   `inhalt` text NOT NULL,
-  `eigentuemer` char(100) NOT NULL
+  `eigentuemer` int(11) NOT NULL,
+  `typ` enum('NOTIZ','NOTIZBUCH','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `notizobjekt`
 --
 
-INSERT INTO `notizobjekt` (`titel`, `subtitel`, `erstelldatum`, `modifikationsdatum`, `inhalt`, `eigentuemer`) VALUES
-('Studium', 'IT-Projekt', '2016-11-22', '2016-11-24', 'Hier ist Inhalt', 'Mansur'),
-('Hobby', 'Mein Hobbys', '2016-11-03', '2016-11-15', '- Filme schauen\r\n- Strategie Spiele\r\nusv.', 'Mansur');
+INSERT INTO `notizobjekt` (`id`, `titel`, `subtitel`, `erstelldatum`, `modifikationsdatum`, `inhalt`, `eigentuemer`, `typ`) VALUES
+(2, 'Studium', 'WI', '2016-12-01', '2016-12-02', 'Hier ist Inhalt', 1, 'NOTIZBUCH');
 
 -- --------------------------------------------------------
 
@@ -130,18 +75,18 @@ INSERT INTO `notizobjekt` (`titel`, `subtitel`, `erstelldatum`, `modifikationsda
 --
 
 CREATE TABLE `notizquelle` (
-  `NotizquelleId` int(50) NOT NULL,
+  `notizquelleId` int(50) UNSIGNED NOT NULL,
   `notizquelleName` char(100) NOT NULL,
-  `URL` char(200) NOT NULL
+  `url` char(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `notizquelle`
 --
 
-INSERT INTO `notizquelle` (`NotizquelleId`, `notizquelleName`, `URL`) VALUES
-(1, '1.Test', 'www.google.de'),
-(2, '2.Test', 'www.zeit.de');
+INSERT INTO `notizquelle` (`notizquelleId`, `notizquelleName`, `url`) VALUES
+(3000, 'google', 'www.google.de'),
+(3001, 'facebook', 'www.facebook.de');
 
 -- --------------------------------------------------------
 
@@ -152,27 +97,20 @@ INSERT INTO `notizquelle` (`NotizquelleId`, `notizquelleName`, `URL`) VALUES
 CREATE TABLE `nutzer` (
   `nutzerId` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL
+  `email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Daten für Tabelle `nutzer`
 --
 
-INSERT INTO `nutzer` (`nutzerId`, `name`, `password`) VALUES
-(1, 'mansur jumaboev', '1234'),
-(2, 'Max Mustermann', '4321');
+INSERT INTO `nutzer` (`nutzerId`, `name`, `email`) VALUES
+(2002, 'mansur', 'mansur@gmail.com'),
+(2003, 'dejan', 'deyan@gmail.com');
 
 --
 -- Indizes der exportierten Tabellen
 --
-
---
--- Indizes für die Tabelle `business object`
---
-ALTER TABLE `business object`
-  ADD PRIMARY KEY (`id`);
-ALTER TABLE `business object` ADD FULLTEXT KEY `name` (`name`);
 
 --
 -- Indizes für die Tabelle `datum`
@@ -181,20 +119,10 @@ ALTER TABLE `datum`
   ADD PRIMARY KEY (`faelligkeitId`);
 
 --
--- Indizes für die Tabelle `notiz`
---
-ALTER TABLE `notiz`
-  ADD PRIMARY KEY (`NotizId`);
-
---
--- Indizes für die Tabelle `notizbuch`
---
-ALTER TABLE `notizbuch`
-  ADD PRIMARY KEY (`NotizbuchId`);
-
---
 -- Indizes für die Tabelle `notizobjekt`
 --
+ALTER TABLE `notizobjekt`
+  ADD PRIMARY KEY (`id`);
 ALTER TABLE `notizobjekt` ADD FULLTEXT KEY `titel` (`titel`);
 ALTER TABLE `notizobjekt` ADD FULLTEXT KEY `subtitel` (`subtitel`);
 
@@ -202,7 +130,7 @@ ALTER TABLE `notizobjekt` ADD FULLTEXT KEY `subtitel` (`subtitel`);
 -- Indizes für die Tabelle `notizquelle`
 --
 ALTER TABLE `notizquelle`
-  ADD PRIMARY KEY (`NotizquelleId`);
+  ADD PRIMARY KEY (`notizquelleId`);
 ALTER TABLE `notizquelle` ADD FULLTEXT KEY `notizquelleName` (`notizquelleName`);
 
 --
@@ -216,36 +144,25 @@ ALTER TABLE `nutzer`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `business object`
+-- AUTO_INCREMENT für Tabelle `datum`
 --
-ALTER TABLE `business object`
-  MODIFY `id` int(50) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `datum`
+  MODIFY `faelligkeitId` int(50) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4004;
 --
--- AUTO_INCREMENT für Tabelle `notizbuch`
+-- AUTO_INCREMENT für Tabelle `notizobjekt`
 --
-ALTER TABLE `notizbuch`
-  MODIFY `NotizbuchId` int(50) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `notizobjekt`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT für Tabelle `notizquelle`
+--
+ALTER TABLE `notizquelle`
+  MODIFY `notizquelleId` int(50) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3002;
 --
 -- AUTO_INCREMENT für Tabelle `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `nutzerId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Constraints der exportierten Tabellen
---
-
---
--- Constraints der Tabelle `datum`
---
-ALTER TABLE `datum`
-  ADD CONSTRAINT `datum_ibfk_1` FOREIGN KEY (`faelligkeitId`) REFERENCES `notiz` (`NotizId`) ON UPDATE NO ACTION;
-
---
--- Constraints der Tabelle `notiz`
---
-ALTER TABLE `notiz`
-  ADD CONSTRAINT `notiz_ibfk_1` FOREIGN KEY (`NotizId`) REFERENCES `notizquelle` (`NotizquelleId`) ON UPDATE CASCADE;
-COMMIT;
+  MODIFY `nutzerId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

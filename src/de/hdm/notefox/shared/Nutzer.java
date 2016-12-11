@@ -3,7 +3,8 @@ package de.hdm.notefox.shared;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import de.hdm.notefox.shared.bo.Notizobjekt;
+import de.hdm.notefox.shared.bo.Notiz;
+import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class Nutzer implements Serializable {
 
@@ -16,13 +17,14 @@ public class Nutzer implements Serializable {
   */
 
 private int nutzerId;
-private String name = "";
+private String email = "";
 
 /**
  * ArrayList mit Objekten der verbundenen Klasse 
  */
-private ArrayList<Notizobjekt> notizobjektliste = new ArrayList <Notizobjekt>(); 
-  
+private ArrayList<Notiz> notizliste = new ArrayList <Notiz>(); 
+
+private ArrayList<Notizbuch> notizbuchliste = new ArrayList <Notizbuch>(); 
 
 /**Auslesen und Setzen der Variablen
  */
@@ -34,12 +36,28 @@ private ArrayList<Notizobjekt> notizobjektliste = new ArrayList <Notizobjekt>();
     this.nutzerId = nutzerid;
   }
 
-  public String getName() {
-    return this.name;
-  }
+public String getEmail() {
+	return email;
+}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+public void setEmail(String email) {
+	this.email = email;
+}
+
+public ArrayList<Notiz> getNotizliste() {
+	return notizliste;
+}
+
+public void setNotizliste(ArrayList<Notiz> notizliste) {
+	this.notizliste = notizliste;
+}
+
+public ArrayList<Notizbuch> getNotizbuchliste() {
+	return notizbuchliste;
+}
+
+public void setNotizbuchliste(ArrayList<Notizbuch> notizbuchliste) {
+	this.notizbuchliste = notizbuchliste;
+}
 
 }

@@ -10,15 +10,15 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.notefox.client.gui.NotizBaumModel;
+//import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 
 public class NotefoxStart extends VerticalPanel { 
 
 	public NotefoxStart() {
-		CellTree celltree = new CellTree(new NotizBaumModel(), null);
-		add(celltree);	
+//		CellTree celltree = new CellTree(new NotizBaumModel(), null);
+//		add(celltree);	
 	}
 	
 }

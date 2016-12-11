@@ -58,7 +58,7 @@ public class NutzerMapper {
 
    // Das Statement wird ausgefüllt und an die Datebank verschickt
       ResultSet rs = stmt
-          .executeQuery("SELECT nutzerId, name FROM nutzer "
+          .executeQuery("SELECT nutzerId, email FROM nutzer "
               + "WHERE nutzerId=" + nutzerId + " ORDER BY name");
 
       /*
@@ -68,8 +68,8 @@ public class NutzerMapper {
       if (rs.next()) {
     	//Das daraus ergebene Tupel muss in ein Objekt überführt werden.
         Nutzer n = new Nutzer();
-        n.setNutzerId(rs.getInt("NutzerId"));
-        n.setName(rs.getString("name"));
+        n.setNutzerId(rs.getInt("nutzerId"));
+        n.setEmail(rs.getString("email"));
 
         return n;
       }
@@ -95,7 +95,7 @@ public class NutzerMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT nutzerId, name "
+      ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
           + "FROM nutzer " + "ORDER BY name");
 
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
@@ -103,7 +103,7 @@ public class NutzerMapper {
       while (rs.next()) {
     	Nutzer n = new Nutzer();
         n.setNutzerId(rs.getInt("nutzerId"));
-        n.setName(rs.getString("name"));
+        n.setEmail(rs.getString("email"));
 
      // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
         result.addElement(n);
@@ -118,26 +118,26 @@ public class NutzerMapper {
   }
 
   /**
-   * Auslesen aller Nutzer-Objekte mit gegebenem Namen
+   * Auslesen aller Nutzer-Objekte mit gegebenem Email
    * 
    */
-  public Vector<Nutzer> nachNutzerNamenSuchen(String name) {
+  public Vector<Nutzer> nachNutzerEmailSuchen(String name) {
     Connection con = DBConnection.connection();
     Vector<Nutzer> result = new Vector<Nutzer>();
 
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT nutzerId, name "
-          + "FROM nutzer " + "WHERE name LIKE '" + name
-          + "' ORDER BY name");
+      ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
+          + "FROM nutzer " + "WHERE email LIKE '" + name
+          + "' ORDER BY email");
 
    // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
       
       while (rs.next()) {
         Nutzer n = new Nutzer();
         n.setNutzerId(rs.getInt("NutzerId"));
-        n.setName(rs.getString("name"));
+        n.setEmail(rs.getString("email"));
 
      // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
         result.addElement(n);
@@ -176,8 +176,8 @@ public class NutzerMapper {
         stmt = con.createStatement();
 
       //Hier erfolgt die entscheidende Einfügeoperation
-        stmt.executeUpdate("INSERT INTO nutzer (NutzerId, name) "
-            + "VALUES (" + n.getNutzerId() + ",'" + n.getName() + "')");
+        stmt.executeUpdate("INSERT INTO nutzer (nutzerId, email) "
+            + "VALUES (" + n.getNutzerId() + ",'" + n.getEmail() + "')");
       }
     }
     catch (SQLException e) {
@@ -202,8 +202,8 @@ public class NutzerMapper {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE nutzer " + "SET name=\""
-          + n.getName() + "\", " + "\" "
+      stmt.executeUpdate("UPDATE nutzer " + "SET email=\""
+          + n.getEmail() + "\", " + "\" "
           + "WHERE NutzerId=" + n.getNutzerId());
 
     }

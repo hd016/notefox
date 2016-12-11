@@ -18,7 +18,6 @@ import de.hdm.notefox.shared.Notizquelle;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
-import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) 
@@ -102,9 +101,10 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
     implements NotizobjektAdministration {
 
   /**
-   * Referenz auf das zugehörige Notizobjekt-Objekt.
+   * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
    */
-  private Notizobjekt notizobjekt = null;
+  private Notiz notiz = null;
+  private Notizbuch notizbuch = null;
 
   /**
    * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
@@ -218,11 +218,11 @@ public void initialisieren() throws IllegalArgumentException {
    * @see speichern(Nutzer c)
    */
   @Override
-public Nutzer anlegenNutzer(int nutzerId, String name)
+public Nutzer anlegenNutzer(int nutzerId, String email)
 	      throws IllegalArgumentException {
     Nutzer n = new Nutzer();
     n.setNutzerId(nutzerId);
-    n.setName(name);
+    n.setEmail(email);
 
     /*
      * Setzen einer vorläufigen NutzerId Der anlegen-Aufruf liefert dann ein
@@ -238,10 +238,10 @@ public Nutzer anlegenNutzer(int nutzerId, String name)
    * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
    */
   @Override
-public Vector<Nutzer> nachNutzerNamenSuchen(String name)
+public Vector<Nutzer> nachNutzerEmailSuchen(String email)
       throws IllegalArgumentException {
 
-    return this.nuMapper.nachNutzerNamenSuchen(name);
+    return this.nuMapper.nachNutzerEmailSuchen(email);
   }
 
   /**
@@ -327,7 +327,7 @@ public void loeschenNutzer(Nutzer n) throws IllegalArgumentException {
    */
   @Override
 public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
-    return this.noMapper.nachAllenNotizenSuchen();
+    return this.noMapper.nachAllenNotizenDesNutzerSuchen();
   }
 
   /**
@@ -344,7 +344,7 @@ public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
    */
   @Override
 public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-	  return noMapper.nachNotizIdSuchen(id);
+	  return noMapper.nachNotizTitelSuchen(id);
   }
 
   /**
@@ -413,12 +413,12 @@ public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
    * @throws IllegalArgumentException
    */
   @Override
-  public ArrayList<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz n)
+  public ArrayList<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz no)
 	      throws IllegalArgumentException {
 	    ArrayList<Notizquelle> result = new ArrayList<Notizquelle>();
 
-	    if (n != null && this.nqMapper != null) {
-	      Vector<Notizquelle> notizquellen = this.nqMapper.nachAllenNotizquellenDerNotizSuchen(n
+	    if (no != null && this.nqMapper != null) {
+	      Vector<Notizquelle> notizquellen = this.nqMapper.nachAllenNotizquellenDerNotizSuchen(no
 	          .getId());
 	      if (notizquellen != null) {
 	        result.addAll(notizquellen);
@@ -437,12 +437,12 @@ public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
    * @throws IllegalArgumentException
    */
   @Override
-  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz n)
+  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
 	      throws IllegalArgumentException {
 	    ArrayList<Datum> result = new ArrayList<Datum>();
 
-	    if (n != null && this.dMapper != null) {
-	      Vector<Datum> faelligkeiten = this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(n
+	    if (no != null && this.dMapper != null) {
+	      Vector<Datum> faelligkeiten = this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no
 	          .getId());
 	      if (faelligkeiten != null) {
 	        result.addAll(faelligkeiten);
@@ -495,7 +495,7 @@ public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
    */
   @Override
 public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-	  return nbMapper.nachNotizbuchIdSuchen(id);
+	  return nbMapper.nachNotizbuchTitelSuchen(id);
   }
 
   /**
@@ -664,20 +664,26 @@ public void loeschenDatumVon(Datum t) throws IllegalArgumentException {
    * ***************************************************************************
    */
   /**
-   * Auslesen der Notizobjekt für die diese Notizobjektverwaltung gewissermaßen tätig ist.
+   * Auslesen der Notiz- und Notizbuchobjekte für die diese Notizobjektverwaltung gewissermaßen tätig sind.
    */
   @Override
-public Notizobjekt getNotizobjekt() throws IllegalArgumentException {
-    return this.notizobjekt;
-  }
+  public Notiz getNotiz() throws IllegalArgumentException {
+	    return this.notiz;
+	  }
+  public Notizbuch getNotizbuch() throws IllegalArgumentException {
+	    return this.notizbuch;
+	  }
 
   /**
-   * Setzen der Notizobjekt für die diese Notizobjektverwaltung tätig ist.
+   * Setzen der Notizen und Notizbucher für die diese Notizobjektverwaltung tätig ist.
    */
   @Override
-public void setNotizobjekt(Notizobjekt n) throws IllegalArgumentException {
-    this.notizobjekt = n;
+public void setNotiz(Notiz no) throws IllegalArgumentException {
+    this.notiz = no;
   }
+public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException {
+	    this.notizbuch = nb;
+	  }
   /*
    * ***************************************************************************
    * ABSCHNITT, Ende: Verschiedenes

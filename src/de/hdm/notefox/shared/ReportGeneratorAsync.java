@@ -2,7 +2,8 @@ package de.hdm.notefox.shared;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.hdm.notefox.shared.bo.Notizobjekt;
+import de.hdm.notefox.shared.bo.Notiz;
+import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizbuecherDesNutzersReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
@@ -11,7 +12,7 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 /**
  *Semiautomatisch vom Google Plugin erstellt. 
- *Gegenstück des asynchronen Interface (ReportGenerator).
+ *Gegenstï¿½ck des asynchronen Interface (ReportGenerator).
  */
 public interface ReportGeneratorAsync {
 	
@@ -25,6 +26,8 @@ public interface ReportGeneratorAsync {
 
   void initialisieren(AsyncCallback<Void> callback);
 
-  void setNotizobjekt(Notizobjekt nobj, AsyncCallback<Void> callback);
+  void setNotiz(Notiz no, AsyncCallback<Void> callback);
+  
+  void setNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
 }

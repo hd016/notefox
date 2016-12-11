@@ -12,8 +12,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.notefox.client.gui.BerechtigungBaumModel;
-import de.hdm.notefox.client.gui.NotizBaumModel;
+//import de.hdm.notefox.client.gui.BerechtigungBaumModel;
+//import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
@@ -38,8 +38,8 @@ public class Notefox implements EntryPoint {
 	Button Nutzer = new Button("Nutzer");
 	Button Profil = new Button("Profil");
 	
-	CellTree celltree = new CellTree(new NotizBaumModel(), null);
-	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
+//	CellTree celltree = new CellTree(new NotizBaumModel(), null);
+//	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
@@ -87,7 +87,7 @@ public class Notefox implements EntryPoint {
 				@Override
 				public void onClick(ClickEvent event) {
 					Nutzer nutzer = new Nutzer();
-					nutzer.setName("Testuser");
+					nutzer.setEmail("Testuser");
 					
 					administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
 						
@@ -116,7 +116,7 @@ public class Notefox implements EntryPoint {
 			vPanel_inhalt.clear();
 			vPanel_inhalt.addStyleName("vPanel");
 			vPanel_inhalt.add(test);
-			vPanel_inhalt.add(celltree);
+//			vPanel_inhalt.add(celltree);
 
 			Button neuesNotiz = new Button("Notiz Erstellen");
 			
@@ -135,7 +135,7 @@ public class Notefox implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
-			vPanel_inhalt.add(celltree2);
+//			vPanel_inhalt.add(celltree2);
 			vPanel_inhalt.add(test_nutzer);
 
 		}
@@ -151,7 +151,7 @@ public class Notefox implements EntryPoint {
 		public void onClick(ClickEvent event) {
 			de.hdm.notefox.shared.Nutzer nutzer = new Nutzer();
 			nutzer.setNutzerId(2000);
-			nutzer.setName("Mansur");
+			nutzer.setEmail("Mansur@gmail.com");
 			
 			administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
 				
