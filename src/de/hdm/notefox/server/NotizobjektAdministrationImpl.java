@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+import de.hdm.notefox.server.db.BerechtigungMapper;
 import de.hdm.notefox.server.db.DatumMapper;
 import de.hdm.notefox.server.db.NotizMapper;
 import de.hdm.notefox.server.db.NotizbuchMapper;
 import de.hdm.notefox.server.db.NotizquelleMapper;
 import de.hdm.notefox.server.db.NutzerMapper;
 import de.hdm.notefox.server.report.ReportGeneratorImpl;
+import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.Datum;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -109,31 +111,33 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NutzerMapper nuMapper = null;
+	private NutzerMapper nuMapper;
 
 	/**
 	 * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NotizMapper noMapper = NotizMapper.notizMapper();
+	private NotizMapper noMapper;
 
 	/**
 	 * Referenz auf den DatenbankMapper, der Notizbuchobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NotizbuchMapper nbMapper = null;
+	private NotizbuchMapper nbMapper;
 
 	/**
 	 * Referenz auf den NotizquelleMapper, der Notizquelleobjekte mit der
 	 * Datenbank abgleicht.
 	 */
-	private NotizquelleMapper nqMapper = null;
+	private NotizquelleMapper nqMapper;
 
 	/**
 	 * Referenz auf den DatumMapper, der Datumobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private DatumMapper dMapper = null;
+	private DatumMapper dMapper;
+	
+	private BerechtigungMapper bMapper;
 
 	/*
 	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
@@ -191,6 +195,9 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		this.nuMapper = NutzerMapper.nutzerMapper();
 		this.noMapper = NotizMapper.notizMapper();
 		this.nbMapper = NotizbuchMapper.notizbuchMapper();
+		this.nqMapper = NotizquelleMapper.notizquelleMapper();
+		this.bMapper  = BerechtigungMapper.berechtigungMapper();
+		
 	}
 
 	/*
@@ -332,6 +339,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
+		
+		
 		return this.noMapper.nachAllenNotizenDesNutzerSuchen();
 	}
 
