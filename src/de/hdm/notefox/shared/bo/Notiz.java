@@ -14,15 +14,12 @@ public class Notiz extends Notizobjekt {
 	}
 
 	/**
-	 * Faelligkeitsdatum der Notiz
+	 * Variablen der Notiz
 	 */
 	private Date faelligkeitsdatum;
-	
-	
-	/**
-	 * Notizquelle der Notiz
-	 */
 	private String notizquelle;
+	private int notizbuchId;
+	
 
 	
 	/** Setzen und Auslesen der Variablen
@@ -43,6 +40,16 @@ public class Notiz extends Notizobjekt {
 
 	public void setNotizquelle(String notizquelle) {
 		this.notizquelle = notizquelle;
+	}
+
+
+	public int getNotizbuchId() {
+		return notizbuchId;
+	}
+
+
+	public void setNotizbuchId(int notizbuchID) {
+		this.notizbuchId = notizbuchID;
 	}
 
 	
