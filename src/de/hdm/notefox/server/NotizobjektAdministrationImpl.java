@@ -333,7 +333,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 	
 	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte){
-		List<Berechtigung> berechtigungen = new ArrayList<>();
+		List<Berechtigung> berechtigungen = new ArrayList<>();//TODO
 		Nutzer aktuellerNutzer = null;
 		
 		List<T> ergebnis = new ArrayList<>();		
@@ -372,7 +372,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-		return noMapper.nachNotizTitelSuchen(id);
+		return noMapper.nachNotizIdSuchen(id);
 	}
 
 	/**
@@ -478,7 +478,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-		return nbMapper.nachNotizbuchTitelSuchen(id);
+		return nbMapper.nachNotizbuchIdSuchen(id);
 	}
 
 	/**
@@ -562,20 +562,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * **
 	 */
 
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Methoden für Notizquellen-Objekte und
-	 * Datum-Objekte
-	 * *************************************************************************
-	 * **
-	 */
-
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Methoden für Notizquellen-Objekte und Datum-Objekte
-	 * *************************************************************************
-	 * **
-	 */
 
 	/*
 	 * *************************************************************************
