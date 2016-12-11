@@ -48,7 +48,7 @@ public class DBConnection {
      * Software neu komilieren zu muessen.
      */
     private static String googleUrl = "";
-    private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root";
+    private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=414159426";
     
     /**
      * Diese statische Methode kann aufgrufen werden durch
@@ -79,16 +79,16 @@ public class DBConnection {
         if (con == null) {
             String url = null;
             try {
-                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-                	// Load the class that provides the new
-                    // "jdbc:google:mysql://" prefix.
-                    Class.forName("com.mysql.jdbc.GoogleDriver");
-                    url = googleUrl;
-                } else {
+//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+//                	// Load the class that provides the new
+//                    // "jdbc:google:mysql://" prefix.
+//                    Class.forName("com.mysql.jdbc.GoogleDriver");
+//                    url = googleUrl;
+//                } else {
                 	// Local MySQL instance to use during development.
                     Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
-                }
+//                }
                 /*
                  * Dann erst kann uns der DriverManager eine Verbindung mit den
                  * oben in der Variable url angegebenen Verbindungsinformationen

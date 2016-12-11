@@ -7,7 +7,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
-import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
  *Semiautomatisch vom Google Plugin erstellt. 
@@ -34,9 +33,13 @@ void nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no, AsyncCallback<Arr
 void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<ArrayList<Notiz>> callback);
 
 
-void getNotizobjekt(AsyncCallback<Notizobjekt> callback);
+void getNotiz(AsyncCallback<Notiz> callback);
 
-void setNotizobjekt(Notizobjekt nobj, AsyncCallback<Void> callback);
+void setNotiz(Notiz no, AsyncCallback<Void> callback);
+
+void getNotizbuch(AsyncCallback<Notizbuch> callback);
+
+void setNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
 void nachAllenNotizenDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notiz>> callback);
 
@@ -46,7 +49,7 @@ void nachNotizIdSuchen(int id, AsyncCallback<Notiz> callback);
 
 void nachNotizbuchIdSuchen(int id, AsyncCallback<Notizbuch> callback);
 
-void nachNutzerNamenSuchen(String name, AsyncCallback<Vector<Nutzer>> callback);
+void nachNutzerEmailSuchen(String email, AsyncCallback<Vector<Nutzer>> callback);
 
 void nachNutzerIdSuchen(int nutzerid, AsyncCallback<Nutzer> callback);
 

@@ -65,7 +65,7 @@ public class DatumMapper {
   }
 
   /**
-   * Datum nach FaelligkeitID suchen.   * 
+   * Datum nach nachFaelligkeitDesNutzerSuchen suchen.   * 
    * Als return: Datum-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
   public Datum nachFaelligkeitDesNutzerSuchen(int id) {
@@ -77,8 +77,8 @@ public class DatumMapper {
     	Statement stmt = con.createStatement();
 
     	// Statement ausfuellen und als Query an die DB schicken
-    	ResultSet rs = stmt.executeQuery("SELECT nutzer.nutzerId, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, datum "
-          + "WHERE faelligkeitId=" + id + " ORDER BY faelligkeitsdatum ASC");
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM nutzer " + "LEFT JOIN datum ON datum.faelligkeitId = nutzer.nutzerId"
+          + " ORDER BY faelligkeitsdatum ASC");
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
@@ -118,9 +118,8 @@ public class DatumMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt
-          .executeQuery("SELECT nutzer.id, notiz.id, datum.faelligkeitId, datum.status, datum.faelligkeitsdatum FROM nutzer, notiz "
-              + "LEFT JOIN datum ON datum.faelligkeitId = notiz.id" + id + " ORDER BY datum.faelligkeitsdatum ASC");
+  	ResultSet rs = stmt.executeQuery("SELECT datum*, notiz.titel, nutzer.email FROM datum, notiz, nutzer" + ""
+            + " ORDER BY nutzer.email ASC");
       
       // Für jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
@@ -165,6 +164,8 @@ public class DatumMapper {
       while (rs.next()) {
     	  Datum d = new Datum();
         d.setFaelligkeitId(rs.getInt("FaelligkeitID"));
+        d.setStatus(rs.getBoolean("status"));
+        d.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
    
 
         // Hinzufuegen des neuen Objekts zum Ergebnisvektor

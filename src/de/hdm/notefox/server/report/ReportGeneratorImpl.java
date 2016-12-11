@@ -70,11 +70,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Setzen des zugehörigen Notizobjekt-Objekts.
+   * Setzen des zugehörigen Notiz- und Notizbuch-Objekte.
    */
-  public void setNotizobjekt(Notizobjekt nobj) {
-    this.administration.setNotizobjekt(nobj);
+  public void setNotiz(Notiz no) {
+    this.administration.setNotiz(no);
   }
+  public void setNotizbuch(Notizbuch nb) {
+	    this.administration.setNotizbuch(nb);
+	  }
 
   /**
    * Hinzufügen des Report-Impressums. Diese Methode ist aus den
@@ -86,19 +89,26 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    */
   protected void addImprint(Report r) {
     /*
-     * Das Impressum soll wesentliche Informationen über das Notizobjekt enthalten.
+     * Das Impressum soll wesentliche Informationen über die Notizen und Notizbucher enthalten.
      */
-    Notizobjekt notizobjekt = this.administration.getNotizobjekt();
+    Notiz notiz = this.administration.getNotiz();
+    Notizbuch notizbuch = this.administration.getNotizbuch();
 
     /*
      * Das Impressum soll mehrzeilig sein.
      */
     CompositeParagraph imprint = new CompositeParagraph();
 
-    imprint.addSubParagraph(new SimpleParagraph(notizobjekt.getTitel() + " "
-            + notizobjekt.getSubtitel()));
-    imprint.addSubParagraph(new SimpleParagraph(notizobjekt.getErstelldatum()));
+    imprint.addSubParagraph(new SimpleParagraph(notiz.getTitel() + " "
+            + notiz.getSubtitel()));
+    imprint.addSubParagraph(new SimpleParagraph(notiz.getErstelldatum()));
     imprint.addSubParagraph(new SimpleParagraph("TODO"));
+    
+    imprint.addSubParagraph(new SimpleParagraph(notizbuch.getTitel() + " "
+            + notizbuch.getSubtitel()));
+    imprint.addSubParagraph(new SimpleParagraph(notizbuch.getErstelldatum()));
+    imprint.addSubParagraph(new SimpleParagraph("TODO"));
+
 
     // Das eigentliche Hinzufügen des Impressums zum Report.
     r.setImprint(imprint);
@@ -141,8 +151,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      */
     CompositeParagraph header = new CompositeParagraph();
 
-    // Name des Nutzers aufnehmen
-    header.addSubParagraph(new SimpleParagraph(n.getName()));
+    // Email des Nutzers aufnehmen
+    header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
     // NutzerId aufnehmen
     header.addSubParagraph(new SimpleParagraph("NutzerID: " + n.getNutzerId()));
@@ -286,8 +296,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      */
     CompositeParagraph header = new CompositeParagraph();
 
-    // Name des Nutzers aufnehmen
-    header.addSubParagraph(new SimpleParagraph(n.getName()));
+    // Email des Nutzers aufnehmen
+    header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
     // NutzerId aufnehmen
     header.addSubParagraph(new SimpleParagraph("NutzerID: " + n.getNutzerId()));
