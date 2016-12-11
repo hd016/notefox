@@ -213,8 +213,6 @@ public class NutzerMapper {
 	
 
   
-  
-  
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 

@@ -35,6 +35,8 @@ public class NotizbuchMapper {
  */
 	
   private static NotizbuchMapper notizbuchMapper = null;
+  private static Date erstelldatum;
+  private static Date modifikationsdatum;
 
  /**
   * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit new neue
@@ -98,7 +100,9 @@ public class NotizbuchMapper {
     	  nb.setTitel(rs.getString("notizbuch.titel"));
     	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
     	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-    	  nb.setErstelldatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
+
       }
     }
     catch (SQLException e2) {
@@ -136,7 +140,8 @@ public class NotizbuchMapper {
     	  nb.setTitel(rs.getString("notizbuch.titel"));
     	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
     	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-    	  nb.setErstelldatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
    
 
     	// Hinzufuegen des neuen Objekts zur Ergebnisliste
@@ -162,7 +167,7 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
     
-      ResultSet rs = stmt.executeQuery("SELECT  notizbuch*., nutzer.*  FROM nutzer LEFT JOIN notizbuch ON notizbuch.id = nutzer.nutzerId" //TODO
+      ResultSet rs = stmt.executeQuery("SELECT  notizbuch.*, nutzer.*  FROM nutzer LEFT JOIN notizbuch ON notizbuch.id = nutzer.nutzerId" //TODO
               + " ORDER BY id");
       
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
@@ -177,7 +182,8 @@ public class NotizbuchMapper {
     	  nb.setTitel(rs.getString("titel"));
     	  nb.setSubtitel(rs.getString("subtitel"));
     	  nb.setErstelldatum(rs.getDate("erstelldatum"));
-    	  nb.setErstelldatum(rs.getDate("modifikationsdatum"));
+    	  nb.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
 
         // Hinzuf�gen des neuen Objekts zur Ergebnisliste
         result.add(nb);
