@@ -135,7 +135,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * entsprechender Kommentar steht am Ende eines solchen Clusters.
 	 */
 
-	/*
+	/*  
 	 * *************************************************************************
 	 * ** ABSCHNITT, Beginn: Initialisierung
 	 * *************************************************************************
