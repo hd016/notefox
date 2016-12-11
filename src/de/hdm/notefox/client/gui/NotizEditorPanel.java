@@ -66,24 +66,23 @@ public class NotizEditorPanel extends VerticalPanel {
 		freigeben.addClickHandler(new freigebenClickHandler());
 		hPanel.add(freigeben);
 
-
 	}
-	
-	public void neueNotiz(Notizbuch notizbuch){
+
+	public void neueNotiz(Notizbuch notizbuch) {
 		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), new AsyncCallback<Notiz>() {
-			
+
 			@Override
 			public void onSuccess(Notiz result) {
 				setNotizobjekt(result);
 			}
-			
+
 			@Override
 			public void onFailure(Throwable caught) {
 			}
 		});
 	}
-	
-	public void setNotizobjekt(Notizobjekt notizobjekt){
+
+	public void setNotizobjekt(Notizobjekt notizobjekt) {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
 		area.setHTML(notizobjekt.getInhalt());
@@ -96,15 +95,15 @@ public class NotizEditorPanel extends VerticalPanel {
 			Window.alert("OKEY!");
 			notizobjekt.setTitel(titel.getValue());
 			notizobjekt.setInhalt(area.getHTML());
-			
-			if(notizobjekt instanceof Notiz){
+
+			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
-			notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());	
-			} else if (notizobjekt instanceof Notizbuch){
+				notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());
+			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
-			//	notizobjektverwaltung.speichern(notizbuch, new NotizbuchSpeichernAsyncCallback());
+				notizobjektverwaltung.speichern(notizbuch, new NotizbuchSpeichernAsyncCallback());
 			}
-			
+
 		}
 
 	}
@@ -123,20 +122,20 @@ public class NotizEditorPanel extends VerticalPanel {
 		}
 
 	}
-	
-	private class NotizbuchSpeichernAsyncCallback implements AsyncCallback<Notizbuch>{
+
+	private class NotizbuchSpeichernAsyncCallback implements AsyncCallback<Notizbuch> {
 
 		@Override
 		public void onFailure(Throwable caught) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void onSuccess(Notizbuch result) {
 			setNotizobjekt(result);
 		}
-		
+
 	}
 
 	private class loeschenClickHandler implements ClickHandler {
@@ -195,8 +194,6 @@ public class NotizEditorPanel extends VerticalPanel {
 		}
 
 	}
-
-	
 
 }
 
