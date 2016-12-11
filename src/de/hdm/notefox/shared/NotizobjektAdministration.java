@@ -1,7 +1,7 @@
 package de.hdm.notefox.shared;
 
-import java.util.ArrayList;
-import java.util.Vector;
+
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -55,7 +55,7 @@ public interface NotizobjektAdministration extends RemoteService {
    * @return eine Liste aller Notizquellen
    * @throws IllegalArgumentException
    */
-  public ArrayList<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz no)
+  public List<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz no)
       throws IllegalArgumentException;
   
   /**
@@ -68,7 +68,7 @@ public interface NotizobjektAdministration extends RemoteService {
    * @return eine Liste aller Faelligkeiten
    * @throws IllegalArgumentException
    */
-  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
+  public List<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
       throws IllegalArgumentException;
   
   /**
@@ -81,7 +81,7 @@ public interface NotizobjektAdministration extends RemoteService {
    * @return eine Liste aller Notizen
    * @throws IllegalArgumentException
    */
-  ArrayList<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb)
+  List<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb)
 			throws IllegalArgumentException;
   
 
@@ -99,13 +99,13 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Alle Notizen eines Nutzers auslesen.
    */
-  public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
+  public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
       throws IllegalArgumentException;
   
   /**
    * Alle Notizb�cher eines Nutzers auslesen.
    */
-  public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
+  public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
       throws IllegalArgumentException;
 
   /**
@@ -121,7 +121,7 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Suchen eines Nutzer-Objekts mit gegebenem Email.
    */
-  public Vector<Nutzer> nachNutzerEmailSuchen(String email)
+  public List<Nutzer> nachNutzerEmailSuchen(String email)
       throws IllegalArgumentException;
 
   /**
@@ -132,17 +132,17 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Alle Nutzer auslesen.
    */
-  public Vector<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException;
+  public List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException;
 
   /**
    * Alle Notizen auslesen.
    */
-  public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
+  public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
   
   /**
    * Alle Notizb�cher auslesen.
    */
-  public Vector<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
+  public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
 
   /**
    * Speichern eines Notiz-Objekts in der Datenbank.

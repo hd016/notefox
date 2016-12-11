@@ -1,7 +1,6 @@
 package de.hdm.notefox.server;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -20,10 +19,10 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
- * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) 
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * <p>
- * Implementierungsklasse des Interface <code>NotizobjektAdministration</code>. Diese
- * Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
+ * Implementierungsklasse des Interface <code>NotizobjektAdministration</code>.
+ * Diese Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
  * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
  * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
  * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
@@ -46,9 +45,10 @@ import de.hdm.notefox.shared.bo.Notizbuch;
  * <li>{@link NotizobjektAdministration}: Dies ist das <em>lokale</em> - also
  * Server-seitige - Interface, das die im System zur Verfügung gestellten
  * Funktionen deklariert.</li>
- * <li>{@link NotizobjektAdministrationAsync}: <code>NotizobjektVerwaltungImpl</code> und
- * <code>NotizobjektAdministration</code> bilden nur die Server-seitige Sicht der
- * Applikationslogik ab. Diese basiert vollständig auf synchronen
+ * <li>{@link NotizobjektAdministrationAsync}:
+ * <code>NotizobjektVerwaltungImpl</code> und
+ * <code>NotizobjektAdministration</code> bilden nur die Server-seitige Sicht
+ * der Applikationslogik ab. Diese basiert vollständig auf synchronen
  * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
  * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
@@ -56,11 +56,11 @@ import de.hdm.notefox.shared.bo.Notizbuch;
  * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
  * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
  * {@link NotizobjektAdministrationAsync}.</li>
- * <li> {@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
+ * <li>{@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
  * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
- * Basis für die Anbindung von <code>NotizobjektVerwaltungImpl</code> an die Runtime
- * des GWT RPC-Mechanismus.</li>
+ * Basis für die Anbindung von <code>NotizobjektVerwaltungImpl</code> an die
+ * Runtime des GWT RPC-Mechanismus.</li>
  * </ol>
  * </p>
  * <p>
@@ -82,8 +82,8 @@ import de.hdm.notefox.shared.bo.Notizbuch;
  * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
  * können ein <code>throws IllegalArgumentException</code> in der
  * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
- * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
- * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können
+ * z.B. Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
  * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
  * </p>
  * <p>
@@ -97,597 +97,583 @@ import de.hdm.notefox.shared.bo.Notizbuch;
  * @author Thies
  */
 @SuppressWarnings("serial")
-public class NotizobjektAdministrationImpl extends RemoteServiceServlet
-    implements NotizobjektAdministration {
+public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
 
-  /**
-   * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
-   */
-  private Notiz notiz = null;
-  private Notizbuch notizbuch = null;
+	/**
+	 * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
+	 */
+	private Notiz notiz = null;
+	private Notizbuch notizbuch = null;
 
-  /**
-   * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
-   * abgleicht.
-   */
-  private NutzerMapper nuMapper = null; 
+	/**
+	 * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
+	 * abgleicht.
+	 */
+	private NutzerMapper nuMapper = null;
 
-  /**
-   * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
-   * abgleicht.
-   */
-  private NotizMapper noMapper = NotizMapper.notizMapper();
-  
-  /**
-   * Referenz auf den DatenbankMapper, der Notizbuchobjekte mit der Datenbank
-   * abgleicht.
-   */
-  private NotizbuchMapper nbMapper = null;
-  
-  /**
-   * Referenz auf den NotizquelleMapper, der Notizquelleobjekte mit der Datenbank
-   * abgleicht.
-   */
-  private NotizquelleMapper nqMapper = null;
-  
-  /**
-   * Referenz auf den DatumMapper, der Datumobjekte mit der Datenbank
-   * abgleicht.
-   */
-  private DatumMapper dMapper = null;
+	/**
+	 * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
+	 * abgleicht.
+	 */
+	private NotizMapper noMapper = NotizMapper.notizMapper();
 
+	/**
+	 * Referenz auf den DatenbankMapper, der Notizbuchobjekte mit der Datenbank
+	 * abgleicht.
+	 */
+	private NotizbuchMapper nbMapper = null;
 
-  /*
-   * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
-   * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
-   * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein Cluster in
-   * irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
-   * Kommentar steht am Ende eines solchen Clusters.
-   */
+	/**
+	 * Referenz auf den NotizquelleMapper, der Notizquelleobjekte mit der
+	 * Datenbank abgleicht.
+	 */
+	private NotizquelleMapper nqMapper = null;
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Beginn: Initialisierung
-   * ***************************************************************************
-   */
-  /**
-   * <p>
-   * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
-   * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
-   * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
-   * Konstruktors ist durch die Client-seitige Instantiierung durch
-   * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-   * möglich.
-   * </p>
-   * <p>
-   * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
-   * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
-   * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
-   * </p>
-   * 
-   * @see #initialisieren()
-   */
-  public NotizobjektAdministrationImpl() throws IllegalArgumentException {
-    /*
-     * Eine weitergehende Funktion muss der No-Argument-Constructor nicht haben.
-     * Er muss einfach vorhanden sein.
-     */
-  }
+	/**
+	 * Referenz auf den DatumMapper, der Datumobjekte mit der Datenbank
+	 * abgleicht.
+	 */
+	private DatumMapper dMapper = null;
 
-  /**
-   * Initialsierungsmethode. Siehe dazu Anmerkungen zum No-Argument-Konstruktor
-   * {@link #ReportGeneratorImpl()}. Diese Methode muss für jede Instanz von
-   * <code>NotizobjektVerwaltungImpl</code> aufgerufen werden.
-   * 
-   * @see #ReportGeneratorImpl()
-   */
-  @Override
-public void initialisieren() throws IllegalArgumentException {
-    /*
-     * Ganz wesentlich ist, dass die NotizobjektAdministration einen vollständigen Satz
-     * von Mappern besitzt, mit deren Hilfe sie dann mit der Datenbank
-     * kommunizieren kann.
-     */
-    this.nuMapper = NutzerMapper.nutzerMapper();
-    this.noMapper = NotizMapper.notizMapper();
-    this.nbMapper = NotizbuchMapper.notizbuchMapper();
-  }
+	/*
+	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
+	 * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
+	 * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein
+	 * Cluster in irgeneinerweise zusammengehöriger Methoden ein. Ein
+	 * entsprechender Kommentar steht am Ende eines solchen Clusters.
+	 */
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Initialisierung
-   * ***************************************************************************
-   */
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Initialisierung
+	 * *************************************************************************
+	 * **
+	 */
+	/**
+	 * <p>
+	 * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
+	 * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
+	 * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines
+	 * anderen Konstruktors ist durch die Client-seitige Instantiierung durch
+	 * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
+	 * möglich.
+	 * </p>
+	 * <p>
+	 * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
+	 * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
+	 * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
+	 * </p>
+	 * 
+	 * @see #initialisieren()
+	 */
+	public NotizobjektAdministrationImpl() throws IllegalArgumentException {
+		/*
+		 * Eine weitergehende Funktion muss der No-Argument-Constructor nicht
+		 * haben. Er muss einfach vorhanden sein.
+		 */
+	}
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
-   * ***************************************************************************
-   */
-  /**
-   * <p>
-   * Anlegen eines neuen Nutzers. Dies führt implizit zu einem Speichern des
-   * neuen Nutzers in der Datenbank.
-   * </p>
-   * 
-   * <p>
-   * <b>HINWEIS:</b> Änderungen an Nutzer-Objekten müssen stets durch Aufruf
-   * von {@link #speichern(Nutzer c)} in die Datenbank transferiert werden.
-   * </p>
-   * 
-   * @see speichern(Nutzer c)
-   */
-  @Override
-public Nutzer anlegenNutzer(int nutzerId, String email)
-	      throws IllegalArgumentException {
-    Nutzer n = new Nutzer();
-    n.setNutzerId(nutzerId);
-    n.setEmail(email);
+	/**
+	 * Initialsierungsmethode. Siehe dazu Anmerkungen zum
+	 * No-Argument-Konstruktor {@link #ReportGeneratorImpl()}. Diese Methode
+	 * muss für jede Instanz von <code>NotizobjektVerwaltungImpl</code>
+	 * aufgerufen werden.
+	 * 
+	 * @see #ReportGeneratorImpl()
+	 */
+	@Override
+	public void initialisieren() throws IllegalArgumentException {
+		/*
+		 * Ganz wesentlich ist, dass die NotizobjektAdministration einen
+		 * vollständigen Satz von Mappern besitzt, mit deren Hilfe sie dann mit
+		 * der Datenbank kommunizieren kann.
+		 */
+		this.nuMapper = NutzerMapper.nutzerMapper();
+		this.noMapper = NotizMapper.notizMapper();
+		this.nbMapper = NotizbuchMapper.notizbuchMapper();
+	}
 
-    /*
-     * Setzen einer vorläufigen NutzerId Der anlegen-Aufruf liefert dann ein
-     * Objekt, dessen Id mit der Datenbank konsistent ist.
-     */
-    n.setNutzerId(1);
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Initialisierung
+	 * *************************************************************************
+	 * **
+	 */
 
-    // Objekt in der DB speichern.
-    return this.nuMapper.anlegenNutzer(n);
-  }
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
+	 * *************************************************************************
+	 * **
+	 */
+	/**
+	 * <p>
+	 * Anlegen eines neuen Nutzers. Dies führt implizit zu einem Speichern des
+	 * neuen Nutzers in der Datenbank.
+	 * </p>
+	 * 
+	 * <p>
+	 * <b>HINWEIS:</b> Änderungen an Nutzer-Objekten müssen stets durch Aufruf
+	 * von {@link #speichern(Nutzer c)} in die Datenbank transferiert werden.
+	 * </p>
+	 * 
+	 * @see speichern(Nutzer c)
+	 */
+	@Override
+	public Nutzer anlegenNutzer(int nutzerId, String email) throws IllegalArgumentException {
+		Nutzer n = new Nutzer();
+		n.setNutzerId(nutzerId);
+		n.setEmail(email);
 
-  /**
-   * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
-   */
-  @Override
-public Vector<Nutzer> nachNutzerEmailSuchen(String email)
-      throws IllegalArgumentException {
+		/*
+		 * Setzen einer vorläufigen NutzerId Der anlegen-Aufruf liefert dann
+		 * ein Objekt, dessen Id mit der Datenbank konsistent ist.
+		 */
+		n.setNutzerId(1);
 
-    return this.nuMapper.nachNutzerEmailSuchen(email);
-  }
+		// Objekt in der DB speichern.
+		return this.nuMapper.anlegenNutzer(n);
+	}
 
-  /**
-   * Auslesen eines Nutzers anhand seiner NutzerId.
-   */
-  @Override
-public Nutzer nachNutzerIdSuchen(int nutzerId) throws IllegalArgumentException {
-    return this.nuMapper.nachNutzerIdSuchen(nutzerId);
-  }
+	/**
+	 * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
+	 */
+	@Override
+	public List<Nutzer> nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
 
-  /**
-   * Auslesen aller Nutzer.
-   */
-  @Override
-public Vector<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException {
-    return this.nuMapper.nachAllenNutzernSuchen();
-  }
+		return this.nuMapper.nachNutzerEmailSuchen(email);
+	}
 
-  /**
-   * Speichern eines Nutzers.
-   */
-  @Override
-public void speichern(Nutzer n) throws IllegalArgumentException {
-    nuMapper.update(n);
-  }
+	/**
+	 * Auslesen eines Nutzers anhand seiner NutzerId.
+	 */
+	@Override
+	public Nutzer nachNutzerIdSuchen(int nutzerId) throws IllegalArgumentException {
+		return this.nuMapper.nachNutzerIdSuchen(nutzerId);
+	}
 
-  /**
-   * Löschen eines Nutzers. Natürlich würde ein reales System zur Verwaltung von
-   * Notizobjektnutzer ein Löschen allein schon aus Gründen der Dokumentation nicht
-   * bieten, sondern deren Status z.B von "aktiv" in "ehemalig" ändern. Wir
-   * wollen hier aber dennoch zu Demonstrationszwecken eine Löschfunktion
-   * vorstellen.
-   */
-  @Override
-public void loeschenNutzer(Nutzer n) throws IllegalArgumentException {
-    /*
-     * Zunächst werden sämtl. Notizen und Notizbuecher des Nutzers aus der DB entfernt.
-     * 
-     * Beachten Sie, dass wir dies auf Ebene der Applikationslogik, konkret: in
-     * der Klasse NotizobjektVerwaltungImpl, durchführen. Grund: In der Klasse
-     * NotizobjektVerwaltungImpl ist die Verflechtung sämtlicher Klassen bzw. ihrer
-     * Objekte bekannt. Nur hier kann sinnvoll ein umfassender Verwaltungsakt
-     * wie z.B. dieser Löschvorgang realisiert werden.
-     * 
-     * Natürlich könnte man argumentieren, dass dies auch auf Datenbankebene
-     * (sprich: mit SQL) effizienter möglich ist. Das Gegenargument ist jedoch
-     * eine dramatische Verschlechterung der Wartbarkeit Ihres Gesamtsystems
-     * durch einen zu niedrigen Abstraktionsgrad und der Verortung von Aufgaben
-     * an einer Stelle (Datenbankschicht), die die zuvor genannte Verflechtung
-     * nicht umfänglich kennen kann.
-     */
-    Vector<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(n);
-    Vector<Notizbuch> notizbuecher = this.nachAllenNotizbuechernDesNutzersSuchen(n);
+	/**
+	 * Auslesen aller Nutzer.
+	 */
+	@Override
+	public List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException {
+		return this.nuMapper.nachAllenNutzernSuchen();
+	}
 
-    if (notizen != null) {
-      for (Notiz no : notizen) {
-        this.loeschenNotiz(no);
-      }
-    }
-    
-    if (notizbuecher != null) {
-        for (Notizbuch nb : notizbuecher) {
-          this.loeschenNotizbuch(nb);
-        }
-      }
-    // Anschließend den Nutzers entfernen
-    this.nuMapper.loeschenNutzer(n);
-  }
+	/**
+	 * Speichern eines Nutzers.
+	 */
+	@Override
+	public void speichern(Nutzer n) throws IllegalArgumentException {
+		nuMapper.update(n);
+	}
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Methoden für Nutzer-Objekte
-   * ***************************************************************************
-   */
+	/**
+	 * Löschen eines Nutzers. Natürlich würde ein reales System zur
+	 * Verwaltung von Notizobjektnutzer ein Löschen allein schon aus Gründen
+	 * der Dokumentation nicht bieten, sondern deren Status z.B von "aktiv" in
+	 * "ehemalig" ändern. Wir wollen hier aber dennoch zu Demonstrationszwecken
+	 * eine Löschfunktion vorstellen.
+	 */
+	@Override
+	public void loeschenNutzer(Nutzer n) throws IllegalArgumentException {
+		/*
+		 * Zunächst werden sämtl. Notizen und Notizbuecher des Nutzers aus der
+		 * DB entfernt.
+		 * 
+		 * Beachten Sie, dass wir dies auf Ebene der Applikationslogik, konkret:
+		 * in der Klasse NotizobjektVerwaltungImpl, durchführen. Grund: In der
+		 * Klasse NotizobjektVerwaltungImpl ist die Verflechtung sämtlicher
+		 * Klassen bzw. ihrer Objekte bekannt. Nur hier kann sinnvoll ein
+		 * umfassender Verwaltungsakt wie z.B. dieser Löschvorgang realisiert
+		 * werden.
+		 * 
+		 * Natürlich könnte man argumentieren, dass dies auch auf
+		 * Datenbankebene (sprich: mit SQL) effizienter möglich ist. Das
+		 * Gegenargument ist jedoch eine dramatische Verschlechterung der
+		 * Wartbarkeit Ihres Gesamtsystems durch einen zu niedrigen
+		 * Abstraktionsgrad und der Verortung von Aufgaben an einer Stelle
+		 * (Datenbankschicht), die die zuvor genannte Verflechtung nicht
+		 * umfänglich kennen kann.
+		 */
+		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(n);
+		List<Notizbuch> notizbuecher = this.nachAllenNotizbuechernDesNutzersSuchen(n);
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Beginn: Methoden für Notiz-Objekte
-   * ***************************************************************************
-   */
-  /**
-   * Auslesen sämtlicher Notizen dieses Systems.
-   */
-  @Override
-public Vector<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
-    return this.noMapper.nachAllenNotizenDesNutzerSuchen();
-  }
+		if (notizen != null) {
+			for (Notiz no : notizen) {
+				this.loeschenNotiz(no);
+			}
+		}
 
-  /**
-   * Auslesen aller Notizen des übergeben Nutzers.
-   */
-  @Override
-public Vector<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
-      throws IllegalArgumentException {
-    return this.noMapper.nachEigentuemerSuchen(n);
-  }
-  
-  /**
-   * Auslesen der Notiz mit einer bestimmten Id
-   */
-  @Override
-public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-	  return noMapper.nachNotizTitelSuchen(id);
-  }
+		if (notizbuecher != null) {
+			for (Notizbuch nb : notizbuecher) {
+				this.loeschenNotizbuch(nb);
+			}
+		}
+		// Anschließend den Nutzers entfernen
+		this.nuMapper.loeschenNutzer(n);
+	}
 
-  /**
-   * Löschen der übergebenen Notiz. Beachten Sie bitte auch die Anmerkungen zu
-   * {@link #loeschenNutzer(Nutzer)}. Beim Löschen der Notiz werden sämtliche damit
-   * in Verbindung stehenden Notizquellen-Objekte und Datum-Objekte gelöscht.
-   * 
-   * @see #loeschenNutzer(Nutzer)
-   */
-  @Override
-public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
-    /*
-     * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des Nutzers aus der DB entfernt.
-     */
-    ArrayList<Notizquelle> notizquellen = this.nachAllenNotizquellenDesNutzersSuchen(no);
-    ArrayList<Datum> faelligkeiten = this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
-   
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Methoden für Nutzer-Objekte
+	 * *************************************************************************
+	 * **
+	 */
 
-    if (notizquellen != null) {
-      for (Notizquelle nq : notizquellen) {
-        this.loeschenNotizquelleVon(nq);
-      }
-    }
-    
-    if (faelligkeiten != null) {
-        for (Datum d : faelligkeiten) {
-          this.loeschenDatumVon(d);
-        }
-      }
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Methoden für Notiz-Objekte
+	 * *************************************************************************
+	 * **
+	 */
+	/**
+	 * Auslesen sämtlicher Notizen dieses Systems.
+	 */
+	@Override
+	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
+		return this.noMapper.nachAllenNotizenDesNutzerSuchen();
+	}
 
-    // Notiz aus der DB entfernen
-    this.noMapper.loeschenNotiz(no);
-  }
-  
-  /**
-   * Anlegen einer neuen Notiz für den übergebenen Nutzer. Dies führt implizit
-   * zu einem Speichern der neuen, leeren Notiz in der Datenbank.
-   * <p>
-   * 
-   * <b>HINWEIS:</b> Änderungen an Notiz-Objekten müssen stets durch Aufruf
-   * von {@link #speichern(Notiz)} in die Datenbank transferiert werden.
-   * 
-   * @see speichern(Notiz a)
-   */
-  @Override
-public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException {
-    Notiz no = new Notiz();
-    no.setEigentuemer(n);
+	/**
+	 * Auslesen aller Notizen des übergeben Nutzers.
+	 */
+	@Override
+	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
+		return this.noMapper.nachEigentuemerSuchen(n);
+	}
 
-    /*
-     * Setzen einer vorläufigen NotizId. Der anlegenNotiz-Aufruf liefert dann ein
-     * Objekt, dessen Id mit der Datenbank konsistent ist.
-     */
-    no.setId(1);
+	/**
+	 * Auslesen der Notiz mit einer bestimmten Id
+	 */
+	@Override
+	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
+		return noMapper.nachNotizTitelSuchen(id);
+	}
 
-    // Objekt in der DB speichern.
-    return this.noMapper.anlegenNotiz(no);
-  }
-  
-  /**
-   * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden
-   * Notizquellen. 
-   * 
-   * @param k der Nutzer, dessen Notizquellen wir bekommen wollen.
-   * @return eine Liste aller Notizquellen
-   * @throws IllegalArgumentException
-   */
-  @Override
-  public ArrayList<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz no)
-	      throws IllegalArgumentException {
-	    ArrayList<Notizquelle> result = new ArrayList<Notizquelle>();
+	/**
+	 * Löschen der übergebenen Notiz. Beachten Sie bitte auch die Anmerkungen
+	 * zu {@link #loeschenNutzer(Nutzer)}. Beim Löschen der Notiz werden
+	 * sämtliche damit in Verbindung stehenden Notizquellen-Objekte und
+	 * Datum-Objekte gelöscht.
+	 * 
+	 * @see #loeschenNutzer(Nutzer)
+	 */
+	@Override
+	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
+		/*
+		 * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des
+		 * Nutzers aus der DB entfernt.
+		 */
+		List<Notizquelle> notizquellen = this.nachAllenNotizquellenDesNutzersSuchen(no);
+		List<Datum> faelligkeiten = this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
 
-	    if (no != null && this.nqMapper != null) {
-	      Vector<Notizquelle> notizquellen = this.nqMapper.nachAllenNotizquellenDerNotizSuchen(no
-	          .getId());
-	      if (notizquellen != null) {
-	        result.addAll(notizquellen);
-      }
-    }
+		if (notizquellen != null) {
+			for (Notizquelle nq : notizquellen) {
+				this.loeschenNotizquelleVon(nq);
+			}
+		}
 
-    return result;
-  }
-  
-  /**
-   * Auslesen sämtlicher mit dieser Notiz in Verbindung stehenden
-   * Faelligkeiten. 
-   * 
-   * @param k der Notiz, dessen Faelligkeiten wir bekommen wollen.
-   * @return eine Liste aller Faelligkeiten
-   * @throws IllegalArgumentException
-   */
-  @Override
-  public ArrayList<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
-	      throws IllegalArgumentException {
-	    ArrayList<Datum> result = new ArrayList<Datum>();
+		if (faelligkeiten != null) {
+			for (Datum d : faelligkeiten) {
+				this.loeschenDatumVon(d);
+			}
+		}
 
-	    if (no != null && this.dMapper != null) {
-	      Vector<Datum> faelligkeiten = this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no
-	          .getId());
-	      if (faelligkeiten != null) {
-	        result.addAll(faelligkeiten);
-      }
-    }
+		// Notiz aus der DB entfernen
+		this.noMapper.loeschenNotiz(no);
+	}
 
-    return result;
-  }
+	/**
+	 * Anlegen einer neuen Notiz für den übergebenen Nutzer. Dies führt
+	 * implizit zu einem Speichern der neuen, leeren Notiz in der Datenbank.
+	 * <p>
+	 * 
+	 * <b>HINWEIS:</b> Änderungen an Notiz-Objekten müssen stets durch Aufruf
+	 * von {@link #speichern(Notiz)} in die Datenbank transferiert werden.
+	 * 
+	 * @see speichern(Notiz a)
+	 */
+	@Override
+	public Notiz anlegenNotizFuer(Nutzer nutzer) throws IllegalArgumentException {
+		Notiz notiz = new Notiz();
+		notiz.setEigentuemer(nutzer);
 
-  /**
-   * Speichern einer Notiz.
-   */
-  @Override
-public void speichern(Notiz no) throws IllegalArgumentException {
-    noMapper.update(no);
-  }
-  
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Methoden für Notiz-Objekte
-   * ***************************************************************************
-   */
+		/*
+		 * Setzen einer vorläufigen NotizId. Der anlegenNotiz-Aufruf liefert
+		 * dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
+		 */
+		notiz.setId(1);
 
-  /*
-   * **************************************************************************
-   * ABSCHNITT, Beginn: Methoden für Notizobjekt-Objekte
-   * ***************************************************************************
-   */
+		// Objekt in der DB speichern.
+		return this.noMapper.anlegenNotiz(notiz);
+	}
 
-  
-  /**
-   * Auslesen sämtlicher Notizbuecher dieses Systems.
-   */
-  @Override
-public Vector<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
-    return this.nbMapper.nachAllenNotizbuechernSuchen();
-  }
+	/**
+	 * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden
+	 * Notizquellen.
+	 * 
+	 * @param k
+	 *            der Nutzer, dessen Notizquellen wir bekommen wollen.
+	 * @return eine Liste aller Notizquellen
+	 * @throws IllegalArgumentException
+	 */
+	@Override
+	public List<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz notiz) throws IllegalArgumentException {
+		return this.nqMapper.nachAllenNotizquellenDerNotizSuchen(notiz.getId());
+	}
 
-  /**
-   * Auslesen aller Notizbuecher des übergeben Nutzers.
-   */
-  @Override
-public Vector<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
-      throws IllegalArgumentException {
-    return this.nbMapper.nachEigentuemerSuchen(n);
-  }
-  
-  /**
-   * Auslesen des Notizbuches mit einer bestimmten Id.
-   */
-  @Override
-public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-	  return nbMapper.nachNotizbuchTitelSuchen(id);
-  }
+	/**
+	 * Auslesen sämtlicher mit dieser Notiz in Verbindung stehenden
+	 * Faelligkeiten.
+	 * 
+	 * @param k
+	 *            der Notiz, dessen Faelligkeiten wir bekommen wollen.
+	 * @return eine Liste aller Faelligkeiten
+	 * @throws IllegalArgumentException
+	 */
+	@Override
+	public List<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no) throws IllegalArgumentException {
+		return this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no.getId());
+		
+	}
 
-  /**
-   * Löschen des übergebenen Notizbuches. Beachten Sie bitte auch die Anmerkungen zu
-   * {@link #loeschenNutzer(Nutzer)}. Beim Löschen des Notizbuches werden sämtliche damit
-   * in Verbindung stehenden Notizen gelöscht.
-   * 
-   * @see #loeschenNutzer(Nutzer)
-   */
-  @Override
-public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException {
-    /*
-     * Zunächst werden sämtl. Notizen des Nutzers aus der DB entfernt.
-     */
-    ArrayList<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(nb);
+	/**
+	 * Speichern einer Notiz.
+	 */
+	@Override
+	public void speichern(Notiz no) throws IllegalArgumentException {
+		noMapper.update(no);
+	}
 
-    if (notizen != null) {
-      for (Notiz no : notizen) {
-        this.loeschenNotiz(no);
-      }
-    }
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Methoden für Notiz-Objekte
+	 * *************************************************************************
+	 * **
+	 */
 
-    // Notizbuch aus der DB entfernen
-    this.nbMapper.loeschenNotizbuch(nb);
-  }
-  
+	/*
+	 * *************************************************************************
+	 * * ABSCHNITT, Beginn: Methoden für Notizobjekt-Objekte
+	 * *************************************************************************
+	 * **
+	 */
 
-  /**
-   * Anlegen eines neuen Notizbuches für den übergebenen Nutzers. Dies führt implizit
-   * zu einem Speichern des neuen, leeren Notizbuches in der Datenbank.
-   * <p>
-   * 
-   * <b>HINWEIS:</b> Änderungen an Notizbuch-Objekten müssen stets durch Aufruf
-   * von {@link #speichern(Notizbuch)} in die Datenbank transferiert werden.
-   * 
-   * @see speichern(Notizbuch a)
-   */
-  @Override
-public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
-    Notizbuch nb = new Notizbuch();
-    nb.setId(n.getNutzerId());
+	/**
+	 * Auslesen sämtlicher Notizbuecher dieses Systems.
+	 */
+	@Override
+	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
+		return this.nbMapper.nachAllenNotizbuechernSuchen();
+	}
 
-    /*
-     * Setzen einer vorläufigen NotizbuchId. Der anlegenNotizbuch-Aufruf liefert dann ein
-     * Objekt, dessen Id mit der Datenbank konsistent ist.
-     */
-    nb.setId(1);
+	/**
+	 * Auslesen aller Notizbuecher des übergeben Nutzers.
+	 */
+	@Override
+	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
+		return this.nbMapper.nachEigentuemerSuchen(n);
+	}
 
-    // Objekt in der DB speichern.
-    return this.nbMapper.anlegenNotizbuch(nb);
-  }
-  
-  /**
-   * <p>
-   * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden
-   * Notizen. 
-   * 
-   * @param k der Nutzer, dessen Notizquellen wir bekommen wollen.
-   * @return eine Liste aller Notizquellen
-   * @throws IllegalArgumentException
-   */
-  @Override
-  public ArrayList<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb)
-	      throws IllegalArgumentException {
-	    ArrayList<Notiz> result = new ArrayList<Notiz>();
+	/**
+	 * Auslesen des Notizbuches mit einer bestimmten Id.
+	 */
+	@Override
+	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
+		return nbMapper.nachNotizbuchTitelSuchen(id);
+	}
 
-	    if (nb != null && this.noMapper != null) {
-	      Vector<Notiz> notizen = this.noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb
-	          .getId());
-	      if (notizen != null) {
-	        result.addAll(notizen);
-      }
-    }
+	/**
+	 * Löschen des übergebenen Notizbuches. Beachten Sie bitte auch die
+	 * Anmerkungen zu {@link #loeschenNutzer(Nutzer)}. Beim Löschen des
+	 * Notizbuches werden sämtliche damit in Verbindung stehenden Notizen
+	 * gelöscht.
+	 * 
+	 * @see #loeschenNutzer(Nutzer)
+	 */
+	@Override
+	public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException {
+		/*
+		 * Zunächst werden sämtl. Notizen des Nutzers aus der DB entfernt.
+		 */
+		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(nb);
 
-    return result;
-  }
-      
-  /**
-   * Speichern eines Notizbuches.
-   */
-  @Override
-public void speichern(Notizbuch nb) throws IllegalArgumentException {
-    nbMapper.update(nb);
-  }
+		if (notizen != null) {
+			for (Notiz no : notizen) {
+				this.loeschenNotiz(no);
+			}
+		}
 
- 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Methoden für Notizbuch-Objekts
-   * ***************************************************************************
-   */
-  
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Beginn: Methoden für Notizquellen-Objekte und Datum-Objekte
-   * ***************************************************************************
-   */
-  /**
-   * Erstellen einer neuen  Notizquelle.
-   * 
-   */
-  @Override
-public Notizquelle anlegenNotizquelleFuer(Notiz no) throws IllegalArgumentException {
+		// Notizbuch aus der DB entfernen
+		this.nbMapper.loeschenNotizbuch(nb);
+	}
 
-    /*
-     * Wir legen eine neue, leere Buchung an.
-     */
-    Notizquelle nq = new Notizquelle();
+	/**
+	 * Anlegen eines neuen Notizbuches für den übergebenen Nutzers. Dies
+	 * führt implizit zu einem Speichern des neuen, leeren Notizbuches in der
+	 * Datenbank.
+	 * <p>
+	 * 
+	 * <b>HINWEIS:</b> Änderungen an Notizbuch-Objekten müssen stets durch
+	 * Aufruf von {@link #speichern(Notizbuch)} in die Datenbank transferiert
+	 * werden.
+	 * 
+	 * @see speichern(Notizbuch a)
+	 */
+	@Override
+	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
+		Notizbuch nb = new Notizbuch();
+		nb.setId(n.getNutzerId());
 
-    /*
-     * Setzen einer vorläufigen NotizquelleId Der anlegenNotizquelle-Aufruf liefert dann ein
-     * Objekt, dessen Id mit der Datenbank konsistent ist.
-     */
-    nq.setNotizquelleId(1);
+		/*
+		 * Setzen einer vorläufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
+		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
+		 */
+		nb.setId(1);
 
-    // Objekt in der DB speichern.
-    return this.nqMapper.anlegenNotizquelle(nq);
-  }
+		// Objekt in der DB speichern.
+		return this.nbMapper.anlegenNotizbuch(nb);
+	}
 
-  /**
-   * Löschen der übergebenen Notizquellen. 
-   */
-  @Override
-public void loeschenNotizquelleVon(Notizquelle nq) throws IllegalArgumentException {
-    this.nqMapper.loeschenNotizquelle(nq);
-  }
-  
-  /**
-   * Erstellen einer neuen Faelligkeit.
-   */
-  @Override
-public Datum anlegenFaelligkeitFuer(Notiz no) throws IllegalArgumentException {
+	/**
+	 * <p>
+	 * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden Notizen.
+	 * 
+	 * @param k
+	 *            der Nutzer, dessen Notizquellen wir bekommen wollen.
+	 * @return eine Liste aller Notizquellen
+	 * @throws IllegalArgumentException
+	 */
+	@Override
+	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb) throws IllegalArgumentException {
+		return this.noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId());
+	}
 
-    /*
-     * Wir legen eine neue, leere Buchung an.
-     */
-    Datum d = new Datum();
+	/**
+	 * Speichern eines Notizbuches.
+	 */
+	@Override
+	public void speichern(Notizbuch nb) throws IllegalArgumentException {
+		nbMapper.update(nb);
+	}
 
-    /*
-     * Setzen einer vorläufigen FaelligkeitId. Der anlegenDatum-Aufruf liefert dann ein
-     * Objekt, dessen Id mit der Datenbank konsistent ist.
-     */
-    d.setFaelligkeitId(1);
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Methoden für Notizbuch-Objekts
+	 * *************************************************************************
+	 * **
+	 */
 
-    // Objekt in der DB speichern.
-    return this.dMapper.anlegenDatum(d);
-  }
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Methoden für Notizquellen-Objekte und
+	 * Datum-Objekte
+	 * *************************************************************************
+	 * **
+	 */
+	/**
+	 * Erstellen einer neuen Notizquelle.
+	 * 
+	 */
+	@Override
+	public Notizquelle anlegenNotizquelleFuer(Notiz no) throws IllegalArgumentException {
 
-  /**
-   * Löschen der übergebenen Faellgikeiten.
-   */
-  @Override
-public void loeschenDatumVon(Datum t) throws IllegalArgumentException {
-    this.dMapper.loeschenDatum(t);
-  }
+		/*
+		 * Wir legen eine neue, leere Buchung an.
+		 */
+		Notizquelle nq = new Notizquelle();
 
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Methoden für Notizquellen-Objekte und Datum-Objekte
-   * ***************************************************************************
-   */
-  
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Beginn: Verschiedenes
-   * ***************************************************************************
-   */
-  /**
-   * Auslesen der Notiz- und Notizbuchobjekte für die diese Notizobjektverwaltung gewissermaßen tätig sind.
-   */
-  @Override
-  public Notiz getNotiz() throws IllegalArgumentException {
-	    return this.notiz;
-	  }
-  public Notizbuch getNotizbuch() throws IllegalArgumentException {
-	    return this.notizbuch;
-	  }
+		/*
+		 * Setzen einer vorläufigen NotizquelleId Der anlegenNotizquelle-Aufruf
+		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
+		 */
+		nq.setNotizquelleId(1);
 
-  /**
-   * Setzen der Notizen und Notizbucher für die diese Notizobjektverwaltung tätig ist.
-   */
-  @Override
-public void setNotiz(Notiz no) throws IllegalArgumentException {
-    this.notiz = no;
-  }
-public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException {
-	    this.notizbuch = nb;
-	  }
-  /*
-   * ***************************************************************************
-   * ABSCHNITT, Ende: Verschiedenes
-   * ***************************************************************************
-   */
+		// Objekt in der DB speichern.
+		return this.nqMapper.anlegenNotizquelle(nq);
+	}
+
+	/**
+	 * Löschen der übergebenen Notizquellen.
+	 */
+	@Override
+	public void loeschenNotizquelleVon(Notizquelle nq) throws IllegalArgumentException {
+		this.nqMapper.loeschenNotizquelle(nq);
+	}
+
+	/**
+	 * Erstellen einer neuen Faelligkeit.
+	 */
+	@Override
+	public Datum anlegenFaelligkeitFuer(Notiz no) throws IllegalArgumentException {
+
+		/*
+		 * Wir legen eine neue, leere Buchung an.
+		 */
+		Datum d = new Datum();
+
+		/*
+		 * Setzen einer vorläufigen FaelligkeitId. Der anlegenDatum-Aufruf
+		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
+		 */
+		d.setFaelligkeitId(1);
+
+		// Objekt in der DB speichern.
+		return this.dMapper.anlegenDatum(d);
+	}
+
+	/**
+	 * Löschen der übergebenen Faellgikeiten.
+	 */
+	@Override
+	public void loeschenDatumVon(Datum t) throws IllegalArgumentException {
+		this.dMapper.loeschenDatum(t);
+	}
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Methoden für Notizquellen-Objekte und Datum-Objekte
+	 * *************************************************************************
+	 * **
+	 */
+
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Beginn: Verschiedenes
+	 * *************************************************************************
+	 * **
+	 */
+	/**
+	 * Auslesen der Notiz- und Notizbuchobjekte für die diese
+	 * Notizobjektverwaltung gewissermaßen tätig sind.
+	 */
+	@Override
+	public Notiz getNotiz() throws IllegalArgumentException {
+		return this.notiz;
+	}
+
+	public Notizbuch getNotizbuch() throws IllegalArgumentException {
+		return this.notizbuch;
+	}
+
+	/**
+	 * Setzen der Notizen und Notizbucher für die diese Notizobjektverwaltung
+	 * tätig ist.
+	 */
+	@Override
+	public void setNotiz(Notiz no) throws IllegalArgumentException {
+		this.notiz = no;
+	}
+
+	public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException {
+		this.notizbuch = nb;
+	}
+	/*
+	 * *************************************************************************
+	 * ** ABSCHNITT, Ende: Verschiedenes
+	 * *************************************************************************
+	 * **
+	 */
 
 }
