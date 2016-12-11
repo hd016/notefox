@@ -2,6 +2,7 @@ package de.hdm.notefox.server.db;
 
 import java.sql.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
@@ -63,7 +64,7 @@ public class NotizMapper {
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, titel, subtitel  FROM notiz " //TODO
+					.executeQuery("SELECT*  FROM notiz " //TODO
 							+ "WHERE id=" + id + " ORDER BY id ASC");
 
 			/*
@@ -190,11 +191,11 @@ public class NotizMapper {
 	 * 
 	 */
 
-	public Vector<Notiz> nachAllenNotizenDesNutzerSuchen() {
+	public List<Notiz> nachAllenNotizenDesNutzerSuchen() {
 		Connection con = DBConnection.connection();
 
-		// Der Vektor der das Ergebnis bereitstellen soll wird vorbereitet
-		Vector<Notiz> result = new Vector<Notiz>();
+		// Die Liste der das Ergebnis bereitstellen soll wird vorbereitet
+		List<Notiz> result = new Vector<Notiz>();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -216,14 +217,14 @@ public class NotizMapper {
 				no.setSubtitel(rs.getString("subtitel"));
 				no.setTitel(rs.getString("titel"));
 
-				// Dem Ergebnisvektor wird ein neues Objekt hinzugef�gt
-				result.addElement(no);
+				// Der Ergebnisliste wird ein neues Objekt hinzugef�gt
+				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Der Ergebnisvektor wird zur�ckgegeben
+		// Die Ergebnisliste wird zur�ckgegeben
 		return result;
 	}
 
@@ -233,14 +234,14 @@ public class NotizMapper {
 	 * 
 	 * @param notizbuchId
 	 *            Schlüssel des zugehörigen Notizbuches.
-	 * @return Ein Vektor mit Notiz-Objekten, die sämtliche Notizen des
+	 * @return Eine Liste mit Notiz-Objekten, die sämtliche Notizen des
 	 *         betreffenden Notizbuches repräsentieren. Bei evtl. Exceptions
 	 *         wird ein partiell gefüllter oder ggf. auch leerer Vetor
 	 *         zurückgeliefert.
 	 */
-	public Vector<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int id) {// TODO
+	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int id) {// TODO
 		Connection con = DBConnection.connection();
-		Vector<Notiz> result = new Vector<Notiz>();
+		List<Notiz> result = new Vector<Notiz>();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -264,13 +265,13 @@ public class NotizMapper {
 				no.setSubtitel(rs.getString("subtitel"));
 				no.setTitel(rs.getString("titel"));
 
-				// Hinzufügen des neuen Objekts zum Ergebnisvektor
-				result.addElement(no);
+				// Hinzufügen des neuen Objekts zur Ergebnisliste
+				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		// Ergebnisvektor zurückgeben
+		// Ergebnisliste zurückgeben
 		return result;
 	}
 
@@ -278,9 +279,9 @@ public class NotizMapper {
 	 * Auslesen aller Notizen eines durch Fremdschl�ssel (NutzerId) gegebenen
 	 * //TODO Nutzern.
 	 */
-	public Vector<Notiz> nachEigentuemerDerNotizSuchen(int id) {
+	public List<Notiz> nachEigentuemerDerNotizSuchen(int id) {
 		Connection con = DBConnection.connection();
-		Vector<Notiz> result = new Vector<Notiz>();
+		List<Notiz> result = new Vector<Notiz>();
 
 		try {
 			Statement stmt = con.createStatement();
@@ -301,21 +302,21 @@ public class NotizMapper {
 				no.setSubtitel(rs.getString("subtitel"));
 				no.setTitel(rs.getString("titel"));
 
-				// Dem Ergebnisvektor wird ein neues Objekt hinzugef�gt
-				result.addElement(no);
+				// Der Ergebnisliste wird ein neues Objekt hinzugef�gt
+				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Der Ergebnisvektor wird zur�ckgegeben
+		// Die Ergebnisliste wird zur�ckgegeben
 		return result;
 	}
 
 	/**
 	 * Auslesen aller Notizen eines Nutzers //TODO
 	 */
-	public Vector<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) { // TODO
+	public List<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) { // TODO
 
 		// Die Id des Notiz Objekts wird ausgelesen, und die Methode ist f�r
 		// die weitere Bearbeitung zust�ndig.

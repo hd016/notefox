@@ -1,6 +1,7 @@
 package de.hdm.notefox.server.db;
 
 import java.sql.*;
+import java.util.List;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
@@ -86,11 +87,11 @@ public class NutzerMapper {
    * Auslesen aller Nutzer.
    * 
    */
-  public Vector<Nutzer> nachAllenNutzernSuchen() {
+  public List<Nutzer> nachAllenNutzernSuchen() {
     Connection con = DBConnection.connection();
     
- // Der Vektor der das Ergebnis bereitstellen soll wird vorbereitet
-    Vector<Nutzer> result = new Vector<Nutzer>();
+ // Die Liste die das Ergebnis bereitstellen soll wird vorbereitet
+    List<Nutzer> result = new Vector<Nutzer>();
 
     try {
       Statement stmt = con.createStatement();
@@ -105,15 +106,15 @@ public class NutzerMapper {
         n.setNutzerId(rs.getInt("nutzerId"));
         n.setEmail(rs.getString("email"));
 
-     // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(n);
+     // Es wird ein neues Objekt hinzugefügt
+        result.add(n);
       }
     }
     catch (SQLException e) {
       e.printStackTrace();
     }
 
-    // Der Ergebnisvektor wird zurückgegeben
+    // Die Ergebnisliste wird zurückgegeben
     return result;
   }
 
@@ -121,9 +122,8 @@ public class NutzerMapper {
    * Auslesen aller Nutzer-Objekte mit gegebenem Email
    * 
    */
-  public Vector<Nutzer> nachNutzerEmailSuchen(String name) {
+  public Nutzer nachNutzerEmailSuchen(String name) {
     Connection con = DBConnection.connection();
-    Vector<Nutzer> result = new Vector<Nutzer>();
 
     try {
       Statement stmt = con.createStatement();
@@ -139,16 +139,16 @@ public class NutzerMapper {
         n.setNutzerId(rs.getInt("NutzerId"));
         n.setEmail(rs.getString("email"));
 
-     // Dem Ergebnisvektor wird ein neues Objekt hinzugefügt
-        result.addElement(n);
+     // Es wird ein neues Objekt hinzugefügt
+        return n;
       }
     }
     catch (SQLException e) {
       e.printStackTrace();
     }
 
-    // Der Ergebnisvektor wird zurückgegeben
-    return result;
+    // null wird zurückgegegeben
+    return null;
   }
 
   /**
@@ -259,7 +259,7 @@ public class NutzerMapper {
    * Nutzer.
    */
   
-  public Vector<Notiz> getNotizOf(Nutzer n) {
+  public List<Notiz> getNotizOf(Nutzer n) {
     return NotizMapper.notizMapper().nachEigentuemerSuchen(n);
   }
   
@@ -267,7 +267,7 @@ public class NutzerMapper {
    * Auslesen der zugehörigen Notizbücher-Objekte zu einem gegebenen
    * Nutzer.
    */
-  public Vector<Notizbuch> getNotizbuchOf(Nutzer c) {
+  public List<Notizbuch> getNotizbuchOf(Nutzer c) {
 	return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(c);
 	  }
 }
