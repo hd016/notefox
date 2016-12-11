@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 import de.hdm.notefox.shared.bo.Notiz;
@@ -11,38 +13,61 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class NotizBaumModel implements TreeViewModel {
 
+	
+	VerticalPanel vPanel = new VerticalPanel();
+	
+	
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		if (value == null) {
 			List<Notizbuch> notizbuchlist = new ArrayList<>();
 
 			Notizbuch notizbuch = new Notizbuch();
-			notizbuch.setTitel("Mein Notizbücher");
+			notizbuch.setTitel("Hobby");
 			notizbuchlist.add(notizbuch);
+			
+			Notizbuch notizbuch1 = new Notizbuch();
+			notizbuch1.setTitel("Studium");
+			notizbuchlist.add(notizbuch1);
+			
+			Notizbuch notizbuch2 = new Notizbuch();
+			notizbuch2.setTitel("Arbeit");
+			notizbuchlist.add(notizbuch2);
+			
+			Notizbuch notizbuch3 = new Notizbuch();
+			notizbuch3.setTitel("Familie");
+			notizbuchlist.add(notizbuch3);
+			
 
-		//	Notizbuch notizbuch1 = new Notizbuch();
-		//	notizbuch1.setTitel("todo");
-		//	notizbuchlist.add(notizbuch1); 
-
-			List<Notiz> notizlist = new ArrayList<>();
+			List<Notiz> notizlistStudium = new ArrayList<>();
 			Notiz notiz = new Notiz();
-			notiz.setTitel("Studium");
+			notiz.setTitel("Abgaben");
 			
 			Notiz notiz1 = new Notiz();
-			notiz1.setTitel("Hobbys");
+			notiz1.setTitel("Projekte");
 			
 			Notiz notiz2 = new Notiz();
-			notiz2.setTitel("To-do-Liste");
+			notiz2.setTitel("Klausuren");
+			
+			notizlistStudium.add(notiz);
+			notizlistStudium.add(notiz1);
+			notizlistStudium.add(notiz2);
+			notizbuch1.setNotizen(notizlistStudium);
+			
+			List<Notiz> notizlistHobbys = new ArrayList<>();
+			
+			Notiz notiz3 = new Notiz();
+			notiz3.setTitel("Termine");
+			notizlistHobbys.add(notiz3);
+			notizbuch.setNotizen(notizlistHobbys);
+			
+			List<Notiz> notizlistFamilie = new ArrayList<>();
+			
+			Notiz notiz4 = new Notiz();
+			notiz3.setTitel("Einkaufen");
+			notizlistFamilie.add(notiz4);
+			notizbuch3.setNotizen(notizlistFamilie);
 
-
-			
-			notizlist.add(notiz);
-			notizlist.add(notiz1);
-			notizlist.add(notiz2);
-			notizbuch.setNotizen(notizlist);
-			
-			
-			
 
 			return new DefaultNodeInfo<Notizbuch>(new ListDataProvider<Notizbuch>(notizbuchlist),
 					new AbstractCell<Notizbuch>() {
