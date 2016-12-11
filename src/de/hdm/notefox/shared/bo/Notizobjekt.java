@@ -18,11 +18,11 @@ public abstract class Notizobjekt extends BusinessObject {
 	 */
 	private Nutzer eigentuemer;
 	
-	private String titel;
+	private String titel = "";
 
-	private String subtitel;
+	private String subtitel = "";
 	
-	private String inhalt;
+	private String inhalt = "";
 
 	private Date erstelldatum;
 

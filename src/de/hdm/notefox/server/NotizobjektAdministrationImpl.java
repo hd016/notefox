@@ -191,7 +191,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		this.nuMapper = NutzerMapper.nutzerMapper();
 		this.noMapper = NotizMapper.notizMapper();
 		this.nbMapper = NotizbuchMapper.notizbuchMapper();
-		this.nqMapper = NotizquelleMapper.notizquelleMapper();
 		this.bMapper  = BerechtigungMapper.berechtigungMapper();
 		
 	}

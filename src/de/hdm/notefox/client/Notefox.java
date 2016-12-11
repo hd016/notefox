@@ -57,7 +57,7 @@ public class Notefox implements EntryPoint {
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel();
 	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 
-	CellTree celltree = new CellTree(new NotizBaumModel(), null);
+	CellTree celltree = new CellTree(new NotizBaumModel(notizeditorpanel), null);
 //	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
