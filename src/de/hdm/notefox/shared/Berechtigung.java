@@ -3,7 +3,7 @@ package de.hdm.notefox.shared;
 public class Berechtigung {
 	
 	public static enum Berechtigungsart{
-		LESEN, EDITIEREN
+		LESEN, EDITIEREN, LOESCHEN
 	}
 
 
