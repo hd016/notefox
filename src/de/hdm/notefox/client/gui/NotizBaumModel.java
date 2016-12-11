@@ -115,6 +115,7 @@ public class NotizBaumModel implements TreeViewModel {
 						notizEditorPanel.setNotizobjekt(value);
 					}
 				}
+			
 			});
 
 		}
