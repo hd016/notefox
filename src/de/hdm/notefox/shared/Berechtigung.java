@@ -17,7 +17,7 @@ public class Berechtigung {
 	private Berechtigungsart berechtigungName;
 	private Notiz notiz;
 	private Notizbuch notizbuch;
-
+	private Nutzer berechtigter;
 	/**
 	 * Auslesen und Setzen der Variablen
 	 */
@@ -52,6 +52,14 @@ public class Berechtigung {
 
 	public void setNotizbuch(Notizbuch notizbuch) {
 		this.notizbuch = notizbuch;
+	}
+
+	public Nutzer getBerechtigter() {
+		return berechtigter;
+	}
+
+	public void setBerechtigter(Nutzer berechtigter) {
+		this.berechtigter = berechtigter;
 	}
 
 }
