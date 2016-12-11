@@ -327,3 +327,13 @@ h1 {
 .gwt-TextBox {
 	margin-left: 10px;
 }
+
+.datePicker {
+	margin-top: 17px;
+	
+}
+
+.TextBox-readonly {
+	margin-top: 17px;
+	width: 145px;
+}
