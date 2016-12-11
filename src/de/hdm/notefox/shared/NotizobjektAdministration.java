@@ -147,17 +147,17 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Speichern eines Notiz-Objekts in der Datenbank.
    */
-  public void speichern(Notiz no) throws IllegalArgumentException;
+  public Notiz speichern(Notiz no) throws IllegalArgumentException;
   
   /**
    * Speichern eines Notizbuch-Objekts in der Datenbank.
    */
-  public void speichern(Notizbuch nb) throws IllegalArgumentException;
+  public Notizbuch speichern(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Speichern eines Nutzer-Objekts in der Datenbank.
    */
-  public void speichern(Nutzer n) throws IllegalArgumentException;
+  public Nutzer speichern(Nutzer n) throws IllegalArgumentException;
 
   /**
    * L�schen der Daten eines �bergegebenen Notiz-Objekts.

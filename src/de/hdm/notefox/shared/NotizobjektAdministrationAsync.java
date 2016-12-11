@@ -58,11 +58,11 @@ void nachAllenNotizenSuchen(AsyncCallback<List<Notiz>> callback);
 
 void nachAllenNotizbuechernSuchen(AsyncCallback<List<Notizbuch>> callback);
 
-void speichern(Notiz no, AsyncCallback<Void> callback);
+void speichern(Notiz no, AsyncCallback<Notiz> callback);
 
-void speichern(Notizbuch nb, AsyncCallback<Void> callback);
+void speichern(Notizbuch nb, AsyncCallback<Notizbuch> callback);
 
-void speichern(Nutzer n, AsyncCallback<Void> callback);
+void speichern(Nutzer n, AsyncCallback<Nutzer> callback);
 
 void loeschenNotiz(Notiz no, AsyncCallback<Void> callback);
 

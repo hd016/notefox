@@ -233,7 +233,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Nutzer> nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
-
 		return this.nuMapper.nachNutzerEmailSuchen(email);
 	}
 
@@ -257,8 +256,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern eines Nutzers.
 	 */
 	@Override
-	public void speichern(Nutzer n) throws IllegalArgumentException {
-		nuMapper.update(n);
+	public Nutzer speichern(Nutzer n) throws IllegalArgumentException {
+		return this.nuMapper.update(n);
 	}
 
 	/**
@@ -436,8 +435,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern einer Notiz.
 	 */
 	@Override
-	public void speichern(Notiz no) throws IllegalArgumentException {
-		noMapper.update(no);
+	public Notiz speichern(Notiz no) throws IllegalArgumentException {
+		return this.noMapper.update(no);
 	}
 
 	/*
@@ -548,8 +547,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern eines Notizbuches.
 	 */
 	@Override
-	public void speichern(Notizbuch nb) throws IllegalArgumentException {
-		nbMapper.update(nb);
+	public Notizbuch speichern(Notizbuch nb) throws IllegalArgumentException {
+		return this.nbMapper.update(nb);
 	}
 
 	/*
