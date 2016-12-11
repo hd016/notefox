@@ -16,7 +16,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
-import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.client.gui.NotizObjektTree;
@@ -58,7 +57,7 @@ public class Notefox implements EntryPoint {
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel();
 
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
-	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
+//	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
@@ -79,7 +78,7 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 		vPanel.add(meineBerechtigungen);
-		vPanel.add(celltree2);
+//		vPanel.add(celltree2);
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
@@ -110,7 +109,6 @@ public class Notefox implements EntryPoint {
 			@Override
 			public void onClick(ClickEvent event) {
 				Nutzer nutzer = new Nutzer();
-				nutzer.setName("Testuser");
 
 				administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
 
@@ -158,7 +156,7 @@ public class Notefox implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
-			vPanel_inhalt.add(celltree2);
+//			vPanel_inhalt.add(celltree2);
 
 		}
 
