@@ -59,7 +59,7 @@ public class NutzerMapper {
    // Das Statement wird ausgefüllt und an die Datebank verschickt
       ResultSet rs = stmt
           .executeQuery("SELECT nutzerId, email FROM nutzer "
-              + "WHERE nutzerId=" + nutzerId + " ORDER BY name");
+              + "WHERE nutzerId=" + nutzerId);
 
       /*
        * An dieser Stelle kann man prüfen ob bereits ein Ergebnis vorliegt. 
