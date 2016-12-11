@@ -1,7 +1,6 @@
 package de.hdm.notefox.shared;
 
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -26,11 +25,11 @@ void anlegenNotizquelleFuer(Notiz no, AsyncCallback<Notizquelle> callback);
 
 void anlegenFaelligkeitFuer(Notiz no, AsyncCallback<Datum> callback);
 
-void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<ArrayList<Notizquelle>> callback);
+void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<List<Notizquelle>> callback);
 
-void nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no, AsyncCallback<ArrayList<Datum>> callback);
+void nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no, AsyncCallback<List<Datum>> callback);
 
-void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<ArrayList<Notiz>> callback);
+void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<List<Notiz>> callback);
 
 
 void getNotiz(AsyncCallback<Notiz> callback);
@@ -41,23 +40,23 @@ void getNotizbuch(AsyncCallback<Notizbuch> callback);
 
 void setNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
-void nachAllenNotizenDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notiz>> callback);
+void nachAllenNotizenDesNutzersSuchen(Nutzer n, AsyncCallback<List<Notiz>> callback);
 
-void nachAllenNotizbuechernDesNutzersSuchen(Nutzer n, AsyncCallback<Vector<Notizbuch>> callback);
+void nachAllenNotizbuechernDesNutzersSuchen(Nutzer n, AsyncCallback<List<Notizbuch>> callback);
 
 void nachNotizIdSuchen(int id, AsyncCallback<Notiz> callback);
 
 void nachNotizbuchIdSuchen(int id, AsyncCallback<Notizbuch> callback);
 
-void nachNutzerEmailSuchen(String email, AsyncCallback<Vector<Nutzer>> callback);
+void nachNutzerEmailSuchen(String email, AsyncCallback<List<Nutzer>> callback);
 
 void nachNutzerIdSuchen(int nutzerid, AsyncCallback<Nutzer> callback);
 
-void nachAllenNutzernSuchen(AsyncCallback<Vector<Nutzer>> callback);
+void nachAllenNutzernSuchen(AsyncCallback<List<Nutzer>> callback);
 
-void nachAllenNotizenSuchen(AsyncCallback<Vector<Notiz>> callback);
+void nachAllenNotizenSuchen(AsyncCallback<List<Notiz>> callback);
 
-void nachAllenNotizbuechernSuchen(AsyncCallback<Vector<Notizbuch>> callback);
+void nachAllenNotizbuechernSuchen(AsyncCallback<List<Notizbuch>> callback);
 
 void speichern(Notiz no, AsyncCallback<Void> callback);
 
