@@ -1,7 +1,7 @@
 package de.hdm.notefox.server.report;
 
 import java.util.Date;
-import java.util.Vector;
+import java.util.List;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -183,7 +183,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      * Nun werden sämtliche Notizen des Nutzers ausgelesen und deren NotizId und
      * sukzessive in die Tabelle eingetragen.
      */
-    Vector<Notiz> notizen = this.administration.nachAllenNotizenDesNutzersSuchen(n);
+    List<Notiz> notizen = this.administration.nachAllenNotizenDesNutzersSuchen(n);
 
     for (Notiz no : notizen) {
       // Eine leere Zeile anlegen.
@@ -245,7 +245,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      * AlleNotizenAllerNutzerReport, welches eine Subklasse von
      * CompositeReport ist.
      */
-    Vector<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
+    List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
 
     for (Nutzer n : alleNutzer) {
       /*
@@ -327,7 +327,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
     /*
      * Alle Notizbuecher des Nutzers auslesen und sukzessives Eintragen der NotizbuchId in die Tabelle. 
      */
-    Vector<Notizbuch> notizbuecher = this.administration.nachAllenNotizbuechernDesNutzersSuchen(n);
+    List<Notizbuch> notizbuecher = this.administration.nachAllenNotizbuechernDesNutzersSuchen(n);
 
     for (Notizbuch nb : notizbuecher) {
       // Leere Zeile
@@ -389,7 +389,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      * AlleNotizbuecherAllerNutzersReport, welches eine Subklasse von
      * CompositeReport ist.
      */
-    Vector<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
+    List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
 
     for (Nutzer n : alleNutzer) {
       /*
