@@ -9,6 +9,7 @@ import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -19,6 +20,7 @@ import com.google.gwt.view.client.TreeViewModel;
 import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
+import de.hdm.notefox.client.gui.NotizObjektTree;
 import de.hdm.notefox.client.gui.NotizbuchEditorPanel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -36,10 +38,12 @@ public class Notefox implements EntryPoint {
 	Button editieren = new Button("Editieren");
 	Button suchen = new Button("Suchen");
 	Button freigeben = new Button("Freigeben");
-	Label test = new Label("Notizbuch Klick erfolgreich!");
-	Label test_nutzer = new Label("Nutzer Klick erfolgreich!");
+	Label meineNotizBuecher = new Label("Meine Notizbücher");
+	Label meineBerechtigungen = new Label("Meine Berechtigungen");
 	Label titel = new Label("Titel");
 
+	HTML br = new HTML("<br>");
+	
 	VerticalPanel vPanel = new VerticalPanel();
 	VerticalPanel vBrowser = new VerticalPanel();
 
@@ -50,8 +54,9 @@ public class Notefox implements EntryPoint {
 	Button neuesNotizBuch = new Button("+ Notizbuch");
 	Button neuesNotiz = new Button("Erstelle Notiz");
 	
+	NotizObjektTree net = new NotizObjektTree();
 	NotizbuchEditorPanel notizbucheditorpanel = new NotizbuchEditorPanel();
-	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(new Notiz());
+	NotizEditorPanel notizeditorpanel = new NotizEditorPanel();
 
 	CellTree celltree = new CellTree(new NotizBaumModel(), null);
 	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
@@ -61,9 +66,21 @@ public class Notefox implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
-		vPanel.add(NotizBuch);
-		vPanel.add(Nutzer);
-		vPanel.add(Profil);
+		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
+		hPanelNotizNotizbuch.add(notizeditorpanel);
+		hPanelNotizNotizbuch.add(notizbucheditorpanel);
+		
+		
+		vPanel.add(meineNotizBuecher);
+		vPanel.add(celltree);
+		//vPanel.add(NotizBuch);
+		//vPanel.add(Nutzer);
+		//vPanel.add(Profil);
+		vPanel.add(br);
+		vPanel.add(br);
+		vPanel.add(br);
+		vPanel.add(meineBerechtigungen);
+		vPanel.add(celltree2);
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
@@ -75,10 +92,8 @@ public class Notefox implements EntryPoint {
 
 
 		RootPanel.get("gwtContainer").add(vPanel);
+		RootPanel.get("text").add(hPanelNotizNotizbuch);
 
-		vPanel.add(NotizBuch);
-		vPanel.add(Nutzer);
-		vPanel.add(Profil);
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
@@ -124,7 +139,6 @@ public class Notefox implements EntryPoint {
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
 			vPanel_inhalt.addStyleName("vPanel");
-			vPanel_inhalt.add(test);
 			vPanel_inhalt.add(celltree);
 
 			neuesNotiz.addClickHandler(new NeuesNotizClickHandler());
@@ -146,7 +160,6 @@ public class Notefox implements EntryPoint {
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
 			vPanel_inhalt.add(celltree2);
-			vPanel_inhalt.add(test_nutzer);
 
 		}
 
@@ -157,8 +170,14 @@ public class Notefox implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
+			HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
+			hPanelNotizNotizbuch.add(notizeditorpanel);
+			hPanelNotizNotizbuch.add(notizbucheditorpanel);
+			
+
 			vPanel_inhalt.add(titel);
-			vPanel_inhalt.add(notizeditorpanel);
+			vPanel_inhalt.add(hPanelNotizNotizbuch);
+			
 
 		}
 
