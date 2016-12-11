@@ -10,13 +10,14 @@ import de.hdm.notefox.shared.LoginInfo;
 import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.Nutzer;
 
-
 /**
  * TODO
+ * 
  * @author Harun Dalici & Muhammed Simsek
  *
  */
-public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
+public class LoginServiceImpl extends RemoteServiceServlet implements
+		LoginService {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +39,8 @@ public class LoginServiceImpl extends RemoteServiceServlet implements LoginServi
 		if (user != null) {
 			loginInfo.setLoggedIn(true);
 			loginInfo.setEmail(user.getEmail());
-			loginInfo.setNutzer(NutzerMapper.nutzerMapper().nachNutzerEmailSuchen(user.getEmail()));
+			// loginInfo.setNutzer(NutzerMapper.nutzerMapper().nachNutzerEmailSuchen(user.getEmail()));
+			loginInfo.setNutzer(new Nutzer());
 			loginInfo.setLogoutUrl(userService.createLogoutURL(requestUri));
 		} else {
 			loginInfo.setLoggedIn(false);

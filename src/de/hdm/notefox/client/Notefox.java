@@ -20,6 +20,9 @@ import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.client.gui.NotizbuchEditorPanel;
+import de.hdm.notefox.shared.LoginInfo;
+import de.hdm.notefox.shared.LoginService;
+import de.hdm.notefox.shared.LoginServiceAsync;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
@@ -65,6 +68,26 @@ public class Notefox implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
+	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+	      public void onFailure(Throwable error) {
+	      }
+
+	      public void onSuccess(LoginInfo loginInfo) {
+	        if(loginInfo.isLoggedIn()) {
+	        	onModuleLoadLoggedIn();
+	        } else {
+	        	RootPanel.get("gwtContainer").clear();
+	        	RootPanel.get("gwtContainer").add(new LoginPanel(loginInfo));
+	        }
+	      }
+	    });
+
+	}
+	
+	private void onModuleLoadLoggedIn(){
+		
+		
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelLeft = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
@@ -93,7 +116,7 @@ public class Notefox implements EntryPoint {
 		NotizBuch.addClickHandler(new CellTreeClickHandler());
 		Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
 
-
+		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);
 		RootPanel.get("text").add(hPanelNotizNotizbuch);
 
@@ -132,7 +155,6 @@ public class Notefox implements EntryPoint {
 			}
 		});
 		//vPanel.add(button);
-
 	}
 
 	private class CellTreeClickHandler implements ClickHandler {
