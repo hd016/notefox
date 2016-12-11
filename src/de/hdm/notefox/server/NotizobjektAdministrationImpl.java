@@ -372,7 +372,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-		return noMapper.nachNotizTitelSuchen(id);
+		return noMapper.nachNotizIdSuchen(id);
 	}
 
 	/**
@@ -478,7 +478,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-		return nbMapper.nachNotizbuchTitelSuchen(id);
+		return nbMapper.nachNotizbuchIdSuchen(id);
 	}
 
 	/**
