@@ -17,7 +17,7 @@ void initialisieren(AsyncCallback<Void> callback);
 
 void anlegenNutzer(int nutzerId, String name, AsyncCallback<Nutzer> callback);
 
-void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
+void anlegenNotizFuer(Nutzer nutzer, Notizbuch notizbuch, AsyncCallback<Notiz> callback);
 
 void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
 

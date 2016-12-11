@@ -28,7 +28,7 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Eine neue Notiz f�r einen gegebenen Nutzer anlegen.
    */
-  public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException;
+  public Notiz anlegenNotizFuer(Nutzer nutzer, Notizbuch notizbuch) throws IllegalArgumentException;
   
   /**
    * Eine neues Notizbuch f�r einen gegebenen Nutzer anlegen.
