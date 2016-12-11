@@ -52,7 +52,7 @@ public class NotizMapper {
 	 * Notiz nach NotizTitel suchen. * als return: Notiz-Objekt oder bei nicht
 	 * vorhandener Id/DB-Tupel null.
 	 */
-	public Notiz nachNotizTitelSuchen(int id) {
+	public Notiz nachNotizIdSuchen(int id) {
 		// Es wird eine DB-Verbindung angeschafft
 		Connection con = DBConnection.connection();
 
@@ -63,7 +63,7 @@ public class NotizMapper {
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT id, titel, subtitel  FROM notiz "
+					.executeQuery("SELECT id, titel, subtitel  FROM notiz " //TODO
 							+ "WHERE id=" + id + " ORDER BY id ASC");
 
 			/*
@@ -322,6 +322,24 @@ public class NotizMapper {
 
 		return nachEigentuemerDerNotizSuchen(eigentuemer.getNutzerId());
 	}
+
+	
+	/**
+	   * Auslesen des zugehörigen <code>Notizbuch</code>-Objekts zu einem gegebenen
+	   * Notiz.
+	   * 
+	   * @param no die Notiz, dessen Notizbuch wir auslesen möchten
+	   * @return ein Objekt, das das Notizbuch der Notiz darstellt
+	   */
+	  public Notizbuch nachZugehoerigemNotizbuchSuchen(Notiz no) {
+	    /*
+	     * Wir bedienen uns hier einfach des NotizbuchMapper. Diesem geben wir einfach
+	     * den in dem Notiz-Objekt enthaltenen Fremdschlüssel für das Notizbuch.
+	     * Der NotizbuchMapper löst uns dann diese ID in ein Objekt auf.
+	     */
+	    return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(no.getNotizbuchId());
+	  }
+
 
 	/**
 	 * Anlegen einer Notiz.

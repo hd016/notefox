@@ -1,22 +1,24 @@
 package de.hdm.notefox.server;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-import de.hdm.notefox.server.db.DatumMapper;
+import de.hdm.notefox.server.db.BerechtigungMapper;
 import de.hdm.notefox.server.db.NotizMapper;
 import de.hdm.notefox.server.db.NotizbuchMapper;
-import de.hdm.notefox.server.db.NotizquelleMapper;
 import de.hdm.notefox.server.db.NutzerMapper;
 import de.hdm.notefox.server.report.ReportGeneratorImpl;
-import de.hdm.notefox.shared.Datum;
+import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
-import de.hdm.notefox.shared.Notizquelle;
 import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
+import de.hdm.notefox.shared.bo.Notizobjekt;
 
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
@@ -109,31 +111,21 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Referenz auf den DatenbankMapper, der Nutzerobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NutzerMapper nuMapper = null;
+	private NutzerMapper nuMapper;
 
 	/**
 	 * Referenz auf den DatenbankMapper, der Notizobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NotizMapper noMapper = NotizMapper.notizMapper();
+	private NotizMapper noMapper;
 
 	/**
 	 * Referenz auf den DatenbankMapper, der Notizbuchobjekte mit der Datenbank
 	 * abgleicht.
 	 */
-	private NotizbuchMapper nbMapper = null;
+	private NotizbuchMapper nbMapper;
 
-	/**
-	 * Referenz auf den NotizquelleMapper, der Notizquelleobjekte mit der
-	 * Datenbank abgleicht.
-	 */
-	private NotizquelleMapper nqMapper = null;
-
-	/**
-	 * Referenz auf den DatumMapper, der Datumobjekte mit der Datenbank
-	 * abgleicht.
-	 */
-	private DatumMapper dMapper = null;
+	private BerechtigungMapper bMapper;
 
 	/*
 	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
@@ -191,6 +183,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		this.nuMapper = NutzerMapper.nutzerMapper();
 		this.noMapper = NotizMapper.notizMapper();
 		this.nbMapper = NotizbuchMapper.notizbuchMapper();
+		this.bMapper  = BerechtigungMapper.berechtigungMapper();
+		
+
+		
+
 	}
 
 	/*
@@ -240,7 +237,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Nutzer> nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
-
 		return this.nuMapper.nachNutzerEmailSuchen(email);
 	}
 
@@ -264,8 +260,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern eines Nutzers.
 	 */
 	@Override
-	public void speichern(Nutzer n) throws IllegalArgumentException {
-		nuMapper.update(n);
+	public Nutzer speichern(Nutzer n) throws IllegalArgumentException {
+		return this.nuMapper.update(n);
 	}
 
 	/**
@@ -332,7 +328,35 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
-		return this.noMapper.nachAllenNotizenDesNutzerSuchen();
+		Vector<Notiz> notizen = this.noMapper.nachAllenNotizenDesNutzerSuchen();
+		return berechtigungAnwenden(notizen);
+	}
+	
+	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte){
+		List<Berechtigung> berechtigungen = new ArrayList<>();
+		Nutzer aktuellerNutzer = null;
+		
+		List<T> ergebnis = new ArrayList<>();		
+		for (T notizobjekt : notizobjekte) {
+			if(pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt)){
+				ergebnis.add(notizobjekt);
+			}
+		}
+		return ergebnis;
+	}
+	
+	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen, Nutzer aktuellerNutzer, Notizobjekt notizobjekt){
+		if(notiz.getEigentuemer().equals(aktuellerNutzer)){
+			return true;
+		}
+		
+		for(Berechtigung berechtigung : berechtigungen){
+			if(berechtigung.getBerechtigungName() == Berechtigungsart.LESEN){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
@@ -361,24 +385,26 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
-		/*
-		 * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des
-		 * Nutzers aus der DB entfernt.
-		 */
-		List<Notizquelle> notizquellen = this.nachAllenNotizquellenDesNutzersSuchen(no);
-		List<Datum> faelligkeiten = this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
-
-		if (notizquellen != null) {
-			for (Notizquelle nq : notizquellen) {
-				this.loeschenNotizquelleVon(nq);
-			}
-		}
-
-		if (faelligkeiten != null) {
-			for (Datum d : faelligkeiten) {
-				this.loeschenDatumVon(d);
-			}
-		}
+		// /*
+		// * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des
+		// * Nutzers aus der DB entfernt.
+		// */
+		// List<Notizquelle> notizquellen =
+		// this.nachAllenNotizquellenDesNutzersSuchen(no);
+		// List<Datum> faelligkeiten =
+		// this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
+		//
+		// if (notizquellen != null) {
+		// for (Notizquelle nq : notizquellen) {
+		// this.loeschenNotizquelleVon(nq);
+		// }
+		// }
+		//
+		// if (faelligkeiten != null) {
+		// for (Datum d : faelligkeiten) {
+		// this.loeschenDatumVon(d);
+		// }
+		// }
 
 		// Notiz aus der DB entfernen
 		this.noMapper.loeschenNotiz(no);
@@ -410,40 +436,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden
-	 * Notizquellen.
-	 * 
-	 * @param k
-	 *            der Nutzer, dessen Notizquellen wir bekommen wollen.
-	 * @return eine Liste aller Notizquellen
-	 * @throws IllegalArgumentException
-	 */
-	@Override
-	public List<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz notiz) throws IllegalArgumentException {
-		return this.nqMapper.nachAllenNotizquellenDerNotizSuchen(notiz.getId());
-	}
-
-	/**
-	 * Auslesen sämtlicher mit dieser Notiz in Verbindung stehenden
-	 * Faelligkeiten.
-	 * 
-	 * @param k
-	 *            der Notiz, dessen Faelligkeiten wir bekommen wollen.
-	 * @return eine Liste aller Faelligkeiten
-	 * @throws IllegalArgumentException
-	 */
-	@Override
-	public List<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no) throws IllegalArgumentException {
-		return this.dMapper.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no.getId());
-		
-	}
-
-	/**
 	 * Speichern einer Notiz.
 	 */
 	@Override
-	public void speichern(Notiz no) throws IllegalArgumentException {
-		noMapper.update(no);
+	public Notiz speichern(Notiz no) throws IllegalArgumentException {
+		return this.noMapper.update(no);
 	}
 
 	/*
@@ -554,8 +551,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern eines Notizbuches.
 	 */
 	@Override
-	public void speichern(Notizbuch nb) throws IllegalArgumentException {
-		nbMapper.update(nb);
+	public Notizbuch speichern(Notizbuch nb) throws IllegalArgumentException {
+		return this.nbMapper.update(nb);
 	}
 
 	/*
@@ -572,64 +569,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * *************************************************************************
 	 * **
 	 */
-	/**
-	 * Erstellen einer neuen Notizquelle.
-	 * 
-	 */
-	@Override
-	public Notizquelle anlegenNotizquelleFuer(Notiz no) throws IllegalArgumentException {
-
-		/*
-		 * Wir legen eine neue, leere Buchung an.
-		 */
-		Notizquelle nq = new Notizquelle();
-
-		/*
-		 * Setzen einer vorläufigen NotizquelleId Der anlegenNotizquelle-Aufruf
-		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
-		 */
-		nq.setNotizquelleId(1);
-
-		// Objekt in der DB speichern.
-		return this.nqMapper.anlegenNotizquelle(nq);
-	}
-
-	/**
-	 * Löschen der übergebenen Notizquellen.
-	 */
-	@Override
-	public void loeschenNotizquelleVon(Notizquelle nq) throws IllegalArgumentException {
-		this.nqMapper.loeschenNotizquelle(nq);
-	}
-
-	/**
-	 * Erstellen einer neuen Faelligkeit.
-	 */
-	@Override
-	public Datum anlegenFaelligkeitFuer(Notiz no) throws IllegalArgumentException {
-
-		/*
-		 * Wir legen eine neue, leere Buchung an.
-		 */
-		Datum d = new Datum();
-
-		/*
-		 * Setzen einer vorläufigen FaelligkeitId. Der anlegenDatum-Aufruf
-		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
-		 */
-		d.setFaelligkeitId(1);
-
-		// Objekt in der DB speichern.
-		return this.dMapper.anlegenDatum(d);
-	}
-
-	/**
-	 * Löschen der übergebenen Faellgikeiten.
-	 */
-	@Override
-	public void loeschenDatumVon(Datum t) throws IllegalArgumentException {
-		this.dMapper.loeschenDatum(t);
-	}
 
 	/*
 	 * *************************************************************************

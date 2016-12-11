@@ -36,42 +36,6 @@ public interface NotizobjektAdministration extends RemoteService {
   public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException;
   
   /**
-   * Eine neue Notizquelle f�r eine gegebene Notiz anlegen.
-   */
-  public Notizquelle anlegenNotizquelleFuer(Notiz no) throws IllegalArgumentException;
-  
-  /**
-   * Eine neue Faelligkeit f�r eine gegebene Notiz anlegen.
-   */
-  public Datum anlegenFaelligkeitFuer(Notiz no) throws IllegalArgumentException;
-  
-  /**
-   * <p>
-   * Auslesen sämtlicher mit dieser Notiz in Verbindung stehenden
-   * Notizquellen. 
-   * </p>
-   * 
-   * @param no die Notiz, dessen Notizquellen wir bekommen wollen.
-   * @return eine Liste aller Notizquellen
-   * @throws IllegalArgumentException
-   */
-  public List<Notizquelle> nachAllenNotizquellenDesNutzersSuchen(Notiz no)
-      throws IllegalArgumentException;
-  
-  /**
-   * <p>
-   * Auslesen sämtlicher mit dieser Notiz in Verbindung stehenden
-   * Faelligkeiten. 
-   * </p>
-   * 
-   * @param k die Notiz, dessen Faelligkeiten wir bekommen wollen.
-   * @return eine Liste aller Faelligkeiten
-   * @throws IllegalArgumentException
-   */
-  public List<Datum> nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no)
-      throws IllegalArgumentException;
-  
-  /**
    * <p>
    * Auslesen sämtlicher mit diesem Notizbuch in Verbindung stehenden
    * Notizen. 
@@ -147,17 +111,17 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Speichern eines Notiz-Objekts in der Datenbank.
    */
-  public void speichern(Notiz no) throws IllegalArgumentException;
+  public Notiz speichern(Notiz no) throws IllegalArgumentException;
   
   /**
    * Speichern eines Notizbuch-Objekts in der Datenbank.
    */
-  public void speichern(Notizbuch nb) throws IllegalArgumentException;
+  public Notizbuch speichern(Notizbuch nb) throws IllegalArgumentException;
 
   /**
    * Speichern eines Nutzer-Objekts in der Datenbank.
    */
-  public void speichern(Nutzer n) throws IllegalArgumentException;
+  public Nutzer speichern(Nutzer n) throws IllegalArgumentException;
 
   /**
    * L�schen der Daten eines �bergegebenen Notiz-Objekts.
@@ -173,21 +137,5 @@ public interface NotizobjektAdministration extends RemoteService {
    * L�schen der Daten eines �bergegebenen Nutzer-Objekts.
    */
   public void loeschenNutzer(Nutzer n) throws IllegalArgumentException;
-  
-  /**
-   * Löschen der übergebenen Notizquelle.
-   * 
-   * @param t die zu löschende Notizquelle
-   * @throws IllegalArgumentException
-   */
-  public void loeschenNotizquelleVon(Notizquelle nq) throws IllegalArgumentException;
-  
-  /**
-   * Löschen der übergebenen Faelligkeiten.
-   * 
-   * @param t die zu löschende Faelligkeit
-   * @throws IllegalArgumentException
-   */
-  public void loeschenDatumVon(Datum d) throws IllegalArgumentException;
 
 }

@@ -163,7 +163,7 @@ public class NutzerMapper {
 
     //Der höchste Primärschlüsselwert wird überprüft
       
-      ResultSet rs = stmt.executeQuery("SELECT MAX(NutzerId) AS maxid "
+      ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid "
           + "FROM nutzer ");
 
    //Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
@@ -175,9 +175,15 @@ public class NutzerMapper {
 
         stmt = con.createStatement();
 
-      //Hier erfolgt die entscheidende Einfügeoperation
-        stmt.executeUpdate("INSERT INTO nutzer (nutzerId, email) "
-            + "VALUES (" + n.getNutzerId() + ",'" + n.getEmail() + "')");
+		// Hier erfolgt die entscheidende Einfï¿½geoperation
+		String sql = "INSERT INTO nutzer (nutzerId, email) "
+				+ "VALUES ("
+				+ n.getNutzerId()
+				+ ", \""
+				+ n.getEmail()
+				+ " \")";
+		System.out.println(sql);
+		stmt.executeUpdate(sql);
       }
     }
     catch (SQLException e) {
@@ -191,7 +197,24 @@ public class NutzerMapper {
      */
     return n;
   }
+  
+	public static void main(String[] args) {
+//	Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
+	
+	Nutzer nutzer = new Nutzer();
+	nutzer.getNutzerId();
+	nutzer.setEmail("muhammed@gmail.com");
+	
+	NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
+	nutzerMapper.anlegenNutzer(nutzer);
+	
+	
+	}
+	
 
+  
+  
+  
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 

@@ -16,9 +16,9 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
-import de.hdm.notefox.client.gui.NotizObjektTree;
 import de.hdm.notefox.client.gui.NotizbuchEditorPanel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -52,11 +52,12 @@ public class Notefox implements EntryPoint {
 	Button neuesNotizBuch = new Button("+ Notizbuch");
 	Button neuesNotiz = new Button("Erstelle Notiz");
 	
-	NotizObjektTree net = new NotizObjektTree();
+	//NotizObjektTree net = new NotizObjektTree();
 	NotizbuchEditorPanel notizbucheditorpanel = new NotizbuchEditorPanel();
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel();
+	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 
-	CellTree celltree = new CellTree(new NotizBaumModel(), null);
+	CellTree celltree = new CellTree(new NotizBaumModel(notizeditorpanel), null);
 //	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(), null);
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
@@ -65,8 +66,12 @@ public class Notefox implements EntryPoint {
 	public void onModuleLoad() {
 
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
+		VerticalPanel vPanelLeft = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
-		hPanelNotizNotizbuch.add(notizbucheditorpanel);
+		hPanelNotizNotizbuch.add(vPanelLeft);
+		
+		vPanelLeft.add(notizbucheditorpanel);
+		vPanelLeft.add(faelligkeiten);
 		
 		
 		vPanel.add(meineNotizBuecher);

@@ -21,14 +21,6 @@ void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
 
 void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
 
-void anlegenNotizquelleFuer(Notiz no, AsyncCallback<Notizquelle> callback);
-
-void anlegenFaelligkeitFuer(Notiz no, AsyncCallback<Datum> callback);
-
-void nachAllenNotizquellenDesNutzersSuchen(Notiz no, AsyncCallback<List<Notizquelle>> callback);
-
-void nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(Notiz no, AsyncCallback<List<Datum>> callback);
-
 void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<List<Notiz>> callback);
 
 
@@ -58,20 +50,16 @@ void nachAllenNotizenSuchen(AsyncCallback<List<Notiz>> callback);
 
 void nachAllenNotizbuechernSuchen(AsyncCallback<List<Notizbuch>> callback);
 
-void speichern(Notiz no, AsyncCallback<Void> callback);
+void speichern(Notiz no, AsyncCallback<Notiz> callback);
 
-void speichern(Notizbuch nb, AsyncCallback<Void> callback);
+void speichern(Notizbuch nb, AsyncCallback<Notizbuch> callback);
 
-void speichern(Nutzer n, AsyncCallback<Void> callback);
+void speichern(Nutzer n, AsyncCallback<Nutzer> callback);
 
 void loeschenNotiz(Notiz no, AsyncCallback<Void> callback);
 
 void loeschenNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
 void loeschenNutzer(Nutzer n, AsyncCallback<Void> callback);
-
-void loeschenNotizquelleVon(Notizquelle nq, AsyncCallback<Void> callback);
-
-void loeschenDatumVon(Datum d, AsyncCallback<Void> callback);
 
 }
