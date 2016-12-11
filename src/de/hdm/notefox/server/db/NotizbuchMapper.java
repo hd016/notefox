@@ -1,6 +1,7 @@
 package de.hdm.notefox.server.db;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
@@ -64,11 +65,14 @@ public class NotizbuchMapper {
     return notizbuchMapper;
   }
 
+  
+  
+  
   /**
    * Notizbuch nach NotizbuchTitel suchen.   
    * Als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
-  public Notizbuch nachNotizbuchTitelSuchen(int id) {
+  public Notizbuch nachNotizbuchIdSuchen(int id) {
 	// DB-Verbindung holen
     Connection con = DBConnection.connection();
 
@@ -77,7 +81,7 @@ public class NotizbuchMapper {
     Statement stmt = con.createStatement();
 
     // Statement ausfuellen und als Query an die DB schicken
-     ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel FROM notizbuch"
+     ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel FROM notizbuch" //TODO
           + "WHERE id=" + id + " ORDER BY id");
 
      /*
@@ -215,9 +219,20 @@ public class NotizbuchMapper {
 
         // Hier erfolgt die entscheidende Einf�geoperation
      
-        stmt.executeUpdate("INSERT INTO notizbuch (id,  eigentuemer, titel, subtitel, erstelldatum, modifikationsdatum ) " + "VALUES ("
-                + nb.getId() + nb.getSubtitel()+"\", \"" +", \"\", NOW(), NOW(), \"" + nb.getTitel()+"\", \"" + "\", "+nb.getEigentuemer().getNutzerId()+",  )");
-        
+		// Hier erfolgt die entscheidende Einf�geoperation
+		String sql = "INSERT INTO notizbuch (id, eigentuemer, titel, subtitel, erstelldatum, modifikationsdatum ) "
+				+ "VALUES ("
+				+ nb.getId()
+				+ ", "
+				+ nb.getEigentuemer().getNutzerId()
+				+ ", \""
+				+ nb.getTitel()
+				+ "\", \""
+				+ nb.getSubtitel()
+				+ "\" "
+				+ ", NOW(), NOW())";
+		System.out.println(sql);
+		stmt.executeUpdate(sql);
       }
     }
     catch (SQLException e2) {
@@ -233,6 +248,23 @@ public class NotizbuchMapper {
     return nb;
   }
 
+  
+//	public static void main(String[] args) {
+//	Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
+//	
+//	Notizbuch notizbuch = new Notizbuch();
+//	notizbuch.setEigentuemer(nutzer);
+//	notizbuch.setTitel("Hallo");
+//	notizbuch.setSubtitel("WI7");
+//	notizbuch.setErstelldatum(new Date());
+//	notizbuch.setModifikationsdatum(new Date());
+//	
+//	NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
+//	notizbuchMapper.anlegenNotizbuch(notizbuch);
+
+
+  
+  
   /**
    * Wiederholtes Schreiben eines Objekts in die Datenbank.
    * 
