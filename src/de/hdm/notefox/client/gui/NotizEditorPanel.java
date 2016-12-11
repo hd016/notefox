@@ -69,7 +69,7 @@ public class NotizEditorPanel extends VerticalPanel {
 	}
 
 	public void neueNotiz(Notizbuch notizbuch) {
-		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), new AsyncCallback<Notiz>() {
+		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), notizbuch, new AsyncCallback<Notiz>() {
 
 			@Override
 			public void onSuccess(Notiz result) {
