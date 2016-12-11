@@ -24,8 +24,6 @@ import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.LoginServiceAsync;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
-import de.hdm.notefox.shared.Nutzer;
-import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notefox implements EntryPoint {
 
@@ -131,30 +129,7 @@ public class Notefox implements EntryPoint {
 		NotizBuch.addClickHandler(new CellTreeClickHandler());
 		Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
 
-		Button button = new Button("Click me");
-		button.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				Nutzer nutzer = new Nutzer();
-
-				administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
-
-					@Override
-					public void onSuccess(Notiz result) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-
-					}
-				});
-			}
-		});
-		//vPanel.add(button);
+	
 	}
 
 	private class CellTreeClickHandler implements ClickHandler {
@@ -216,29 +191,6 @@ public class Notefox implements EntryPoint {
 		}
 		
 	}
-		/*
-		 * NotizobjektAdministrationAsync administration =
-		 * GWT.create(NotizobjektAdministration.class);
-		 * 
-		 * @Override public void onClick(ClickEvent event) {
-		 * de.hdm.notefox.shared.Nutzer nutzer = new Nutzer();
-		 * nutzer.setNutzerId(2000); nutzer.setName("Mansur");
-		 * 
-		 * administration.anlegenNotizFuer(nutzer, new AsyncCallback<Notiz>() {
-		 * 
-		 * @Override public void onSuccess(Notiz result) {
-		 * vPanel_inhalt.clear(); NotizEditorPanel notizeditorpanel = new
-		 * NotizEditorPanel(new Notiz()); vPanel_inhalt.add(notizeditorpanel); }
-		 * 
-		 * @Override public void onFailure(Throwable caught) { // TODO
-		 * Auto-generated method stub
-		 * 
-		 * } });
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
 
 	
 }
