@@ -14,7 +14,7 @@ public class Berechtigung {
 	 */
 
 	private int berechtigungId;
-	private Berechtigungsart berechtigungName;
+	private Berechtigungsart berechtigungsart;
 	private Notiz notiz;
 	private Notizbuch notizbuch;
 	private Nutzer berechtigter;
@@ -30,12 +30,12 @@ public class Berechtigung {
 		this.berechtigungId = berechtigungId;
 	}
 
-	public Berechtigungsart getBerechtigungName() {
-		return berechtigungName;
+	public Berechtigungsart getBerechtigungsart() {
+		return berechtigungsart;
 	}
 
-	public void setBerechtigungName(Berechtigungsart berechtigungName) {
-		this.berechtigungName = berechtigungName;
+	public void setBerechtigungsart(Berechtigungsart berechtigungsart) {
+		this.berechtigungsart = berechtigungsart;
 	}
 
 	public Notiz getNotiz() {
