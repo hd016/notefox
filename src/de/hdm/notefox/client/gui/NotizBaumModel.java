@@ -59,14 +59,14 @@ public class NotizBaumModel implements TreeViewModel {
 			Notiz notiz3 = new Notiz();
 			notiz3.setTitel("Termine");
 			notizlistHobbys.add(notiz3);
-			notizbuch.setNotizen(notizlistHobbys);
+			//notizbuch.setNotizen(notizlistHobbys);
 			
 			List<Notiz> notizlistFamilie = new ArrayList<>();
 			
 			Notiz notiz4 = new Notiz();
 			notiz3.setTitel("Einkaufen");
 			notizlistFamilie.add(notiz4);
-			notizbuch3.setNotizen(notizlistFamilie);
+			//notizbuch3.setNotizen(notizlistFamilie);
 
 
 			return new DefaultNodeInfo<Notizbuch>(new ListDataProvider<Notizbuch>(notizbuchlist),
@@ -79,7 +79,7 @@ public class NotizBaumModel implements TreeViewModel {
 					});
 		} else if (value instanceof Notizbuch) {
 			Notizbuch notizbuch = (Notizbuch) value;
-			return new DefaultNodeInfo<Notiz>(new ListDataProvider<Notiz>(notizbuch.getNotizen()),
+			//return new DefaultNodeInfo<Notiz>(new ListDataProvider<Notiz>(notizbuch.getNotizen()),
 					new AbstractCell<Notiz>() {
 
 						@Override
@@ -88,7 +88,7 @@ public class NotizBaumModel implements TreeViewModel {
 							sb.appendEscaped(value.getTitel());
 
 						}
-					});
+					};//);
 
 		}
 
@@ -100,7 +100,7 @@ public class NotizBaumModel implements TreeViewModel {
 
 		if (value instanceof Notizbuch) {
 			Notizbuch notizbuch = (Notizbuch) value;
-			return notizbuch.getNotizen().isEmpty();
+			//return notizbuch.getNotizen().isEmpty();
 		} else if (value instanceof Notiz) {
 			return true;
 		}
