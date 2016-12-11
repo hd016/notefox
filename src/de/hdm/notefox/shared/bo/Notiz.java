@@ -13,6 +13,21 @@ public class Notiz extends Notizobjekt {
 	public Notiz() {
 	}
 
+	/**
+	 * Faelligkeitsdatum der Notiz
+	 */
+	private Date faelligkeitsdatum;
+	
+	
+	/**
+	 * Notizquelle der Notiz
+	 */
+	private String notizquelle;
+
+	
+	/** Setzen und Auslesen der Variablen
+	 */
+
 	public Date getFaelligkeitsdatum() {
 		return faelligkeitsdatum;
 	}
@@ -29,22 +44,6 @@ public class Notiz extends Notizobjekt {
 	public void setNotizquelle(String notizquelle) {
 		this.notizquelle = notizquelle;
 	}
-
-	/**
-	 * Faelligkeitsdatum der Notiz
-	 */
-	private Date faelligkeitsdatum;
-	
-	
-	/**
-	 * Objekt der verbundenen Klasse Notizquelle als Attribut deklariert 
-	 */
-	private String notizquelle;
-
-	
-	/** Setzen und Auslesen der Variablen
-	 */
-
 
 	
 }
