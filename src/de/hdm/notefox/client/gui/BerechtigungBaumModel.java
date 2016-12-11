@@ -89,7 +89,7 @@ public class BerechtigungBaumModel implements TreeViewModel {
 
 						}
 					});
-
+ 
 		}
 		return null;
 	}
