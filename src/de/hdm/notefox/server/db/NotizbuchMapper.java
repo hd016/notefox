@@ -2,6 +2,7 @@ package de.hdm.notefox.server.db;
 
 import java.sql.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Nutzer;
@@ -34,6 +35,8 @@ public class NotizbuchMapper {
  */
 	
   private static NotizbuchMapper notizbuchMapper = null;
+  private static Date erstelldatum;
+  private static Date modifikationsdatum;
 
  /**
   * Geschuetzter Konstruktor - verhindert die Moeglichkeit, mit new neue
@@ -64,12 +67,10 @@ public class NotizbuchMapper {
 
     return notizbuchMapper;
   }
-
-  
-  
+ 
   
   /**
-   * Notizbuch nach NotizbuchTitel suchen.   
+   * Notizbuch nach NotizbuchId suchen.   
    * Als return: Notizbuch-Objekt oder bei nicht vorhandener Id/DB-Tupel null.
    */
   public Notizbuch nachNotizbuchIdSuchen(int id) {
@@ -81,8 +82,8 @@ public class NotizbuchMapper {
     Statement stmt = con.createStatement();
 
     // Statement ausfuellen und als Query an die DB schicken
-     ResultSet rs = stmt.executeQuery("SELECT id, titel, subtitel FROM notizbuch" //TODO
-          + "WHERE id=" + id + " ORDER BY id");
+     ResultSet rs = stmt.executeQuery("SELECT* FROM notizbuch" 
+          + " WHERE id=" + id);
 
      /*
       * Da id Primaerschluessel ist, kann max. nur ein Tupel zurueckgegeben
@@ -91,10 +92,17 @@ public class NotizbuchMapper {
       if (rs.next()) {
     	  // Ergebnis-Tupel in Objekt umwandeln
     	  Notizbuch nb = new Notizbuch();
-    	  nb.setId(rs.getInt("id"));
-    	  nb.setTitel(rs.getString("titel"));
-    	  nb.setSubtitel(rs.getString("subtitel"));
-    	  return nb;
+    	  nb.setId(rs.getInt("notizbuch.id"));
+    	  Nutzer nutzer = new Nutzer();
+    	  nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
+    	  nutzer.setEmail(rs.getString("nutzer.email"));
+          nb.setEigentuemer(nutzer);
+    	  nb.setTitel(rs.getString("notizbuch.titel"));
+    	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+    	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
+
       }
     }
     catch (SQLException e2) {
@@ -109,38 +117,42 @@ public class NotizbuchMapper {
    * Auslesen aller Notizbuecher.
    */
   
-  public Vector<Notizbuch> nachAllenNotizbuechernSuchen() {
+  public List<Notizbuch> nachAllenNotizbuechernSuchen() {
     Connection con = DBConnection.connection();
 
-    // Ergebnisvektor vorbereiten
-    Vector<Notizbuch> result = new Vector<Notizbuch>();
+    // Ergebnisliste vorbereiten
+    List<Notizbuch> result = new Vector<Notizbuch>();
 
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT * FROM notizbuch "
+      ResultSet rs = stmt.executeQuery("SELECT nutzer.*, notizbuch.* FROM notizbuch LEFT JOIN nutzer ON nutzer.id = notizbuch.eigentuemer"
           + " ORDER BY id");
 
       // F�r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
-    	  nb.setId(rs.getInt("id"));
-          nb.setEigentuemer(null); //TODO
-    	  nb.setTitel(rs.getString("titel"));
-    	  nb.setSubtitel(rs.getString("subtitel"));
-    	  nb.setErstelldatum(rs.getDate("erstelldatum"));
-    	  nb.setErstelldatum(rs.getDate("modifikationsdatum"));
+    	  nb.setId(rs.getInt("notizbuch.id"));
+    	  Nutzer nutzer = new Nutzer();
+    	  nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
+    	  nutzer.setEmail(rs.getString("nutzer.email"));
+          nb.setEigentuemer(nutzer);
+    	  nb.setTitel(rs.getString("notizbuch.titel"));
+    	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+    	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
    
 
-    	// Hinzufuegen des neuen Objekts zum Ergebnisvektor
-        result.addElement(nb);
+    	// Hinzufuegen des neuen Objekts zur Ergebnisliste
+        result.add(nb);
       }
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurueckgeben
+    // Ergebnisliste zurueckgeben
     return result;
   }
 
@@ -148,47 +160,53 @@ public class NotizbuchMapper {
    * Auslesen aller Notizb�cher eines durch Fremdschl�ssel (NutzerId) gegebenen
    * Nutzern.
    */
-  public Vector<Notizbuch> nachEigentuemerDerNotizbuchSuchen(int id) { //TODO
+  public List<Notizbuch> nachEigentuemerDerNotizbuecherSuchen(int id) { //TODO
     Connection con = DBConnection.connection();
-    Vector<Notizbuch> result = new Vector<Notizbuch>();
+    List<Notizbuch> result = new Vector<Notizbuch>();
 
     try {
       Statement stmt = con.createStatement();
-
-      ResultSet rs = stmt.executeQuery("SELECT notizbuch.id, notizbuch.eigentuemer, notizbuch.titel, notizbuch.subtitel, nutzer.nutzerId, nutzer.name FROM nutzer, notizbuch "
-              + "WHERE nutzerId=" + id + " ORDER BY notizbuch.id");
+    
+      ResultSet rs = stmt.executeQuery("SELECT  notizbuch.*, nutzer.*  FROM nutzer LEFT JOIN notizbuch ON notizbuch.id = nutzer.nutzerId" //TODO
+              + " ORDER BY id");
       
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
       // erstellt.
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
     	  nb.setId(rs.getInt("id"));
-          nb.setEigentuemer(null); //TODO
+    	  Nutzer nutzer = new Nutzer();
+    	  nutzer.setNutzerId(rs.getInt("nutzerId"));
+    	  nutzer.setEmail(rs.getString("email"));
+          nb.setEigentuemer(nutzer);
     	  nb.setTitel(rs.getString("titel"));
     	  nb.setSubtitel(rs.getString("subtitel"));
+    	  nb.setErstelldatum(rs.getDate("erstelldatum"));
+    	  nb.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+    	  nb.setInhalt(rs.getString("inhalt"));
 
-        // Hinzuf�gen des neuen Objekts zum Ergebnisvektor
-        result.addElement(nb);
+        // Hinzuf�gen des neuen Objekts zur Ergebnisliste
+        result.add(nb);
       }
     }
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
-    // Ergebnisvektor zurueckgeben
+    // Ergebnisliste zurueckgeben
     return result;
   }
 
   /**
    * Auslesen aller Notizb�cher eines Nutzers
    */
-  public Vector<Notizbuch> nachEigentuemerSuchen(Nutzer eigentuemer) {
+  public List<Notizbuch> nachEigentuemerSuchen(Nutzer eigentuemer) {
 
     /*
      * Wir lesen einfach die NutzerId (Primärschlüssel) des Nutzer-Objekts
      * aus und delegieren die weitere Bearbeitung an nachEigentuemerSuchen(eigentuemer.getNutzerId()).
      */
-    return nachEigentuemerDerNotizbuchSuchen(eigentuemer.getNutzerId());
+    return nachEigentuemerDerNotizbuecherSuchen(eigentuemer.getNutzerId());
   }
 
   /**

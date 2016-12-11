@@ -85,7 +85,7 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Suchen eines Nutzer-Objekts mit gegebenem Email.
    */
-  public List<Nutzer> nachNutzerEmailSuchen(String email)
+  public Nutzer nachNutzerEmailSuchen(String email)
       throws IllegalArgumentException;
 
   /**

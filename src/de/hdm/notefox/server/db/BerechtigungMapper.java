@@ -71,7 +71,7 @@ public class BerechtigungMapper {
 	 * Notiz nach Berechtigung suchen. * als return: Berechtigung-Objekt oder
 	 * bei nicht vorhandener Id/DB-Tupel null.
 	 */
-	public Berechtigung nachBerechtigungSuchen(int id) {
+	public Berechtigung nachBerechtigungIdSuchen(int id) {
 		// Es wird eine DB-Verbindung angeschafft
 		Connection con = DBConnection.connection();
 
@@ -82,8 +82,8 @@ public class BerechtigungMapper {
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT berechtigungId, berechtigungName  FROM berechtigung "
-							+ "WHERE berechtigungId=" + id + " ORDER BY id ASC");
+					.executeQuery("SELECT berechtigungId, berechtigungsart  FROM berechtigung "
+							+ "WHERE berechtigungId=" + id + " ORDER BY berechtigungId ASC");
 
 			/*
 			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
@@ -95,9 +95,8 @@ public class BerechtigungMapper {
 				// werden.
 				Berechtigung be = new Berechtigung();
 				be.setBerechtigungId(rs.getInt("berechtigungId"));
-				// be.setBerechtigungName(rs.getString("berechtigungName"));
-
-				// TODO
+				be.setBerechtigungsart(Berechtigungsart.valueOf(rs
+						.getString("berechtigungsart")));
 
 				return be;
 			}
@@ -145,8 +144,8 @@ public class BerechtigungMapper {
 				 */
 				Berechtigung be = new Berechtigung();
 				be.setBerechtigungId(rs.getInt("berechtigungId"));
-				be.setBerechtigungName(Berechtigungsart.valueOf(rs
-						.getString("berechtigungArt")));
+				be.setBerechtigungsart(Berechtigungsart.valueOf(rs
+						.getString("berechtigungsart")));
 			}
 
 		} catch (Exception e) {
@@ -181,16 +180,16 @@ public class BerechtigungMapper {
 	        // Hier erfolgt die entscheidende Einf�geoperation
 	     
 			// Hier erfolgt die entscheidende Einf�geoperation
-			String sql = "INSERT INTO berechtigung (berechtigungId, berechtigungsArt, notiz, notizbuch ) "
+			String sql = "INSERT INTO berechtigung (berechtigungId, berechtigungsart, notiz, notizbuch, berechtigter ) "
 					+ "VALUES ("
 					+ be.getBrechtigungId()
+					+ ", \""
+					+ be.getBerechtigungsart()
+					+ "\", "
+					+ (be.getNotiz() !=null ? be.getNotiz().getId():null)
 					+ ", "
-					+ be.getBerechtigungName()
-					+ "\", \""
-					+ be.getNotiz()
-					+ "\", \""
-					+ be.getNotizbuch()
-					+ "\" ";
+					+ (be.getNotizbuch() != null ? be.getNotizbuch().getId() : null)
+					+ ", "+be.getBerechtigter().getNutzerId()+") ";
 			System.out.println(sql);
 			stmt.executeUpdate(sql);
 	      }
@@ -209,27 +208,31 @@ public class BerechtigungMapper {
 	  }
 	
 	
-	public static void main(String[] args) {
-//	Berechtigung berechtigung = BerechtigungMapper.berechtigungMapper().nachBerechtigungSuchen(id)
-		
-		NotizMapper notizMapper = NotizMapper.notizMapper();
-		Notiz notiz = notizMapper.nachFaelligkeitIdSuchen(1);
-		
-		NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
-		Notizbuch notizbuch = notizbuchMapper.nachNotizbuchIdSuchen(2002);
-		
-		Berechtigung berechtigung = new Berechtigung();
-		berechtigung.getBrechtigungId();
-		berechtigung.setBerechtigungName(Berechtigungsart.EDITIEREN);	
-		berechtigung.setNotiz(notiz);
-		berechtigung.setNotizbuch(notizbuch);
-		
-
-	
-	BerechtigungMapper berechtigungMapper = BerechtigungMapper.berechtigungMapper();
-	berechtigungMapper.anlegenBerechtigung(berechtigung);
-
-	}
+//	public static void main(String[] args) {
+////	Berechtigung berechtigung = BerechtigungMapper.berechtigungMapper().nachBerechtigungSuchen(id)
+//		
+//		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
+//		Nutzer nutzer = nutzerMapper.nachNutzerIdSuchen(1000);
+//		
+//		NotizMapper notizMapper = NotizMapper.notizMapper();
+//		Notiz notiz = notizMapper.nachNotizIdSuchen(1);
+//		
+//		NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
+//		Notizbuch notizbuch = notizbuchMapper.nachNotizbuchIdSuchen(2002);
+//		
+//		Berechtigung berechtigung = new Berechtigung();
+//		berechtigung.getBrechtigungId();
+//		berechtigung.setBerechtigungsart(Berechtigungsart.EDITIEREN);	
+//		berechtigung.setNotiz(notiz);
+//		berechtigung.setNotizbuch(notizbuch);
+//		berechtigung.setBerechtigter(nutzer);
+//		
+//
+//	
+//	BerechtigungMapper berechtigungMapper = BerechtigungMapper.berechtigungMapper();
+//	berechtigungMapper.anlegenBerechtigung(berechtigung);
+//
+//	}
 	
 	
 	
@@ -248,8 +251,5 @@ public class BerechtigungMapper {
 		    }
 		  }
 
-//	public void berechtigungErteilen(Berechtigung be) {
-//		// TODO
-//	}
 
 }

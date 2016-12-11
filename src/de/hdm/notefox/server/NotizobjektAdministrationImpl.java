@@ -233,7 +233,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
 	 */
 	@Override
-	public List<Nutzer> nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
+	public Nutzer nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
 		return this.nuMapper.nachNutzerEmailSuchen(email);
 	}
 
@@ -325,7 +325,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
-		Vector<Notiz> notizen = this.noMapper.nachAllenNotizenDesNutzerSuchen();
+		List<Notiz> notizen = this.noMapper.nachAllenNotizenDesNutzerSuchen();
 		return berechtigungAnwenden(notizen, Berechtigungsart.LESEN);
 	}
 
@@ -540,20 +540,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * **
 	 */
 
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Methoden für Notizquellen-Objekte und
-	 * Datum-Objekte
-	 * *************************************************************************
-	 * **
-	 */
-
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Methoden für Notizquellen-Objekte und Datum-Objekte
-	 * *************************************************************************
-	 * **
-	 */
 
 	/*
 	 * *************************************************************************
@@ -630,7 +616,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		}
 
 		for (Berechtigung berechtigung : berechtigungen) {
-			if (berechtigung.getBerechtigungName() == berechtigungsart) {
+			if (berechtigung.getBerechtigungsart() == berechtigungsart) {
 				return true;
 			}
 		}

@@ -40,7 +40,7 @@ void nachNotizIdSuchen(int id, AsyncCallback<Notiz> callback);
 
 void nachNotizbuchIdSuchen(int id, AsyncCallback<Notizbuch> callback);
 
-void nachNutzerEmailSuchen(String email, AsyncCallback<List<Nutzer>> callback);
+void nachNutzerEmailSuchen(String email, AsyncCallback<Nutzer> callback);
 
 void nachNutzerIdSuchen(int nutzerid, AsyncCallback<Nutzer> callback);
 
