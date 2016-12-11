@@ -31,5 +31,15 @@
     <servlet-name>notizobjektadministration</servlet-name>
     <url-pattern>notefox/notizobjektadministration</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>loginService</servlet-name>
+    <servlet-class>de.hdm.notefox.server.LoginServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>loginService</servlet-name>
+    <url-pattern>/notefox/login</url-pattern>
+  </servlet-mapping>
 
 </web-app>
