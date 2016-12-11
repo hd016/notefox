@@ -21,7 +21,7 @@ void anlegenNotizFuer(Nutzer c, AsyncCallback<Notiz> callback);
 
 void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
 
-void nachAllenNotizenDesNutzersSuchen(Notizbuch nb, AsyncCallback<List<Notiz>> callback);
+void nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb, AsyncCallback<List<Notiz>> callback);
 
 
 void getNotiz(AsyncCallback<Notiz> callback);

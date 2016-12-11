@@ -44,8 +44,8 @@ public interface NotizobjektAdministration extends RemoteService {
    * @param nb das Notizbuch, dessen Notiz wir bekommen wollen.
    * @return eine Liste aller Notizen
    * @throws IllegalArgumentException
-   */
-  List<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb)
+   */			
+  List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb)
 			throws IllegalArgumentException;
   
 

@@ -332,32 +332,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		return berechtigungAnwenden(notizen);
 	}
 	
-	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte){
-		List<Berechtigung> berechtigungen = new ArrayList<>();
-		Nutzer aktuellerNutzer = null;
-		
-		List<T> ergebnis = new ArrayList<>();		
-		for (T notizobjekt : notizobjekte) {
-			if(pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt)){
-				ergebnis.add(notizobjekt);
-			}
-		}
-		return ergebnis;
-	}
 	
-	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen, Nutzer aktuellerNutzer, Notizobjekt notizobjekt){
-		if(notiz.getEigentuemer().equals(aktuellerNutzer)){
-			return true;
-		}
-		
-		for(Berechtigung berechtigung : berechtigungen){
-			if(berechtigung.getBerechtigungName() == Berechtigungsart.LESEN){
-				return true;
-			}
-		}
-		
-		return false;
-	}
 
 	/**
 	 * Auslesen aller Notizen des übergeben Nutzers.
@@ -372,7 +347,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-		return noMapper.nachNotizTitelSuchen(id);
+		return berechtigungAnwenden(noMapper.nachNotizIdSuchen(id));
 	}
 
 	/**
@@ -462,7 +437,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
-		return this.nbMapper.nachAllenNotizbuechernSuchen();
+		return berechtigungAnwenden (nbMapper.nachAllenNotizbuechernSuchen());
 	}
 
 	/**
@@ -478,9 +453,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-		return nbMapper.nachNotizbuchTitelSuchen(id);
+		return berechtigungAnwenden(nbMapper.nachNotizbuchIdSuchen(id));
 	}
-
 	/**
 	 * Löschen des übergebenen Notizbuches. Beachten Sie bitte auch die
 	 * Anmerkungen zu {@link #loeschenNutzer(Nutzer)}. Beim Löschen des
@@ -494,7 +468,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		/*
 		 * Zunächst werden sämtl. Notizen des Nutzers aus der DB entfernt.
 		 */
-		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(nb);
+		List<Notiz> notizen = this.nachAllenNotizenDesNotizbuchesSuchen(nb);
 
 		if (notizen != null) {
 			for (Notiz no : notizen) {
@@ -543,8 +517,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @throws IllegalArgumentException
 	 */
 	@Override
-	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb) throws IllegalArgumentException {
-		return this.noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId());
+	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException {
+		return berechtigungAnwenden(noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId()));
 	}
 
 	/**
@@ -614,5 +588,47 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * *************************************************************************
 	 * **
 	 */
+	
+	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt) {
+		if (notizobjekt ==  null) {
+			return null;
+		}
+		
+		List<Berechtigung> berechtigungen = new ArrayList<>();
+		Nutzer aktuellerNutzer = null;
+		if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt)){
+			return notizobjekt;
 
+		} else {
+			return null;
+		}
+	}
+	
+	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte){
+		List<Berechtigung> berechtigungen = new ArrayList<>();
+		Nutzer aktuellerNutzer = null;
+		
+		List<T> ergebnis = new ArrayList<>();		
+		for (T notizobjekt : notizobjekte) {
+			if(pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt)){
+				ergebnis.add(notizobjekt);
+			}
+		}
+		return ergebnis;
+	}
+	
+	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen, Nutzer aktuellerNutzer, Notizobjekt notizobjekt){
+		
+		if(notiz.getEigentuemer().equals(aktuellerNutzer)){
+			return true;
+		}
+		
+		for(Berechtigung berechtigung : berechtigungen){
+			if(berechtigung.getBerechtigungName() == Berechtigungsart.LESEN){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

@@ -145,7 +145,7 @@ public class BerechtigungMapper {
 				 */
 				Berechtigung be = new Berechtigung();
 				be.setBerechtigungId(rs.getInt("berechtigungId"));
-				be.setBerechtigungArt(Berechtigungsart.valueOf(rs
+				be.setBerechtigungName(Berechtigungsart.valueOf(rs
 						.getString("berechtigungArt")));
 			}
 
@@ -185,7 +185,7 @@ public class BerechtigungMapper {
 					+ "VALUES ("
 					+ be.getBrechtigungId()
 					+ ", "
-					+ be.getBerechtigungArt()
+					+ be.getBerechtigungName()
 					+ "\", \""
 					+ be.getNotiz()
 					+ "\", \""
@@ -220,7 +220,7 @@ public class BerechtigungMapper {
 		
 		Berechtigung berechtigung = new Berechtigung();
 		berechtigung.getBrechtigungId();
-		berechtigung.setBerechtigungArt(Berechtigungsart.EDITIEREN);	
+		berechtigung.setBerechtigungName(Berechtigungsart.EDITIEREN);	
 		berechtigung.setNotiz(notiz);
 		berechtigung.setNotizbuch(notizbuch);
 		
