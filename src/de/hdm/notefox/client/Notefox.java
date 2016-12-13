@@ -66,7 +66,8 @@ public class Notefox implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
+	/* Auskommentierung von Login Interface -> GUI Bearbeitungen!	
+	 * LoginServiceAsync loginService = GWT.create(LoginService.class);
 	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 	      public void onFailure(Throwable error) {
 	      }
@@ -80,9 +81,10 @@ public class Notefox implements EntryPoint {
 	        }
 	      }
 	    });
-
+*/
+		onModuleLoadLoggedIn();
 	}
-	
+		
 	private void onModuleLoadLoggedIn(){
 		
 		
