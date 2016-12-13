@@ -17,6 +17,7 @@ public class Notiz extends Notizobjekt {
 	 * Variablen der Notiz
 	 */
 	private Date faelligkeitsdatum;
+	private boolean faelligkeitsstatus;
 	private String notizquelle;
 	private int notizbuchId;
 	
@@ -50,6 +51,22 @@ public class Notiz extends Notizobjekt {
 
 	public void setNotizbuchId(int notizbuchID) {
 		this.notizbuchId = notizbuchID;
+	}
+
+
+//	public boolean isFaelligkeitsstatus() {
+//		return faelligkeitsstatus;
+//	}
+
+
+	public void setFaelligkeitsstatus(boolean faelligkeitsstatus) {
+		this.faelligkeitsstatus = faelligkeitsstatus;
+	}
+
+
+	public String getFaelligkeitsstatus(boolean b) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
