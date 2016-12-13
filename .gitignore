@@ -6,10 +6,14 @@
 
 # Package Files #
 *.jar
-*.war
 *.ear
 *.cache.js
-/war
+*.gwt.rpc
+/war/WEB-INF/deploy
+/war/*/gwt/clean
+*.txt
+
+
 ################################################################################
 # Android-Spezifika 
 ################################################################################
@@ -38,7 +42,6 @@ proguard/
 ################################################################################
 # GWT-Spezifika 
 ################################################################################
-
 # gwt caches and compiled units #
 war/gwt_bree/
 gwt-unitCache/
@@ -54,3 +57,4 @@ war/WEB-INF/classes/
 /.settings
 /.gwt
 /test-classes/
+
