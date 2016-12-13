@@ -20,9 +20,9 @@
 (function($wnd, $doc){
   // document.head does not exist in IE8
   var $head = $doc.head || $doc.getElementsByTagName('head')[0];
-  // Compute some codeserver urls so as the user does nost need bookmarklets
+  // Compute some codeserver urls so as the user does not need bookmarklets
   var hostName = $wnd.location.hostname;
-  var serverUrl = 'http://' + hostName + ':9876';
+  var serverUrl = 'http://' + hostName + ':64492';
   var module = 'notefoxreport';
   var nocacheUrl = serverUrl + '/recompile-requester/' + module;
 

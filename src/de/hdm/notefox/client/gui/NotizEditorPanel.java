@@ -25,7 +25,7 @@ import de.hdm.notefox.client.ClientsideSettings;
 
 public class NotizEditorPanel extends VerticalPanel {
 
-	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektAdministrationAsync();
+	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektVerwaltung();
 
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
