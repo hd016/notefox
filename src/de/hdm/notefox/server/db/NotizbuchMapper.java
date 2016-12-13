@@ -101,7 +101,6 @@ public class NotizbuchMapper {
     	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
     	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
     	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
-    	  nb.setInhalt(rs.getString("inhalt"));
 
       }
     }
@@ -140,9 +139,7 @@ public class NotizbuchMapper {
     	  nb.setTitel(rs.getString("notizbuch.titel"));
     	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
     	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
-    	  nb.setInhalt(rs.getString("inhalt"));
-   
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));   
 
     	// Hinzufuegen des neuen Objekts zur Ergebnisliste
         result.add(nb);
@@ -174,16 +171,15 @@ public class NotizbuchMapper {
       // erstellt.
       while (rs.next()) {
     	  Notizbuch nb = new Notizbuch();
-    	  nb.setId(rs.getInt("id"));
+    	  nb.setId(rs.getInt("notizbuch.id"));
     	  Nutzer nutzer = new Nutzer();
-    	  nutzer.setNutzerId(rs.getInt("nutzerId"));
-    	  nutzer.setEmail(rs.getString("email"));
+    	  nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
+    	  nutzer.setEmail(rs.getString("nutzer.email"));
           nb.setEigentuemer(nutzer);
-    	  nb.setTitel(rs.getString("titel"));
-    	  nb.setSubtitel(rs.getString("subtitel"));
-    	  nb.setErstelldatum(rs.getDate("erstelldatum"));
-    	  nb.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-    	  nb.setInhalt(rs.getString("inhalt"));
+    	  nb.setTitel(rs.getString("notizbuch.titel"));
+    	  nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+    	  nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+    	  nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));  
 
         // Hinzuf�gen des neuen Objekts zur Ergebnisliste
         result.add(nb);
@@ -279,6 +275,7 @@ public class NotizbuchMapper {
 //	
 //	NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
 //	notizbuchMapper.anlegenNotizbuch(notizbuch);
+//}
 
 
   
