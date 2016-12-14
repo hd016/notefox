@@ -61,7 +61,7 @@ public class NutzerMapper {
 
 			// Das Statement wird ausgef�llt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT nutzerId, email FROM nutzer "
+					.executeQuery("SELECT nutzerId, name, email FROM nutzer "
 							+ "WHERE nutzerId=" + nutzerId);
 
 			/*
@@ -75,6 +75,7 @@ public class NutzerMapper {
 				Nutzer n = new Nutzer();
 				n.setNutzerId(rs.getInt("nutzerId"));
 				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
 
 				return n;
 			}
@@ -99,7 +100,7 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
 					+ "FROM nutzer " + "ORDER BY name");
 
 			// Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene ein
@@ -109,6 +110,8 @@ public class NutzerMapper {
 				Nutzer n = new Nutzer();
 				n.setNutzerId(rs.getInt("nutzerId"));
 				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
+
 
 				// Es wird ein neues Objekt hinzugef�gt
 				result.add(n);
@@ -131,7 +134,7 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
 					+ "FROM nutzer " + "WHERE email LIKE '" + name
 					+ "' ORDER BY email");
 
@@ -142,6 +145,8 @@ public class NutzerMapper {
 				Nutzer n = new Nutzer();
 				n.setNutzerId(rs.getInt("NutzerId"));
 				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
+
 
 				// Es wird ein neues Objekt hinzugef�gt
 				return n;
@@ -200,17 +205,18 @@ public class NutzerMapper {
 		return n;
 	}
 
-	public static void main(String[] args) {
-		// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
-
-		Nutzer nutzer = new Nutzer();
-		nutzer.getNutzerId();
-		nutzer.setEmail("muhammed@gmail.com");
-
-		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
-		nutzerMapper.anlegenNutzer(nutzer);
-
-	}
+//	public static void main(String[] args) {
+//		// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
+//
+//		Nutzer nutzer = new Nutzer();
+//		nutzer.getNutzerId();
+//		nutzer.setName("muhammed");
+//		nutzer.setEmail("muhammed1@gmail.com");
+//
+//		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
+//		nutzerMapper.anlegenNutzer(nutzer);
+//
+//	}
 
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
@@ -222,7 +228,7 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE nutzer " + "SET email=\"" + n.getEmail()
+			stmt.executeUpdate("UPDATE nutzer " + "SET email=\"" + n.getEmail() + n.getName()
 					+ "\", " + "\" " + "WHERE NutzerId=" + n.getNutzerId());
 
 		} catch (SQLException e) {

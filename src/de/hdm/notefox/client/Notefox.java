@@ -41,7 +41,7 @@ public class Notefox implements EntryPoint {
 	Label titel = new Label("Titel");
 
 	HTML br = new HTML("<br>");
-	
+
 	VerticalPanel vPanel = new VerticalPanel();
 	VerticalPanel vBrowser = new VerticalPanel();
 
@@ -51,23 +51,29 @@ public class Notefox implements EntryPoint {
 
 	Button neuesNotizBuch = new Button("+ Notizbuch");
 	Button neuesNotiz = new Button("Erstelle Notiz");
-	
-	//NotizObjektTree net = new NotizObjektTree();
+
+	// NotizObjektTree net = new NotizObjektTree();
 	NotizbuchEditorPanel notizbucheditorpanel = new NotizbuchEditorPanel();
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel();
 	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	Berechtigung berechtigung;
 
 	CellTree celltree = new CellTree(new NotizBaumModel(notizeditorpanel), null);
-	//CellTree celltree2 = new CellTree(new BerechtigungBaumModel(berechtigung), null);
+	// CellTree celltree2 = new CellTree(new
+	// BerechtigungBaumModel(berechtigung), null);
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
 	@Override
 	public void onModuleLoad() {
 
+
 	/*	LoginServiceAsync loginService = GWT.create(LoginService.class);
-	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+
+	/* Auskommentierung von Login Interface -> GUI Bearbeitungen!	
+	 * LoginServiceAsync loginService = GWT.create(LoginService.class);
+
+loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 	      public void onFailure(Throwable error) {
 	      }
 
@@ -83,30 +89,31 @@ public class Notefox implements EntryPoint {
 
 	*/
 	
+
+
 		onModuleLoadLoggedIn();
 	}
-	
-	private void onModuleLoadLoggedIn(){
-		
-		
+
+	private void onModuleLoadLoggedIn() {
+
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelRight = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
 		hPanelNotizNotizbuch.add(vPanelRight);
-		
+
 		vPanelRight.add(notizbucheditorpanel);
 		vPanelRight.add(faelligkeiten);
 		vPanelRight.addStyleName("vPanelRight");
-		
+
 		vPanel.add(meineNotizBuecher);
 		vPanel.add(celltree);
-		//vPanel.add(NotizBuch);
-		//vPanel.add(Nutzer);
-		//vPanel.add(Profil);
+		// vPanel.add(NotizBuch);
+		// vPanel.add(Nutzer);
+		// vPanel.add(Profil);
 		vPanel.add(br);
 		vPanel.add(br);
 		vPanel.add(br);
-		//vPanel.add(meineBerechtigungen);
+		// vPanel.add(meineBerechtigungen);
 		// vPanel.add(celltree2);
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
@@ -132,7 +139,6 @@ public class Notefox implements EntryPoint {
 		NotizBuch.addClickHandler(new CellTreeClickHandler());
 		Nutzer.addClickHandler(new CellTreeClickHandler_Nutzer());
 
-	
 	}
 
 	private class CellTreeClickHandler implements ClickHandler {
@@ -146,11 +152,9 @@ public class Notefox implements EntryPoint {
 			neuesNotiz.addClickHandler(new NeuesNotizClickHandler());
 			vPanel_inhalt.add(neuesNotiz);
 			vPanel_inhalt.add(neuesNotizBuch);
-			
+
 			neuesNotizBuch.addClickHandler(new NeuesNotizBuchClickHandler());
 			RootPanel.get("text").add(vPanel_inhalt);
-			
-			
 
 		}
 
@@ -161,7 +165,7 @@ public class Notefox implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
-		//	vPanel_inhalt.add(celltree2);
+			// vPanel_inhalt.add(celltree2);
 
 		}
 
@@ -175,25 +179,23 @@ public class Notefox implements EntryPoint {
 			HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 			hPanelNotizNotizbuch.add(notizeditorpanel);
 			hPanelNotizNotizbuch.add(notizbucheditorpanel);
-			
 
 			vPanel_inhalt.add(titel);
 			vPanel_inhalt.add(hPanelNotizNotizbuch);
-			
 
 		}
 
 	}
-		private class NeuesNotizBuchClickHandler implements ClickHandler {
+
+	private class NeuesNotizBuchClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
 			vPanel_inhalt.add(notizbucheditorpanel);
-			
+
 		}
-		
+
 	}
 
-	
 }

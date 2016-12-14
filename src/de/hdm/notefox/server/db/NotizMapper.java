@@ -140,53 +140,94 @@ public class NotizMapper {
 
 		return null;
 	}
-
+	
+	
 	/**
-	 * Notiz nach FaelligkeitId suchen. * als return: Notiz-Objekt oder bei
-	 * nicht vorhandener Id/DB-Tupel null.
-	 */
-	public Notiz nachFaelligkeitIdSuchen(int id) {
-		// Es wird eine DB-Verbindung angeschafft
-		Connection con = DBConnection.connection();
+	  * Loeschen der Faelligkeitsdatum eines <code>Notiz</code>-Objekts aus der Datenbank.
+	  * 
+	  */
+	   public void loeschenFaelligkeitsdatum(Notiz no) {
+		     Connection con = DBConnection.connection();
+		 
+		     try {
+		       Statement stmt = con.createStatement();
+		 
+		       stmt.executeUpdate("DELETE FROM notiz " + "WHERE faelligkeitsdatum=" + no.getFaelligkeitsdatum());
+		 
+		     }
+		     catch (SQLException e2) {
+		       e2.printStackTrace();
+		     }
+		   }
 
-		try {
-			// Es wird ein leeres SQL Statement von dem Connector (JDBC)
-			// angelegt
-			Statement stmt = con.createStatement();
-
-			// Das Statement wird ausgefï¿½llt und an die Datebank verschickt
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz*, datum.* FROM notiz ON notiz.notiz.Id = datum.faelligkeitId "
-							+ " ORDER BY id");
-
-			/*
-			 * An dieser Stelle kann man prï¿½fen ob bereits ein Ergebnis
-			 * vorliegt. Man erhï¿½lt maximal 1 Tupel, da es sich bei id um
-			 * einen Primï¿½rschlï¿½ssel handelt.
-			 */
-			if (rs.next()) {
-				// Das daraus ergebene Tupel muss in ein Objekt ï¿½berfï¿½hrt
-				// werden.
-				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
-				Nutzer nutzer = new Nutzer();
-		    	nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
-		    	nutzer.setEmail(rs.getString("nutzer.email"));
-		        no.setEigentuemer(nutzer);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setInhalt(rs.getString("inhalt"));
-				return no;
-			}
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-			return null;
-		}
-
-		return null;
-	}
+	   
+		/**
+		  * Faelligkeitsstatus eines <code>Notiz</code>-Objekts aus der Datenbank prüfen.
+		  * 
+		  */
+	   public void pruefenFaelligkeitsdatum(Notiz no){
+			// Es wird eine DB-Verbindung angeschafft
+			Connection con = DBConnection.connection();
+			
+			 try {
+			       Statement stmt = con.createStatement();
+			 
+			       stmt.executeUpdate("SELECT * FROM notiz " + "WHERE faelligkeitsstatus=" + no.getFaelligkeitsstatus(true)); 
+			       
+			     }
+			     catch (SQLException e2) {
+			       e2.printStackTrace();
+			     }
+			   }
+			
+	   
+	   
+//	/**
+//	 * Notiz nach FaelligkeitId suchen. * als return: Notiz-Objekt oder bei
+//	 * nicht vorhandener Id/DB-Tupel null.
+//	 */
+//	public Notiz nachFaelligkeitIdSuchen(int id) {
+//		// Es wird eine DB-Verbindung angeschafft
+//		Connection con = DBConnection.connection();
+//
+//		try {
+//			// Es wird ein leeres SQL Statement von dem Connector (JDBC)
+//			// angelegt
+//			Statement stmt = con.createStatement();
+//
+//			// Das Statement wird ausgefï¿½llt und an die Datebank verschickt
+//			ResultSet rs = stmt
+//					.executeQuery("SELECT notiz*, datum.* FROM notiz ON notiz.notiz.Id = datum.faelligkeitId "
+//							+ " ORDER BY id");
+//
+//			/*
+//			 * An dieser Stelle kann man prï¿½fen ob bereits ein Ergebnis
+//			 * vorliegt. Man erhï¿½lt maximal 1 Tupel, da es sich bei id um
+//			 * einen Primï¿½rschlï¿½ssel handelt.
+//			 */
+//			if (rs.next()) {
+//				// Das daraus ergebene Tupel muss in ein Objekt ï¿½berfï¿½hrt
+//				// werden.
+//				Notiz no = new Notiz();
+//				no.setId(rs.getInt("id"));
+//				Nutzer nutzer = new Nutzer();
+//		    	nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
+//		    	nutzer.setEmail(rs.getString("nutzer.email"));
+//		        no.setEigentuemer(nutzer);
+//				no.setTitel(rs.getString("titel"));
+//				no.setSubtitel(rs.getString("subtitel"));
+//				no.setErstelldatum(rs.getDate("erstelldatum"));
+//				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+//				no.setInhalt(rs.getString("inhalt"));
+//				return no;
+//			}
+//		} catch (SQLException e2) {
+//			e2.printStackTrace();
+//			return null;
+//		}
+//
+//		return null;
+//	}
 
 	/**
 	 * Auslesen aller Notizen.
