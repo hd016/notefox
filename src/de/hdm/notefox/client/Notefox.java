@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.notefox.client.gui.BerechtigungBaumModel;
+//import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
@@ -37,7 +37,7 @@ public class Notefox implements EntryPoint {
 	Button suchen = new Button("Suchen");
 	Button freigeben = new Button("Freigeben");
 	Label meineNotizBuecher = new Label("Meine Notizbücher");
-	Label meineBerechtigungen = new Label("Meine Berechtigungen");
+	// Label meineBerechtigungen = new Label("Meine Berechtigungen");
 	Label titel = new Label("Titel");
 
 	HTML br = new HTML("<br>");
@@ -59,14 +59,14 @@ public class Notefox implements EntryPoint {
 	Berechtigung berechtigung;
 
 	CellTree celltree = new CellTree(new NotizBaumModel(notizeditorpanel), null);
-	CellTree celltree2 = new CellTree(new BerechtigungBaumModel(berechtigung), null);
+	//CellTree celltree2 = new CellTree(new BerechtigungBaumModel(berechtigung), null);
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
 	@Override
 	public void onModuleLoad() {
 
-		LoginServiceAsync loginService = GWT.create(LoginService.class);
+	/*	LoginServiceAsync loginService = GWT.create(LoginService.class);
 	    loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 	      public void onFailure(Throwable error) {
 	      }
@@ -81,6 +81,9 @@ public class Notefox implements EntryPoint {
 	      }
 	    });
 
+	*/
+	
+		onModuleLoadLoggedIn();
 	}
 	
 	private void onModuleLoadLoggedIn(){
@@ -103,8 +106,8 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 		vPanel.add(br);
-		vPanel.add(meineBerechtigungen);
-		vPanel.add(celltree2);
+		//vPanel.add(meineBerechtigungen);
+		// vPanel.add(celltree2);
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
@@ -158,7 +161,7 @@ public class Notefox implements EntryPoint {
 		@Override
 		public void onClick(ClickEvent event) {
 			vPanel_inhalt.clear();
-			vPanel_inhalt.add(celltree2);
+		//	vPanel_inhalt.add(celltree2);
 
 		}
 
