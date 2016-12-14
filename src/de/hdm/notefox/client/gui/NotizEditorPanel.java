@@ -30,7 +30,7 @@ public class NotizEditorPanel extends VerticalPanel {
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
-	HTML notizEditor = new HTML("<h3>Notiz Editor</h3>");
+	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 	Label Notiztitel = new Label("Titel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
