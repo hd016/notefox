@@ -2,9 +2,8 @@ package de.hdm.notefox.server.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.sql.SQLException;
 import com.google.appengine.api.utils.SystemProperty;
-
 
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
@@ -47,7 +46,7 @@ public class DBConnection {
      * mitgegeben, um bei einer Veraenderung dieser URL nicht die gesamte
      * Software neu komilieren zu muessen.
      */
-    private static String googleUrl = "";
+    private static String googleUrl = "jdbc:mysql://173.194.104.160:3306/notefox?user=Admin&password=test";
     private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=414159426";
     
     /**
@@ -79,16 +78,16 @@ public class DBConnection {
         if (con == null) {
             String url = null;
             try {
-//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-//                	// Load the class that provides the new
-//                    // "jdbc:google:mysql://" prefix.
-//                    Class.forName("com.mysql.jdbc.GoogleDriver");
-//                    url = googleUrl;
-//                } else {
+                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+                	// Load the class that provides the new
+                    // "jdbc:google:mysql://" prefix.
+                    Class.forName("com.mysql.jdbc.GoogleDriver");
+                    url = googleUrl;
+                } else {
                 	// Local MySQL instance to use during development.
                     Class.forName("com.mysql.jdbc.Driver");
                     url = localUrl;
-//                }
+                }
                 /*
                  * Dann erst kann uns der DriverManager eine Verbindung mit den
                  * oben in der Variable url angegebenen Verbindungsinformationen

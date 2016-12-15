@@ -170,21 +170,20 @@ public class NotizMapper {
 			Connection con = DBConnection.connection();
 			Boolean fälligkeit = false;
 			 try {
+				 	// Leeres SQL-Statement (JDBC) anlegen
 			       Statement stmt = con.createStatement();
-			 
-//			       stmt.executeQuery("SELECT faelligkeitsstatus FROM notiz"); 
-//					rs = stmt.executeQuery(query);
-//					while (rs.next()) {
-//						fälligkeit = rs.getString("faelligkeitsstatus");
-//					}
-					
-					
+			       
+			       // Statement ausfuellen und als Query an die DB schicken
+			       ResultSet rs = stmt.executeQuery("SELECT faelligkeitsstatus FROM notiz");
+
+					while (rs.next()) {
+						fälligkeit = rs.getBoolean("faelligkeitsstatus");
+					}
 					if(fälligkeit==true&&no.getFaelligkeitsstatus()==true)
 					{
-						
+						return;
 					}
 			     }
-			 
 			 
 			     catch (SQLException e2) {
 			       e2.printStackTrace();
