@@ -12,7 +12,7 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 public class FaelligkeitenEditorPanel extends VerticalPanel{
 	
 	DatePicker date = new DatePicker();
-	HTML uberschrift = new HTML("<h3>Fälligkeit erstellen</h3>");
+	HTML uberschrift = new HTML("<h3>Fälligkeit</h3>");
 	TextBox auswahl = new  TextBox();
 	Button speichern = new Button("Speichern");
 		
