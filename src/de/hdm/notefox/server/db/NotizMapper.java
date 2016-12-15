@@ -152,7 +152,7 @@ public class NotizMapper {
 		     try {
 		       Statement stmt = con.createStatement();
 		 
-		       stmt.executeUpdate("DELETE FROM notiz " + "WHERE faelligkeitsdatum=" + no.getFaelligkeitsdatum());
+		       stmt.execute("DELETE FROM notiz " + "WHERE faelligkeitsdatum=" + no.getFaelligkeitsdatum());
 		 
 		     }
 		     catch (SQLException e2) {
@@ -168,13 +168,24 @@ public class NotizMapper {
 	   public void pruefenFaelligkeitsdatum(Notiz no){
 			// Es wird eine DB-Verbindung angeschafft
 			Connection con = DBConnection.connection();
-			
+			Boolean fälligkeit = false;
 			 try {
 			       Statement stmt = con.createStatement();
 			 
-			       stmt.executeUpdate("SELECT * FROM notiz " + "WHERE faelligkeitsstatus=" + no.getFaelligkeitsstatus(true)); 
-			       
+//			       stmt.executeQuery("SELECT faelligkeitsstatus FROM notiz"); 
+//					rs = stmt.executeQuery(query);
+//					while (rs.next()) {
+//						fälligkeit = rs.getString("faelligkeitsstatus");
+//					}
+					
+					
+					if(fälligkeit==true&&no.getFaelligkeitsstatus()==true)
+					{
+						
+					}
 			     }
+			 
+			 
 			     catch (SQLException e2) {
 			       e2.printStackTrace();
 			     }

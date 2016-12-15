@@ -64,7 +64,7 @@ public class Notiz extends Notizobjekt {
 	}
 
 
-	public String getFaelligkeitsstatus(boolean b) {
+	public Boolean getFaelligkeitsstatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}
