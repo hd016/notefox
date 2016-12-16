@@ -4,17 +4,21 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 //import de.hdm.notefox.client.gui.BerechtigungBaumModel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
+import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.client.gui.NotizbuchEditorPanel;
@@ -62,6 +66,8 @@ public class Notefox implements EntryPoint {
 	// CellTree celltree2 = new CellTree(new
 	// BerechtigungBaumModel(berechtigung), null);
 
+	
+	
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
 	@Override
@@ -127,7 +133,7 @@ loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);
 		RootPanel.get("text").add(hPanelNotizNotizbuch);
-
+		
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
