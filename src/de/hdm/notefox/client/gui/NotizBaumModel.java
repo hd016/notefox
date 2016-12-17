@@ -71,9 +71,17 @@ public class NotizBaumModel implements TreeViewModel {
 			List<Notiz> notizlistFamilie = new ArrayList<>();
 
 			Notiz notiz4 = new Notiz();
-			notiz3.setTitel("Einkaufen");
+			notiz4.setTitel("Haushalt");
 			notizlistFamilie.add(notiz4);
 			notizbuch3.setNotizen(notizlistFamilie);
+			
+
+			List<Notiz> notizlistArbeit = new ArrayList<>();
+
+			Notiz notiz5 = new Notiz();
+			notiz5.setTitel("");
+			notizlistArbeit.add(notiz5);
+			notizbuch2.setNotizen(notizlistArbeit);
 
 			return new DefaultNodeInfo<Notizbuch>(new ListDataProvider<Notizbuch>(notizbuchlist),
 					new AbstractCell<Notizbuch>("click") {
@@ -115,6 +123,7 @@ public class NotizBaumModel implements TreeViewModel {
 						notizEditorPanel.setNotizobjekt(value);
 					}
 				}
+
 			});
 
 		}

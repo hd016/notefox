@@ -28,7 +28,7 @@ public interface NotizobjektAdministration extends RemoteService {
   /**
    * Eine neue Notiz f�r einen gegebenen Nutzer anlegen.
    */
-  public Notiz anlegenNotizFuer(Nutzer n) throws IllegalArgumentException;
+  public Notiz anlegenNotizFuer(Nutzer nutzer, Notizbuch notizbuch) throws IllegalArgumentException;
   
   /**
    * Eine neues Notizbuch f�r einen gegebenen Nutzer anlegen.
@@ -44,8 +44,8 @@ public interface NotizobjektAdministration extends RemoteService {
    * @param nb das Notizbuch, dessen Notiz wir bekommen wollen.
    * @return eine Liste aller Notizen
    * @throws IllegalArgumentException
-   */
-  List<Notiz> nachAllenNotizenDesNutzersSuchen(Notizbuch nb)
+   */			
+  List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb)
 			throws IllegalArgumentException;
   
 

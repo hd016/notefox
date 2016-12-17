@@ -5,31 +5,33 @@
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>de.hdm.notefox.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/notefox/greet</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Notefox.html</welcome-file>
-  </welcome-file-list>
-  
-   <!-- Servlets -->
-  <servlet>
-    <servlet-name>notizobjektadministration</servlet-name>
-    <servlet-class>de.hdm.notefox.server.NotizobjektAdministrationImpl</servlet-class>
-  </servlet>
+ <!-- Servlets -->
+	<servlet>
+		<servlet-name>notizobjektadministration</servlet-name>
+		<servlet-class>de.hdm.notefox.server.NotizobjektAdministrationImpl</servlet-class>
+	</servlet>
 
-  <servlet-mapping>
-    <servlet-name>notizobjektadministration</servlet-name>
-    <url-pattern>notefox/notizobjektadministration</url-pattern>
-  </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>notizobjektadministration</servlet-name>
+		<url-pattern>/notefox/notizobjektadministration</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>reportGeneratorServlet</servlet-name>
+		<servlet-class>de.hdm.notefox.server.report.ReportGeneratorImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>reportGeneratorServlet</servlet-name>
+		<url-pattern>/notefoxreport/reportgenerator</url-pattern>
+	</servlet-mapping>
+	
+	
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Notefox.html</welcome-file>
+	</welcome-file-list>
+
 
 </web-app>

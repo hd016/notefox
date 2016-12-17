@@ -8,266 +8,266 @@ import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
 /**
- * „Unsere Mapper-Klassen erfüllen den Zweck unsere Objekte auf eine relationale Datenbankabzubilden. 
- * Durch die bereitgestellten Methoden kann man Objekte anlegen, editieren, löschen, teilen 
- * und speichern.Objekte können auf diese Weise in Datenbankstrukturen umgewandelt werden. 
- * Datenbankstrukturen können umgekehrt auch in Objekte umgewandelt werden.“
+ * ï¿½Unsere Mapper-Klassen erfï¿½llen den Zweck unsere Objekte auf eine relationale
+ * Datenbankabzubilden. Durch die bereitgestellten Methoden kann man Objekte
+ * anlegen, editieren, lï¿½schen, teilen und speichern.Objekte kï¿½nnen auf diese
+ * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen kï¿½nnen
+ * umgekehrt auch in Objekte umgewandelt werden.ï¿½
  */
 
 public class NutzerMapper {
 
-  /**
-   * Eimalige Instantiierung der Klasse NutzerMapper (Singleton)
-   * Einmal für sämtliche Instanzen dieser Klasse vorhanden, 
-   * speichert die einzige Instanz dieser Klasse
-   */
-	
-  private static NutzerMapper nutzerMapper = null;
+	/**
+	 * Eimalige Instantiierung der Klasse NutzerMapper (Singleton) Einmal fï¿½r
+	 * sï¿½mtliche Instanzen dieser Klasse vorhanden, speichert die einzige
+	 * Instanz dieser Klasse
+	 */
 
-  /**
-   * Konstruktor verhindert durch protected weitere Instanzen aus dieser Klasse zu erzeugen
-   */
-  protected NutzerMapper() {
-  }
+	private static NutzerMapper nutzerMapper = null;
 
-  /**
-   * NutzerMapper-Objekt
-   * Die statische Methode verhindert, 
-   * dass von einer Klasse mehr als ein Objekt gebildet werden kann. 
-   * (Bewahrung der Singleton-Eigenschaft)
-   */
-  
-  public static NutzerMapper nutzerMapper() {
-    if (nutzerMapper == null) {
-      nutzerMapper = new NutzerMapper();
-    }
-
-    return nutzerMapper;
-  }
-
-  /**
-   * Nutzer nach NutzerId suchen.   * 
-   * als return: Nutzer-Objekt oder bei nicht vorhandener NutzerId/DB-Tupel null.
-   */
-  public Nutzer nachNutzerIdSuchen(int nutzerId) {
-	// Es wird eine DB-Verbindung angeschafft 
-    Connection con = DBConnection.connection();
-
-    try {
-    //Es wird ein leeres SQL Statement von dem Connector (JDBC) angelegt
-      Statement stmt = con.createStatement();
-
-   // Das Statement wird ausgefüllt und an die Datebank verschickt
-      ResultSet rs = stmt
-          .executeQuery("SELECT nutzerId, email FROM nutzer "
-              + "WHERE nutzerId=" + nutzerId);
-
-      /*
-       * An dieser Stelle kann man prüfen ob bereits ein Ergebnis vorliegt. 
-       * Man erhält maximal 1 Tupel, da es sich bei id um einen Primärschlüssel handelt.
-       */
-      if (rs.next()) {
-    	//Das daraus ergebene Tupel muss in ein Objekt überführt werden.
-        Nutzer n = new Nutzer();
-        n.setNutzerId(rs.getInt("nutzerId"));
-        n.setEmail(rs.getString("email"));
-
-        return n;
-      }
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-      return null;
-    }
-
-    return null;
-  }
-
-  /**
-   * Auslesen aller Nutzer.
-   * 
-   */
-  public List<Nutzer> nachAllenNutzernSuchen() {
-    Connection con = DBConnection.connection();
-    
- // Die Liste die das Ergebnis bereitstellen soll wird vorbereitet
-    List<Nutzer> result = new Vector<Nutzer>();
-
-    try {
-      Statement stmt = con.createStatement();
-
-      ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
-          + "FROM nutzer " + "ORDER BY name");
-
-   // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
-      
-      while (rs.next()) {
-    	Nutzer n = new Nutzer();
-        n.setNutzerId(rs.getInt("nutzerId"));
-        n.setEmail(rs.getString("email"));
-
-     // Es wird ein neues Objekt hinzugefügt
-        result.add(n);
-      }
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    // Die Ergebnisliste wird zurückgegeben
-    return result;
-  }
-
-  /**
-   * Auslesen aller Nutzer-Objekte mit gegebenem Email
-   * 
-   */
-  public Nutzer nachNutzerEmailSuchen(String name) {
-    Connection con = DBConnection.connection();
-
-    try {
-      Statement stmt = con.createStatement();
-
-      ResultSet rs = stmt.executeQuery("SELECT nutzerId, email "
-          + "FROM nutzer " + "WHERE email LIKE '" + name
-          + "' ORDER BY email");
-
-   // Jetzt werden die Einträge durchsucht und für jedes gefundene ein Nutzer Objekt erstellt
-      
-      while (rs.next()) {
-        Nutzer n = new Nutzer();
-        n.setNutzerId(rs.getInt("NutzerId"));
-        n.setEmail(rs.getString("email"));
-
-     // Es wird ein neues Objekt hinzugefügt
-        return n;
-      }
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    // null wird zurückgegegeben
-    return null;
-  }
-
-  /**
-   * Anlegen eines Nutzers.
-   * 
-   */
-  public Nutzer anlegenNutzer(Nutzer n) {
-    Connection con = DBConnection.connection();
-
-    try {
-      Statement stmt = con.createStatement();
-
-    //Der höchste Primärschlüsselwert wird überprüft
-      
-      ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid "
-          + "FROM nutzer ");
-
-   //Sollte etwas zurückgegeben werden, so kann dies nur einzeilig sein
-      if (rs.next()) {
-    	  /*
-           * c kriegt nun den maximalen Primärschlüssel, welcher mit dem Wert 1 inkrementiert wird
-           */
-        n.setNutzerId(rs.getInt("maxid") + 1);
-
-        stmt = con.createStatement();
-
-		// Hier erfolgt die entscheidende Einfï¿½geoperation
-		String sql = "INSERT INTO nutzer (nutzerId, email) "
-				+ "VALUES ("
-				+ n.getNutzerId()
-				+ ", \""
-				+ n.getEmail()
-				+ " \")";
-		System.out.println(sql);
-		stmt.executeUpdate(sql);
-      }
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-    /*
-     * Sollte es korrigierte Nutzer geben, so werden diese zurückgegeben
-     * 
-     * So besteht die Möglichkeit anzudeuten ob sich ein Objekt verändert hat, während die Methode ausgeführt wurde
-     */
-    return n;
-  }
-  
-	public static void main(String[] args) {
-//	Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
-	
-	Nutzer nutzer = new Nutzer();
-	nutzer.getNutzerId();
-	nutzer.setEmail("muhammed@gmail.com");
-	
-	NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
-	nutzerMapper.anlegenNutzer(nutzer);
-	
-	
+	/**
+	 * Konstruktor verhindert durch protected weitere Instanzen aus dieser
+	 * Klasse zu erzeugen
+	 */
+	protected NutzerMapper() {
 	}
-	
 
-  
-  
-  
-  /**
-   * Wiederholtes Schreiben eines Objekts in die Datenbank.
-   * 
-   */
-  public Nutzer update(Nutzer n) {
-    Connection con = DBConnection.connection();
+	/**
+	 * NutzerMapper-Objekt Die statische Methode verhindert, dass von einer
+	 * Klasse mehr als ein Objekt gebildet werden kann. (Bewahrung der
+	 * Singleton-Eigenschaft)
+	 */
 
-    try {
-      Statement stmt = con.createStatement();
+	public static NutzerMapper nutzerMapper() {
+		if (nutzerMapper == null) {
+			nutzerMapper = new NutzerMapper();
+		}
 
-      stmt.executeUpdate("UPDATE nutzer " + "SET email=\""
-          + n.getEmail() + "\", " + "\" "
-          + "WHERE NutzerId=" + n.getNutzerId());
+		return nutzerMapper;
+	}
 
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
+	/**
+	 * Nutzer nach NutzerId suchen. * als return: Nutzer-Objekt oder bei nicht
+	 * vorhandener NutzerId/DB-Tupel null.
+	 */
+	public Nutzer nachNutzerIdSuchen(int nutzerId) {
+		// Es wird eine DB-Verbindung angeschafft
+		Connection con = DBConnection.connection();
 
-    // Um ähnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren, geben wir nun c zurück
-    return n;
-  }
+		try {
+			// Es wird ein leeres SQL Statement von dem Connector (JDBC)
+			// angelegt
+			Statement stmt = con.createStatement();
 
-  /**
-   * Löschen der Daten eines Nutzer-Objekts aus der Datenbank.
-   */
-  public void loeschenNutzer(Nutzer n) {
-    Connection con = DBConnection.connection();
+			// Das Statement wird ausgefï¿½llt und an die Datebank verschickt
+			ResultSet rs = stmt
+					.executeQuery("SELECT nutzerId, name, email FROM nutzer "
+							+ "WHERE nutzerId=" + nutzerId);
 
-    try {
-      Statement stmt = con.createStatement();
+			/*
+			 * An dieser Stelle kann man prï¿½fen ob bereits ein Ergebnis
+			 * vorliegt. Man erhï¿½lt maximal 1 Tupel, da es sich bei id um einen
+			 * Primï¿½rschlï¿½ssel handelt.
+			 */
+			if (rs.next()) {
+				// Das daraus ergebene Tupel muss in ein Objekt ï¿½berfï¿½hrt
+				// werden.
+				Nutzer n = new Nutzer();
+				n.setNutzerId(rs.getInt("nutzerId"));
+				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
 
-      stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId=" + n.getNutzerId());
-    }
-    catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
+				return n;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 
-  /**
-   * Auslesen der zugehörigen Notizen-Objekte zu einem gegebenen
-   * Nutzer.
-   */
-  
-  public List<Notiz> getNotizOf(Nutzer n) {
-    return NotizMapper.notizMapper().nachEigentuemerSuchen(n);
-  }
-  
-  /**
-   * Auslesen der zugehörigen Notizbücher-Objekte zu einem gegebenen
-   * Nutzer.
-   */
-  public List<Notizbuch> getNotizbuchOf(Nutzer c) {
-	return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(c);
-	  }
+		return null;
+	}
+
+	/**
+	 * Auslesen aller Nutzer.
+	 * 
+	 */
+	public List<Nutzer> nachAllenNutzernSuchen() {
+		Connection con = DBConnection.connection();
+
+		// Die Liste die das Ergebnis bereitstellen soll wird vorbereitet
+		List<Nutzer> result = new Vector<Nutzer>();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
+					+ "FROM nutzer " + "ORDER BY name");
+
+			// Jetzt werden die Eintrï¿½ge durchsucht und fï¿½r jedes gefundene ein
+			// Nutzer Objekt erstellt
+
+			while (rs.next()) {
+				Nutzer n = new Nutzer();
+				n.setNutzerId(rs.getInt("nutzerId"));
+				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
+
+
+				// Es wird ein neues Objekt hinzugefï¿½gt
+				result.add(n);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Die Ergebnisliste wird zurï¿½ckgegeben
+		return result;
+	}
+
+	/**
+	 * Auslesen aller Nutzer-Objekte mit gegebenem Email
+	 * 
+	 */
+	public Nutzer nachNutzerEmailSuchen(String name) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
+					+ "FROM nutzer " + "WHERE email LIKE '" + name
+					+ "' ORDER BY email");
+
+			// Jetzt werden die Eintrï¿½ge durchsucht und fï¿½r jedes gefundene ein
+			// Nutzer Objekt erstellt
+
+			while (rs.next()) {
+				Nutzer n = new Nutzer();
+				n.setNutzerId(rs.getInt("NutzerId"));
+				n.setEmail(rs.getString("email"));
+				n.setName(rs.getString("name"));
+
+
+				// Es wird ein neues Objekt hinzugefï¿½gt
+				return n;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// null wird zurï¿½ckgegegeben
+		return null;
+	}
+
+	/**
+	 * Anlegen eines Nutzers.
+	 * 
+	 */
+	public Nutzer anlegenNutzer(Nutzer n) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			// Der hï¿½chste Primï¿½rschlï¿½sselwert wird ï¿½berprï¿½ft
+
+			ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid "
+					+ "FROM nutzer ");
+
+			// Sollte etwas zurï¿½ckgegeben werden, so kann dies nur einzeilig
+			// sein
+			if (rs.next()) {
+				/*
+				 * c kriegt nun den maximalen Primï¿½rschlï¿½ssel, welcher mit dem
+				 * Wert 1 inkrementiert wird
+				 */
+				n.setNutzerId(rs.getInt("maxid") + 1);
+
+				stmt = con.createStatement();
+
+				// Hier erfolgt die entscheidende Einfï¿½geoperation
+				String sql = "INSERT INTO nutzer (nutzerId, email, name) "
+						+ "VALUES (" + n.getNutzerId() + ", \"" + n.getEmail()
+						+ "\", \"" + n.getName() + "\")";
+				System.out.println(sql);
+				stmt.executeUpdate(sql);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * Sollte es korrigierte Nutzer geben, so werden diese zurï¿½ckgegeben
+		 * 
+		 * So besteht die Mï¿½glichkeit anzudeuten ob sich ein Objekt verï¿½ndert
+		 * hat, wï¿½hrend die Methode ausgefï¿½hrt wurde
+		 */
+		return n;
+	}
+
+//	public static void main(String[] args) {
+//		// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
+//
+//		Nutzer nutzer = new Nutzer();
+//		nutzer.getNutzerId();
+//		nutzer.setName("muhammed");
+//		nutzer.setEmail("muhammed1@gmail.com");
+//
+//		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
+//		nutzerMapper.anlegenNutzer(nutzer);
+//
+//	}
+
+	/**
+	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
+	 * 
+	 */
+	public Nutzer update(Nutzer n) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			stmt.executeUpdate("UPDATE nutzer " + "SET email=\"" + n.getEmail() + n.getName()
+					+ "\", " + "\" " + "WHERE NutzerId=" + n.getNutzerId());
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Um ï¿½hnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren,
+		// geben wir nun c zurï¿½ck
+		return n;
+	}
+
+	/**
+	 * Lï¿½schen der Daten eines Nutzer-Objekts aus der Datenbank.
+	 */
+	public void loeschenNutzer(Nutzer n) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId="
+					+ n.getNutzerId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Auslesen der zugehï¿½rigen Notizen-Objekte zu einem gegebenen Nutzer.
+	 */
+
+	public List<Notiz> getNotizOf(Nutzer n) {
+		return NotizMapper.notizMapper().nachEigentuemerSuchen(n);
+	}
+
+	/**
+	 * Auslesen der zugehï¿½rigen Notizbï¿½cher-Objekte zu einem gegebenen Nutzer.
+	 */
+	public List<Notizbuch> getNotizbuchOf(Nutzer c) {
+		return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(c);
+	}
 }

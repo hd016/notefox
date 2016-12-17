@@ -30,7 +30,7 @@ public class NotizEditorPanel extends VerticalPanel {
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
-	HTML notizEditor = new HTML("<h3>Notiz Editor</h3>");
+	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 	Label Notiztitel = new Label("Titel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
@@ -69,7 +69,7 @@ public class NotizEditorPanel extends VerticalPanel {
 	}
 
 	public void neueNotiz(Notizbuch notizbuch) {
-		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), new AsyncCallback<Notiz>() {
+		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), notizbuch, new AsyncCallback<Notiz>() {
 
 			@Override
 			public void onSuccess(Notiz result) {
