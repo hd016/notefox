@@ -15,10 +15,6 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 @RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
 
-  /**
-   * Objekt wird initialisiert.
-   */
-  public void initialisieren() throws IllegalArgumentException;
   
   /**
    * Einen Nutzer anlegen.
@@ -26,9 +22,9 @@ public interface NotizobjektAdministration extends RemoteService {
   public Nutzer anlegenNutzer(int nutzerId, String name) throws IllegalArgumentException;
 
   /**
-   * Eine neue Notiz f�r einen gegebenen Nutzer anlegen.
+   * Eine neue Notiz anlegen.
    */
-  public Notiz anlegenNotizFuer(Nutzer nutzer, Notizbuch notizbuch) throws IllegalArgumentException;
+  public Notiz anlegenNotiz( Notizbuch notizbuch) throws IllegalArgumentException;
   
   /**
    * Eine neues Notizbuch f�r einen gegebenen Nutzer anlegen.
