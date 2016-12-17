@@ -162,13 +162,13 @@ public class NotizMapper {
 
 	   
 		/**
-		  * Faelligkeitsstatus eines <code>Notiz</code>-Objekts aus der Datenbank prüfen.
+		  * Faelligkeitsstatus eines <code>Notiz</code>-Objekts aus der Datenbank prï¿½fen.
 		  * 
 		  */
 	   public void pruefenFaelligkeitsdatum(Notiz no){
 			// Es wird eine DB-Verbindung angeschafft
 			Connection con = DBConnection.connection();
-			Boolean fälligkeit = false;
+			Boolean faelligkeit = false;
 			 try {
 				 	// Leeres SQL-Statement (JDBC) anlegen
 			       Statement stmt = con.createStatement();
@@ -177,9 +177,9 @@ public class NotizMapper {
 			       ResultSet rs = stmt.executeQuery("SELECT faelligkeitsstatus FROM notiz");
 
 					while (rs.next()) {
-						fälligkeit = rs.getBoolean("faelligkeitsstatus");
+						faelligkeit = rs.getBoolean("faelligkeitsstatus");
 					}
-					if(fälligkeit==true&&no.getFaelligkeitsstatus()==true)
+					if(faelligkeit==true&&no.getFaelligkeitsstatus()==true)
 					{
 						return;
 					}
@@ -387,17 +387,17 @@ public class NotizMapper {
 
 	
 	/**
-	   * Auslesen des zugehörigen <code>Notizbuch</code>-Objekts zu einem gegebenen
+	   * Auslesen des zugehï¿½rigen <code>Notizbuch</code>-Objekts zu einem gegebenen
 	   * Notiz.
 	   * 
-	   * @param no die Notiz, dessen Notizbuch wir auslesen möchten
+	   * @param no die Notiz, dessen Notizbuch wir auslesen mï¿½chten
 	   * @return ein Objekt, das das Notizbuch der Notiz darstellt
 	   */
 	  public Notizbuch nachZugehoerigemNotizbuchSuchen(Notiz no) {
 	    /*
 	     * Wir bedienen uns hier einfach des NotizbuchMapper. Diesem geben wir einfach
-	     * den in dem Notiz-Objekt enthaltenen Fremdschlüssel für das Notizbuch.
-	     * Der NotizbuchMapper löst uns dann diese ID in ein Objekt auf.
+	     * den in dem Notiz-Objekt enthaltenen Fremdschlï¿½ssel fï¿½r das Notizbuch.
+	     * Der NotizbuchMapper lï¿½st uns dann diese ID in ein Objekt auf.
 	     */
 	    return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(no.getNotizbuchId());
 	  }
