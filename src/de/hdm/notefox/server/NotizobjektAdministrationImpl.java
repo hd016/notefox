@@ -180,11 +180,12 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 * vollständigen Satz von Mappern besitzt, mit deren Hilfe sie dann mit
 		 * der Datenbank kommunizieren kann.
 		 */
+		
 		this.nuMapper = NutzerMapper.nutzerMapper();
-		this.noMapper = NotizMapper.notizMapper();
-		this.nbMapper = NotizbuchMapper.notizbuchMapper();
-		this.bMapper = BerechtigungMapper.berechtigungMapper();
-
+					this.noMapper = NotizMapper.notizMapper();
+					this.nbMapper = NotizbuchMapper.notizbuchMapper();
+					this.bMapper = BerechtigungMapper.berechtigungMapper();
+					
 	}
 
 	/*
