@@ -56,7 +56,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      * NotizobjektVerwaltungImpl-Instanz.
      */
     NotizobjektAdministrationImpl a = new NotizobjektAdministrationImpl();
-    a.initialisieren();
+    a.init();
     this.administration = a;
   }
 

@@ -62,47 +62,42 @@ public class Notefox implements EntryPoint {
 	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	Berechtigung berechtigung;
 
-	CellTree celltree = new CellTree(new NotizBaumModel(notizeditorpanel), null);
+	CellTree celltree;
 	// CellTree celltree2 = new CellTree(new
 	// BerechtigungBaumModel(berechtigung), null);
 
 	FooterPanel footerPanel = new FooterPanel();
-	
-	
-	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
+
+	NotizobjektAdministrationAsync administration = GWT
+			.create(NotizobjektAdministration.class);
 
 	@Override
 	public void onModuleLoad() {
 
+		LoginServiceAsync loginService = GWT.create(LoginService.class);
 
-	/*	LoginServiceAsync loginService = GWT.create(LoginService.class);
+		loginService.login(GWT.getHostPageBaseURL(),
+				new AsyncCallback<LoginInfo>() {
+					public void onFailure(Throwable error) {
+					}
 
-	/* Auskommentierung von Login Interface -> GUI Bearbeitungen!	
-	 * LoginServiceAsync loginService = GWT.create(LoginService.class);
+					public void onSuccess(LoginInfo loginInfo) {
+						if (loginInfo.isLoggedIn()) {
+							onModuleLoadLoggedIn(loginInfo);
+						} else {
+							RootPanel.get("gwtContainer").clear();
+							RootPanel.get("gwtContainer").add(
+									new LoginPanel(loginInfo));
+						}
+					}
+				});
 
-loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
-	      public void onFailure(Throwable error) {
-	      }
-
-	      public void onSuccess(LoginInfo loginInfo) {
-	        if(loginInfo.isLoggedIn()) {
-	        	onModuleLoadLoggedIn();
-	        } else {
-	        	RootPanel.get("gwtContainer").clear();
-	        	RootPanel.get("gwtContainer").add(new LoginPanel(loginInfo));
-	        }
-	      }
-	    });
-
-	*/
-	
-
-
-		onModuleLoadLoggedIn();
 	}
 
-	private void onModuleLoadLoggedIn() {
+	private void onModuleLoadLoggedIn(LoginInfo loginInfo) {
 
+		celltree = new CellTree(new NotizBaumModel(notizeditorpanel, loginInfo.getNutzer()), null);
+		
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelRight = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
@@ -134,7 +129,7 @@ loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);
 		RootPanel.get("text").add(hPanelNotizNotizbuch);
-		
+
 		NotizBuch.addStyleName("gwt-Green-Button");
 		Nutzer.addStyleName("gwt-Green-Button");
 		Profil.addStyleName("gwt-Green-Button");
