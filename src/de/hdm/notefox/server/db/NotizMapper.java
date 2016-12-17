@@ -190,52 +190,6 @@ public class NotizMapper {
 		}
 	}
 
-	// /**
-	// * Notiz nach FaelligkeitId suchen. * als return: Notiz-Objekt oder bei
-	// * nicht vorhandener Id/DB-Tupel null.
-	// */
-	// public Notiz nachFaelligkeitIdSuchen(int id) {
-	// // Es wird eine DB-Verbindung angeschafft
-	// Connection con = DBConnection.connection();
-	//
-	// try {
-	// // Es wird ein leeres SQL Statement von dem Connector (JDBC)
-	// // angelegt
-	// Statement stmt = con.createStatement();
-	//
-	// // Das Statement wird ausgef�llt und an die Datebank verschickt
-	// ResultSet rs = stmt
-	// .executeQuery("SELECT notiz*, datum.* FROM notiz ON notiz.notiz.Id = datum.faelligkeitId "
-	// + " ORDER BY id");
-	//
-	// /*
-	// * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
-	// * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
-	// * einen Prim�rschl�ssel handelt.
-	// */
-	// if (rs.next()) {
-	// // Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
-	// // werden.
-	// Notiz no = new Notiz();
-	// no.setId(rs.getInt("id"));
-	// Nutzer nutzer = new Nutzer();
-	// nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
-	// nutzer.setEmail(rs.getString("nutzer.email"));
-	// no.setEigentuemer(nutzer);
-	// no.setTitel(rs.getString("titel"));
-	// no.setSubtitel(rs.getString("subtitel"));
-	// no.setErstelldatum(rs.getDate("erstelldatum"));
-	// no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-	// no.setInhalt(rs.getString("inhalt"));
-	// return no;
-	// }
-	// } catch (SQLException e2) {
-	// e2.printStackTrace();
-	// return null;
-	// }
-	//
-	// return null;
-	// }
 
 	/**
 	 * Auslesen aller Notizen.
