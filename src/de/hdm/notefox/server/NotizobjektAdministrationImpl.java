@@ -459,6 +459,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		notiz.setEigentuemer(loginService.getCurrentNutzer());
 		notiz.setNotizbuchId(notizbuch.getId());
 		notiz.setFaelligkeitsdatum(new Date());
+		notiz.setTitel("unbenannt");
 
 		if (berechtigungAnwenden(notizbuch, Berechtigungsart.EDITIEREN) != null) {
 
@@ -560,6 +561,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
 		Notizbuch nb = new Notizbuch();
 		nb.setEigentuemer(n);
+		nb.setTitel("unbenannt");
 
 		/*
 		 * Setzen einer vorl�ufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
