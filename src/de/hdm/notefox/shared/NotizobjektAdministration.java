@@ -119,4 +119,10 @@ public interface NotizobjektAdministration extends RemoteService {
 
 	Notiz anlegenNotiz(String url) throws IllegalArgumentException;
 
+	List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no)
+			throws IllegalArgumentException;
+
+	List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb)
+			throws IllegalArgumentException;
+
 }

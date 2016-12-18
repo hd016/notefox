@@ -53,4 +53,10 @@ void loeschenNutzer(Nutzer n, AsyncCallback<Void> callback);
 
 void anlegenNotiz(String url, AsyncCallback<Notiz> callback);
 
+void nachAllenBerechtigungenDerNotizSuchen(Notiz no,
+		AsyncCallback<List<Berechtigung>> callback);
+
+void nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb,
+		AsyncCallback<List<Berechtigung>> callback);
+
 }

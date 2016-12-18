@@ -198,6 +198,22 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 
 	}
 
+	/**
+	 * Auslesen aller Berechtigungen der übergebenen Notiz.
+	 */
+	@Override
+	public List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no) throws IllegalArgumentException {
+		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(no);
+	}
+	
+	/**
+	 * Auslesen aller Berechtigungen des übergebenen Notizbuches.
+	 */
+	@Override
+	public List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException {
+		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(nb);
+	}
+	
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Initialisierung

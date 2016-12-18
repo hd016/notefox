@@ -8,396 +8,433 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import de.hdm.notefox.server.NotizobjektAdministrationImpl;
 import de.hdm.notefox.shared.bo.*;
 import de.hdm.notefox.shared.report.*;
+import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.ReportGenerator;
 
 /**
- * ReportGenerator-Interface wird implementiert.
- * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
+ * ReportGenerator-Interface wird implementiert. Anlehnung an Herr Thies & Herr
+ * Rathke (Bankprojekt)
  */
 @SuppressWarnings("serial")
-public class ReportGeneratorImpl extends RemoteServiceServlet
-    implements ReportGenerator {
+public class ReportGeneratorImpl extends RemoteServiceServlet implements
+		ReportGenerator {
 
-  /**
-   * Zugriff auf die NotizobjektAdministration ist f�r den ReportGenerator notwendig,
-   * da diese die essentiellen Methoden f�r die Koexistenz von Datenobjekten bietet.
-   */
-  private NotizobjektAdministration administration = null;
+	/**
+	 * Zugriff auf die NotizobjektAdministration ist f�r den ReportGenerator
+	 * notwendig, da diese die essentiellen Methoden f�r die Koexistenz von
+	 * Datenobjekten bietet.
+	 */
+	private NotizobjektAdministration administration = null;
 
-  /**
-   * <p>
-   * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
-   * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
-   * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
-   * Konstruktors ist durch die Client-seitige Instantiierung durch
-   * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-   * möglich.
-   * </p>
-   * <p>
-   * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
-   * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
-   * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
-   * </p>
-   * (nlhe
-   */
-  public ReportGeneratorImpl() throws IllegalArgumentException {
-  }
+	/**
+	 * <p>
+	 * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
+	 * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
+	 * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines
+	 * anderen Konstruktors ist durch die Client-seitige Instantiierung durch
+	 * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
+	 * möglich.
+	 * </p>
+	 * <p>
+	 * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
+	 * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
+	 * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
+	 * </p>
+	 * (nlhe
+	 */
+	public ReportGeneratorImpl() throws IllegalArgumentException {
+	}
 
-  /**
-   * Initialsierungsmethode. Siehe dazu Anmerkungen zum No-Argument-Konstruktor.
-   * 
-   * @see #ReportGeneratorImpl()
-   */
-  public void initialisieren() throws IllegalArgumentException {
-    /*
-     * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf eine
-     * NotizobjektVerwaltungImpl-Instanz.
-     */
-    NotizobjektAdministrationImpl a = new NotizobjektAdministrationImpl();
-    a.init();
-    this.administration = a;
-  }
+	/**
+	 * Initialsierungsmethode. Siehe dazu Anmerkungen zum
+	 * No-Argument-Konstruktor.
+	 * 
+	 * @see #ReportGeneratorImpl()
+	 */
+	public void initialisieren() throws IllegalArgumentException {
+		/*
+		 * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf
+		 * eine NotizobjektVerwaltungImpl-Instanz.
+		 */
+		NotizobjektAdministrationImpl a = new NotizobjektAdministrationImpl();
+		a.init();
+		this.administration = a;
+	}
 
-  /**
-   * Auslesen der zugehörigen NotizobjektAdministration (interner Gebrauch).
-   * 
-   * @return das NotizobjektVerwaltungsobjekt
-   */
-  protected NotizobjektAdministration getNotizobjektVerwaltung() {
-    return this.administration;
-  }
+	/**
+	 * Auslesen der zugehörigen NotizobjektAdministration (interner Gebrauch).
+	 * 
+	 * @return das NotizobjektVerwaltungsobjekt
+	 */
+	protected NotizobjektAdministration getNotizobjektVerwaltung() {
+		return this.administration;
+	}
 
-  /**
-   * Hinzufügen des Report-Impressums. Diese Methode ist aus den
-   * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
-   * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
-   * <code>create...</code>-Methoden diese Methode auf.
-   * 
-   * @param r der um das Impressum zu erweiternde Report.
-   */
-  protected void addImprint(Report r) {
+	/**
+	 * Hinzufügen des Report-Impressums. Diese Methode ist aus den
+	 * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
+	 * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
+	 * <code>create...</code>-Methoden diese Methode auf.
+	 * 
+	 * @param r
+	 *            der um das Impressum zu erweiternde Report.
+	 */
+	protected void addImprint(Report r) {
 
-    /*
-     * Das Impressum soll mehrzeilig sein.
-     */
-    CompositeParagraph imprint = new CompositeParagraph();
+		/*
+		 * Das Impressum soll mehrzeilig sein.
+		 */
+		CompositeParagraph imprint = new CompositeParagraph();
 
-    imprint.addSubParagraph(new SimpleParagraph("Notefox Team"));
+		imprint.addSubParagraph(new SimpleParagraph("Notefox Team"));
 
-    // Das eigentliche Hinzufügen des Impressums zum Report.
-    r.setImprint(imprint);
+		// Das eigentliche Hinzufügen des Impressums zum Report.
+		r.setImprint(imprint);
 
-  }
+	}
 
-  /**
-   * Erstellen von <code>AlleNotizenDesNutzersReport</code>-Objekten.
-   * 
-   * @param n das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
-   * @return der fertige Report
-   */
-  public AlleNotizenDesNutzersReport erstelleAlleNotizenDesNutzersReport(
-      Nutzer n) throws IllegalArgumentException {
+	/**
+	 * Erstellen von <code>AlleNotizenDesNutzersReport</code>-Objekten.
+	 * 
+	 * @param n
+	 *            das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
+	 * @return der fertige Report
+	 */
+	public AlleNotizenDesNutzersReport erstelleAlleNotizenDesNutzersReport(
+			Nutzer n) throws IllegalArgumentException {
 
-    if (this.getNotizobjektVerwaltung() == null)
-      return null;
+		if (this.getNotizobjektVerwaltung() == null)
+			return null;
 
-    /*
-     * Zunächst legen wir uns einen leeren Report an.
-     */
-    AlleNotizenDesNutzersReport result = new AlleNotizenDesNutzersReport();
+		/*
+		 * Zunächst legen wir uns einen leeren Report an.
+		 */
+		AlleNotizenDesNutzersReport result = new AlleNotizenDesNutzersReport();
 
-    // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
-    result.setTitle("Alle Notizen des Nutzers");
+		// Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+		result.setTitle("Alle Notizen des Nutzers");
 
-    // Imressum hinzufügen
-    this.addImprint(result);
+		// Imressum hinzufügen
+		this.addImprint(result);
 
-    /*
-     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
-     * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
-     */
-    result.setCreated(new Date());
+		/*
+		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
 
-    /*
-     * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die oben
-     * auf dem Report stehen) des Reports. Die Kopfdaten sind mehrzeilig, daher
-     * die Verwendung von CompositeParagraph.
-     */
-    CompositeParagraph header = new CompositeParagraph();
+		/*
+		 * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die
+		 * oben auf dem Report stehen) des Reports. Die Kopfdaten sind
+		 * mehrzeilig, daher die Verwendung von CompositeParagraph.
+		 */
+		CompositeParagraph header = new CompositeParagraph();
 
-    // Email des Nutzers aufnehmen
-    header.addSubParagraph(new SimpleParagraph(n.getEmail()));
+		// Email des Nutzers aufnehmen
+		header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
-    // NutzerId aufnehmen
-    header.addSubParagraph(new SimpleParagraph("NutzerID: " + n.getNutzerId()));
+		// NutzerId aufnehmen
+		header.addSubParagraph(new SimpleParagraph("NutzerID: "
+				+ n.getNutzerId()));
 
-    // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
-    result.setHeaderData(header);
+		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+		result.setHeaderData(header);
 
-    /*
-     * Ab hier erfolgt ein zeilenweises Hinzufügen von Notiz-Informationen.
-     */
-    
-    /*
-     * Zunächst legen wir eine Kopfzeile für die Notiz-Tabelle an.
-     */
-    Row headline = new Row();
+		/*
+		 * Ab hier erfolgt ein zeilenweises Hinzufügen von Notiz-Informationen.
+		 */
 
-    /*
-     * Wir wollen Zeilen mit einer Spalte in der Tabelle erzeugen. In der
-     * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen wir also entsprechende
-     * Überschriften ab.
-     */
-    headline.addColumn(new Column("NotizId"));
-    headline.addColumn(new Column("Titel"));
-    headline.addColumn(new Column("Erstelldatum"));
-    headline.addColumn(new Column("Modifikationsdatum"));
-    headline.addColumn(new Column("Faelligkeitsdatum"));
-    //headline.addColumn(new Column("teilhabende Nutzer"));
-    headline.addColumn(new Column("Berechtigungen"));
-    
-    // Hinzufügen der Kopfzeile
-    result.addRow(headline);
+		/*
+		 * Zunächst legen wir eine Kopfzeile für die Notiz-Tabelle an.
+		 */
+		Row headline = new Row();
 
-    /*
-     * Nun werden sämtliche Notizen des Nutzers ausgelesen und deren NotizId und
-     * sukzessive in die Tabelle eingetragen.
-     */
-    List<Notiz> notizen = this.administration.nachAllenNotizenDesNutzersSuchen(n);
+		/*
+		 * Wir wollen Zeilen mit einer Spalte in der Tabelle erzeugen. In der
+		 * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen
+		 * wir also entsprechende Überschriften ab.
+		 */
+		headline.addColumn(new Column("NotizId"));
+		headline.addColumn(new Column("Titel"));
+		headline.addColumn(new Column("Erstelldatum"));
+		headline.addColumn(new Column("Modifikationsdatum"));
+		headline.addColumn(new Column("Faelligkeitsdatum"));
+		headline.addColumn(new Column("Berechtigungen"));
 
-    for (Notiz no : notizen) {
-      // Eine leere Zeile anlegen.
-      Row notizRow = new Row();
+		// Hinzufügen der Kopfzeile
+		result.addRow(headline);
 
-      // Erste Spalte: Kontonummer hinzufügen
-      notizRow.addColumn(new Column(String.valueOf(no.getId())));
-      notizRow.addColumn(new Column(no.getTitel()));
-      notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
-      notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
-      notizRow.addColumn(new Column(String.valueOf(no.getFaelligkeitsdatum())));
-      //notizRow.addColumn(new Column(no.getteilehabne nurzer()));
-      notizRow.addColumn(new Column(String.valueOf(no.getBerechtigungen())));
-      
-      // und schließlich die Zeile dem Report hinzufügen.
-      result.addRow(notizRow);
-    }
+		/*
+		 * Nun werden sämtliche Notizen des Nutzers ausgelesen und deren NotizId
+		 * und sukzessive in die Tabelle eingetragen.
+		 */
+		List<Notiz> notizen = this.administration
+				.nachAllenNotizenDesNutzersSuchen(n);
 
-    /*
-     * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
-     */
-    return result;
-  }
+		for (Notiz no : notizen) {
+			// Eine leere Zeile anlegen.
+			Row notizRow = new Row();
 
-  /**
-   * Erstellen von <code>AlleNotizenAllerNutzerReport</code>-Objekten.
-   * 
-   * @return der fertige Report
-   */
-  public AlleNotizenAllerNutzerReport erstelleAlleNotizenAllerNutzerReport()
-      throws IllegalArgumentException {
+			// Erste Spalte: Kontonummer hinzufügen
+			notizRow.addColumn(new Column(String.valueOf(no.getId())));
+			notizRow.addColumn(new Column(no.getTitel()));
+			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
+			notizRow.addColumn(new Column(String.valueOf(no
+					.getModifikationsdatum())));
+			notizRow.addColumn(new Column(String.valueOf(no
+					.getFaelligkeitsdatum())));
+			// notizRow.addColumn(new Column(no.getteilehabne nurzer()));
 
-    if (this.getNotizobjektVerwaltung() == null)
-      return null;
+			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
+			List<Berechtigung> berechtigungen = this.administration
+					.nachAllenBerechtigungenDerNotizSuchen(no);
+			for (Berechtigung be : berechtigungen) {
+				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail()
+						+ " / " + be.getBerechtigungsart();
+			}
+			notizRow.addColumn(new Column(berechtigungsTabelle));
 
-    /*
-     * Zunächst legen wir uns einen leeren Report an.
-     */
-    AlleNotizenAllerNutzerReport result = new AlleNotizenAllerNutzerReport();
+			// und schließlich die Zeile dem Report hinzufügen.
+			result.addRow(notizRow);
+		}
 
-    // Jeder Report hat einen Titel (Bezeichnung / überschrift).
-    result.setTitle("Alle Notizen aller Nutzer");
+		/*
+		 * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+		 */
+		return result;
+	}
 
-    // Imressum hinzufügen
-    this.addImprint(result);
+	/**
+	 * Erstellen von <code>AlleNotizenAllerNutzerReport</code>-Objekten.
+	 * 
+	 * @return der fertige Report
+	 */
+	public AlleNotizenAllerNutzerReport erstelleAlleNotizenAllerNutzerReport()
+			throws IllegalArgumentException {
 
-    /*
-     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
-     * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
-     */
-    result.setCreated(new Date());
+		if (this.getNotizobjektVerwaltung() == null)
+			return null;
 
-    /*
-     * Da AlleNotizenAllerNutzerReport-Objekte aus einer Sammlung von
-     * AlleNotizenDesNutzersReport-Objekten besteht, benötigen wir keine
-     * Kopfdaten für diesen Report-Typ. Wir geben einfach keine Kopfdaten an...
-     */
+		/*
+		 * Zunächst legen wir uns einen leeren Report an.
+		 */
+		AlleNotizenAllerNutzerReport result = new AlleNotizenAllerNutzerReport();
 
-    /*
-     * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend wir
-     * für jedes Nutzerobjekt n ein Aufruf von
-     * erstelleAlleNotizenDesNutzersReport(n) durchgeführt und somit jeweils ein
-     * AlleNotizenDesNutzersReport-Objekt erzeugt. Diese Objekte werden
-     * sukzessive der result-Variable hinzugefügt. Sie ist vom Typ
-     * AlleNotizenAllerNutzerReport, welches eine Subklasse von
-     * CompositeReport ist.
-     */
-    List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
+		// Jeder Report hat einen Titel (Bezeichnung / überschrift).
+		result.setTitle("Alle Notizen aller Nutzer");
 
-    for (Nutzer n : alleNutzer) {
-      /*
-       * Anlegen des jew. Teil-Reports und Hinzufügen zum Gesamt-Report.
-       */
-      result.addSubReport(this.erstelleAlleNotizenDesNutzersReport(n));
-    }
+		// Imressum hinzufügen
+		this.addImprint(result);
 
-    /*
-     * Zu guter Letzt müssen wir noch den fertigen Report zurückgeben.
-     */
-    return result;
-  }
-  
-  /**
-   * Erstellen von <code>AlleNotizbuecherDesNutzersReport</code>-Objekten.
-   * 
-   * @param n das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
-   * @return der fertige Report
-   */
-  public AlleNotizbuecherDesNutzersReport erstelleAlleNotizbuecherDesNutzersReport(
-      Nutzer n) throws IllegalArgumentException {
+		/*
+		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
 
-    if (this.getNotizobjektVerwaltung() == null)
-      return null;
+		/*
+		 * Da AlleNotizenAllerNutzerReport-Objekte aus einer Sammlung von
+		 * AlleNotizenDesNutzersReport-Objekten besteht, benötigen wir keine
+		 * Kopfdaten für diesen Report-Typ. Wir geben einfach keine Kopfdaten
+		 * an...
+		 */
 
-    /*
-     * Zunächst legen wir uns einen leeren Report an.
-     */
-    AlleNotizbuecherDesNutzersReport result = new AlleNotizbuecherDesNutzersReport();
+		/*
+		 * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend
+		 * wir für jedes Nutzerobjekt n ein Aufruf von
+		 * erstelleAlleNotizenDesNutzersReport(n) durchgeführt und somit jeweils
+		 * ein AlleNotizenDesNutzersReport-Objekt erzeugt. Diese Objekte werden
+		 * sukzessive der result-Variable hinzugefügt. Sie ist vom Typ
+		 * AlleNotizenAllerNutzerReport, welches eine Subklasse von
+		 * CompositeReport ist.
+		 */
+		List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
 
-    // Jeder Report hat einen Titel (Bezeichnung / Überschrift).
-    result.setTitle("Alle Notizbuecher des Nutzers");
+		for (Nutzer n : alleNutzer) {
+			/*
+			 * Anlegen des jew. Teil-Reports und Hinzufügen zum Gesamt-Report.
+			 */
+			result.addSubReport(this.erstelleAlleNotizenDesNutzersReport(n));
+		}
 
-    // Imressum hinzufügen
-    this.addImprint(result);
+		/*
+		 * Zu guter Letzt müssen wir noch den fertigen Report zurückgeben.
+		 */
+		return result;
+	}
 
-    /*
-     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
-     * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
-     */
-    result.setCreated(new Date());
+	/**
+	 * Erstellen von <code>AlleNotizbuecherDesNutzersReport</code>-Objekten.
+	 * 
+	 * @param n
+	 *            das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
+	 * @return der fertige Report
+	 */
+	public AlleNotizbuecherDesNutzersReport erstelleAlleNotizbuecherDesNutzersReport(
+			Nutzer n) throws IllegalArgumentException {
 
-    /*
-     * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die oben
-     * auf dem Report stehen) des Reports. Die Kopfdaten sind mehrzeilig, daher
-     * die Verwendung von CompositeParagraph.
-     */
-    CompositeParagraph header = new CompositeParagraph();
+		if (this.getNotizobjektVerwaltung() == null)
+			return null;
 
-    // Email des Nutzers aufnehmen
-    header.addSubParagraph(new SimpleParagraph(n.getEmail()));
+		/*
+		 * Zunächst legen wir uns einen leeren Report an.
+		 */
+		AlleNotizbuecherDesNutzersReport result = new AlleNotizbuecherDesNutzersReport();
 
-    // NutzerId aufnehmen
-    header.addSubParagraph(new SimpleParagraph("NutzerID: " + n.getNutzerId()));
+		// Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+		result.setTitle("Alle Notizbuecher des Nutzers");
 
-    // Hinzufügen der zusammengestellten Kopfdaten zu dem Report
-    result.setHeaderData(header);
+		// Imressum hinzufügen
+		this.addImprint(result);
 
-    /*
-     * Ab hier erfolgt ein zeilenweises Hinzufügen von Notizbuch-Informationen.
-     */
-    
-    /*
-     * Zunächst legen wir eine Kopfzeile für die Notizbuch-Tabelle an.
-     */
-    Row headline = new Row();
+		/*
+		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
 
-    /*
-     * Wir wollen Zeilen mit eine Spalte in der Tabelle erzeugen. In der
-     * Spalte schreiben wir die jeweilige NutzerId. In der K
-     * 
-     * opfzeile legen wir also entsprechende
-     * Überschriften ab.
-     */
-    headline.addColumn(new Column("NotizbuchId"));
-    headline.addColumn(new Column("Titel"));
-    headline.addColumn(new Column("Erstelldatum"));
-    headline.addColumn(new Column("Modifikationsdatum"));
-    
-    // Hinzufügen der Kopfzeile
-    result.addRow(headline);
+		/*
+		 * Ab hier erfolgt die Zusammenstellung der Kopfdaten (die Dinge, die
+		 * oben auf dem Report stehen) des Reports. Die Kopfdaten sind
+		 * mehrzeilig, daher die Verwendung von CompositeParagraph.
+		 */
+		CompositeParagraph header = new CompositeParagraph();
 
-    /*
-     * Alle Notizbuecher des Nutzers auslesen und sukzessives Eintragen der NotizbuchId in die Tabelle. 
-     */
-    List<Notizbuch> notizbuecher = this.administration.nachAllenNotizbuechernDesNutzersSuchen(n);
+		// Email des Nutzers aufnehmen
+		header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
-    for (Notizbuch nb : notizbuecher) {
-      // Leere Zeile
-      Row notizbuchRow = new Row();
+		// NutzerId aufnehmen
+		header.addSubParagraph(new SimpleParagraph("NutzerID: "
+				+ n.getNutzerId()));
 
-      // Erste Spalte: NotizbuchId hinzuf�gen.
-      notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));     
-      notizbuchRow.addColumn(new Column(nb.getTitel()));
-      notizbuchRow.addColumn(new Column(String.valueOf(nb.getErstelldatum())));
-      notizbuchRow.addColumn(new Column(String.valueOf(nb.getModifikationsdatum())));
+		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+		result.setHeaderData(header);
 
-      // Dem Report die Zeile hinzuf�gen
-      result.addRow(notizbuchRow);
-    }
+		/*
+		 * Ab hier erfolgt ein zeilenweises Hinzufügen von
+		 * Notizbuch-Informationen.
+		 */
 
-    /*
-     * Report zur�ckgeben
-     */
-    return result;
-  }
+		/*
+		 * Zunächst legen wir eine Kopfzeile für die Notizbuch-Tabelle an.
+		 */
+		Row headline = new Row();
 
-  /**
-   * <code>AlleNotizbuecherAllerNutzerReport</code>-Objekte werden erstellt.
-   * 
-   * @return fertige Report
-   */
-  public AlleNotizbuecherAllerNutzerReport erstelleAlleNotizbuecherAllerNutzerReport()
-      throws IllegalArgumentException {
+		/*
+		 * Wir wollen Zeilen mit eine Spalte in der Tabelle erzeugen. In der
+		 * Spalte schreiben wir die jeweilige NutzerId. In der K
+		 * 
+		 * opfzeile legen wir also entsprechende Überschriften ab.
+		 */
+		headline.addColumn(new Column("NotizbuchId"));
+		headline.addColumn(new Column("Titel"));
+		headline.addColumn(new Column("Erstelldatum"));
+		headline.addColumn(new Column("Modifikationsdatum"));
+		headline.addColumn(new Column("Berechtigungen"));
+		
+		// Hinzufügen der Kopfzeile
+		result.addRow(headline);
 
-    if (this.getNotizobjektVerwaltung() == null)
-      return null;
+		/*
+		 * Alle Notizbuecher des Nutzers auslesen und sukzessives Eintragen der
+		 * NotizbuchId in die Tabelle.
+		 */
+		List<Notizbuch> notizbuecher = this.administration
+				.nachAllenNotizbuechernDesNutzersSuchen(n);
 
-    /*
-     * leeren Report anlegen
-     */
-    AlleNotizbuecherAllerNutzerReport result = new AlleNotizbuecherAllerNutzerReport();
+		for (Notizbuch nb : notizbuecher) {
+			// Leere Zeile
+			Row notizbuchRow = new Row();
 
-    // Reporttitel.
-    result.setTitle("Alle Notizbuecher aller Nutzer");
+			// Erste Spalte: NotizbuchId hinzuf�gen.
+			notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));
+			notizbuchRow.addColumn(new Column(nb.getTitel()));
+			notizbuchRow.addColumn(new Column(String.valueOf(nb
+					.getErstelldatum())));
+			notizbuchRow.addColumn(new Column(String.valueOf(nb
+					.getModifikationsdatum())));
 
-    // Hinzuf�gen des Impressums
-    this.addImprint(result);
 
-    /*
-     * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
-     * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
-     */
-    result.setCreated(new Date());
+			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
+			List<Berechtigung> berechtigungen = this.administration
+					.nachAllenBerechtigungenDesNotizbuchesSuchen(nb);
+			for (Berechtigung be : berechtigungen) {
+				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail()
+						+ " / " + be.getBerechtigungsart();
+			}
+			notizbuchRow.addColumn(new Column(berechtigungsTabelle));
+			
+			
+			// Dem Report die Zeile hinzuf�gen
+			result.addRow(notizbuchRow);
+		}
 
-    /*
-     * Da AlleNotizbuecherAllerNutzerReport-Objekte aus einer Sammlung von
-     * AlleNotizbuecherDesNutzersReport-Objekten besteht, benötigen wir keine
-     * Kopfdaten für diesen Report-Typ. Wir geben einfach keine Kopfdaten an...
-     */
+		/*
+		 * Report zur�ckgeben
+		 */
+		return result;
+	}
 
-    /*
-     * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend wir
-     * für jedes Nutzerobjekt n ein Aufruf von erstelleAlleNotizbuecherDesNutzersReport(c) 
-     * durchgeführt und somit jeweils ein
-     * AlleNotizbuecherDesNutzersReport-Objekt erzeugt. Diese Objekte werden
-     * sukzessive der result-Variable hinzugefügt. Sie ist vom Typ
-     * AlleNotizbuecherAllerNutzersReport, welches eine Subklasse von
-     * CompositeReport ist.
-     */
-    List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
+	/**
+	 * <code>AlleNotizbuecherAllerNutzerReport</code>-Objekte werden erstellt.
+	 * 
+	 * @return fertige Report
+	 */
+	public AlleNotizbuecherAllerNutzerReport erstelleAlleNotizbuecherAllerNutzerReport()
+			throws IllegalArgumentException {
 
-    for (Nutzer n : alleNutzer) {
-      /*
-       * Erstellen des Teil-Reports und hizuf�gen zum Gesamt-Report
-       */
-      result.addSubReport(this.erstelleAlleNotizbuecherDesNutzersReport(n));
-    }
+		if (this.getNotizobjektVerwaltung() == null)
+			return null;
 
-    /*
-     * Report zur�ckgeben
-     */
-    return result;
-  }
+		/*
+		 * leeren Report anlegen
+		 */
+		AlleNotizbuecherAllerNutzerReport result = new AlleNotizbuecherAllerNutzerReport();
+
+		// Reporttitel.
+		result.setTitle("Alle Notizbuecher aller Nutzer");
+
+		// Hinzuf�gen des Impressums
+		this.addImprint(result);
+
+		/*
+		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
+		 */
+		result.setCreated(new Date());
+
+		/*
+		 * Da AlleNotizbuecherAllerNutzerReport-Objekte aus einer Sammlung von
+		 * AlleNotizbuecherDesNutzersReport-Objekten besteht, benötigen wir
+		 * keine Kopfdaten für diesen Report-Typ. Wir geben einfach keine
+		 * Kopfdaten an...
+		 */
+
+		/*
+		 * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend
+		 * wir für jedes Nutzerobjekt n ein Aufruf von
+		 * erstelleAlleNotizbuecherDesNutzersReport(c) durchgeführt und somit
+		 * jeweils ein AlleNotizbuecherDesNutzersReport-Objekt erzeugt. Diese
+		 * Objekte werden sukzessive der result-Variable hinzugefügt. Sie ist
+		 * vom Typ AlleNotizbuecherAllerNutzersReport, welches eine Subklasse
+		 * von CompositeReport ist.
+		 */
+		List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
+
+		for (Nutzer n : alleNutzer) {
+			/*
+			 * Erstellen des Teil-Reports und hizuf�gen zum Gesamt-Report
+			 */
+			result.addSubReport(this
+					.erstelleAlleNotizbuecherDesNutzersReport(n));
+		}
+
+		/*
+		 * Report zur�ckgeben
+		 */
+		return result;
+	}
 
 }
