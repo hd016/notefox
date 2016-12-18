@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -387,6 +389,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		this.noMapper.loeschenNotiz(no);
 	}
 
+	//externe Webseiten auslesen und in Notiz anlegen//
 	public Notiz anlegenNotiz(String url) throws IllegalArgumentException {
 		
 		Nutzer currentNutzer = loginService.getCurrentNutzer();
@@ -411,6 +414,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		notiz.setSubtitel(url);
 		notiz.setInhalt(webseite);
 		
+		Pattern p = Pattern.compile("<title>(.*?)</title>");
+		Matcher m = p.matcher(webseite);
+		if (m.find()) {
+			notiz.setTitel((m.group (1)));
+		} else {
+			notiz.setTitel(url);
+		}
+		
 		speichern(notiz);
 		
 		return notiz;
@@ -419,7 +430,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	private String leseWebseite(String url) {
 		Scanner scanner;
 		try {
-			scanner = new Scanner(new URL("https://www.google.de").openStream());
+			scanner = new Scanner(new URL(url).openStream());
 		} catch (IOException e) {
 			return "Kann Webseite nicht lesen!";
 		}
@@ -429,8 +440,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		}
 		scanner.close();
 		return stringBuilder.toString();
-	}
 
+	
 	/**
 	 * Anlegen einer neuen Notiz. Dies führt implizit zu einem Speichern der
 	 * neuen, leeren Notiz in der Datenbank.
