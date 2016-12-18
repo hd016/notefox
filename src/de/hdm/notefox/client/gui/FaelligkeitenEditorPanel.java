@@ -20,7 +20,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 
 	public FaelligkeitenEditorPanel() {
 
-		auswahl.isReadOnly();
+		auswahl.setReadOnly(true);
 		auswahl.addStyleName("TextBox-readonly");
 		datepicker.addStyleName("datePicker");
 		setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
@@ -31,7 +31,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date date = event.getValue();
-				String dateString = DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
+				String dateString = DateTimeFormat.getFormat("dd/MM/yyyy").format(date);
 				auswahl.setText(dateString);
 			}
 		});
@@ -42,5 +42,14 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 		add(datepicker);
 		add(auswahl);
 
+	}
+
+	public Date getFaelligkeitsdatum() {
+		return datepicker.getValue();
+
+	}
+
+	public void setFaelligkeisdatum(Date faelligkeitsdatum) {
+		datepicker.setValue(faelligkeitsdatum);
 	}
 }
