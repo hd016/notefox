@@ -414,6 +414,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		notiz.setSubtitel(url);
 		notiz.setInhalt(webseite);
 		
+		//Speicherung von Titel aus der Webseite  und speichern in den Notiz//
 		Pattern p = Pattern.compile("<title>(.*?)</title>");
 		Matcher m = p.matcher(webseite);
 		if (m.find()) {
@@ -441,6 +442,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		scanner.close();
 		return stringBuilder.toString();
 
+	}
 	
 	/**
 	 * Anlegen einer neuen Notiz. Dies führt implizit zu einem Speichern der
