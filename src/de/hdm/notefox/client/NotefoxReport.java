@@ -64,7 +64,7 @@ public class NotefoxReport implements EntryPoint {
 
 		vPanelNotizbucher.addStyleName("ReportLabel");
 		vPanelNotizen.addStyleName("ReportLabel");
-		;
+		
 
 		main.addStyleName("ReportMain");
 		main.add(vPanelNotizbucher);
@@ -130,8 +130,8 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
 		if (report != null) {
 			HTMLReportWriter writer = new HTMLReportWriter();
 			writer.process(report);
-			RootPanel.get("Details").clear();
-			RootPanel.get("Details").add(new HTML(writer.getReportText()));
+			RootPanel.get("text").clear();
+			RootPanel.get("text").add(new HTML(writer.getReportText()));
 		}
 	}
 }
@@ -160,8 +160,8 @@ class erstelleAlleNotizenAllerNutzerReportCallback implements
 		if (report != null) {
 			HTMLReportWriter writer = new HTMLReportWriter();
 			writer.process(report);
-			RootPanel.get("Details").clear();
-			RootPanel.get("Details").add(new HTML(writer.getReportText()));
+			RootPanel.get("text").clear();
+			RootPanel.get("text").add(new HTML(writer.getReportText()));
 		}
 	}
 }

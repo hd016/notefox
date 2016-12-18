@@ -70,16 +70,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
   }
 
   /**
-   * Setzen des zugehörigen Notiz- und Notizbuch-Objekte.
-   */
-  public void setNotiz(Notiz no) {
-    this.administration.setNotiz(no);
-  }
-  public void setNotizbuch(Notizbuch nb) {
-	    this.administration.setNotizbuch(nb);
-	  }
-
-  /**
    * Hinzufügen des Report-Impressums. Diese Methode ist aus den
    * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
    * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
@@ -88,27 +78,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
    * @param r der um das Impressum zu erweiternde Report.
    */
   protected void addImprint(Report r) {
-    /*
-     * Das Impressum soll wesentliche Informationen über die Notizen und Notizbucher enthalten.
-     */
-    Notiz notiz = this.administration.getNotiz();
-    Notizbuch notizbuch = this.administration.getNotizbuch();
 
     /*
      * Das Impressum soll mehrzeilig sein.
      */
     CompositeParagraph imprint = new CompositeParagraph();
 
-    imprint.addSubParagraph(new SimpleParagraph(notiz.getTitel() + " "
-            + notiz.getSubtitel()));
-    imprint.addSubParagraph(new SimpleParagraph(notiz.getErstelldatum()));
-    imprint.addSubParagraph(new SimpleParagraph("TODO"));
-    
-    imprint.addSubParagraph(new SimpleParagraph(notizbuch.getTitel() + " "
-            + notizbuch.getSubtitel()));
-    imprint.addSubParagraph(new SimpleParagraph(notizbuch.getErstelldatum()));
-    imprint.addSubParagraph(new SimpleParagraph("TODO"));
-
+    imprint.addSubParagraph(new SimpleParagraph("Notefox Team"));
 
     // Das eigentliche Hinzufügen des Impressums zum Report.
     r.setImprint(imprint);
@@ -174,8 +150,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen wir also entsprechende
      * Überschriften ab.
      */
-    headline.addColumn(new Column("NutzerID"));
-
+    headline.addColumn(new Column("NotizId"));
+    headline.addColumn(new Column("Titel"));
+    headline.addColumn(new Column("Erstelldatum"));
+    headline.addColumn(new Column("Modifikationsdatum"));
+    headline.addColumn(new Column("Faelligkeitsdatum"));
+    //headline.addColumn(new Column("teilhabende Nutzer"));
+    headline.addColumn(new Column("Berechtigungen"));
+    
     // Hinzufügen der Kopfzeile
     result.addRow(headline);
 
@@ -191,7 +173,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
 
       // Erste Spalte: Kontonummer hinzufügen
       notizRow.addColumn(new Column(String.valueOf(no.getId())));
-
+      notizRow.addColumn(new Column(no.getTitel()));
+      notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
+      notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
+      notizRow.addColumn(new Column(String.valueOf(no.getFaelligkeitsdatum())));
+      //notizRow.addColumn(new Column(no.getteilehabne nurzer()));
+      notizRow.addColumn(new Column(String.valueOf(no.getBerechtigungen())));
+      
       // und schließlich die Zeile dem Report hinzufügen.
       result.addRow(notizRow);
     }
@@ -310,17 +298,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
      */
     
     /*
-     * Zunächst legen wir eine Kopfzeile für die Konto-Tabelle an.
+     * Zunächst legen wir eine Kopfzeile für die Notizbuch-Tabelle an.
      */
     Row headline = new Row();
 
     /*
      * Wir wollen Zeilen mit eine Spalte in der Tabelle erzeugen. In der
-     * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen wir also entsprechende
+     * Spalte schreiben wir die jeweilige NutzerId. In der K
+     * 
+     * opfzeile legen wir also entsprechende
      * Überschriften ab.
      */
-    headline.addColumn(new Column("NutzerID"));
-
+    headline.addColumn(new Column("NotizbuchId"));
+    headline.addColumn(new Column("Titel"));
+    headline.addColumn(new Column("Erstelldatum"));
+    headline.addColumn(new Column("Modifikationsdatum"));
+    
     // Hinzufügen der Kopfzeile
     result.addRow(headline);
 
@@ -334,7 +327,10 @@ public class ReportGeneratorImpl extends RemoteServiceServlet
       Row notizbuchRow = new Row();
 
       // Erste Spalte: NotizbuchId hinzuf�gen.
-      notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));
+      notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));     
+      notizbuchRow.addColumn(new Column(nb.getTitel()));
+      notizbuchRow.addColumn(new Column(String.valueOf(nb.getErstelldatum())));
+      notizbuchRow.addColumn(new Column(String.valueOf(nb.getModifikationsdatum())));
 
       // Dem Report die Zeile hinzuf�gen
       result.addRow(notizbuchRow);

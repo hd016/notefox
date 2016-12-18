@@ -26,8 +26,4 @@ public interface ReportGeneratorAsync {
 
   void initialisieren(AsyncCallback<Void> callback);
 
-  void setNotiz(Notiz no, AsyncCallback<Void> callback);
-  
-  void setNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
-
 }

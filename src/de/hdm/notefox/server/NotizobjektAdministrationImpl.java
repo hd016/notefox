@@ -603,44 +603,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * **
 	 */
 
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Verschiedenes
-	 * *************************************************************************
-	 * **
-	 */
-	/**
-	 * Auslesen der Notiz- und Notizbuchobjekte f�r die diese
-	 * Notizobjektverwaltung gewisserma�en t�tig sind.
-	 */
-	@Override
-	public Notiz getNotiz() throws IllegalArgumentException {
-		return this.notiz;
-	}
-
-	public Notizbuch getNotizbuch() throws IllegalArgumentException {
-		return this.notizbuch;
-	}
-
-	/**
-	 * Setzen der Notizen und Notizbucher f�r die diese Notizobjektverwaltung
-	 * t�tig ist.
-	 */
-	@Override
-	public void setNotiz(Notiz no) throws IllegalArgumentException {
-		this.notiz = no;
-	}
-
-	public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException {
-		this.notizbuch = nb;
-	}
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Verschiedenes
-	 * *************************************************************************
-	 * **
-	 */
-
 	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt, Berechtigungsart berechtigungsart) {
 		if (notizobjekt == null) {
 			return null;
