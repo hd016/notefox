@@ -22,34 +22,50 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 import de.hdm.notefox.client.ClientsideSettings;
+import de.hdm.notefox.client.Notefox;
 
-public class NotizEditorPanel extends VerticalPanel {
+public class NotizEditorPanel extends HorizontalPanel {
 
+	HTML notizEditor = new HTML("<h3>Notiz</h3>");
+
+	
 	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektAdministrationAsync();
 
+	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
+	
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
-	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 	Label Notiztitel = new Label("Titel");
+	Label notizbuchSubtitel = new Label("Subtitel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
 	TextBox titel = new TextBox();
+	TextBox subtitel = new TextBox();
 	DialogBox bx = new DialogBox();
 
 	private Notizobjekt notizobjekt;
 
-	public NotizEditorPanel() {
-		this.add(notizEditor);
-		this.add(Notiztitel);
-		this.add(titel);
-		this.add(Rich);
-		this.add(area);
+	VerticalPanel vPanel = new VerticalPanel();
+	
+	private Notefox notefox;
+
+	public NotizEditorPanel(Notefox notefox) {
+		this.notefox = notefox;
+		vPanel.add(notizEditor);
+		vPanel.add(Notiztitel);
+		vPanel.add(titel);
+		vPanel.add(notizbuchSubtitel);
+		vPanel.add(subtitel);
+		vPanel.add(Rich);
+		vPanel.add(area);
+		this.add(vPanel);
+		this.add(faelligkeiten);
 
 		area.addStyleName("textarea");
 
 		HorizontalPanel hPanel = new HorizontalPanel();
-		this.add(hPanel);
+		vPanel.add(hPanel);
 
 		Button speichern = new Button("Speichern");
 		speichern.addClickHandler(new speichernClickHandler());
@@ -68,24 +84,28 @@ public class NotizEditorPanel extends VerticalPanel {
 
 	}
 
-	public void neueNotiz(Notizbuch notizbuch) {
-		notizobjektverwaltung.anlegenNotizFuer(new Nutzer(), notizbuch, new AsyncCallback<Notiz>() {
-
-			@Override
-			public void onSuccess(Notiz result) {
-				setNotizobjekt(result);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-		});
-	}
-
 	public void setNotizobjekt(Notizobjekt notizobjekt) {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
 		area.setHTML(notizobjekt.getInhalt());
+		if(notizobjekt instanceof Notiz){
+			Notiz notiz = (Notiz) notizobjekt;
+			faelligkeiten.setVisible(true);
+			Rich.setVisible(true);
+			area.setVisible(true);
+			notizbuchSubtitel.setVisible(false);
+			subtitel.setVisible(false);
+			faelligkeiten.setFaelligkeisdatum(notiz.getFaelligkeitsdatum());
+			
+		}
+		else {
+			notizEditor.setHTML("<h3>Notizbuch</h3>");
+			faelligkeiten.setVisible(false);
+			Rich.setVisible(false);
+			area.setVisible(false);
+			notizbuchSubtitel.setVisible(true);
+			subtitel.setVisible(true);
+		}
 	}
 
 	private class speichernClickHandler implements ClickHandler {
@@ -96,11 +116,14 @@ public class NotizEditorPanel extends VerticalPanel {
 			notizobjekt.setTitel(titel.getValue());
 			notizobjekt.setInhalt(area.getHTML());
 
+
 			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
+				notiz.setFaelligkeitsdatum(faelligkeiten.getFaelligkeitsdatum());
 				notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());
 			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
+				notizbuch.setSubtitel(subtitel.getText());
 				notizobjektverwaltung.speichern(notizbuch, new NotizbuchSpeichernAsyncCallback());
 			}
 
@@ -118,6 +141,7 @@ public class NotizEditorPanel extends VerticalPanel {
 
 		@Override
 		public void onSuccess(Notiz result) {
+			Window.alert("Ok");
 			setNotizobjekt(result);
 		}
 
@@ -142,13 +166,20 @@ public class NotizEditorPanel extends VerticalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			Window.alert("OKEY!");
+			if(notizobjekt instanceof Notiz){
+				Notiz notiz = (Notiz) notizobjekt;
+				notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
+			} else if(notizobjekt instanceof Notizbuch){
+				Notizbuch notizbuch = (Notizbuch) notizobjekt;
+				notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+			}
+			
 
 		}
 
 	}
 
-	private class loeschenAsyncCallback implements AsyncCallback {
+	private class loeschenAsyncCallback implements AsyncCallback<Void> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -157,9 +188,10 @@ public class NotizEditorPanel extends VerticalPanel {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
-			// TODO Auto-generated method stub
-
+		public void onSuccess(Void result) {
+			Window.alert("Löschen erfolgreich");
+			notefox.schlieseInhalt();
+			notefox.ersetzeBaum();
 		}
 
 	}

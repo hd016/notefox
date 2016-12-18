@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5"
-         xmlns="http://java.sun.com/xml/ns/javaee">
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
- <!-- Servlets -->
+	<!-- Servlets -->
 	<servlet>
 		<servlet-name>notizobjektadministration</servlet-name>
 		<servlet-class>de.hdm.notefox.server.NotizobjektAdministrationImpl</servlet-class>
@@ -25,8 +24,16 @@
 		<servlet-name>reportGeneratorServlet</servlet-name>
 		<url-pattern>/notefoxreport/reportgenerator</url-pattern>
 	</servlet-mapping>
-	
-	
+
+	<servlet>
+		<servlet-name>loginService</servlet-name>
+		<servlet-class>de.hdm.notefox.server.LoginServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginService</servlet-name>
+		<url-pattern>/notefox/login</url-pattern>
+	</servlet-mapping>
 
 	<!-- Default page to serve -->
 	<welcome-file-list>

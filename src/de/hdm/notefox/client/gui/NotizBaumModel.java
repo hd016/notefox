@@ -1,100 +1,99 @@
 package de.hdm.notefox.client.gui;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.ValueUpdater;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.AsyncDataProvider;
+import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
+
+import de.hdm.notefox.client.Notefox;
+import de.hdm.notefox.shared.NotizobjektAdministration;
+import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
+import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class NotizBaumModel implements TreeViewModel {
 
-	private VerticalPanel vPanel = new VerticalPanel();
-	private NotizEditorPanel notizEditorPanel;
+	private final Nutzer nutzer;
+	private Notefox notefox;
 
-	public NotizBaumModel(NotizEditorPanel notizEditorPanel) {
-		this.notizEditorPanel = notizEditorPanel;
+	final NotizobjektAdministrationAsync administration = GWT
+			.create(NotizobjektAdministration.class);
+	
+	public NotizBaumModel(Notefox notefox, Nutzer nutzer) {
+		this.notefox = notefox;
+		this.nutzer = nutzer;
 	}
 
 	@Override
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		if (value == null) {
-			List<Notizbuch> notizbuchlist = new ArrayList<>();
 
-			Notizbuch notizbuch = new Notizbuch();
-			notizbuch.setTitel("Hobby");
-			notizbuchlist.add(notizbuch);
+			AsyncDataProvider<Notizbuch> notizbuchProvider = new AsyncDataProvider<Notizbuch>() {
 
-			Notizbuch notizbuch1 = new Notizbuch();
-			notizbuch1.setTitel("Studium");
-			notizbuchlist.add(notizbuch1);
+				@Override
+				protected void onRangeChanged(HasData<Notizbuch> display) {
+					
+					administration.nachAllenNotizbuechernDesNutzersSuchen(
+							nutzer, new AsyncCallback<List<Notizbuch>>() {
 
-			Notizbuch notizbuch2 = new Notizbuch();
-			notizbuch2.setTitel("Arbeit");
-			notizbuchlist.add(notizbuch2);
+								@Override
+								public void onSuccess(List<Notizbuch> result) {
+									Notizbuch dummy = new Notizbuch();
+									dummy.setId(-1);
+									result.add(dummy);
+									
+									updateRowCount(result.size(), true);
+									updateRowData(0, result);
+								}
 
-			Notizbuch notizbuch3 = new Notizbuch();
-			notizbuch3.setTitel("Familie");
-			notizbuchlist.add(notizbuch3);
+								@Override
+								public void onFailure(Throwable caught) {
+								}
+							});
+				}
+			};
 
-			List<Notiz> notizlistStudium = new ArrayList<>();
-			Notiz notiz = new Notiz();
-			notiz.setTitel("Abgaben");
-
-			Notiz notiz1 = new Notiz();
-			notiz1.setTitel("Projekte");
-
-			Notiz notiz2 = new Notiz();
-			notiz2.setTitel("Klausuren");
-
-			notizlistStudium.add(notiz);
-			notizlistStudium.add(notiz1);
-			notizlistStudium.add(notiz2);
-			notizbuch1.setNotizen(notizlistStudium);
-
-			List<Notiz> notizlistHobbys = new ArrayList<>();
-
-			Notiz notiz3 = new Notiz();
-			notiz3.setTitel("Termine");
-			notizlistHobbys.add(notiz3);
-			notizbuch.setNotizen(notizlistHobbys);
-
-			List<Notiz> notizlistFamilie = new ArrayList<>();
-
-			Notiz notiz4 = new Notiz();
-			notiz4.setTitel("Haushalt");
-			notizlistFamilie.add(notiz4);
-			notizbuch3.setNotizen(notizlistFamilie);
-			
-
-			List<Notiz> notizlistArbeit = new ArrayList<>();
-
-			Notiz notiz5 = new Notiz();
-			notiz5.setTitel("");
-			notizlistArbeit.add(notiz5);
-			notizbuch2.setNotizen(notizlistArbeit);
-
-			return new DefaultNodeInfo<Notizbuch>(new ListDataProvider<Notizbuch>(notizbuchlist),
+			return new DefaultNodeInfo<Notizbuch>(notizbuchProvider,
 					new AbstractCell<Notizbuch>("click") {
 						@Override
-						public void render(com.google.gwt.cell.client.Cell.Context context, Notizbuch value,
-								SafeHtmlBuilder sb) {
+						public void render(
+								com.google.gwt.cell.client.Cell.Context context,
+								Notizbuch value, SafeHtmlBuilder sb) {
+							if (value.getId() == -1){
+								sb.appendEscaped("Neues Notizbuch");
+							}
+							else {
 							sb.appendEscaped(value.getTitel());
+							}
 						}
 
 						@Override
-						public void onBrowserEvent(com.google.gwt.cell.client.Cell.Context context, Element parent,
-								Notizbuch value, NativeEvent event, ValueUpdater<Notizbuch> valueUpdater) {
-							Window.alert("OK!");
+						public void onBrowserEvent(
+								com.google.gwt.cell.client.Cell.Context context,
+								Element parent, Notizbuch value,
+								NativeEvent event,
+								ValueUpdater<Notizbuch> valueUpdater) {
+							if(value.getId() == -1){
+								notefox.neuesNotizbuch();
+							} else {
+								notefox.zeigeNotizbuch(value);
+							}
 						}
 
 					});
@@ -118,9 +117,9 @@ public class NotizBaumModel implements TreeViewModel {
 				public void onBrowserEvent(com.google.gwt.cell.client.Cell.Context context, Element parent, Notiz value,
 						NativeEvent event, ValueUpdater<Notiz> valueUpdater) {
 					if (value.getId() == -1) {
-						notizEditorPanel.neueNotiz(notizbuch);
+						notefox.neueNotiz(notizbuch);
 					} else {
-						notizEditorPanel.setNotizobjekt(value);
+						notefox.zeigeNotiz(value);
 					}
 				}
 
@@ -135,13 +134,12 @@ public class NotizBaumModel implements TreeViewModel {
 	public boolean isLeaf(Object value) {
 
 		if (value instanceof Notizbuch) {
-			Notizbuch notizbuch = (Notizbuch) value;
-			return notizbuch.getNotizen().isEmpty();
+			return false;
 		} else if (value instanceof Notiz) {
 			return true;
 		}
 
 		return false;
 	}
-
+	
 }

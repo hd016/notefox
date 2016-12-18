@@ -164,8 +164,8 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
     
-      ResultSet rs = stmt.executeQuery("SELECT  notizbuch.*, nutzer.*  FROM nutzer LEFT JOIN notizbuch ON notizbuch.id = nutzer.nutzerId" //TODO
-              + " ORDER BY id");
+      ResultSet rs = stmt.executeQuery("SELECT  notizbuch.*, nutzer.*  FROM notizbuch LEFT JOIN nutzer ON notizbuch.eigentuemer = nutzer.nutzerId" //TODO
+              + " WHERE nutzer.nutzerId = " + id);
       
       // Fuer jeden Eintrag im Suchergebnis wird nun ein Notizbuch-Objekt
       // erstellt.
@@ -188,6 +188,10 @@ public class NotizbuchMapper {
     catch (SQLException e2) {
       e2.printStackTrace();
     }
+    
+    for (Notizbuch notizbuch : result) {
+		notizbuch.setNotizen(NotizMapper.notizMapper().nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()));
+	}
 
     // Ergebnisliste zurueckgeben
     return result;
@@ -291,7 +295,7 @@ public class NotizbuchMapper {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE notizbuch " + "SET id=\"" + nb.getId()
-              + "\", titel=\"" + nb.getTitel()+"\", modifikationsdatum=NOW() " + "WHERE id=" + nb.getId());
+              + "\", titel=\"" + nb.getTitel()+ "\", subtitel=\"" +nb.getSubtitel() + "\", modifikationsdatum=NOW() " + "WHERE id=" + nb.getId());
 
     }
     catch (SQLException e2) {

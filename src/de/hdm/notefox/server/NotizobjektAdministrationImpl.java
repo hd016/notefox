@@ -32,71 +32,71 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
  * <p>
  * Implementierungsklasse des Interface <code>NotizobjektAdministration</code>.
  * Diese Klasse ist <em>die</em> Klasse, die neben {@link ReportGeneratorImpl}
- * sämtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
- * wie eine Spinne, die sämtliche Zusammenhänge in ihrem Netz (in unserem Fall
- * die Daten der Applikation) überblickt und für einen geordneten Ablauf und
- * dauerhafte Konsistenz der Daten und Abläufe sorgt.
+ * sï¿½mtliche Applikationslogik (oder engl. Business Logic) aggregiert. Sie ist
+ * wie eine Spinne, die sï¿½mtliche Zusammenhï¿½nge in ihrem Netz (in unserem Fall
+ * die Daten der Applikation) ï¿½berblickt und fï¿½r einen geordneten Ablauf und
+ * dauerhafte Konsistenz der Daten und Ablï¿½ufe sorgt.
  * </p>
  * <p>
  * Die Applikationslogik findet sich in den Methoden dieser Klasse. Jede dieser
  * Methoden kann als <em>Transaction Script</em> bezeichnet werden. Dieser Name
- * lässt schon vermuten, dass hier analog zu Datenbanktransaktion pro
- * Transaktion gleiche mehrere Teilaktionen durchgeführt werden, die das System
+ * lï¿½sst schon vermuten, dass hier analog zu Datenbanktransaktion pro
+ * Transaktion gleiche mehrere Teilaktionen durchgefï¿½hrt werden, die das System
  * von einem konsistenten Zustand in einen anderen, auch wieder konsistenten
- * Zustand überführen. Wenn dies zwischenzeitig scheitern sollte, dann ist das
- * jeweilige Transaction Script dafür verwantwortlich, eine Fehlerbehandlung
- * durchzuführen.
+ * Zustand ï¿½berfï¿½hren. Wenn dies zwischenzeitig scheitern sollte, dann ist das
+ * jeweilige Transaction Script dafï¿½r verwantwortlich, eine Fehlerbehandlung
+ * durchzufï¿½hren.
  * </p>
  * <p>
  * Diese Klasse steht mit einer Reihe weiterer Datentypen in Verbindung. Dies
  * sind:
  * <ol>
  * <li>{@link NotizobjektAdministration}: Dies ist das <em>lokale</em> - also
- * Server-seitige - Interface, das die im System zur Verfügung gestellten
+ * Server-seitige - Interface, das die im System zur Verfï¿½gung gestellten
  * Funktionen deklariert.</li>
  * <li>{@link NotizobjektAdministrationAsync}:
  * <code>NotizobjektVerwaltungImpl</code> und
  * <code>NotizobjektAdministration</code> bilden nur die Server-seitige Sicht
- * der Applikationslogik ab. Diese basiert vollständig auf synchronen
- * Funktionsaufrufen. Wir müssen jedoch in der Lage sein, Client-seitige
+ * der Applikationslogik ab. Diese basiert vollstï¿½ndig auf synchronen
+ * Funktionsaufrufen. Wir mï¿½ssen jedoch in der Lage sein, Client-seitige
  * asynchrone Aufrufe zu bedienen. Dies bedingt ein weiteres Interface, das in
  * der Regel genauso benannt wird, wie das synchrone Interface, jedoch mit dem
- * zusätzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
+ * zusï¿½tzlichen Suffix "Async". Es steht nur mittelbar mit dieser Klasse in
  * Verbindung. Die Erstellung und Pflege der Async Interfaces wird durch das
- * Google Plugin semiautomatisch unterstützt. Weitere Informationen unter
+ * Google Plugin semiautomatisch unterstï¿½tzt. Weitere Informationen unter
  * {@link NotizobjektAdministrationAsync}.</li>
  * <li>{@link RemoteServiceServlet}: Jede Server-seitig instantiierbare und
- * Client-seitig über GWT RPC nutzbare Klasse muss die Klasse
+ * Client-seitig ï¿½ber GWT RPC nutzbare Klasse muss die Klasse
  * <code>RemoteServiceServlet</code> implementieren. Sie legt die funktionale
- * Basis für die Anbindung von <code>NotizobjektVerwaltungImpl</code> an die
+ * Basis fï¿½r die Anbindung von <code>NotizobjektVerwaltungImpl</code> an die
  * Runtime des GWT RPC-Mechanismus.</li>
  * </ol>
  * </p>
  * <p>
  * <b>Wichtiger Hinweis:</b> Diese Klasse bedient sich sogenannter
- * Mapper-Klassen. Sie gehören der Datenbank-Schicht an und bilden die
+ * Mapper-Klassen. Sie gehï¿½ren der Datenbank-Schicht an und bilden die
  * objektorientierte Sicht der Applikationslogik auf die relationale
  * organisierte Datenbank ab. Zuweilen kommen "kreative" Zeitgenossen auf die
  * Idee, in diesen Mappern auch Applikationslogik zu realisieren. Siehe dazu
  * auch die Hinweise in {@link #loeschenNutzer(Nutzer)} Einzig nachvollziehbares
- * Argument für einen solchen Ansatz ist die Steigerung der Performance
+ * Argument fï¿½r einen solchen Ansatz ist die Steigerung der Performance
  * umfangreicher Datenbankoperationen. Doch auch dieses Argument zieht nur dann,
- * wenn wirklich große Datenmengen zu handhaben sind. In einem solchen Fall
- * würde man jedoch eine entsprechend erweiterte Architektur realisieren, die
- * wiederum sämtliche Applikationslogik in der Applikationsschicht isolieren
- * würde. Also, keine Applikationslogik in die Mapper-Klassen "stecken" sondern
+ * wenn wirklich groï¿½e Datenmengen zu handhaben sind. In einem solchen Fall
+ * wï¿½rde man jedoch eine entsprechend erweiterte Architektur realisieren, die
+ * wiederum sï¿½mtliche Applikationslogik in der Applikationsschicht isolieren
+ * wï¿½rde. Also, keine Applikationslogik in die Mapper-Klassen "stecken" sondern
  * dies auf die Applikationsschicht konzentrieren!
  * </p>
  * <p>
- * Beachten Sie, dass sämtliche Methoden, die mittels GWT RPC aufgerufen werden
- * können ein <code>throws IllegalArgumentException</code> in der
- * Methodendeklaration aufweisen. Diese Methoden dürfen also Instanzen von
- * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions können z.B.
+ * Beachten Sie, dass sï¿½mtliche Methoden, die mittels GWT RPC aufgerufen werden
+ * kï¿½nnen ein <code>throws IllegalArgumentException</code> in der
+ * Methodendeklaration aufweisen. Diese Methoden dï¿½rfen also Instanzen von
+ * {@link IllegalArgumentException} auswerfen. Mit diesen Exceptions kï¿½nnen z.B.
  * Probleme auf der Server-Seite in einfacher Weise auf die Client-Seite
  * transportiert und dort systematisch in einem Catch-Block abgearbeitet werden.
  * </p>
  * <p>
- * Es gibt sicherlich noch viel mehr über diese Klasse zu schreiben. Weitere
+ * Es gibt sicherlich noch viel mehr ï¿½ber diese Klasse zu schreiben. Weitere
  * Infos erhalten Sie in der Lehrveranstaltung.
  * </p>
  * 
@@ -109,7 +109,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
 
 	/**
-	 * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
+	 * Referenz auf das zugehï¿½rige Notiz- und Notizbuch-Objekte.
 	 */
 	private Notiz notiz = null;
 	private Notizbuch notizbuch = null;
@@ -137,10 +137,10 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	private BerechtigungMapper bMapper;
 
 	/*
-	 * Da diese Klasse ein gewisse Größe besitzt - dies ist eigentlich ein
+	 * Da diese Klasse ein gewisse Grï¿½ï¿½e besitzt - dies ist eigentlich ein
 	 * Hinweise, dass hier eine weitere Gliederung sinnvoll ist - haben wir zur
-	 * besseren Übersicht Abschnittskomentare eingefügt. Sie leiten ein Cluster
-	 * in irgeneinerweise zusammengehöriger Methoden ein. Ein entsprechender
+	 * besseren ï¿½bersicht Abschnittskomentare eingefï¿½gt. Sie leiten ein Cluster
+	 * in irgeneinerweise zusammengehï¿½riger Methoden ein. Ein entsprechender
 	 * Kommentar steht am Ende eines solchen Clusters.
 	 */
 
@@ -157,7 +157,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines
 	 * anderen Konstruktors ist durch die Client-seitige Instantiierung durch
 	 * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-	 * möglich.
+	 * mï¿½glich.
 	 * </p>
 	 * <p>
 	 * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -177,7 +177,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	/**
 	 * Initialsierungsmethode. Siehe dazu Anmerkungen zum
 	 * No-Argument-Konstruktor {@link #ReportGeneratorImpl()}. Diese Methode
-	 * muss für jede Instanz von <code>NotizobjektVerwaltungImpl</code>
+	 * muss fï¿½r jede Instanz von <code>NotizobjektVerwaltungImpl</code>
 	 * aufgerufen werden.
 	 * 
 	 * @see #ReportGeneratorImpl()
@@ -186,7 +186,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	public void init() throws IllegalArgumentException {
 		/*
 		 * Ganz wesentlich ist, dass die NotizobjektAdministration einen
-		 * vollständigen Satz von Mappern besitzt, mit deren Hilfe sie dann mit
+		 * vollstï¿½ndigen Satz von Mappern besitzt, mit deren Hilfe sie dann mit
 		 * der Datenbank kommunizieren kann.
 		 */
 		this.nuMapper = NutzerMapper.nutzerMapper();
@@ -206,18 +206,18 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 
 	/*
 	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Methoden für Nutzer-Objekte
+	 * ** ABSCHNITT, Beginn: Methoden fï¿½r Nutzer-Objekte
 	 * *************************************************************************
 	 * **
 	 */
 	/**
 	 * <p>
-	 * Anlegen eines neuen Nutzers. Dies führt implizit zu einem Speichern des
+	 * Anlegen eines neuen Nutzers. Dies fï¿½hrt implizit zu einem Speichern des
 	 * neuen Nutzers in der Datenbank.
 	 * </p>
 	 * 
 	 * <p>
-	 * <b>HINWEIS:</b> Änderungen an Nutzer-Objekten müssen stets durch Aufruf
+	 * <b>HINWEIS:</b> ï¿½nderungen an Nutzer-Objekten mï¿½ssen stets durch Aufruf
 	 * von {@link #speichern(Nutzer c)} in die Datenbank transferiert werden.
 	 * </p>
 	 * 
@@ -230,7 +230,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		n.setEmail(email);
 
 		/*
-		 * Setzen einer vorläufigen NutzerId Der anlegen-Aufruf liefert dann ein
+		 * Setzen einer vorlï¿½ufigen NutzerId Der anlegen-Aufruf liefert dann ein
 		 * Objekt, dessen Id mit der Datenbank konsistent ist.
 		 */
 		n.setNutzerId(1);
@@ -240,7 +240,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Auslesen aller Nutzer, die den übergebenen Namen besitzen.
+	 * Auslesen aller Nutzer, die den ï¿½bergebenen Namen besitzen.
 	 */
 	@Override
 	public Nutzer nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
@@ -272,31 +272,31 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Löschen eines Nutzers. Natürlich würde ein reales System zur Verwaltung
-	 * von Notizobjektnutzer ein Löschen allein schon aus Gründen der
+	 * Lï¿½schen eines Nutzers. Natï¿½rlich wï¿½rde ein reales System zur Verwaltung
+	 * von Notizobjektnutzer ein Lï¿½schen allein schon aus Grï¿½nden der
 	 * Dokumentation nicht bieten, sondern deren Status z.B von "aktiv" in
-	 * "ehemalig" ändern. Wir wollen hier aber dennoch zu Demonstrationszwecken
-	 * eine Löschfunktion vorstellen.
+	 * "ehemalig" ï¿½ndern. Wir wollen hier aber dennoch zu Demonstrationszwecken
+	 * eine Lï¿½schfunktion vorstellen.
 	 */
 	@Override
 	public void loeschenNutzer(Nutzer n) throws IllegalArgumentException {
 		/*
-		 * Zunächst werden sämtl. Notizen und Notizbuecher des Nutzers aus der
+		 * Zunï¿½chst werden sï¿½mtl. Notizen und Notizbuecher des Nutzers aus der
 		 * DB entfernt.
 		 * 
 		 * Beachten Sie, dass wir dies auf Ebene der Applikationslogik, konkret:
-		 * in der Klasse NotizobjektVerwaltungImpl, durchführen. Grund: In der
-		 * Klasse NotizobjektVerwaltungImpl ist die Verflechtung sämtlicher
+		 * in der Klasse NotizobjektVerwaltungImpl, durchfï¿½hren. Grund: In der
+		 * Klasse NotizobjektVerwaltungImpl ist die Verflechtung sï¿½mtlicher
 		 * Klassen bzw. ihrer Objekte bekannt. Nur hier kann sinnvoll ein
-		 * umfassender Verwaltungsakt wie z.B. dieser Löschvorgang realisiert
+		 * umfassender Verwaltungsakt wie z.B. dieser Lï¿½schvorgang realisiert
 		 * werden.
 		 * 
-		 * Natürlich könnte man argumentieren, dass dies auch auf Datenbankebene
-		 * (sprich: mit SQL) effizienter möglich ist. Das Gegenargument ist
+		 * Natï¿½rlich kï¿½nnte man argumentieren, dass dies auch auf Datenbankebene
+		 * (sprich: mit SQL) effizienter mï¿½glich ist. Das Gegenargument ist
 		 * jedoch eine dramatische Verschlechterung der Wartbarkeit Ihres
 		 * Gesamtsystems durch einen zu niedrigen Abstraktionsgrad und der
 		 * Verortung von Aufgaben an einer Stelle (Datenbankschicht), die die
-		 * zuvor genannte Verflechtung nicht umfänglich kennen kann.
+		 * zuvor genannte Verflechtung nicht umfï¿½nglich kennen kann.
 		 */
 		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(n);
 		List<Notizbuch> notizbuecher = this.nachAllenNotizbuechernDesNutzersSuchen(n);
@@ -312,25 +312,25 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 				this.loeschenNotizbuch(nb);
 			}
 		}
-		// Anschließend den Nutzers entfernen
+		// Anschlieï¿½end den Nutzers entfernen
 		this.nuMapper.loeschenNutzer(n);
 	}
 
 	/*
 	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Methoden für Nutzer-Objekte
+	 * ** ABSCHNITT, Ende: Methoden fï¿½r Nutzer-Objekte
 	 * *************************************************************************
 	 * **
 	 */
 
 	/*
 	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Methoden für Notiz-Objekte
+	 * ** ABSCHNITT, Beginn: Methoden fï¿½r Notiz-Objekte
 	 * *************************************************************************
 	 * **
 	 */
 	/**
-	 * Auslesen sämtlicher Notizen dieses Systems.
+	 * Auslesen sï¿½mtlicher Notizen dieses Systems.
 	 */
 	@Override
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException {
@@ -339,7 +339,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Auslesen aller Notizen des übergeben Nutzers.
+	 * Auslesen aller Notizen des ï¿½bergeben Nutzers.
 	 */
 	@Override
 	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
@@ -355,17 +355,17 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Löschen der übergebenen Notiz. Beachten Sie bitte auch die Anmerkungen zu
-	 * {@link #loeschenNutzer(Nutzer)}. Beim Löschen der Notiz werden sämtliche
+	 * Lï¿½schen der ï¿½bergebenen Notiz. Beachten Sie bitte auch die Anmerkungen zu
+	 * {@link #loeschenNutzer(Nutzer)}. Beim Lï¿½schen der Notiz werden sï¿½mtliche
 	 * damit in Verbindung stehenden Notizquellen-Objekte und Datum-Objekte
-	 * gelöscht.
+	 * gelï¿½scht.
 	 * 
 	 * @see #loeschenNutzer(Nutzer)
 	 */
 	@Override
 	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
 		// /*
-		// * Zunächst werden sämtl. Notizquellen-Objekte und Datum-Objekte des
+		// * Zunï¿½chst werden sï¿½mtl. Notizquellen-Objekte und Datum-Objekte des
 		// * Nutzers aus der DB entfernt.
 		// */
 		// List<Notizquelle> notizquellen =
@@ -441,15 +441,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		}
 		scanner.close();
 		return stringBuilder.toString();
-
 	}
 	
 	/**
-	 * Anlegen einer neuen Notiz. Dies führt implizit zu einem Speichern der
+	 * Anlegen einer neuen Notiz. Dies fï¿½hrt implizit zu einem Speichern der
 	 * neuen, leeren Notiz in der Datenbank.
 	 * <p>
 	 * 
-	 * <b>HINWEIS:</b> Änderungen an Notiz-Objekten müssen stets durch Aufruf
+	 * <b>HINWEIS:</b> ï¿½nderungen an Notiz-Objekten mï¿½ssen stets durch Aufruf
 	 * von {@link #speichern(Notiz)} in die Datenbank transferiert werden.
 	 * 
 	 * @see speichern(Notiz a)
@@ -484,20 +483,20 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 
 	/*
 	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Methoden für Notiz-Objekte
+	 * ** ABSCHNITT, Ende: Methoden fï¿½r Notiz-Objekte
 	 * *************************************************************************
 	 * **
 	 */
 
 	/*
 	 * *************************************************************************
-	 * * ABSCHNITT, Beginn: Methoden für Notizobjekt-Objekte
+	 * * ABSCHNITT, Beginn: Methoden fï¿½r Notizobjekt-Objekte
 	 * *************************************************************************
 	 * **
 	 */
 
 	/**
-	 * Auslesen sämtlicher Notizbuecher dieses Systems.
+	 * Auslesen sï¿½mtlicher Notizbuecher dieses Systems.
 	 */
 	@Override
 	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
@@ -505,7 +504,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Auslesen aller Notizbuecher des übergeben Nutzers.
+	 * Auslesen aller Notizbuecher des ï¿½bergeben Nutzers.
 	 */
 	@Override
 	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
@@ -521,17 +520,17 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Löschen des übergebenen Notizbuches. Beachten Sie bitte auch die
-	 * Anmerkungen zu {@link #loeschenNutzer(Nutzer)}. Beim Löschen des
-	 * Notizbuches werden sämtliche damit in Verbindung stehenden Notizen
-	 * gelöscht.
+	 * Lï¿½schen des ï¿½bergebenen Notizbuches. Beachten Sie bitte auch die
+	 * Anmerkungen zu {@link #loeschenNutzer(Nutzer)}. Beim Lï¿½schen des
+	 * Notizbuches werden sï¿½mtliche damit in Verbindung stehenden Notizen
+	 * gelï¿½scht.
 	 * 
 	 * @see #loeschenNutzer(Nutzer)
 	 */
 	@Override
 	public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException {
 		/*
-		 * Zunächst werden sämtl. Notizen des Nutzers aus der DB entfernt.
+		 * Zunï¿½chst werden sï¿½mtl. Notizen des Nutzers aus der DB entfernt.
 		 */
 		List<Notiz> notizen = this.nachAllenNotizenDesNotizbuchesSuchen(nb);
 
@@ -546,12 +545,12 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Anlegen eines neuen Notizbuches für den übergebenen Nutzers. Dies führt
+	 * Anlegen eines neuen Notizbuches fï¿½r den ï¿½bergebenen Nutzers. Dies fï¿½hrt
 	 * implizit zu einem Speichern des neuen, leeren Notizbuches in der
 	 * Datenbank.
 	 * <p>
 	 * 
-	 * <b>HINWEIS:</b> Änderungen an Notizbuch-Objekten müssen stets durch
+	 * <b>HINWEIS:</b> ï¿½nderungen an Notizbuch-Objekten mï¿½ssen stets durch
 	 * Aufruf von {@link #speichern(Notizbuch)} in die Datenbank transferiert
 	 * werden.
 	 * 
@@ -560,10 +559,10 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	@Override
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
 		Notizbuch nb = new Notizbuch();
-		nb.setId(n.getNutzerId());
+		nb.setEigentuemer(n);
 
 		/*
-		 * Setzen einer vorläufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
+		 * Setzen einer vorlï¿½ufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
 		 * liefert dann ein Objekt, dessen Id mit der Datenbank konsistent ist.
 		 */
 		nb.setId(1);
@@ -574,7 +573,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 
 	/**
 	 * <p>
-	 * Auslesen sämtlicher mit diesem Nutzer in Verbindung stehenden Notizen.
+	 * Auslesen sï¿½mtlicher mit diesem Nutzer in Verbindung stehenden Notizen.
 	 * 
 	 * @param k
 	 *            der Nutzer, dessen Notizquellen wir bekommen wollen.
@@ -600,7 +599,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 
 	/*
 	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Methoden für Notizbuch-Objekts
+	 * ** ABSCHNITT, Ende: Methoden fï¿½r Notizbuch-Objekts
 	 * *************************************************************************
 	 * **
 	 */
@@ -612,8 +611,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * **
 	 */
 	/**
-	 * Auslesen der Notiz- und Notizbuchobjekte für die diese
-	 * Notizobjektverwaltung gewissermaßen tätig sind.
+	 * Auslesen der Notiz- und Notizbuchobjekte fï¿½r die diese
+	 * Notizobjektverwaltung gewissermaï¿½en tï¿½tig sind.
 	 */
 	@Override
 	public Notiz getNotiz() throws IllegalArgumentException {
@@ -625,8 +624,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	}
 
 	/**
-	 * Setzen der Notizen und Notizbucher für die diese Notizobjektverwaltung
-	 * tätig ist.
+	 * Setzen der Notizen und Notizbucher fï¿½r die diese Notizobjektverwaltung
+	 * tï¿½tig ist.
 	 */
 	@Override
 	public void setNotiz(Notiz no) throws IllegalArgumentException {
