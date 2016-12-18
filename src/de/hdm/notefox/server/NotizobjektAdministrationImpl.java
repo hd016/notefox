@@ -202,18 +202,20 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Berechtigungen der übergebenen Notiz.
 	 */
 	@Override
-	public List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no) throws IllegalArgumentException {
+	public List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no)
+			throws IllegalArgumentException {
 		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(no);
 	}
-	
+
 	/**
 	 * Auslesen aller Berechtigungen des übergebenen Notizbuches.
 	 */
 	@Override
-	public List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException {
+	public List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(
+			Notizbuch nb) throws IllegalArgumentException {
 		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(nb);
 	}
-	
+
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Initialisierung
@@ -532,8 +534,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	@Override
 	public List<Notizbuch> nachAllenNotizbuechernSuchen()
 			throws IllegalArgumentException {
-		return berechtigungAnwenden(nbMapper.nachAllenNotizbuechernSuchen(),
-				Berechtigungsart.LESEN);
+		List<Notizbuch> notizbuecher = berechtigungAnwenden(
+				nbMapper.nachAllenNotizbuechernSuchen(), Berechtigungsart.LESEN);
+		for (Notizbuch notizbuch : notizbuecher) {
+			notizbuch.setNotizen(berechtigungAnwenden(noMapper
+					.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
+					Berechtigungsart.LESEN));
+		}
+		return notizbuecher;
 	}
 
 	/**
@@ -542,7 +550,13 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	@Override
 	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
 			throws IllegalArgumentException {
-		return this.nbMapper.nachEigentuemerSuchen(n);
+		List<Notizbuch> notizbuecher = this.nbMapper.nachEigentuemerSuchen(n);
+		for (Notizbuch notizbuch : notizbuecher) {
+			notizbuch.setNotizen(berechtigungAnwenden(noMapper
+					.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
+					Berechtigungsart.LESEN));
+		}
+		return notizbuecher;
 	}
 
 	/**
