@@ -3,6 +3,7 @@ package de.hdm.notefox.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
@@ -61,7 +62,9 @@ public class Notefox implements EntryPoint {
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 
-		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
+		String urlParameter = Window.Location.getParameter("url");
+		
+		loginService.login(GWT.getHostPageBaseURL() + (urlParameter != null ? "?url=" + urlParameter : ""), new AsyncCallback<LoginInfo>() {
 
 			public void onFailure(Throwable error) {
 			}
@@ -81,10 +84,26 @@ public class Notefox implements EntryPoint {
 
 	private void onModuleLoadLoggedIn() {
 
+		String urlParameter = Window.Location.getParameter("url");
+		if(urlParameter != null){
+			administration.anlegenNotiz(urlParameter, new AsyncCallback<Notiz>() {
+				
+				@Override
+				public void onSuccess(Notiz result) {
+					zeigeNotiz(result);
+				}
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("FEHLER! tut mir leid");
+				}
+			});
+		}
+		
 		ersetzeBaum();
 		Label welcomeLabel = new Label();
-		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
-	
+		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!"); 
+		
 		logoutLink.addStyleName("Abmelden");
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
