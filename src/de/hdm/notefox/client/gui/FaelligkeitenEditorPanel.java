@@ -43,4 +43,13 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 		add(auswahl);
 
 	}
+
+	public Date getFaelligkeitsdatum() {
+		return datepicker.getValue();
+
+	}
+
+	public void setFaelligkeisdatum(Date faelligkeitsdatum) {
+		datepicker.setValue(faelligkeitsdatum);
+	}
 }

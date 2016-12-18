@@ -16,7 +16,6 @@ import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
-import de.hdm.notefox.client.gui.NotizbuchEditorPanel;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.LoginInfo;
 import de.hdm.notefox.shared.LoginService;
@@ -30,14 +29,13 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Label meineNotizBuecher = new Label("Meine Notizbücher");
+	Label meineNotizBuecher = new Label("Meine Notizbï¿½cher");
 
 	HTML br = new HTML("<br>");
 
 	VerticalPanel vPanel = new VerticalPanel();
 	VerticalPanel vBrowser = new VerticalPanel();
 
-	NotizbuchEditorPanel notizbucheditorpanel = new NotizbuchEditorPanel();
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
 	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	Berechtigung berechtigung;
@@ -85,10 +83,6 @@ public class Notefox implements EntryPoint {
 		VerticalPanel vPanelRight = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
 		hPanelNotizNotizbuch.add(vPanelRight);
-
-		vPanelRight.add(notizbucheditorpanel);
-		vPanelRight.add(faelligkeiten);
-		vPanelRight.addStyleName("vPanelRight");
 
 		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);

@@ -24,10 +24,12 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.client.Notefox;
 
-public class NotizEditorPanel extends VerticalPanel {
+public class NotizEditorPanel extends HorizontalPanel {
 
 	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektAdministrationAsync();
 
+	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
+	
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
@@ -40,20 +42,23 @@ public class NotizEditorPanel extends VerticalPanel {
 
 	private Notizobjekt notizobjekt;
 
+	VerticalPanel vPanel = new VerticalPanel();
+	
 	private Notefox notefox;
 
 	public NotizEditorPanel(Notefox notefox) {
 		this.notefox = notefox;
-		this.add(notizEditor);
-		this.add(Notiztitel);
-		this.add(titel);
-		this.add(Rich);
-		this.add(area);
+		vPanel.add(notizEditor);
+		vPanel.add(Notiztitel);
+		vPanel.add(titel);
+		vPanel.add(Rich);
+		vPanel.add(area);
+		this.add(faelligkeiten);
 
 		area.addStyleName("textarea");
 
 		HorizontalPanel hPanel = new HorizontalPanel();
-		this.add(hPanel);
+		vPanel.add(hPanel);
 
 		Button speichern = new Button("Speichern");
 		speichern.addClickHandler(new speichernClickHandler());
@@ -76,6 +81,14 @@ public class NotizEditorPanel extends VerticalPanel {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
 		area.setHTML(notizobjekt.getInhalt());
+		if(notizobjekt instanceof Notiz){
+			Notiz notiz = (Notiz) notizobjekt;
+			faelligkeiten.setVisible(true);
+			faelligkeiten.setFaelligkeisdatum(notiz.getFaelligkeitsdatum());
+		}
+		else {
+			faelligkeiten.setVisible(false);
+		}
 	}
 
 	private class speichernClickHandler implements ClickHandler {
@@ -86,8 +99,10 @@ public class NotizEditorPanel extends VerticalPanel {
 			notizobjekt.setTitel(titel.getValue());
 			notizobjekt.setInhalt(area.getHTML());
 
+
 			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
+				notiz.setFaelligkeitsdatum(faelligkeiten.getFaelligkeitsdatum());
 				notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());
 			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
