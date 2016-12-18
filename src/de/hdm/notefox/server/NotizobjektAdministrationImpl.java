@@ -558,7 +558,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	@Override
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
 		Notizbuch nb = new Notizbuch();
-		nb.setId(n.getNutzerId());
+		nb.setEigentuemer(n);
 
 		/*
 		 * Setzen einer vorl�ufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
