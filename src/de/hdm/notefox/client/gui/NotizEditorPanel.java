@@ -53,6 +53,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		vPanel.add(titel);
 		vPanel.add(Rich);
 		vPanel.add(area);
+		this.add(vPanel);
 		this.add(faelligkeiten);
 
 		area.addStyleName("textarea");

@@ -37,7 +37,6 @@ public class Notefox implements EntryPoint {
 	VerticalPanel vBrowser = new VerticalPanel();
 
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
-	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	Berechtigung berechtigung;
 
 	CellTree celltree;
@@ -51,6 +50,8 @@ public class Notefox implements EntryPoint {
 
 	@Override
 	public void onModuleLoad() {
+		
+		schlieseInhalt();
 
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 
