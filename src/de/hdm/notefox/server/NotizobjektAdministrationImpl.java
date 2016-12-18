@@ -1,7 +1,6 @@
 package de.hdm.notefox.server;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +22,7 @@ import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.NutzerAusnahme;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
@@ -106,7 +106,8 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
  * @author Thies
  */
 @SuppressWarnings("serial")
-public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
+public class NotizobjektAdministrationImpl extends RemoteServiceServlet
+		implements NotizobjektAdministration {
 
 	/**
 	 * Referenz auf das zugeh�rige Notiz- und Notizbuch-Objekte.
@@ -224,7 +225,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @see speichern(Nutzer c)
 	 */
 	@Override
-	public Nutzer anlegenNutzer(int nutzerId, String email) throws IllegalArgumentException {
+	public Nutzer anlegenNutzer(int nutzerId, String email)
+			throws IllegalArgumentException {
 		Nutzer n = new Nutzer();
 		n.setNutzerId(nutzerId);
 		n.setEmail(email);
@@ -243,7 +245,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen aller Nutzer, die den �bergebenen Namen besitzen.
 	 */
 	@Override
-	public Nutzer nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
+	public Nutzer nachNutzerEmailSuchen(String email)
+			throws IllegalArgumentException {
 		return this.nuMapper.nachNutzerEmailSuchen(email);
 	}
 
@@ -251,7 +254,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen eines Nutzers anhand seiner NutzerId.
 	 */
 	@Override
-	public Nutzer nachNutzerIdSuchen(int nutzerId) throws IllegalArgumentException {
+	public Nutzer nachNutzerIdSuchen(int nutzerId)
+			throws IllegalArgumentException {
 		return this.nuMapper.nachNutzerIdSuchen(nutzerId);
 	}
 
@@ -259,7 +263,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen aller Nutzer.
 	 */
 	@Override
-	public List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException {
+	public List<Nutzer> nachAllenNutzernSuchen()
+			throws IllegalArgumentException {
 		return this.nuMapper.nachAllenNutzernSuchen();
 	}
 
@@ -299,7 +304,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 * zuvor genannte Verflechtung nicht umf�nglich kennen kann.
 		 */
 		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(n);
-		List<Notizbuch> notizbuecher = this.nachAllenNotizbuechernDesNutzersSuchen(n);
+		List<Notizbuch> notizbuecher = this
+				.nachAllenNotizbuechernDesNutzersSuchen(n);
 
 		if (notizen != null) {
 			for (Notiz no : notizen) {
@@ -342,7 +348,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen aller Notizen des �bergeben Nutzers.
 	 */
 	@Override
-	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
+	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
+			throws IllegalArgumentException {
 		return this.noMapper.nachEigentuemerSuchen(n);
 	}
 
@@ -351,7 +358,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-		return berechtigungAnwenden(noMapper.nachNotizIdSuchen(id), Berechtigungsart.LESEN);
+		return berechtigungAnwenden(noMapper.nachNotizIdSuchen(id),
+				Berechtigungsart.LESEN);
 	}
 
 	/**
@@ -364,34 +372,39 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	@Override
 	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
-		// /*
-		// * Zun�chst werden s�mtl. Notizquellen-Objekte und Datum-Objekte des
-		// * Nutzers aus der DB entfernt.
-		// */
-		// List<Notizquelle> notizquellen =
-		// this.nachAllenNotizquellenDesNutzersSuchen(no);
-		// List<Datum> faelligkeiten =
-		// this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
-		//
-		// if (notizquellen != null) {
-		// for (Notizquelle nq : notizquellen) {
-		// this.loeschenNotizquelleVon(nq);
-		// }
-		// }
-		//
-		// if (faelligkeiten != null) {
-		// for (Datum d : faelligkeiten) {
-		// this.loeschenDatumVon(d);
-		// }
-		// }
+		if (berechtigungAnwenden(no, Berechtigungsart.LOESCHEN) != null) {
+			// /*
+			// * Zun�chst werden s�mtl. Notizquellen-Objekte und Datum-Objekte
+			// des
+			// * Nutzers aus der DB entfernt.
+			// */
+			// List<Notizquelle> notizquellen =
+			// this.nachAllenNotizquellenDesNutzersSuchen(no);
+			// List<Datum> faelligkeiten =
+			// this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
+			//
+			// if (notizquellen != null) {
+			// for (Notizquelle nq : notizquellen) {
+			// this.loeschenNotizquelleVon(nq);
+			// }
+			// }
+			//
+			// if (faelligkeiten != null) {
+			// for (Datum d : faelligkeiten) {
+			// this.loeschenDatumVon(d);
+			// }
+			// }
 
-		// Notiz aus der DB entfernen
-		this.noMapper.loeschenNotiz(no);
+			// Notiz aus der DB entfernen
+			this.noMapper.loeschenNotiz(no);
+		} else {
+			throw new NutzerAusnahme("Keine Berechtigung vorhanden.");
+		}
 	}
 
-	//externe Webseiten auslesen und in Notiz anlegen//
+	// externe Webseiten auslesen und in Notiz anlegen//
 	public Notiz anlegenNotiz(String url) throws IllegalArgumentException {
-		
+
 		Nutzer currentNutzer = loginService.getCurrentNutzer();
 		List<Notizbuch> notizbuecher = nachAllenNotizbuechernDesNutzersSuchen(currentNutzer);
 		Notizbuch externeWebseitenNotizbuch = null;
@@ -401,30 +414,30 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 				break;
 			}
 		}
-		
-		if(externeWebseitenNotizbuch == null){
+
+		if (externeWebseitenNotizbuch == null) {
 			externeWebseitenNotizbuch = anlegenNotizbuecherFuer(currentNutzer);
 			externeWebseitenNotizbuch.setTitel("Externe Webseiten");
 			speichern(externeWebseitenNotizbuch);
 		}
-		
+
 		String webseite = leseWebseite(url);
 		Notiz notiz = anlegenNotiz(externeWebseitenNotizbuch);
 		notiz.setEigentuemer(currentNutzer);
 		notiz.setSubtitel(url);
 		notiz.setInhalt(webseite);
-		
-		//Speicherung von Titel aus der Webseite  und speichern in den Notiz//
+
+		// Speicherung von Titel aus der Webseite und speichern in den Notiz//
 		Pattern p = Pattern.compile("<title>(.*?)</title>");
 		Matcher m = p.matcher(webseite);
 		if (m.find()) {
-			notiz.setTitel((m.group (1)));
+			notiz.setTitel((m.group(1)));
 		} else {
 			notiz.setTitel(url);
 		}
-		
+
 		speichern(notiz);
-		
+
 		return notiz;
 	}
 
@@ -442,7 +455,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		scanner.close();
 		return stringBuilder.toString();
 	}
-	
+
 	/**
 	 * Anlegen einer neuen Notiz. Dies f�hrt implizit zu einem Speichern der
 	 * neuen, leeren Notiz in der Datenbank.
@@ -454,7 +467,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @see speichern(Notiz a)
 	 */
 	@Override
-	public Notiz anlegenNotiz(Notizbuch notizbuch) throws IllegalArgumentException {
+	public Notiz anlegenNotiz(Notizbuch notizbuch)
+			throws IllegalArgumentException {
 		Notiz notiz = new Notiz();
 		notiz.setEigentuemer(loginService.getCurrentNutzer());
 		notiz.setNotizbuchId(notizbuch.getId());
@@ -474,11 +488,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Speichern einer Notiz.
 	 */
 	@Override
-	public Notiz speichern(Notiz no) throws IllegalArgumentException {
+	public Notiz speichern(Notiz no) throws NutzerAusnahme {
 		if (berechtigungAnwenden(no, Berechtigungsart.EDITIEREN) != null) {
 			return this.noMapper.update(no);
 		} else {
-			return null;
+			throw new NutzerAusnahme("Keine Berechtigung vorhanden.");
 		}
 	}
 
@@ -500,15 +514,18 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen s�mtlicher Notizbuecher dieses Systems.
 	 */
 	@Override
-	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
-		return berechtigungAnwenden(nbMapper.nachAllenNotizbuechernSuchen(), Berechtigungsart.LESEN);
+	public List<Notizbuch> nachAllenNotizbuechernSuchen()
+			throws IllegalArgumentException {
+		return berechtigungAnwenden(nbMapper.nachAllenNotizbuechernSuchen(),
+				Berechtigungsart.LESEN);
 	}
 
 	/**
 	 * Auslesen aller Notizbuecher des �bergeben Nutzers.
 	 */
 	@Override
-	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
+	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
+			throws IllegalArgumentException {
 		return this.nbMapper.nachEigentuemerSuchen(n);
 	}
 
@@ -516,8 +533,10 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * Auslesen des Notizbuches mit einer bestimmten Id.
 	 */
 	@Override
-	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
-		return berechtigungAnwenden(nbMapper.nachNotizbuchIdSuchen(id), Berechtigungsart.LESEN);
+	public Notizbuch nachNotizbuchIdSuchen(int id)
+			throws IllegalArgumentException {
+		return berechtigungAnwenden(nbMapper.nachNotizbuchIdSuchen(id),
+				Berechtigungsart.LESEN);
 	}
 
 	/**
@@ -529,20 +548,25 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @see #loeschenNutzer(Nutzer)
 	 */
 	@Override
-	public void loeschenNotizbuch(Notizbuch nb) throws IllegalArgumentException {
-		/*
-		 * Zun�chst werden s�mtl. Notizen des Nutzers aus der DB entfernt.
-		 */
-		List<Notiz> notizen = this.nachAllenNotizenDesNotizbuchesSuchen(nb);
+	public void loeschenNotizbuch(Notizbuch nb) throws NutzerAusnahme {
+		if (berechtigungAnwenden(nb, Berechtigungsart.LOESCHEN) != null) {
 
-		if (notizen != null) {
-			for (Notiz no : notizen) {
-				this.loeschenNotiz(no);
+			/*
+			 * Zun�chst werden s�mtl. Notizen des Nutzers aus der DB entfernt.
+			 */
+			List<Notiz> notizen = this.nachAllenNotizenDesNotizbuchesSuchen(nb);
+
+			if (notizen != null) {
+				for (Notiz no : notizen) {
+					this.loeschenNotiz(no);
+				}
 			}
-		}
 
-		// Notizbuch aus der DB entfernen
-		this.nbMapper.loeschenNotizbuch(nb);
+			// Notizbuch aus der DB entfernen
+			this.nbMapper.loeschenNotizbuch(nb);
+		} else {
+			throw new NutzerAusnahme("Keine Berechtigungen vorhanden.");
+		}
 	}
 
 	/**
@@ -558,7 +582,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @see speichern(Notizbuch a)
 	 */
 	@Override
-	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
+	public Notizbuch anlegenNotizbuecherFuer(Nutzer n)
+			throws IllegalArgumentException {
 		Notizbuch nb = new Notizbuch();
 		nb.setEigentuemer(n);
 		nb.setTitel("unbenannt");
@@ -583,19 +608,22 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * @throws IllegalArgumentException
 	 */
 	@Override
-	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException {
-		return berechtigungAnwenden(noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId()), Berechtigungsart.LESEN);
+	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb)
+			throws IllegalArgumentException {
+		return berechtigungAnwenden(
+				noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId()),
+				Berechtigungsart.LESEN);
 	}
 
 	/**
 	 * Speichern eines Notizbuches.
 	 */
 	@Override
-	public Notizbuch speichern(Notizbuch nb) throws IllegalArgumentException {
+	public Notizbuch speichern(Notizbuch nb) throws NutzerAusnahme {
 		if (berechtigungAnwenden(nb, Berechtigungsart.EDITIEREN) != null) {
 			return this.nbMapper.update(nb);
 		} else {
-			return null;
+			throw new NutzerAusnahme("Keine Berechtigung vorhanden");
 		}
 	}
 
@@ -606,19 +634,23 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * **
 	 */
 
-	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt, Berechtigungsart berechtigungsart) {
+	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt,
+			Berechtigungsart berechtigungsart) {
 		if (notizobjekt == null) {
 			return null;
 		}
 
-		List<Berechtigung> berechtigungen = new ArrayList<>();
 		Nutzer aktuellerNutzer = loginService.getCurrentNutzer();
+		List<Berechtigung> berechtigungen = bMapper
+				.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
+						aktuellerNutzer);
 
 		if (aktuellerNutzer == null) {
 			return null;
 		}
 
-		if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt, berechtigungsart)) {
+		if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt,
+				berechtigungsart)) {
 			return notizobjekt;
 
 		} else {
@@ -626,9 +658,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		}
 	}
 
-	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte,
-			Berechtigungsart berechtigungsart) {
-		List<Berechtigung> berechtigungen = new ArrayList<>();
+	private <T extends Notizobjekt> List<T> berechtigungAnwenden(
+			List<T> notizobjekte, Berechtigungsart berechtigungsart) {
 		Nutzer aktuellerNutzer = loginService.getCurrentNutzer();
 
 		if (aktuellerNutzer == null) {
@@ -637,15 +668,20 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 
 		List<T> ergebnis = new ArrayList<>();
 		for (T notizobjekt : notizobjekte) {
-			if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt, berechtigungsart)) {
+			List<Berechtigung> berechtigungen = bMapper
+					.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
+							aktuellerNutzer);
+			if (pruefeBerechtigung(berechtigungen, aktuellerNutzer,
+					notizobjekt, berechtigungsart)) {
 				ergebnis.add(notizobjekt);
 			}
 		}
 		return ergebnis;
 	}
 
-	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen, Nutzer aktuellerNutzer,
-			Notizobjekt notizobjekt, Berechtigungsart berechtigungsart) {
+	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen,
+			Nutzer aktuellerNutzer, Notizobjekt notizobjekt,
+			Berechtigungsart berechtigungsart) {
 
 		if (notizobjekt.getEigentuemer().equals(aktuellerNutzer)) {
 			return true;

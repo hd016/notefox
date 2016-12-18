@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.NutzerAusnahme;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
@@ -110,7 +111,6 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			Window.alert("OKEY!");
 			notizobjekt.setTitel(titel.getValue());
 			notizobjekt.setInhalt(area.getHTML());
 
@@ -133,8 +133,10 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
+			if(caught instanceof NutzerAusnahme){
+				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
+				Window.alert(nutzerAusnahme.getMessage());
+			}
 		}
 
 		@Override
@@ -149,8 +151,10 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
+			if(caught instanceof NutzerAusnahme){
+				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
+				Window.alert(nutzerAusnahme.getMessage());
+			}
 		}
 
 		@Override
@@ -181,8 +185,10 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
+			if(caught instanceof NutzerAusnahme){
+				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
+				Window.alert(nutzerAusnahme.getMessage());
+			}
 		}
 
 		@Override

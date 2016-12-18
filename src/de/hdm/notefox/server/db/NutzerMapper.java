@@ -143,7 +143,7 @@ public class NutzerMapper {
 
 			while (rs.next()) {
 				Nutzer n = new Nutzer();
-				n.setNutzerId(rs.getInt("NutzerId"));
+				n.setNutzerId(rs.getInt("nutzerId"));
 				n.setEmail(rs.getString("email"));
 				n.setName(rs.getString("name"));
 

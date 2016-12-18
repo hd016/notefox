@@ -1,6 +1,7 @@
 package de.hdm.notefox.server.db;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdm.notefox.shared.Berechtigung;
@@ -108,18 +109,20 @@ public class BerechtigungMapper {
 		return null;
 	}
 	
-	public void nachAllenBerechtigungenDerNotizobjekteSuchen(
+	public List<Berechtigung> nachAllenBerechtigungenDerNotizobjekteSuchen(
 			BusinessObject notizobjekt) {
-		nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt, null);
+		return nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt, null);
 	}
 
-	public void nachAllenBerechtigungenDerNotizobjekteSuchen(
+	public List<Berechtigung> nachAllenBerechtigungenDerNotizobjekteSuchen(
 			BusinessObject notizobjekt, Nutzer nutzer) {
 		int id = notizobjekt.getId();
 
 		// Es wird eine DB-Verbindung angeschafft
 		Connection con = DBConnection.connection();
 
+		List<Berechtigung> result = new ArrayList<>();
+		
 		try {
 			// Es wird ein leeres SQL Statement von dem Connector (JDBC)
 			// angelegt
@@ -127,31 +130,39 @@ public class BerechtigungMapper {
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT berechtigungId, berechtigungsArt FROM berechtigung "
-							+ "WHERE "
+					.executeQuery("SELECT berechtigung.*, nutzer.* FROM berechtigung LEFT JOIN nutzer ON nutzer.nutzerId = berechtigung.berechtigter"
+							+ " WHERE "
 							+ ((notizobjekt instanceof Notiz) ? "notiz"
-									: "notizbuch") + "=" + id + (nutzer != null ? "AND berechtigter =" + nutzer.getNutzerId(): ""));
+									: "notizbuch") + "=" + id + " " + (nutzer != null ? "AND berechtigter =" + nutzer.getNutzerId(): ""));
 
 			/*
 			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
 			 * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
 			 * einen Prim�rschl�ssel handelt.
 			 */
-			if (rs.next()) {
+			while (rs.next()) {
 				/*
 				 * Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
 				 * werden.
 				 */
+				Nutzer n = new Nutzer();
+				n.setNutzerId(rs.getInt("nutzer.nutzerId"));
+				n.setEmail(rs.getString("nutzer.email"));
+				n.setName(rs.getString("nutzer.name"));
+				
 				Berechtigung be = new Berechtigung();
-				be.setBerechtigungId(rs.getInt("berechtigungId"));
+				be.setBerechtigungId(rs.getInt("berechtigung.berechtigungId"));
+				be.setBerechtigter(n);
 				be.setBerechtigungsart(Berechtigungsart.valueOf(rs
-						.getString("berechtigungsart")));
+						.getString("berechtigung.berechtigungsart")));
+				result.add(be);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+		return result;
 	}
 	
 	
