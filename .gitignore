@@ -6,6 +6,7 @@
 
 # Package Files #
 *.jar
+*.war
 *.ear
 *.cache.js
 *.gwt.rpc
@@ -43,6 +44,7 @@ proguard/
 ################################################################################
 # GWT-Spezifika 
 ################################################################################
+
 # gwt caches and compiled units #
 war/gwt_bree/
 gwt-unitCache/
@@ -58,4 +60,3 @@ war/WEB-INF/classes/
 /.settings
 /.gwt
 /test-classes/
-

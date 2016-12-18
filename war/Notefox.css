@@ -68,7 +68,7 @@ body {
 .logo {
 	margin: 0.5vw;
 	max-width: 21vw;
-	max-height: auto;
+	max-height: 13vw;
 }
 
 #leftmenu {
@@ -86,12 +86,11 @@ body {
 #text {
 	border-radius: 0.5vw;
 	background-color: #FFFFFF;
-	width: 52vw;
+	width: 75vw;
 	min-height: 51vw;
 	float: left;
 	margin-top: 1vw;
 	margin-left: 1vw;
-	margin-right: 1vw;
 }
 
 #rightmenu {
@@ -106,10 +105,11 @@ body {
 #footer {
 	border-radius: 0.5vw;
 	background-color: #FFFFFF;
-	height: 3vw;
-	width: 95vw;
+	min-height: 3vw;
+	max-width: 95vw;
 	top: 40vw;
 	margin: 1vw 0;
+	padding: 0.5vw;
 }
 
 }
@@ -119,10 +119,6 @@ h5 {
 	color: #777777;
 	margin: 40px 0px 70px;
 	text-align: center;
-}
-
-.gwt-Button {
-	color: red;
 }
 
 .gwt-Green-Button {
@@ -137,121 +133,6 @@ h5 {
 
 .gwt-Blue-Button {
 	color: blue;
-}
-
-.main {
-	color: yellow;
-}
-
-h1 {
-	font-size: 2vw;
-	font-weight: bold;
-	color: #777777;
-	text-align: center;
-}
-
-html {
-	overflow-y: scroll;
-}
-
-body {
-	font-size: 1.5vw;
-	background-color: #008cc6;
-}
-
-#clearright {
-	clear: right;
-}
-
-#clearleft {
-	clear: left;
-}
-
-#clear {
-	clear: both;
-}
-
-#wrapper {
-	margin: 1vw auto;
-	width: 95vw;
-}
-
-#head {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	heigth: 3vw;
-	width: 72vw;
-	margin-bottom: 1vw;
-}
-
-#nav {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	heigth: 9vw;
-	width: 72vw;
-}
-
-#logobox {
-	border-radius: 0.5vw;
-	max-heigt: 13vw;
-	width: 22vw;
-	background-color: #FFFFFF;
-	float: right;
-}
-
-.logo {
-	margin: 0.5vw;
-	max-width: auto;
-	max-height: 12vw;
-}
-
-#leftmenu {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	width: 17vw;
-	min-height: 50vw;
-	float: left;
-	margin-top: 1vw;
-	padding-left: 2vw;
-	padding-top: 1vw;
-	border: 0;
-}
-
-#text {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	width: 74vw;
-	min-height: 51vw;
-	float: left;
-	margin-top: 1vw;
-	margin-left: 1vw;
-	margin-right: 1vw;
-}
-
-#rightmenu {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	width: 22vw;
-	min-height: 50vw;
-	float: right;
-	margin-top: 1vw;
-}
-
-#footer {
-	border-radius: 0.5vw;
-	background-color: #FFFFFF;
-	height: 3vw;
-	width: 93.5vw;
-	top: 40vw;
-	margin: 1vw 0;
-}
-
-h5 {
-	font-size: 2em;
-	font-weight: bold;
-	color: #777777;
-	margin: 40px 0px 70px;
-	text-align: center;
 }
 
 .gwt-Main-Button {
@@ -279,6 +160,7 @@ h5 {
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
+	
 }
 
 .gwt-Green-Button-big {
@@ -294,16 +176,6 @@ h5 {
 	border-radius: 0.9vw;
 }
 
-.main {
-	color: yellow;
-}
-
-h1 {
-	font-size: 2vw;
-	font-weight: bold;
-	color: #777777;
-	text-align: center;
-}
 
 .textarea {
 	border-style: outset;
@@ -319,8 +191,8 @@ h1 {
 }
 
 .gwt-DialogBox {
-  width: 500px;
-  height: 500px;
+  width: 1000px;
+  height: 300px;
   
 }
 
@@ -340,4 +212,42 @@ h1 {
 
 .vPanelRight{
 	margin-left: 20px;
+}
+
+
+.footerButton {
+	max-width: 20vw;
+	max-height: auto;
+	clear: both;
+	float: left;
+}
+
+.footerHDM {
+	margin-top: 1.5vw;
+	max-width: 20vw;
+	max-height: auto;
+	clear: both;
+	float: right;
+}
+
+.footerWi {
+	max-width: 10vw;
+	max-height: auto;
+	clear: both;
+	float: right;
+	margin-left: 21.5vw;
+	margin-right: 21.5vw;
+}
+
+.gwt-TextBox-Dialogbox {
+	width: 950px;
+	height: 25px;
+}
+
+.TopRightCloseButton {
+   float: right;
+   margin-top:-22px;
+   width:16px;
+   height:16px;
+   display:block;
 }
