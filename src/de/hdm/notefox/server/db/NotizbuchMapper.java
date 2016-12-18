@@ -125,7 +125,7 @@ public class NotizbuchMapper {
     try {
       Statement stmt = con.createStatement();
 
-      ResultSet rs = stmt.executeQuery("SELECT nutzer.*, notizbuch.* FROM notizbuch LEFT JOIN nutzer ON nutzer.id = notizbuch.eigentuemer"
+      ResultSet rs = stmt.executeQuery("SELECT nutzer.*, notizbuch.* FROM notizbuch LEFT JOIN nutzer ON nutzer.nutzerId = notizbuch.eigentuemer"
           + " ORDER BY id");
 
       // F�r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt erstellt.
