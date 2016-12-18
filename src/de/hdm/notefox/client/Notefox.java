@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -47,6 +48,9 @@ public class Notefox implements EntryPoint {
 	FooterPanel footerPanel = new FooterPanel();
 
 	LoginInfo loginInfo;
+	
+	public final Anchor logoutLink = new Anchor("Abmelden");
+
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
@@ -78,11 +82,19 @@ public class Notefox implements EntryPoint {
 	private void onModuleLoadLoggedIn() {
 
 		ersetzeBaum();
-		
 		Label welcomeLabel = new Label();
 		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
-		RootPanel.get("head").add(welcomeLabel);
+	
+		logoutLink.addStyleName("Abmelden");
+		logoutLink.setHref(loginInfo.getLogoutUrl());
 
+		HorizontalPanel headerPanel = new HorizontalPanel();
+		headerPanel.add(welcomeLabel);
+		headerPanel.add(logoutLink);
+		
+		RootPanel.get("head").add(headerPanel);
+
+		
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelRight = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
