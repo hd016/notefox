@@ -20,6 +20,7 @@ import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.TreeViewModel;
 
+import de.hdm.notefox.client.Notefox;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
@@ -28,12 +29,11 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class NotizBaumModel implements TreeViewModel {
 
-	private VerticalPanel vPanel = new VerticalPanel();
-	private NotizEditorPanel notizEditorPanel;
 	private final Nutzer nutzer;
+	private Notefox notefox;
 
-	public NotizBaumModel(NotizEditorPanel notizEditorPanel, Nutzer nutzer) {
-		this.notizEditorPanel = notizEditorPanel;
+	public NotizBaumModel(Notefox notefox, Nutzer nutzer) {
+		this.notefox = notefox;
 		this.nutzer = nutzer;
 	}
 
@@ -102,9 +102,9 @@ public class NotizBaumModel implements TreeViewModel {
 				public void onBrowserEvent(com.google.gwt.cell.client.Cell.Context context, Element parent, Notiz value,
 						NativeEvent event, ValueUpdater<Notiz> valueUpdater) {
 					if (value.getId() == -1) {
-						notizEditorPanel.neueNotiz(notizbuch);
+						notefox.neueNotiz(notizbuch);
 					} else {
-						notizEditorPanel.setNotizobjekt(value);
+						notefox.zeigeNotiz(value);
 					}
 				}
 
