@@ -31,7 +31,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date date = event.getValue();
-				String dateString = DateTimeFormat.getFormat("MM/dd/yyyy").format(date);
+				String dateString = DateTimeFormat.getFormat("dd/MM/yyyy").format(date);
 				auswahl.setText(dateString);
 			}
 		});
