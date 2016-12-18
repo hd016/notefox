@@ -22,6 +22,7 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 import de.hdm.notefox.client.ClientsideSettings;
+import de.hdm.notefox.client.Notefox;
 
 public class NotizEditorPanel extends VerticalPanel {
 
@@ -39,7 +40,10 @@ public class NotizEditorPanel extends VerticalPanel {
 
 	private Notizobjekt notizobjekt;
 
-	public NotizEditorPanel() {
+	private Notefox notefox;
+
+	public NotizEditorPanel(Notefox notefox) {
+		this.notefox = notefox;
 		this.add(notizEditor);
 		this.add(Notiztitel);
 		this.add(titel);
@@ -66,20 +70,6 @@ public class NotizEditorPanel extends VerticalPanel {
 		freigeben.addClickHandler(new freigebenClickHandler());
 		hPanel.add(freigeben);
 
-	}
-
-	public void neueNotiz(Notizbuch notizbuch) {
-		notizobjektverwaltung.anlegenNotiz( notizbuch, new AsyncCallback<Notiz>() {
-
-			@Override
-			public void onSuccess(Notiz result) {
-				setNotizobjekt(result);
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-		});
 	}
 
 	public void setNotizobjekt(Notizobjekt notizobjekt) {
@@ -167,6 +157,8 @@ public class NotizEditorPanel extends VerticalPanel {
 		@Override
 		public void onSuccess(Void result) {
 			Window.alert("Löschen erfolgreich");
+			notefox.schlieseInhalt();
+			notefox.ersetzeBaum();
 		}
 
 	}
