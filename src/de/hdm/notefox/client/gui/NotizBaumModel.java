@@ -32,6 +32,9 @@ public class NotizBaumModel implements TreeViewModel {
 	private final Nutzer nutzer;
 	private Notefox notefox;
 
+	final NotizobjektAdministrationAsync administration = GWT
+			.create(NotizobjektAdministration.class);
+	
 	public NotizBaumModel(Notefox notefox, Nutzer nutzer) {
 		this.notefox = notefox;
 		this.nutzer = nutzer;
@@ -45,13 +48,16 @@ public class NotizBaumModel implements TreeViewModel {
 
 				@Override
 				protected void onRangeChanged(HasData<Notizbuch> display) {
-					final NotizobjektAdministrationAsync administration = GWT
-							.create(NotizobjektAdministration.class);
+					
 					administration.nachAllenNotizbuechernDesNutzersSuchen(
 							nutzer, new AsyncCallback<List<Notizbuch>>() {
 
 								@Override
 								public void onSuccess(List<Notizbuch> result) {
+									Notizbuch dummy = new Notizbuch();
+									dummy.setId(-1);
+									result.add(dummy);
+									
 									updateRowCount(result.size(), true);
 									updateRowData(0, result);
 								}
@@ -69,7 +75,12 @@ public class NotizBaumModel implements TreeViewModel {
 						public void render(
 								com.google.gwt.cell.client.Cell.Context context,
 								Notizbuch value, SafeHtmlBuilder sb) {
+							if (value.getId() == -1){
+								sb.appendEscaped("Neues Notizbuch");
+							}
+							else {
 							sb.appendEscaped(value.getTitel());
+							}
 						}
 
 						@Override
@@ -78,7 +89,11 @@ public class NotizBaumModel implements TreeViewModel {
 								Element parent, Notizbuch value,
 								NativeEvent event,
 								ValueUpdater<Notizbuch> valueUpdater) {
-							Window.alert("OK!");
+							if(value.getId() == -1){
+								notefox.neuesNotizbuch();
+							} else {
+								notefox.zeigeNotizbuch(value);
+							}
 						}
 
 					});
