@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -26,7 +27,13 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Label meineNotizBuecher = new Label("Meine NotizbÃ¼cher");
+	Button loeschen = new Button("Löschen");
+	Button editieren = new Button("Editieren");
+	Button suchen = new Button("Suchen");
+	Button freigeben = new Button("Freigeben");
+	Label meineNotizBuecher = new Label("Meine Notizbücher");
+	// Label meineBerechtigungen = new Label("Meine Berechtigungen");
+	Label titel = new Label("Titel");
 
 	HTML br = new HTML("<br>");
 
