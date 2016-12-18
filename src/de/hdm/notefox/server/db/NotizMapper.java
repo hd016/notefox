@@ -301,8 +301,8 @@ public class NotizMapper {
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt
-					.executeQuery("SELECT notiz*, nutzer.* FROM nutzer LEFT JOIN notiz ON nutzer.id = nutzer.nutzerId"
-							+ " ORDER BY nid");
+					.executeQuery("SELECT notiz*, nutzer* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+							+ "WHERE notiz.eigentuemer= " + id  + " ORDER BY id");
 
 			// Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene
 			// ein Notiz Objekt erstellt
