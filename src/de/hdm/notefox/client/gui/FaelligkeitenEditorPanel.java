@@ -14,21 +14,21 @@ public class FaelligkeitenEditorPanel extends VerticalPanel{
 	DatePicker date = new DatePicker();
 	HTML uberschrift = new HTML("<h3>Fälligkeit</h3>");
 	TextBox auswahl = new  TextBox();
-	Button speichern = new Button("Speichern");
+	//Button speichern = new Button("Speichern");
 		
 	public FaelligkeitenEditorPanel(){
-		speichern.addStyleName("gwt-Green-Button");
+		//speichern.addStyleName("gwt-Green-Button");
 		auswahl.setEnabled(false);
 		date.addStyleName("datePicker");
 		uberschrift.addStyleName("datePicker");
 		auswahl.addStyleName("TextBox-readonly");
-		speichern.addStyleName("datePicker");
+		//speichern.addStyleName("datePicker");
 		setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 		add(uberschrift);
 		add(date);
 		add(auswahl);
-		add(speichern);
+		//add(speichern);
 		
 	}
 	

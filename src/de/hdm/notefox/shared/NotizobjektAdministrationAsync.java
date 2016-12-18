@@ -9,15 +9,13 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
  *Semiautomatisch vom Google Plugin erstellt. 
- *GegenstÃ¼ck des asynchronen Interface (NotizobjektAdministration).
+ *Gegenstück des asynchronen Interface (NotizobjektAdministration).
  */
 public interface NotizobjektAdministrationAsync {
 
-void initialisieren(AsyncCallback<Void> callback);
-
 void anlegenNutzer(int nutzerId, String name, AsyncCallback<Nutzer> callback);
 
-void anlegenNotizFuer(Nutzer nutzer, Notizbuch notizbuch, AsyncCallback<Notiz> callback);
+void anlegenNotiz( Notizbuch notizbuch, AsyncCallback<Notiz> callback);
 
 void anlegenNotizbuecherFuer(Nutzer n, AsyncCallback<Notizbuch> callback);
 
