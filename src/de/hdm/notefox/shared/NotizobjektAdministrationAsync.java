@@ -60,4 +60,6 @@ void loeschenNotizbuch(Notizbuch nb, AsyncCallback<Void> callback);
 
 void loeschenNutzer(Nutzer n, AsyncCallback<Void> callback);
 
+void anlegenNotiz(String url, AsyncCallback<Notiz> callback);
+
 }
