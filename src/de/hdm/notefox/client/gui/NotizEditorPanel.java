@@ -143,13 +143,20 @@ public class NotizEditorPanel extends VerticalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			Window.alert("OKEY!");
+			if(notizobjekt instanceof Notiz){
+				Notiz notiz = (Notiz) notizobjekt;
+				notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
+			} else if(notizobjekt instanceof Notizbuch){
+				Notizbuch notizbuch = (Notizbuch) notizobjekt;
+				notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+			}
+			
 
 		}
 
 	}
 
-	private class loeschenAsyncCallback implements AsyncCallback {
+	private class loeschenAsyncCallback implements AsyncCallback<Void> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -158,9 +165,8 @@ public class NotizEditorPanel extends VerticalPanel {
 		}
 
 		@Override
-		public void onSuccess(Object result) {
-			// TODO Auto-generated method stub
-
+		public void onSuccess(Void result) {
+			Window.alert("Löschen erfolgreich");
 		}
 
 	}

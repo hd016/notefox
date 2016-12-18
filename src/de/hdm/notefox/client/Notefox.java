@@ -36,11 +36,11 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Button loeschen = new Button("LÃ¶schen");
+	Button loeschen = new Button("Löschen");
 	Button editieren = new Button("Editieren");
 	Button suchen = new Button("Suchen");
 	Button freigeben = new Button("Freigeben");
-	Label meineNotizBuecher = new Label("Meine NotizbÃ¼cher");
+	Label meineNotizBuecher = new Label("Meine Notizbücher");
 	// Label meineBerechtigungen = new Label("Meine Berechtigungen");
 	Label titel = new Label("Titel");
 
