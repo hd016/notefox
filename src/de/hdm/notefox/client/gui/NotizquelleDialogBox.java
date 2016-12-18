@@ -1,5 +1,6 @@
 package de.hdm.notefox.client.gui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -26,7 +27,8 @@ public class NotizquelleDialogBox extends DialogBox {
 		setText("NoteFox auf deiner Webseite einbetten..");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
-		center();
+		//center();
+		addStyleName("gwt-DialogBox-Notizquelle");
 		VerticalPanel panel = new VerticalPanel();
 		HorizontalPanel hPanelTextBox = new HorizontalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
@@ -36,8 +38,7 @@ public class NotizquelleDialogBox extends DialogBox {
 		TextBox output = new TextBox();
 		output.setReadOnly(isGlassEnabled());
 		output.addStyleName("gwt-TextBox-Dialogbox");
-		output.setText(
-				"<p><iframe width=640 height=360 <br> src=https://www.youtube.com/embed/RlnDLBQVanI <br> frameborder=0 allowfullscreen></iframe></p>");
+		output.setText("<a id=\"note-fox-link\" href=\"#\">Link</a><script>var notefoxUrl = \""+GWT.getHostPageBaseURL()+"\";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
 		hPanel.add(einleitung);
 		hPanelTextBox.addStyleName("gwt-DialogBox");
 		hPanelTextBox.add(output);

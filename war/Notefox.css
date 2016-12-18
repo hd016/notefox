@@ -160,7 +160,6 @@ h5 {
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
-	
 }
 
 .gwt-Green-Button-big {
@@ -176,7 +175,6 @@ h5 {
 	border-radius: 0.9vw;
 }
 
-
 .textarea {
 	border-style: outset;
 	width: 39vw;
@@ -190,10 +188,11 @@ h5 {
 	font-size: 1vw;
 }
 
-.gwt-DialogBox {
-  width: 1000px;
-  height: 300px;
-  
+.gwt-DialogBox-Notizquelle {
+	margin-top: 25vw;
+	margin-left: 15vw;
+	width: 98vw;
+	height: 200px;
 }
 
 .gwt-TextBox {
@@ -202,7 +201,6 @@ h5 {
 
 .datePicker {
 	margin-top: 17px;
-	
 }
 
 .TextBox-readonly {
@@ -210,10 +208,9 @@ h5 {
 	width: 145px;
 }
 
-.vPanelRight{
+.vPanelRight {
 	margin-left: 20px;
 }
-
 
 .footerButton {
 	max-width: 20vw;
@@ -245,14 +242,13 @@ h5 {
 }
 
 .TopRightCloseButton {
-   float: right;
-   margin-top:-22px;
-   width:16px;
-   height:16px;
-   display:block;
+	float: right;
+	margin-top: -22px;
+	width: 16px;
+	height: 16px;
+	display: block;
 }
 
 .Abmelden {
 	margin-left: 48vw;
-	
 }
