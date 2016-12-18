@@ -20,7 +20,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 
 	public FaelligkeitenEditorPanel() {
 
-		auswahl.isReadOnly();
+		auswahl.setReadOnly(true);
 		auswahl.addStyleName("TextBox-readonly");
 		datepicker.addStyleName("datePicker");
 		setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
