@@ -192,11 +192,6 @@ public class NotizbuchMapper {
 			e2.printStackTrace();
 		}
 
-		for (Notizbuch notizbuch : result) {
-			notizbuch.setNotizen(NotizMapper.notizMapper()
-					.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()));
-		}
-
 		// Ergebnisliste zurueckgeben
 		return result;
 	}
