@@ -49,8 +49,8 @@ public class NotizBaumModel implements TreeViewModel {
 				@Override
 				protected void onRangeChanged(HasData<Notizbuch> display) {
 					
-					administration.nachAllenNotizbuechernDesNutzersSuchen(
-							nutzer, new AsyncCallback<List<Notizbuch>>() {
+					administration.nachAllenNotizbuechernSuchen(
+						new AsyncCallback<List<Notizbuch>>() {
 
 								@Override
 								public void onSuccess(List<Notizbuch> result) {

@@ -24,13 +24,6 @@ public interface ReportGenerator extends RemoteService {
   public void initialisieren() throws IllegalArgumentException;
 
   /**
-   * Setzen des zugeordneten Notizen und Notizbuecher.
-   */
-  public void setNotiz(Notiz no) throws IllegalArgumentException;
-  
-  public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException;
-
-  /**
    * Erstellen eines alleNotizenDesNutzersReport-Reports. 
    * Alle Notizen des Nutzers werden mit diesem Report-Typ dargestellt.
    */

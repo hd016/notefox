@@ -26,10 +26,8 @@ import de.hdm.notefox.client.Notefox;
 
 public class NotizEditorPanel extends HorizontalPanel {
 
+	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektVerwaltung();
 	HTML notizEditor = new HTML("<h3>Notiz</h3>");
-
-	
-	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektAdministrationAsync();
 
 	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	

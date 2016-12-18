@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
+import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.LoginInfo;
@@ -29,7 +30,7 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Label meineNotizBuecher = new Label("Meine Notizb�cher");
+	Label meineNotizBuecher = new Label("Meine Notizbücher");
 
 	HTML br = new HTML("<br>");
 
@@ -39,6 +40,8 @@ public class Notefox implements EntryPoint {
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
 	Berechtigung berechtigung;
 
+	NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel();
+	
 	CellTree celltree;
 
 	FooterPanel footerPanel = new FooterPanel();
@@ -75,6 +78,10 @@ public class Notefox implements EntryPoint {
 	private void onModuleLoadLoggedIn() {
 
 		ersetzeBaum();
+		
+		Label welcomeLabel = new Label();
+		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
+		RootPanel.get("head").add(welcomeLabel);
 
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelRight = new VerticalPanel();

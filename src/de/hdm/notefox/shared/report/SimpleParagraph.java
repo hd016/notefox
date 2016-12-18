@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Einzelne Absätze werden dargestellt. Der Inhalt der Absätze werden as Sring gespeichert.
+ * Einzelne Absï¿½tze werden dargestellt. Der Inhalt der Absï¿½tze werden as Sring gespeichert.
  */
 public class SimpleParagraph extends Paragraph implements Serializable {
 
@@ -21,11 +21,11 @@ public class SimpleParagraph extends Paragraph implements Serializable {
   /**
    * No-Argument-Konstruktor 
    */
-  public SimpleParagraph(Date date) {
+  public SimpleParagraph() {
   }
 
   /**
-   * Ermöglicht den Inhalt des SimpleParagraph-Objekten bereits bei der Instantiierung anzugeben.
+   * Ermï¿½glicht den Inhalt des SimpleParagraph-Objekten bereits bei der Instantiierung anzugeben.
    */
   public SimpleParagraph(String value) {
     this.text = value;
@@ -39,7 +39,7 @@ public class SimpleParagraph extends Paragraph implements Serializable {
   }
 
   /**
-   * Inhalt wird überschrieben.
+   * Inhalt wird ï¿½berschrieben.
    */
   public void setText(String text) {
     this.text = text;

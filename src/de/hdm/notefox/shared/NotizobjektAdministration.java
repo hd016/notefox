@@ -43,17 +43,6 @@ public interface NotizobjektAdministration extends RemoteService {
 	List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException;
 
 	/**
-	 * Auslesen und Setzen der zugeordneten Notizen und Notzibuecher.
-	 */
-	public Notiz getNotiz() throws IllegalArgumentException;
-
-	public void setNotiz(Notiz no) throws IllegalArgumentException;
-
-	public Notizbuch getNotizbuch() throws IllegalArgumentException;
-
-	public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException;
-
-	/**
 	 * Alle Notizen eines Nutzers auslesen.
 	 */
 	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException;

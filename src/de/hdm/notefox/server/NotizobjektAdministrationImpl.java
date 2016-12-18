@@ -414,6 +414,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		notiz.setSubtitel(url);
 		notiz.setInhalt(webseite);
 		
+		//Speicherung von Titel aus der Webseite  und speichern in den Notiz//
 		Pattern p = Pattern.compile("<title>(.*?)</title>");
 		Matcher m = p.matcher(webseite);
 		if (m.find()) {
@@ -440,8 +441,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		}
 		scanner.close();
 		return stringBuilder.toString();
-
-	}	
+	}
+	
 	/**
 	 * Anlegen einer neuen Notiz. Dies f�hrt implizit zu einem Speichern der
 	 * neuen, leeren Notiz in der Datenbank.
@@ -458,6 +459,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		notiz.setEigentuemer(loginService.getCurrentNutzer());
 		notiz.setNotizbuchId(notizbuch.getId());
 		notiz.setFaelligkeitsdatum(new Date());
+		notiz.setTitel("unbenannt");
 
 		if (berechtigungAnwenden(notizbuch, Berechtigungsart.EDITIEREN) != null) {
 
@@ -559,6 +561,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
 		Notizbuch nb = new Notizbuch();
 		nb.setEigentuemer(n);
+		nb.setTitel("unbenannt");
 
 		/*
 		 * Setzen einer vorl�ufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
@@ -599,44 +602,6 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	/*
 	 * *************************************************************************
 	 * ** ABSCHNITT, Ende: Methoden f�r Notizbuch-Objekts
-	 * *************************************************************************
-	 * **
-	 */
-
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Beginn: Verschiedenes
-	 * *************************************************************************
-	 * **
-	 */
-	/**
-	 * Auslesen der Notiz- und Notizbuchobjekte f�r die diese
-	 * Notizobjektverwaltung gewisserma�en t�tig sind.
-	 */
-	@Override
-	public Notiz getNotiz() throws IllegalArgumentException {
-		return this.notiz;
-	}
-
-	public Notizbuch getNotizbuch() throws IllegalArgumentException {
-		return this.notizbuch;
-	}
-
-	/**
-	 * Setzen der Notizen und Notizbucher f�r die diese Notizobjektverwaltung
-	 * t�tig ist.
-	 */
-	@Override
-	public void setNotiz(Notiz no) throws IllegalArgumentException {
-		this.notiz = no;
-	}
-
-	public void setNotizbuch(Notizbuch nb) throws IllegalArgumentException {
-		this.notizbuch = nb;
-	}
-	/*
-	 * *************************************************************************
-	 * ** ABSCHNITT, Ende: Verschiedenes
 	 * *************************************************************************
 	 * **
 	 */
