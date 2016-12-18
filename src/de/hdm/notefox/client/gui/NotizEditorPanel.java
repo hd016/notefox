@@ -33,11 +33,12 @@ public class NotizEditorPanel extends HorizontalPanel {
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
-	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 	Label Notiztitel = new Label("Titel");
+	Label notizbuchSubtitel = new Label("Subtitel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
 	TextBox titel = new TextBox();
+	TextBox subtitel = new TextBox();
 	DialogBox bx = new DialogBox();
 
 	private Notizobjekt notizobjekt;
@@ -51,8 +52,11 @@ public class NotizEditorPanel extends HorizontalPanel {
 		vPanel.add(notizEditor);
 		vPanel.add(Notiztitel);
 		vPanel.add(titel);
+		vPanel.add(notizbuchSubtitel);
+		vPanel.add(subtitel);
 		vPanel.add(Rich);
 		vPanel.add(area);
+		this.add(vPanel);
 		this.add(faelligkeiten);
 
 		area.addStyleName("textarea");
@@ -84,10 +88,20 @@ public class NotizEditorPanel extends HorizontalPanel {
 		if(notizobjekt instanceof Notiz){
 			Notiz notiz = (Notiz) notizobjekt;
 			faelligkeiten.setVisible(true);
+			Rich.setVisible(true);
+			area.setVisible(true);
+			notizbuchSubtitel.setVisible(false);
+			subtitel.setVisible(false);
 			faelligkeiten.setFaelligkeisdatum(notiz.getFaelligkeitsdatum());
+			
 		}
 		else {
+			notizEditor.setHTML("<h3>Notizbuch</h3>");
 			faelligkeiten.setVisible(false);
+			Rich.setVisible(false);
+			area.setVisible(false);
+			notizbuchSubtitel.setVisible(true);
+			subtitel.setVisible(true);
 		}
 	}
 
@@ -106,6 +120,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 				notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());
 			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
+				notizbuch.setSubtitel(subtitel.getText());
 				notizobjektverwaltung.speichern(notizbuch, new NotizbuchSpeichernAsyncCallback());
 			}
 

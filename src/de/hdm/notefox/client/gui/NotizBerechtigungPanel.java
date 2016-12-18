@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HTML;
@@ -14,7 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
-public class NotizBerechtigungPanel extends CellTable {
+public class NotizBerechtigungPanel extends VerticalPanel {
 
 	HTML uberschrift = new HTML("<h3>Berechtigungen</h3>");
 
@@ -92,7 +93,7 @@ public class NotizBerechtigungPanel extends CellTable {
 	      panel.setBorderWidth(1);	    
 	      panel.setWidth("400");
 	      panel.add(table);		
-	
+	      add(panel);
 	}
 	    	      
 }

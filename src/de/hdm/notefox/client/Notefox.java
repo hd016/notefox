@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.NotizBaumModel;
+import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.LoginInfo;
@@ -37,41 +38,40 @@ public class Notefox implements EntryPoint {
 	VerticalPanel vBrowser = new VerticalPanel();
 
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
-	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
 	Berechtigung berechtigung;
 
+	NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel();
+	
 	CellTree celltree;
 
 	FooterPanel footerPanel = new FooterPanel();
-	
+
 	LoginInfo loginInfo;
 
-	NotizobjektAdministrationAsync administration = GWT
-			.create(NotizobjektAdministration.class);
+	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
 	@Override
 	public void onModuleLoad() {
 
+		schlieseInhalt();
+
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 
-		loginService.login(GWT.getHostPageBaseURL(),
-				new AsyncCallback<LoginInfo>() {
-					
+		loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LoginInfo>() {
 
-					public void onFailure(Throwable error) {
-					}
+			public void onFailure(Throwable error) {
+			}
 
-					public void onSuccess(LoginInfo loginInfo) {
-						Notefox.this.loginInfo = loginInfo;
-						if (loginInfo.isLoggedIn()) {
-							onModuleLoadLoggedIn();
-						} else {
-							RootPanel.get("gwtContainer").clear();
-							RootPanel.get("gwtContainer").add(
-									new LoginPanel(loginInfo));
-						}
-					}
-				});
+			public void onSuccess(LoginInfo loginInfo) {
+				Notefox.this.loginInfo = loginInfo;
+				if (loginInfo.isLoggedIn()) {
+					onModuleLoadLoggedIn();
+				} else {
+					RootPanel.get("gwtContainer").clear();
+					RootPanel.get("gwtContainer").add(new LoginPanel(loginInfo));
+				}
+			}
+		});
 
 	}
 
@@ -96,8 +96,8 @@ public class Notefox implements EntryPoint {
 			panel.setVisible(true);
 		}
 	}
-	
-	public void schlieseInhalt(){
+
+	public void schlieseInhalt() {
 		zeigeInhalt(null);
 	}
 
@@ -106,8 +106,7 @@ public class Notefox implements EntryPoint {
 
 			@Override
 			public void onSuccess(Notiz result) {
-				zeigeInhalt(notizeditorpanel);
-				notizeditorpanel.setNotizobjekt(result);
+				zeigeNotiz(result);
 			}
 
 			@Override
@@ -116,15 +115,37 @@ public class Notefox implements EntryPoint {
 		});
 	}
 
+	public void neuesNotizbuch() {
+		administration.anlegenNotizbuecherFuer(loginInfo.getNutzer(), new AsyncCallback<Notizbuch>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onSuccess(Notizbuch result) {
+				zeigeNotizbuch(result);
+				ersetzeBaum();
+			}
+		});
+
+	}
+
 	public void zeigeNotiz(Notiz notiz) {
 		zeigeInhalt(notizeditorpanel);
 		notizeditorpanel.setNotizobjekt(notiz);
 	}
-	
-	public void ersetzeBaum(){
-		celltree = new CellTree(
-				new NotizBaumModel(this, loginInfo.getNutzer()), null);
-		
+
+	public void zeigeNotizbuch(Notizbuch notizbuch) {
+		zeigeInhalt(notizeditorpanel);
+		notizeditorpanel.setNotizobjekt(notizbuch);
+	}
+
+	public void ersetzeBaum() {
+		celltree = new CellTree(new NotizBaumModel(this, loginInfo.getNutzer()), null);
+
 		vPanel.clear();
 		vPanel.add(meineNotizBuecher);
 		vPanel.add(celltree);
