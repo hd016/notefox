@@ -16,6 +16,13 @@ import de.hdm.notefox.shared.bo.*;
  */
 
 public class NutzerMapper {
+	
+	
+// Zwischen Connector wegen Connection Socket Fehler
+	// Auskommentieren um den blockierten Socket wieder freizugeben
+//	public static void main(String[] args) {
+//		NutzerMapper.nutzerMapper().nachNutzerEmailSuchen("ppppp@example.com");
+//	}
 
 	/**
 	 * Eimalige Instantiierung der Klasse NutzerMapper (Singleton) Einmal f�r
