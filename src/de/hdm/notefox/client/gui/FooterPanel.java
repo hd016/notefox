@@ -14,7 +14,7 @@ public class FooterPanel extends VerticalPanel {
 
 	public FooterPanel() {
 
-		Image footerImage = new Image("/images/notefoxeinbettungbeispiel1.0.png");
+		Image footerImage = new Image("/images/notefoxeinbetten.png");
 		footerImage.addStyleName("footerButton");
 		footerImage.getElement().getStyle().setCursor(Cursor.POINTER);
 		footerImage.addClickHandler(new NotizquelleClickHandler());
