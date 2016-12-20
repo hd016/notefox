@@ -18,7 +18,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class FreigebenDialogBox extends DialogBox {
 
+	
+	
+	
 	FreigebenDialogBox() {
+	
+		NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel();
+		
 		setText("Notiz Freigeben für..");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -67,6 +73,7 @@ public class FreigebenDialogBox extends DialogBox {
 		panel.add(Berechtigung);
 		panel.add(hPanelRadios);
 		panel.add(hPanelDown);
+		panel.add(nbPanel);
 		setWidget(panel);
 
 	}
