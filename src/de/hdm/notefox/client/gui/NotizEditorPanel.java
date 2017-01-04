@@ -204,7 +204,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			FreigebenDialogBox dialogbox = new FreigebenDialogBox();
+			FreigebenDialogBox dialogbox = new FreigebenDialogBox(notizobjekt);
 			int left = Window.getClientWidth() / 2;
 			int top = Window.getClientHeight() / 2;
 			dialogbox.addStyleName("gwt-DialogBox");
