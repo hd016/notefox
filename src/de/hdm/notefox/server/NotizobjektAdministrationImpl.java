@@ -419,6 +419,15 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 			throw new NutzerAusnahme("Keine Berechtigung vorhanden.");
 		}
 	}
+	// Berechtigung Methoden
+	
+	public Berechtigung anlegenBerechtigung(Berechtigung berechtigung){
+		return bMapper.anlegenBerechtigung(berechtigung);
+		
+	}
+	
+	
+	
 
 	// externe Webseiten auslesen und in Notiz anlegen//
 	public Notiz anlegenNotiz(String url) throws IllegalArgumentException {
@@ -724,5 +733,12 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		}
 
 		return false;
+	}
+
+	@Override
+	public Berechtigung loeschenBerechtigung(Berechtigung be) {
+		
+		 bMapper.berechtigungVerweigern(be);
+		 return be;
 	}
 }

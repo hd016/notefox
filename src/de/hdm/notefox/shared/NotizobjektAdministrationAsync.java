@@ -59,4 +59,8 @@ void nachAllenBerechtigungenDerNotizSuchen(Notiz no,
 void nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb,
 		AsyncCallback<List<Berechtigung>> callback);
 
+void anlegenBerechtigung(Berechtigung berechtigung, AsyncCallback<Berechtigung> callback);
+
+void loeschenBerechtigung(Berechtigung be, AsyncCallback<Berechtigung> callback);
+
 }

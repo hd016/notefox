@@ -125,4 +125,8 @@ public interface NotizobjektAdministration extends RemoteService {
 	List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb)
 			throws IllegalArgumentException;
 
+	Berechtigung anlegenBerechtigung(Berechtigung berechtigung);
+
+	Berechtigung loeschenBerechtigung(Berechtigung be);
+	
 }
