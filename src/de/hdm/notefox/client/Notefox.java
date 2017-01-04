@@ -41,8 +41,6 @@ public class Notefox implements EntryPoint {
 
 	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
 	Berechtigung berechtigung;
-
-	NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel();
 	
 	CellTree celltree;
 

@@ -1,9 +1,11 @@
 package de.hdm.notefox.shared;
 
+import java.io.Serializable;
+
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
-public class Berechtigung {
+public class Berechtigung implements Serializable {
 
 	public static enum Berechtigungsart {
 		LESEN, EDITIEREN, LOESCHEN
@@ -18,6 +20,10 @@ public class Berechtigung {
 	private Notiz notiz;
 	private Notizbuch notizbuch;
 	private Nutzer berechtigter;
+	
+	public Berechtigung() {
+	}
+	
 	/**
 	 * Auslesen und Setzen der Variablen
 	 */
