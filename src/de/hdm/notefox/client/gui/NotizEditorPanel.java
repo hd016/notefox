@@ -41,7 +41,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 	// NotizObjektTree = null;
 
 	Label Notiztitel = new Label("Titel");
-	Label eigentuemerTitel = new Label("Eigentuemer");
+	Label eigentuemerTitel = new Label("Eigentümer");
 	Label notizbuchSubtitel = new Label("Subtitel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
