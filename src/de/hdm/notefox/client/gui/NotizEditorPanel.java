@@ -1,6 +1,10 @@
 package de.hdm.notefox.client.gui;
 
+import java.util.List;
+
 import com.google.gwt.core.shared.GWT;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -11,11 +15,13 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.shared.LoginInfo;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
@@ -32,11 +38,13 @@ public class NotizEditorPanel extends HorizontalPanel {
 	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 
 	Panel faelligkeiten = new VerticalPanel();
-	
+	Panel eigentuemer = new VerticalPanel();
+
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
 
 	Label Notiztitel = new Label("Titel");
+	Label eigentuemerTitel = new Label("Eigentuemer");
 	Label notizbuchSubtitel = new Label("Subtitel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
@@ -47,16 +55,20 @@ public class NotizEditorPanel extends HorizontalPanel {
 	private Notizobjekt notizobjekt;
 
 	VerticalPanel vPanel = new VerticalPanel();
-	
-	private Notefox notefox;
 
-	public NotizEditorPanel(Notefox notefox) {
+	private Notefox notefox;
+	private LoginInfo loginInfo;
+
+	public NotizEditorPanel(Notefox notefox, LoginInfo loginInfo) {
 		this.notefox = notefox;
+		this.loginInfo = loginInfo;
 		vPanel.add(notizEditor);
 		vPanel.add(Notiztitel);
 		vPanel.add(titel);
 		vPanel.add(notizbuchSubtitel);
 		vPanel.add(subtitel);
+		vPanel.add(eigentuemerTitel);
+		vPanel.add(eigentuemer);
 		vPanel.add(Rich);
 		vPanel.add(area);
 		this.add(vPanel);
@@ -84,11 +96,11 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 	}
 
-	public void setNotizobjekt(Notizobjekt notizobjekt) {
+	public void setNotizobjekt(final Notizobjekt notizobjekt) {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
 		area.setHTML(notizobjekt.getInhalt());
-		if(notizobjekt instanceof Notiz){
+		if (notizobjekt instanceof Notiz) {
 			Notiz notiz = (Notiz) notizobjekt;
 			Rich.setVisible(true);
 			area.setVisible(true);
@@ -96,8 +108,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 			subtitel.setVisible(false);
 			faelligkeiten.clear();
 			faelligkeiten.add(new FaelligkeitenEditorPanel(notiz));
-		}
-		else {
+		} else {
 			notizEditor.setHTML("<h3>Notizbuch</h3>");
 			faelligkeiten.setVisible(false);
 			Rich.setVisible(false);
@@ -105,6 +116,49 @@ public class NotizEditorPanel extends HorizontalPanel {
 			notizbuchSubtitel.setVisible(true);
 			subtitel.setVisible(true);
 		}
+
+		final ListBox besitzerListBox = new ListBox();
+		besitzerListBox.setEnabled(loginInfo.getNutzer().equals(notizobjekt.getEigentuemer()));
+		besitzerListBox.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+				int nutzerId = Integer.valueOf(besitzerListBox.getSelectedValue());
+				notizobjektverwaltung.nachNutzerIdSuchen(nutzerId, new AsyncCallback<Nutzer>() {
+
+					@Override
+					public void onSuccess(Nutzer result) {
+						notizobjekt.setEigentuemer(result);
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+					}
+				});
+			}
+		});
+
+		notizobjektverwaltung.nachAllenNutzernSuchen(new AsyncCallback<List<Nutzer>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+
+			@Override
+			public void onSuccess(List<Nutzer> result) {
+				int i = 0;
+				for (Nutzer nutzer : result) {
+					besitzerListBox.addItem(nutzer.getEmail(), nutzer.getNutzerId() + "");
+					if (nutzer.equals(notizobjekt.getEigentuemer())) {
+						besitzerListBox.setSelectedIndex(i);
+					}
+					i++;
+				}
+			}
+		});
+
+		eigentuemer.clear();
+		eigentuemer.add(besitzerListBox);
 	}
 
 	private class speichernClickHandler implements ClickHandler {
@@ -113,7 +167,6 @@ public class NotizEditorPanel extends HorizontalPanel {
 		public void onClick(ClickEvent event) {
 			notizobjekt.setTitel(titel.getValue());
 			notizobjekt.setInhalt(area.getHTML());
-
 
 			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
@@ -132,7 +185,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			if(caught instanceof NutzerAusnahme){
+			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
 			}
@@ -150,7 +203,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			if(caught instanceof NutzerAusnahme){
+			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
 			}
@@ -167,14 +220,13 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			if(notizobjekt instanceof Notiz){
+			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
 				notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
-			} else if(notizobjekt instanceof Notizbuch){
+			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
 				notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
 			}
-			
 
 		}
 
@@ -184,7 +236,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			if(caught instanceof NutzerAusnahme){
+			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
 			}
