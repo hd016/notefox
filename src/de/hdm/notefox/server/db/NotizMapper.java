@@ -445,10 +445,13 @@ public class NotizMapper {
 		Connection con = DBConnection.connection();
 
 		try {
-			PreparedStatement statement = con.prepareStatement("UPDATE notiz " + "SET id=\"" + no.getId()
-					+ "\", titel=\"" + no.getTitel() + "\", inhalt=?, modifikationsdatum=NOW() "
-					+ "WHERE id=" + no.getId());
+			String sql = "UPDATE notiz " + "SET titel=\"" + no.getTitel() + "\", inhalt=?"
+					+ ", modifikationsdatum=NOW(), faelligkeitsdatum=?"
+					+ ", eigentuemer=" + no.getEigentuemer().getNutzerId()
+					+ " WHERE id=" + no.getId();
+			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, no.getInhalt());
+			statement.setDate(2, new java.sql.Date(no.getFaelligkeitsdatum().getTime()));
 			statement.executeUpdate();
 		} catch (SQLException e2) {
 			e2.printStackTrace();
