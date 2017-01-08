@@ -255,7 +255,41 @@ public class Notefox implements EntryPoint {
 			vPanel.add(labelEmail);
 			vPanel.add(profilLoeschen);
 			RootPanel.get("nav").add(vPanel);
+			
+			profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
+			
 
+		}
+		
+	}
+	
+	
+	private class NutzerLoeschenClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			boolean confirm = Window.confirm("Sollte Ihr Account unwiderruflich gelöscht werden?");
+			if(confirm){administration.loeschenNutzer(loginInfo.getNutzer(),new NutzerLoeschenAsyncCallback());
+			}
+			else {
+				Window.alert("Ihr Account wurde nicht gelöscht.");
+			}
+			
+		}
+		
+	}
+	
+	private class NutzerLoeschenAsyncCallback implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("NÖ!");
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("OK!");
+			Window.Location.replace(loginInfo.getLogoutUrl());
 		}
 		
 	}
