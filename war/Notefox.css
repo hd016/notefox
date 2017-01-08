@@ -250,18 +250,23 @@ h5 {
 }
 
 .Abmelden-Link {
-	float: left;
+
 	margin-left: 10px;
 }
 
 .Impressum-Link {
 	margin-left: 10px;
-	float: left;
+
 }
 
 .Startseite-Link {
-	margin-left: 35vw;
+	margin-left: 30vw;
 }
+
+.MeinProfil-Link {
+	margin-left: 10px;
+}
+
 
 .rot{
 	background-color: red;
@@ -280,3 +285,7 @@ h5 {
 	height: 50px;
 }
 
+.meinProfil-labels{
+	margin-left: 10px;
+	margin-top: 10px;
+}

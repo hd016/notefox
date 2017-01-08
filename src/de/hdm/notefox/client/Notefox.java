@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.Impressum;
+import de.hdm.notefox.client.gui.MeinProfil;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
@@ -48,6 +49,7 @@ public class Notefox implements EntryPoint {
 	CellTree celltree;
 
 	FooterPanel footerPanel = new FooterPanel();
+	
 
 	LoginInfo loginInfo;
 	
@@ -56,6 +58,8 @@ public class Notefox implements EntryPoint {
 	public final Anchor impressumLink = new Anchor("Impressum");
 	
 	public final Anchor startseiteLink = new Anchor("Startseite");
+	
+	public final Anchor meinProfilLink = new Anchor("Mein Profil");
 	
 	Impressum impressum = new Impressum();
 
@@ -91,6 +95,9 @@ public class Notefox implements EntryPoint {
 	}
 
 	private void onModuleLoadLoggedIn() {
+		
+
+		
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		zeigeInhalt(new VerticalPanel());
@@ -118,15 +125,20 @@ public class Notefox implements EntryPoint {
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
+		meinProfilLink.addStyleName("MeinProfil-Link");
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
 		impressumLink.addClickHandler(new ImpressumClickHandler());
+		
+		meinProfilLink.addClickHandler(new MeinProfilClickHandler());
+		
 		
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
 		headerPanel.add(startseiteLink);
+		headerPanel.add(meinProfilLink);
 		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
 		
@@ -215,6 +227,35 @@ public class Notefox implements EntryPoint {
 			RootPanel.get("gwtContainer").clear();
 			RootPanel.get("text").add(impressum);
 			
+		}
+		
+	}
+	
+	private class MeinProfilClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+
+			HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
+			Label labelName = new Label();
+			Label labelEmail = new Label();
+			
+			VerticalPanel vPanel = new VerticalPanel();
+			
+			Anchor profilLoeschen = new Anchor("Mein Profil löschen");
+			labelName.setText("Name: " + loginInfo.getNutzer().getEmail().split("@")[0]);
+			labelEmail.setText("Email: " + loginInfo.getNutzer().getEmail());
+			
+			uberschrift.addStyleName("meinProfil-labels");
+			labelName.addStyleName("meinProfil-labels");
+			labelEmail.addStyleName("meinProfil-labels");
+			profilLoeschen.addStyleName("meinProfil-labels");
+			vPanel.add(uberschrift);
+			vPanel.add(labelName);
+			vPanel.add(labelEmail);
+			vPanel.add(profilLoeschen);
+			RootPanel.get("nav").add(vPanel);
+
 		}
 		
 	}
