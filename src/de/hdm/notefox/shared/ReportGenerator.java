@@ -19,7 +19,7 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 public interface ReportGenerator extends RemoteService {
 
   /**
-   * Objekt wir initialisiert.
+   * Objekt wird initialisiert.
    */
   public void initialisieren() throws IllegalArgumentException;
 
