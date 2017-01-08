@@ -45,7 +45,7 @@ public class FreigebenDialogBox extends DialogBox {
 		this.notizobjekt = notizobjekt;
 		NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel(notizobjekt);
 
-		setText("Notiz Freigeben für..");
+		setText("Freigeben für..");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 
@@ -58,7 +58,6 @@ public class FreigebenDialogBox extends DialogBox {
 
 		});
 
-		Label uberschrift = new Label("Diese Notiz freigeben für: ");
 		emailBox.addStyleName("gwt-TextBox");
 		Button freigeben = new Button("Freigeben");
 
@@ -82,7 +81,6 @@ public class FreigebenDialogBox extends DialogBox {
 		panel.setWidth("500");
 		panel.setSpacing(10);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		panel.add(uberschrift);
 		// emailtitel + emailinput = hpanel
 		hPanel.add(emailBoxLabel);
 		hPanel.add(emailBox);
