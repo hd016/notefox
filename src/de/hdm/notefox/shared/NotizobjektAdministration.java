@@ -1,4 +1,4 @@
-package de.hdm.notefox.shared;
+ package de.hdm.notefox.shared;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
- * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle f�r eine
- * RPC-f�hige Klasse.
+ * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine
+ * RPC-fähige Klasse.
  */
 @RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
@@ -26,7 +26,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	public Notiz anlegenNotiz(Notizbuch notizbuch) throws IllegalArgumentException;
 
 	/**
-	 * Eine neues Notizbuch f�r einen gegebenen Nutzer anlegen.
+	 * Eine neues Notizbuch für einen gegebenen Nutzer anlegen.
 	 */
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException;
 
@@ -35,8 +35,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	 * Auslesen sämtlicher mit diesem Notizbuch in Verbindung stehenden Notizen.
 	 * </p>
 	 * 
-	 * @param nb
-	 *            das Notizbuch, dessen Notiz wir bekommen wollen.
+	 * @param nb das Notizbuch, dessen Notiz wir bekommen wollen.
 	 * @return eine Liste aller Notizen
 	 * @throws IllegalArgumentException
 	 */
@@ -48,7 +47,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException;
 
 	/**
-	 * Alle Notizb�cher eines Nutzers auslesen.
+	 * Alle Notizbücher eines Nutzers auslesen.
 	 */
 	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException;
 
@@ -83,7 +82,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
 
 	/**
-	 * Alle Notizb�cher auslesen.
+	 * Alle Notizbücher auslesen.
 	 */
 	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
 
@@ -103,18 +102,19 @@ public interface NotizobjektAdministration extends RemoteService {
 	public Nutzer speichern(Nutzer n) throws IllegalArgumentException;
 
 	/**
-	 * L�schen der Daten eines �bergegebenen Notiz-Objekts.
+	 * Löschen der Daten eines übergegebenen Notiz-Objekts.
 	 */
 	public void loeschenNotiz(Notiz no) throws NutzerAusnahme;
 
 	/**
-	 * L�schen der Daten eines �bergegebenen Notizbuch-Objekts.
+	 * Löschen der Daten eines übergegebenen Notizbuch-Objekts.
 	 */
 	public void loeschenNotizbuch(Notizbuch nb) throws NutzerAusnahme;
 
 	/**
-	 * L�schen der Daten eines �bergegebenen Nutzer-Objekts.
+	 * Löschen der Daten eines übergegebenen Nutzer-Objekts.
 	 */
+	
 	public void loeschenNutzer(Nutzer n) throws IllegalArgumentException;
 
 	Notiz anlegenNotiz(String url) throws IllegalArgumentException;
