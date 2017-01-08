@@ -294,8 +294,8 @@ public class NotizbuchMapper {
 
 			stmt.executeUpdate("UPDATE notizbuch SET titel=\"" + nb.getTitel()
 					+ "\", subtitel=\"" + nb.getSubtitel()
-					+ "\", modifikationsdatum=NOW() " + ", eigentuemer="
-					+ nb.getEigentuemer().getNutzerId() + "WHERE id="
+					+ "\", modifikationsdatum=NOW(), eigentuemer="
+					+ nb.getEigentuemer().getNutzerId() + " WHERE id="
 					+ nb.getId());
 
 		} catch (SQLException e2) {
