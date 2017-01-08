@@ -753,6 +753,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		 return be;
 	}
 
+	@Override
 	public List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter) {
 		return noMapper.nachNotizenDesFilterSuchen(filter);
 	}
