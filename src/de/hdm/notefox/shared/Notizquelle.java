@@ -12,7 +12,8 @@ public class Notizquelle implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**Variablen der Notizquelle
+	/*
+	 * Variablen der Notizquelle
 	 */
 
 	private int notizquelleId;
@@ -28,7 +29,8 @@ public class Notizquelle implements Serializable {
 	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>(); 
 
 	
-/**Auslesen und Setzen der Variablen
+/*
+ * Auslesen und Setzen der Variablen
  */
 	public int getNotizquelleId() {
 		return notizquelleId;
