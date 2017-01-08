@@ -12,7 +12,8 @@ public class Nutzer implements Serializable {
 	 * Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
+	
+	/*
 	 * Variablen des Nutzers.
 	 */
 
@@ -20,14 +21,14 @@ public class Nutzer implements Serializable {
 	private String email = "";
 	private String name;
 
-	/**
+	/*
 	 * ArrayList mit Objekten der verbundenen Klasse
 	 */
 	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>();
 
 	private ArrayList<Notizbuch> notizbuchliste = new ArrayList<Notizbuch>();
 
-	/**
+	/*
 	 * Auslesen und Setzen der Variablen
 	 */
 	public int getNutzerId() {
