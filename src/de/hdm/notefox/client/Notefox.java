@@ -2,6 +2,8 @@ package de.hdm.notefox.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
+import de.hdm.notefox.client.gui.Impressum;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
@@ -50,6 +53,13 @@ public class Notefox implements EntryPoint {
 	
 	public final Anchor logoutLink = new Anchor("Abmelden");
 
+	public final Anchor impressumLink = new Anchor("Impressum");
+	
+	public final Anchor startseiteLink = new Anchor("Startseite");
+	
+	Impressum impressum = new Impressum();
+
+	
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
@@ -105,11 +115,19 @@ public class Notefox implements EntryPoint {
 		Label welcomeLabel = new Label();
 		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!"); 
 		
-		logoutLink.addStyleName("Abmelden");
+		logoutLink.addStyleName("Abmelden-Link");
+		impressumLink.addStyleName("Impressum-Link");
+		startseiteLink.addStyleName("Startseite-Link");
 		logoutLink.setHref(loginInfo.getLogoutUrl());
+
+		impressumLink.addClickHandler(new ImpressumClickHandler());
+		
+		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
+		headerPanel.add(startseiteLink);
+		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
 		
 		RootPanel.get("head").add(headerPanel);
@@ -188,6 +206,17 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 		vPanel.add(br);
+	}
+	private class ImpressumClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			RootPanel.get("text").clear();
+			RootPanel.get("gwtContainer").clear();
+			RootPanel.get("text").add(impressum);
+			
+		}
+		
 	}
 
 }
