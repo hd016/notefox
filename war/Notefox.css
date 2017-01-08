@@ -249,8 +249,18 @@ h5 {
 	display: block;
 }
 
-.Abmelden {
-	margin-left: 48vw;
+.Abmelden-Link {
+	float: left;
+	margin-left: 10px;
+}
+
+.Impressum-Link {
+	margin-left: 10px;
+	float: left;
+}
+
+.Startseite-Link {
+	margin-left: 35vw;
 }
 
 .rot{
