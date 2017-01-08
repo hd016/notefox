@@ -128,5 +128,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	Berechtigung anlegenBerechtigung(Berechtigung berechtigung);
 
 	Berechtigung loeschenBerechtigung(Berechtigung be);
+
+	List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter);
 	
 }

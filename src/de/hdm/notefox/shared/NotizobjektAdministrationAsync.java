@@ -63,4 +63,7 @@ void anlegenBerechtigung(Berechtigung berechtigung, AsyncCallback<Berechtigung> 
 
 void loeschenBerechtigung(Berechtigung be, AsyncCallback<Berechtigung> callback);
 
+void nachNotizenDesFilterSuchen(Filterobjekt filter,
+		AsyncCallback<List<Notiz>> callback);
+
 }
