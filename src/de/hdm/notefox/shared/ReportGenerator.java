@@ -12,7 +12,7 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 
 /**
- * Zur Erstellung von Reports eine synchrone Schnittstelle f�r eine RPC-f�hige Klasse.
+ * Zur Erstellung von Reports eine synchrone Schnittstelle für eine RPC-fähige Klasse.
  */
 
 @RemoteServiceRelativePath("reportgenerator")

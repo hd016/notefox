@@ -4,23 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Datum implements Serializable {
-	
+
 	/**
 	 * Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**Variablen der Klasse Datum.
+	/*
+	 * Variablen der Klasse Datum.
 	 */
 
 	private int faelligkeitId;
-	
+
 	private boolean status;
-	
+
 	private Date faelligkeitsdatum;
-	
-/**Auslesen und Setzen der Variablen.
- */
+
+	/*
+	 * Auslesen und Setzen der Variablen.
+	 */
 	public int getFaelligkeitId() {
 		return faelligkeitId;
 	}
@@ -43,5 +45,5 @@ public class Datum implements Serializable {
 
 	public void setFaelligkeitsdatum(Date faelligkeitsdatum) {
 		this.faelligkeitsdatum = faelligkeitsdatum;
-	} 
+	}
 }

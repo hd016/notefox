@@ -5,8 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.notefox.shared.Nutzer;
 
 /**
- *TODO
- *@author Harun Dalici & Muhammed Simsek
+ * @author Harun Dalici & Muhammed Simsek
  */
 public interface LoginServiceAsync {
 
