@@ -39,7 +39,7 @@ public class Notefox implements EntryPoint {
 	VerticalPanel vPanel = new VerticalPanel();
 	VerticalPanel vBrowser = new VerticalPanel();
 
-	NotizEditorPanel notizeditorpanel = new NotizEditorPanel(this);
+	Panel notizeditorpanel = new VerticalPanel();
 	Berechtigung berechtigung;
 	
 	CellTree celltree;
@@ -82,6 +82,9 @@ public class Notefox implements EntryPoint {
 
 	private void onModuleLoadLoggedIn() {
 
+		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
+		zeigeInhalt(new VerticalPanel());
+		
 		String urlParameter = Window.Location.getParameter("url");
 		if(urlParameter != null){
 			administration.anlegenNotiz(urlParameter, new AsyncCallback<Notiz>() {
@@ -168,12 +171,12 @@ public class Notefox implements EntryPoint {
 
 	public void zeigeNotiz(Notiz notiz) {
 		zeigeInhalt(notizeditorpanel);
-		notizeditorpanel.setNotizobjekt(notiz);
+		((NotizEditorPanel) notizeditorpanel).setNotizobjekt(notiz);
 	}
 
 	public void zeigeNotizbuch(Notizbuch notizbuch) {
 		zeigeInhalt(notizeditorpanel);
-		notizeditorpanel.setNotizobjekt(notizbuch);
+		((NotizEditorPanel) notizeditorpanel).setNotizobjekt(notizbuch);
 	}
 
 	public void ersetzeBaum() {
