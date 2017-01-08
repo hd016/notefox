@@ -82,8 +82,9 @@ public class NotizbuchMapper {
 			Statement stmt = con.createStatement();
 
 			// Statement ausfuellen und als Query an die DB schicken
-			ResultSet rs = stmt.executeQuery("SELECT notizbuch.*, nutzer.* FROM notizbuch LEFT JOIN nutzer ON notizbuch.eigentuemer = nutzer.nutzerId"
-					+ " WHERE id=" + id);
+			ResultSet rs = stmt
+					.executeQuery("SELECT notizbuch.*, nutzer.* FROM notizbuch LEFT JOIN nutzer ON notizbuch.eigentuemer = nutzer.nutzerId"
+							+ " WHERE id=" + id);
 
 			/*
 			 * Da id Primaerschluessel ist, kann max. nur ein Tupel
@@ -291,10 +292,11 @@ public class NotizbuchMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE notizbuch " + "SET id=\"" + nb.getId()
-					+ "\", titel=\"" + nb.getTitel() + "\", subtitel=\""
-					+ nb.getSubtitel() + "\", modifikationsdatum=NOW() "
-					+ "WHERE id=" + nb.getId());
+			stmt.executeUpdate("UPDATE notizbuch SET titel=\"" + nb.getTitel()
+					+ "\", subtitel=\"" + nb.getSubtitel()
+					+ "\", modifikationsdatum=NOW() " + ", eigentuemer="
+					+ nb.getEigentuemer().getNutzerId() + "WHERE id="
+					+ nb.getId());
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
