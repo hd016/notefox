@@ -2,12 +2,10 @@ package de.hdm.notefox.client.gui;
 
 import java.util.List;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -21,16 +19,15 @@ import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.client.ClientsideSettings;
+import de.hdm.notefox.client.Notefox;
 import de.hdm.notefox.shared.LoginInfo;
-import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.NutzerAusnahme;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
-import de.hdm.notefox.client.ClientsideSettings;
-import de.hdm.notefox.client.Notefox;
 
 public class NotizEditorPanel extends HorizontalPanel {
 
@@ -220,16 +217,16 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			if (notizobjekt instanceof Notiz) {
-				Notiz notiz = (Notiz) notizobjekt;
-				notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
-			} else if (notizobjekt instanceof Notizbuch) {
-				Notizbuch notizbuch = (Notizbuch) notizobjekt;
-				notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+			if (Window.confirm("Sind Sie sich sicher, ob Sie die Notiz löschen möchten?")) {
+				if (notizobjekt instanceof Notiz) {
+					Notiz notiz = (Notiz) notizobjekt;
+					notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
+				} else if (notizobjekt instanceof Notizbuch) {
+					Notizbuch notizbuch = (Notizbuch) notizobjekt;
+					notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+				}
 			}
-
 		}
-
 	}
 
 	private class loeschenAsyncCallback implements AsyncCallback<Void> {
