@@ -82,7 +82,7 @@ public class NotizbuchMapper {
 			Statement stmt = con.createStatement();
 
 			// Statement ausfuellen und als Query an die DB schicken
-			ResultSet rs = stmt.executeQuery("SELECT* FROM notizbuch"
+			ResultSet rs = stmt.executeQuery("SELECT notizbuch.*, nutzer.* FROM notizbuch LEFT JOIN nutzer ON notizbuch.eigentuemer = nutzer.nutzerId"
 					+ " WHERE id=" + id);
 
 			/*
@@ -103,6 +103,7 @@ public class NotizbuchMapper {
 				nb.setModifikationsdatum(rs
 						.getDate("notizbuch.modifikationsdatum"));
 
+				return nb;
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
