@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.Impressum;
-import de.hdm.notefox.client.gui.MeinProfil;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
