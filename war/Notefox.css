@@ -177,7 +177,7 @@ h5 {
 
 .textarea {
 	border-style: outset;
-	width: 39vw;
+	width: 65vw;
 	height: 35vw;
 	border-width: 0.5vw;
 	border-color: #008cc6;
@@ -200,8 +200,8 @@ h5 {
 }
 
 .datePicker {
-	margin-top: 17px;
-}
+	width: 6vw;
+	}
 
 .TextBox-readonly {
 	margin-top: 17px;
@@ -269,3 +269,4 @@ h5 {
 	width: 50px;
 	height: 50px;
 }
+

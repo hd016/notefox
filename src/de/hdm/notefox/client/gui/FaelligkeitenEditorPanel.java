@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.hdm.notefox.shared.bo.Notiz;
@@ -18,14 +19,14 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 public class FaelligkeitenEditorPanel extends VerticalPanel {
 
 	HTML uberschrift = new HTML("<h3>Fälligkeit</h3>");
-	DatePicker datepicker = new DatePicker();
-	final TextBox auswahl = new TextBox();
+	DateBox datepicker = new DateBox();
+    DateTimeFormat dateFormat = DateTimeFormat.getFormat("dd/MM/yyyy");
+
 
 	public FaelligkeitenEditorPanel(final Notiz notiz) {
 
-		auswahl.setReadOnly(true);
-		auswahl.addStyleName("TextBox-readonly");
 		datepicker.addStyleName("datePicker");
+		datepicker.setFormat(new DateBox.DefaultFormat(dateFormat));
 		setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
@@ -34,8 +35,6 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {
 				Date date = event.getValue();
-				String dateString = DateTimeFormat.getFormat("dd/MM/yyyy").format(date);
-				auswahl.setText(dateString);
 				notiz.setFaelligkeitsdatum(date);
 			}
 		});
@@ -61,7 +60,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 		add(ampel);
 		add(uberschrift);
 		add(datepicker);
-		add(auswahl);
+		addStyleName("vPanelRight");
 
 	}
 
