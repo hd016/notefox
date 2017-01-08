@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -30,7 +31,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektVerwaltung();
 	HTML notizEditor = new HTML("<h3>Notiz</h3>");
 
-	FaelligkeitenEditorPanel faelligkeiten = new FaelligkeitenEditorPanel();
+	Panel faelligkeiten = new VerticalPanel();
 	
 	Notiz ausgewahltesNotiz = null;
 	// NotizObjektTree = null;
@@ -89,13 +90,12 @@ public class NotizEditorPanel extends HorizontalPanel {
 		area.setHTML(notizobjekt.getInhalt());
 		if(notizobjekt instanceof Notiz){
 			Notiz notiz = (Notiz) notizobjekt;
-			faelligkeiten.setVisible(true);
 			Rich.setVisible(true);
 			area.setVisible(true);
 			notizbuchSubtitel.setVisible(false);
 			subtitel.setVisible(false);
-			faelligkeiten.setFaelligkeisdatum(notiz.getFaelligkeitsdatum());
-			
+			faelligkeiten.clear();
+			faelligkeiten.add(new FaelligkeitenEditorPanel(notiz));
 		}
 		else {
 			notizEditor.setHTML("<h3>Notizbuch</h3>");
@@ -117,7 +117,6 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
-				notiz.setFaelligkeitsdatum(faelligkeiten.getFaelligkeitsdatum());
 				notizobjektverwaltung.speichern(notiz, new NotizSpeichernAsyncCallback());
 			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
