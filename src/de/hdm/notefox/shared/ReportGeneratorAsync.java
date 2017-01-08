@@ -12,7 +12,7 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 /**
  *Semiautomatisch vom Google Plugin erstellt. 
- *Gegenst�ck des asynchronen Interface (ReportGenerator).
+ *Gegenstück des asynchronen Interface (ReportGenerator).
  */
 public interface ReportGeneratorAsync {
 	

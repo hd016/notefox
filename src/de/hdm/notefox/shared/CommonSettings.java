@@ -1,7 +1,7 @@
 package de.hdm.notefox.shared;
 
 /**
- * Wird Client- und Serverseitig benötigt.
+ * Wird Client- und Serverseitig benÃ¶tigt.
  * Superklasse von ClientsideSettings und ServersiderSettings.
  */
 public class CommonSettings {
