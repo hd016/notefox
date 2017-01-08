@@ -11,7 +11,7 @@ public class Berechtigung implements Serializable {
 		LESEN, EDITIEREN, LOESCHEN
 	}
 
-	/**
+	/*
 	 * Variablen von Permission.
 	 */
 
@@ -24,7 +24,7 @@ public class Berechtigung implements Serializable {
 	public Berechtigung() {
 	}
 	
-	/**
+	/*
 	 * Auslesen und Setzen der Variablen
 	 */
 

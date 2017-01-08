@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.client.gui.FilterPanel;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
@@ -67,8 +68,9 @@ public class NotefoxReport implements EntryPoint {
 		
 
 		main.addStyleName("ReportMain");
-		main.add(vPanelNotizbucher);
-		main.add(vPanelNotizen);
+		main.add(new FilterPanel());
+		//main.add(vPanelNotizbucher);
+		//main.add(vPanelNotizen);
 		RootPanel.get("nav").add(main);
 
 	}
