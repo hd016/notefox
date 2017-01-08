@@ -199,7 +199,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		return result;
 	}
 
-	// TODO
 
 	public AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(Filterobjekt f) throws IllegalArgumentException {
 
