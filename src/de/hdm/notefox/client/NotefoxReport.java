@@ -15,6 +15,7 @@ import de.hdm.notefox.client.gui.FilterPanel;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
+import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
 /**
@@ -28,6 +29,7 @@ public class NotefoxReport implements EntryPoint {
 	Button notizbucherButton = new Button("Report");
 	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Report");
+	FilterPanel filterPanel = new FilterPanel();
 	HorizontalPanel main = new HorizontalPanel();
 	VerticalPanel vPanelNotizen = new VerticalPanel();
 	VerticalPanel vPanelNotizbucher = new VerticalPanel();
@@ -52,6 +54,7 @@ public class NotefoxReport implements EntryPoint {
 		}
 
 		vPanelNotizen.add(notizenLabel);
+		vPanelNotizen.add(filterPanel);
 		vPanelNotizen.add(notizenButton);
 
 		vPanelNotizbucher.add(notizbucherLabel);
@@ -68,17 +71,16 @@ public class NotefoxReport implements EntryPoint {
 		
 
 		main.addStyleName("ReportMain");
-		main.add(new FilterPanel());
 		//main.add(vPanelNotizbucher);
-		//main.add(vPanelNotizen);
+		main.add(vPanelNotizen);
 		RootPanel.get("nav").add(main);
 
 	}
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * SchaltflÃ¤che zum AuslÃ¶sen der Reportgenerierung und einem "Datenteil"
-	 * fÃ¼r die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * für die HTML-Version des Reports.
 	 */
 
 	private class notizbuchReportClickHandler implements ClickHandler {
@@ -93,15 +95,14 @@ public class NotefoxReport implements EntryPoint {
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * SchaltflÃ¤che zum AuslÃ¶sen der Reportgenerierung und einem "Datenteil"
-	 * fÃ¼r die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * für die HTML-Version des Reports.
 	 */
 
 	private class notizReportClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			reportGenerator
-					.erstelleAlleNotizenAllerNutzerReport(new erstelleAlleNotizenAllerNutzerReportCallback());
+			reportGenerator.erstelleGefilterteNotizenReport(filterPanel.erstelleFilterobjekt(), new erstelleAlleNotizenAllerNutzerReportCallback());
 
 		}
 
@@ -146,7 +147,7 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
  * @version 1.0
  */
 class erstelleAlleNotizenAllerNutzerReportCallback implements
-		AsyncCallback<AlleNotizenAllerNutzerReport> {
+		AsyncCallback<AlleNotizenDesNutzersReport> {
 	@Override
 	public void onFailure(Throwable caught) {
 		/*
@@ -158,7 +159,7 @@ class erstelleAlleNotizenAllerNutzerReportCallback implements
 	}
 
 	@Override
-	public void onSuccess(AlleNotizenAllerNutzerReport report) {
+	public void onSuccess(AlleNotizenDesNutzersReport report) {
 		if (report != null) {
 			HTMLReportWriter writer = new HTMLReportWriter();
 			writer.process(report);
