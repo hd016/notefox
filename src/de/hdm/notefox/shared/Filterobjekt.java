@@ -21,7 +21,7 @@ public class Filterobjekt implements Serializable {
 	private Date modifikationsDatumBis;
 	private Date faelligkeitsDatumVon;
 	private Date faelligkeitsDatumBis;
-	private String nutzer;
+	private String nutzer = "";
 	private boolean leseBerechtigungen;
 	private boolean schreibBerechtigungen;
 	private boolean loeschenBerechtigungen;
