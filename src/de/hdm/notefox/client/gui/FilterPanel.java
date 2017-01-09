@@ -24,7 +24,6 @@ public class FilterPanel extends HorizontalPanel {
 	private CheckBox loeschenCheckBox;
 
 	public FilterPanel() {
-		add(new Label("Hallo"));
 		Label titelLabel = new Label("Titel");
 		titelTextBox = new TextBox();
 		Label erstellDatumVonLabel = new Label("Erstelldatum von");
