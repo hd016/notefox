@@ -68,9 +68,9 @@ public class FreigebenDialogBox extends DialogBox {
 		// Radio Buttons für Auswahl der Berechtigungsart
 
 		HorizontalPanel hPanelRadios = new HorizontalPanel();
+		hPanelRadios.add(lesen);
 		hPanelRadios.add(editieren);
 		hPanelRadios.add(loeschen);
-		hPanelRadios.add(lesen);
 		Label emailBoxLabel = new Label("Email: ");
 		Label Berechtigung = new Label("Berechtigungsart:");
 		VerticalPanel panel = new VerticalPanel();
