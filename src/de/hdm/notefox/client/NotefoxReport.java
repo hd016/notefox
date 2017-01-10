@@ -25,15 +25,18 @@ import de.hdm.notefox.shared.report.HTMLReportWriter;
 public class NotefoxReport implements EntryPoint {
 
 	ReportGeneratorAsync reportGenerator = null;
-	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
+//	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
 	Button notizbucherButton = new Button("Report");
-	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
+	//Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Report");
 	FilterPanel filterPanel = new FilterPanel();
-	HorizontalPanel main = new HorizontalPanel();
-	VerticalPanel vPanelNotizen = new VerticalPanel();
-	VerticalPanel vPanelNotizbucher = new VerticalPanel();
-
+	
+	
+	VerticalPanel mainPanel = new VerticalPanel();
+	VerticalPanel erstPanel = new VerticalPanel();
+	VerticalPanel zweitPanel = new VerticalPanel();
+	
+	
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	 * zusichert, benÃ¶tigen wir eine Methode
@@ -53,27 +56,29 @@ public class NotefoxReport implements EntryPoint {
 			reportGenerator = ClientsideSettings.getReportGenerator();
 		}
 
-		vPanelNotizen.add(notizenLabel);
-		vPanelNotizen.add(filterPanel);
-		vPanelNotizen.add(notizenButton);
+		//vPanelNotizen.add(notizenLabel);
+		erstPanel.add(filterPanel);
+		zweitPanel.add(notizenButton);
+		mainPanel.add(erstPanel);
+		mainPanel.add(zweitPanel);
 
-		vPanelNotizbucher.add(notizbucherLabel);
-		vPanelNotizbucher.add(notizbucherButton);
+		//vPanelNotizbucher.add(notizbucherLabel);
+		//vPanelNotizbucher.add(notizbucherButton);
+		
 
-		notizenButton.addStyleName("gwt-Green-Button");
-		notizbucherButton.addStyleName("gwt-Green-Button");
+		notizenButton.addStyleName("Report-Button");
+		notizbucherButton.addStyleName("Report-Button");
 
 		notizenButton.addClickHandler(new notizReportClickHandler());
 		notizbucherButton.addClickHandler(new notizbuchReportClickHandler());
 
-		vPanelNotizbucher.addStyleName("ReportLabel");
-		vPanelNotizen.addStyleName("ReportLabel");
+		//vPanelNotizbucher.addStyleName("ReportLabel");
+		//vPanelNotizen.addStyleName("ReportLabel");
 		
 
-		main.addStyleName("ReportMain");
-		//main.add(vPanelNotizbucher);
-		main.add(vPanelNotizen);
-		RootPanel.get("nav").add(main);
+		mainPanel.addStyleName("ReportMain");
+		RootPanel.get("nav").add(mainPanel);
+
 
 	}
 
