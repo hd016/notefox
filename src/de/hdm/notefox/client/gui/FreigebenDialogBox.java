@@ -132,7 +132,7 @@ public class FreigebenDialogBox extends DialogBox {
 		@Override
 		public void onSuccess(Berechtigung result) {
 			Window.alert("Berechtigung wurde angelegt");
-
+			nbPanel.refresh();
 		}
 
 	}
@@ -170,8 +170,6 @@ public class FreigebenDialogBox extends DialogBox {
 				}
 				berechtigung.setBerechtigungsart(berechtigungsart);
 				notizobjektadministration.anlegenBerechtigung(berechtigung, new freigebenAsyncCallback());
-			
-				nbPanel.refresh();
 			} else {
 				Window.alert("Nutzer nicht gefunden!");
 			}

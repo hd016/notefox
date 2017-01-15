@@ -173,7 +173,6 @@ public class NotizEditorPanel extends HorizontalPanel {
 				notizbuch.setSubtitel(subtitel.getText());
 				notizobjektverwaltung.speichern(notizbuch, new NotizbuchSpeichernAsyncCallback());
 			}
-
 		}
 
 	}
@@ -191,7 +190,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		@Override
 		public void onSuccess(Notiz result) {
 			Window.alert("Ok");
-			setNotizobjekt(result);
+			notefox.baumNeuOeffnen();
 		}
 
 	}
@@ -208,7 +207,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onSuccess(Notizbuch result) {
-			setNotizobjekt(result);
+			notefox.baumNeuOeffnen();
 		}
 
 	}
@@ -243,7 +242,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		public void onSuccess(Void result) {
 			Window.alert("Löschen erfolgreich");
 			notefox.schlieseInhalt();
-			notefox.ersetzeBaum();
+			notefox.ersetzeBaum(null);
 		}
 
 	}

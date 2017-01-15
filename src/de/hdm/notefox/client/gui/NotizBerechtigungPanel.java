@@ -111,7 +111,6 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 			}
 		});
 
-		refresh();
 
 		VerticalPanel panel = new VerticalPanel();
 		panel.setBorderWidth(1);
@@ -119,8 +118,7 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		panel.add(table);
 		add(panel);
 		
-		
-		
+		refresh();
 	}
 	
 	public void refresh(){
