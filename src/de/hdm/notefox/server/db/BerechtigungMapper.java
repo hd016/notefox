@@ -14,9 +14,9 @@ import de.hdm.notefox.shared.bo.*;
  * 
  * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
  * Datenbank abzubilden. Durch die bereitgestellten Methoden kann man Objekte
- * anlegen, editieren, l�schen, teilen und speichern. Objekte k�nnen auf
+ * anlegen, editieren, loeschen, teilen und speichern. Objekte koennen auf
  * diese Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen
- * k�nnen umgekehrt auch in Objekte umgewandelt werden.
+ * koennen umgekehrt auch in Objekte umgewandelt werden.
  * <p>
  * 
  * @see NotizMapper, NotizbuchMapper, NotizquelleMapper, NutzerMapper,
@@ -87,12 +87,12 @@ public class BerechtigungMapper {
 							+ "WHERE berechtigungId=" + id + " ORDER BY berechtigungId ASC");
 
 			/*
-			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
-			 * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
-			 * einen Prim�rschl�ssel handelt.
+			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
+			 * vorliegt. Man erhaelt maximal 1 Tupel, da es sich bei id um
+			 * einen Primaerschluessel handelt.
 			 */
 			if (rs.next()) {
-				// Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
+				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Berechtigung be = new Berechtigung();
 				be.setBerechtigungId(rs.getInt("berechtigungId"));
@@ -136,13 +136,13 @@ public class BerechtigungMapper {
 									: "notizbuch") + "=" + id + " " + (nutzer != null ? "AND berechtigter =" + nutzer.getNutzerId(): ""));
 
 			/*
-			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
-			 * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
-			 * einen Prim�rschl�ssel handelt.
+			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
+			 * vorliegt. Man erhaelt maximal 1 Tupel, da es sich bei id um
+			 * einen Primaerschluessel handelt.
 			 */
 			while (rs.next()) {
 				/*
-				 * Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
+				 * Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				 * werden.
 				 */
 				Nutzer n = new Nutzer();
@@ -173,24 +173,24 @@ public class BerechtigungMapper {
 	      Statement stmt = con.createStatement();
 
 	      /*
-	       * Der h�chste Prim�rschl�sselwert wird �berpr�ft
+	       * Der hoechste Primaerschluesselwert wird ueberprueft
 	       */
 	      ResultSet rs = stmt.executeQuery("SELECT MAX(berechtigungId) AS maxid "
 	          + "FROM berechtigung ");
 
-	      // Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig sein
+	      // Sollte etwas zurueckgegeben werden, so kann dies nur einzeilig sein
 	      if (rs.next()) {
 	    	   /*
-	           * nb erh�lt den bisher maximalen, nun um 1 inkrementierten
-	           * Prim�rschl�ssel.
+	           * nb erhaelt den bisher maximalen, nun um 1 inkrementierten
+	           * Primaerschluessel.
 	           */
 	        be.setBerechtigungId(rs.getInt("maxid") + 1);
 
 	        stmt = con.createStatement();
 
-	        // Hier erfolgt die entscheidende Einf�geoperation
+	        // Hier erfolgt die entscheidende Einfuegeoperation
 	     
-			// Hier erfolgt die entscheidende Einf�geoperation
+			// Hier erfolgt die entscheidende Einfuegeoperation
 			String sql = "INSERT INTO berechtigung (berechtigungId, berechtigungsart, notiz, notizbuch, berechtigter ) "
 					+ "VALUES ("
 					+ be.getBrechtigungId()
@@ -210,10 +210,10 @@ public class BerechtigungMapper {
 	    }
 
 	    /*
-	     * Sollte es korrigierte Daten geben, so werden diese zur�ckgegeben
+	     * Sollte es korrigierte Daten geben, so werden diese zurueckgegeben
 	     * 
-	     * So besteht die M�glichkeit anzudeuten, ob sich ein Objekt ver�ndert hat, 
-	     * w�hrend die Methode ausgef�hrt wurde
+	     * So besteht die Moeglichkeit anzudeuten, ob sich ein Objekt veraendert hat, 
+	     * waehrend die Methode ausgefuehrt wurde
 	     */
 	    return be;
 	  }
