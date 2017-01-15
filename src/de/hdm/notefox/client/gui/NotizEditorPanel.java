@@ -192,7 +192,19 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onSuccess(Notiz result) {
+			Notiz vorhandendeNotiz = (Notiz) notizobjekt;
+			
+			vorhandendeNotiz.setId(result.getId());
+			vorhandendeNotiz.setFaelligkeitsdatum(result.getFaelligkeitsdatum());
+			vorhandendeNotiz.setEigentuemer(result.getEigentuemer());
+			vorhandendeNotiz.setInhalt(result.getInhalt());
+			vorhandendeNotiz.setModifikationsdatum(result.getModifikationsdatum());
+			vorhandendeNotiz.setNotizbuch(result.getNotizbuch());
+			vorhandendeNotiz.setSubtitel(result.getSubtitel());
+			vorhandendeNotiz.setErstelldatum(result.getErstelldatum());
+			vorhandendeNotiz.setTitel(result.getTitel());
 			notefox.ersetzeBaum(result.getNotizbuch());
+			
 			Window.alert("Notiz gespeichert");
 		}
 
@@ -212,6 +224,16 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onSuccess(Notizbuch result) {
+			notizobjekt.setId(result.getId());
+			
+			notizobjekt.setId(result.getId());
+			notizobjekt.setEigentuemer(result.getEigentuemer());
+			notizobjekt.setInhalt(result.getInhalt());
+			notizobjekt.setModifikationsdatum(result.getModifikationsdatum());
+			notizobjekt.setSubtitel(result.getSubtitel());
+			notizobjekt.setErstelldatum(result.getErstelldatum());
+			notizobjekt.setTitel(result.getTitel());
+			
 			notefox.ersetzeBaum(result);
 			Window.alert("Notizbuch wurde gespeichert");
 		}
