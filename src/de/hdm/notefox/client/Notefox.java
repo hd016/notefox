@@ -185,6 +185,7 @@ public class Notefox implements EntryPoint {
 	public void neueNotiz(final Notizbuch notizbuch) {
 		Notiz notiz = new Notiz();
 		notiz.setNotizbuch(notizbuch);
+		notiz.setEigentuemer(loginInfo.getNutzer());
 		
 		zeigeNotiz(notiz);
 	}
