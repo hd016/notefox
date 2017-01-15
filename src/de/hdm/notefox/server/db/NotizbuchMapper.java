@@ -8,13 +8,13 @@ import java.util.Vector;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
-/**
+/*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
- * Unsere Mapper-Klassen erf�llen den Zweck unsere Objekte auf eine relationale
+ * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
  * Datenbank abzubilden. Durch die bereitgestellten Methoden kann man Objekte
- * anlegen, editieren, l�schen, teilen und speichern. Objekte k�nnen auf diese
- * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen k�nnen
+ * anlegen, editieren, loeschen, teilen und speichern. Objekte koennen auf diese
+ * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen koennen
  * umgekehrt auch in Objekte umgewandelt werden.
  * <p>
  * 
@@ -47,7 +47,7 @@ public class NotizbuchMapper {
 	}
 
 	/**
-	 * Diese statische Methode kann aufgrufen werden durch
+	 * Diese statische Methode kann aufgerufen werden durch
 	 * <code>NotizbuchMapper.notizbuchMapper()</code>. Sie stellt die
 	 * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine
 	 * einzige Instanz von <code>NotizbuchMapper</code> existiert.
@@ -131,7 +131,7 @@ public class NotizbuchMapper {
 					.executeQuery("SELECT nutzer.*, notizbuch.* FROM notizbuch LEFT JOIN nutzer ON nutzer.nutzerId = notizbuch.eigentuemer"
 							+ " ORDER BY id");
 
-			// F�r jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt
+			// Fuer jeden Eintrag im Suchergebnis wird nun ein Datum-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Notizbuch nb = new Notizbuch();
@@ -158,7 +158,7 @@ public class NotizbuchMapper {
 	}
 
 	/**
-	 * Auslesen aller Notizb�cher eines durch Fremdschl�ssel (NutzerId)
+	 * Auslesen aller Notizbuecher eines durch Fremdschluessel (NutzerId)
 	 * gegebenen Nutzern.
 	 */
 	public List<Notizbuch> nachEigentuemerDerNotizbuecherSuchen(int id) { // TODO
@@ -187,7 +187,7 @@ public class NotizbuchMapper {
 				nb.setModifikationsdatum(rs
 						.getDate("notizbuch.modifikationsdatum"));
 
-				// Hinzuf�gen des neuen Objekts zur Ergebnisliste
+				// Hinzufuegen des neuen Objekts zur Ergebnisliste
 				result.add(nb);
 			}
 		} catch (SQLException e2) {
@@ -199,7 +199,7 @@ public class NotizbuchMapper {
 	}
 
 	/**
-	 * Auslesen aller Notizb�cher eines Nutzers
+	 * Auslesen aller Notizbuecher eines Nutzers
 	 */
 	public List<Notizbuch> nachEigentuemerSuchen(Nutzer eigentuemer) {
 
@@ -222,25 +222,25 @@ public class NotizbuchMapper {
 			Statement stmt = con.createStatement();
 
 			/*
-			 * Der h�chste Prim�rschl�sselwert wird �berpr�ft
+			 * Der hoechste Primaerschluesselwert wird ueberprueft
 			 */
 			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
 					+ "FROM notizbuch ");
 
-			// Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig
+			// Sollte etwas zurueckgegeben werden, so kann dies nur einzeilig
 			// sein
 			if (rs.next()) {
 				/*
-				 * nb erh�lt den bisher maximalen, nun um 1 inkrementierten
-				 * Prim�rschl�ssel.
+				 * nb erhaelt den bisher maximalen, nun um 1 inkrementierten
+				 * Primaerschluessel.
 				 */
 				nb.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Hier erfolgt die entscheidende Einf�geoperation
+				// Hier erfolgt die entscheidende Einfuegeoperation
 
-				// Hier erfolgt die entscheidende Einf�geoperation
+				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notizbuch (id, eigentuemer, titel, subtitel, erstelldatum, modifikationsdatum ) "
 						+ "VALUES ("
 						+ nb.getId()
@@ -260,10 +260,10 @@ public class NotizbuchMapper {
 		}
 
 		/*
-		 * Sollte es korrigierte Daten geben, so werden diese zur�ckgegeben
+		 * Sollte es korrigierte Daten geben, so werden diese zurueckgegeben
 		 * 
-		 * So besteht die M�glichkeit anzudeuten, ob sich ein Objekt ver�ndert
-		 * hat, w�hrend die Methode ausgef�hrt wurde
+		 * So besteht die Moeglichkeit anzudeuten, ob sich ein Objekt veraendert
+		 * hat, waehrend die Methode ausgefuehrt wurde
 		 */
 		return nb;
 	}
@@ -302,7 +302,7 @@ public class NotizbuchMapper {
 			e2.printStackTrace();
 		}
 
-		// Um Analogie zu anlegenDatum(Datum a) zu wahren, geben wir nb zur�ck
+		// Um Analogie zu anlegenDatum(Datum a) zu wahren, geben wir nb zurueck
 		return nb;
 	}
 
@@ -346,7 +346,7 @@ public class NotizbuchMapper {
 	}
 
 	/**
-	 * Auslesen des zugeh�rigen Nutzer-Objekts zu einem gegebenen Notizbuch.
+	 * Auslesen des zugehoerigen Nutzer-Objekts zu einem gegebenen Notizbuch.
 	 */
 	public Nutzer getNutzerId(Notizbuch nb) {
 		return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(nb.getId());

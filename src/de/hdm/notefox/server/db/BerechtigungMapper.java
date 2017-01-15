@@ -9,7 +9,7 @@ import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
-/**
+/*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale

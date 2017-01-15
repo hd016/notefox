@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import com.google.appengine.api.utils.SystemProperty;
 
-/**
+/*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Verwalten einer Verbindung zur Datenbank.
@@ -63,7 +63,7 @@ public class DBConnection {
      * 
      * <b>Nachteil:</b> Bei Zusammenbruch der Verbindung zur Datenbank - dies
      * kann z.B. durch ein unbeabsichtigtes Herunterfahren der Datenbank
-     * ausgelöst werden - wird keine neue Verbindung aufgebaut, so dass die in
+     * ausgeloest werden - wird keine neue Verbindung aufgebaut, so dass die in
      * einem solchen Fall die gesamte Software neu zu starten ist. In einer
      * robusten Loesung wuerde man hier die Klasse dahingehend modifizieren, dass
      * bei einer nicht mehr funktionsfaehigen Verbindung stets versucht wuerde,
@@ -103,7 +103,7 @@ public class DBConnection {
             }
         }
 
-        // Verbindung wird zur�ckgegeben
+        // Verbindung wird zurueckgegeben
         return con;
     }
 
