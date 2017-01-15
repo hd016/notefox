@@ -107,7 +107,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 			faelligkeiten.add(new FaelligkeitenEditorPanel(notiz));
 		} else {
 			notizEditor.setHTML("<h3>Notizbuch</h3>");
-			faelligkeiten.setVisible(false);
+			faelligkeiten.clear();
 			Rich.setVisible(false);
 			area.setVisible(false);
 			notizbuchSubtitel.setVisible(true);
