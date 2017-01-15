@@ -345,3 +345,9 @@ Anlehnung an: http://www.w3schools.com/css/css3_buttons.asp
 	font-weight: bold;
 	margin-left: -18px;
 }
+
+.com-google-gwt-user-cellview-client-CellTree-Style-cellTreeKeyboardSelectedItem {
+	background-color: #eaf1f2 !important;
+}
+
+
