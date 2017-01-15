@@ -162,7 +162,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			notizobjekt.setTitel(titel.getValue());
+			notizobjekt.setTitel(titel.getText());
 			notizobjekt.setInhalt(area.getHTML());
 
 			if (notizobjekt instanceof Notiz) {
@@ -189,8 +189,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onSuccess(Notiz result) {
-			Window.alert("Ok");
-			notefox.baumNeuOeffnen();
+			notefox.ersetzeBaum(result.getNotizbuch());
 		}
 
 	}
@@ -207,7 +206,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onSuccess(Notizbuch result) {
-			notefox.baumNeuOeffnen();
+			notefox.ersetzeBaum(result);
 		}
 
 	}

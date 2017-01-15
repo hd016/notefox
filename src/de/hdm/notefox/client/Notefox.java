@@ -164,37 +164,17 @@ public class Notefox implements EntryPoint {
 	}
 
 	public void neueNotiz(final Notizbuch notizbuch) {
-		administration.anlegenNotiz(notizbuch, new AsyncCallback<Notiz>() {
-
-			@Override
-			public void onSuccess(Notiz result) {
-				zeigeNotiz(result);
-				ersetzeBaum(notizbuch);
-
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-		});
+		Notiz notiz = new Notiz();
+		notiz.setNotizbuch(notizbuch);
+		
+		zeigeNotiz(notiz);
 	}
 
 	public void neuesNotizbuch() {
-		administration.anlegenNotizbuecherFuer(loginInfo.getNutzer(), new AsyncCallback<Notizbuch>() {
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onSuccess(Notizbuch result) {
-				zeigeNotizbuch(result);
-				ersetzeBaum(result);
-			}
-		});
-
+		Notizbuch notizbuch = new Notizbuch();
+		notizbuch.setEigentuemer(loginInfo.getNutzer());
+		
+		zeigeNotizbuch(notizbuch);
 	}
 
 	public void zeigeNotiz(Notiz notiz) {
