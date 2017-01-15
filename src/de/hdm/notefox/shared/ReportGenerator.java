@@ -12,14 +12,14 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 
 /**
- * Zur Erstellung von Reports eine synchrone Schnittstelle f�r eine RPC-f�hige Klasse.
+ * Zur Erstellung von Reports eine synchrone Schnittstelle für eine RPC-fähige Klasse.
  */
 
 @RemoteServiceRelativePath("reportgenerator")
 public interface ReportGenerator extends RemoteService {
 
   /**
-   * Objekt wir initialisiert.
+   * Objekt wird initialisiert.
    */
   public void initialisieren() throws IllegalArgumentException;
 
@@ -50,4 +50,6 @@ public interface ReportGenerator extends RemoteService {
    */
   public abstract AlleNotizbuecherAllerNutzerReport erstelleAlleNotizbuecherAllerNutzerReport() 
 		  throws IllegalArgumentException;
+
+AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(Filterobjekt f) throws IllegalArgumentException;
 }

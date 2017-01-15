@@ -8,7 +8,6 @@ import de.hdm.notefox.shared.Nutzer;
 /**
  * Synchrone Schnittstelle für die Klasse <code>LoginServiceImpl</code>.
  * 
- * 
  * @author Harun Dalici & Muhammed Simsek
  */
 

@@ -18,6 +18,7 @@ import de.hdm.notefox.server.db.NutzerMapper;
 import de.hdm.notefox.server.report.ReportGeneratorImpl;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
+import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -746,4 +747,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		 bMapper.berechtigungVerweigern(be);
 		 return be;
 	}
+
+	@Override
+	public List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter) {
+		return noMapper.nachNotizenDesFilterSuchen(filter);
+	}
+	
+	
 }

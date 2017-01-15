@@ -7,12 +7,14 @@ import java.util.Vector;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
-/**
- * ï¿½Unsere Mapper-Klassen erfï¿½llen den Zweck unsere Objekte auf eine relationale
+/*
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
+ * 
+ * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
  * Datenbankabzubilden. Durch die bereitgestellten Methoden kann man Objekte
- * anlegen, editieren, lï¿½schen, teilen und speichern.Objekte kï¿½nnen auf diese
- * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen kï¿½nnen
- * umgekehrt auch in Objekte umgewandelt werden.ï¿½
+ * anlegen, editieren, loeschen, teilen und speichern.Objekte koennen auf diese
+ * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen koennen
+ * umgekehrt auch in Objekte umgewandelt werden.
  */
 
 public class NutzerMapper {
@@ -25,8 +27,8 @@ public class NutzerMapper {
 //	}
 
 	/**
-	 * Eimalige Instantiierung der Klasse NutzerMapper (Singleton) Einmal fï¿½r
-	 * sï¿½mtliche Instanzen dieser Klasse vorhanden, speichert die einzige
+	 * Eimalige Instantiierung der Klasse NutzerMapper (Singleton) Einmal fuer
+	 * saemtliche Instanzen dieser Klasse vorhanden, speichert die einzige
 	 * Instanz dieser Klasse
 	 */
 
@@ -72,12 +74,12 @@ public class NutzerMapper {
 							+ "WHERE nutzerId=" + nutzerId);
 
 			/*
-			 * An dieser Stelle kann man prï¿½fen ob bereits ein Ergebnis
+			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
 			 * vorliegt. Man erhï¿½lt maximal 1 Tupel, da es sich bei id um einen
-			 * Primï¿½rschlï¿½ssel handelt.
+			 * Primaerschluessel handelt.
 			 */
 			if (rs.next()) {
-				// Das daraus ergebene Tupel muss in ein Objekt ï¿½berfï¿½hrt
+				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Nutzer n = new Nutzer();
 				n.setNutzerId(rs.getInt("nutzerId"));
@@ -110,7 +112,7 @@ public class NutzerMapper {
 			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
 					+ "FROM nutzer " + "ORDER BY name");
 
-			// Jetzt werden die Eintrï¿½ge durchsucht und fï¿½r jedes gefundene ein
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene ein
 			// Nutzer Objekt erstellt
 
 			while (rs.next()) {
@@ -120,14 +122,14 @@ public class NutzerMapper {
 				n.setName(rs.getString("name"));
 
 
-				// Es wird ein neues Objekt hinzugefï¿½gt
+				// Es wird ein neues Objekt hinzugefuegt
 				result.add(n);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		// Die Ergebnisliste wird zurï¿½ckgegeben
+		// Die Ergebnisliste wird zurueckgegeben
 		return result;
 	}
 
@@ -145,7 +147,7 @@ public class NutzerMapper {
 					+ "FROM nutzer " + "WHERE email LIKE '" + name
 					+ "' ORDER BY email");
 
-			// Jetzt werden die Eintrï¿½ge durchsucht und fï¿½r jedes gefundene ein
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene ein
 			// Nutzer Objekt erstellt
 
 			while (rs.next()) {
@@ -155,14 +157,14 @@ public class NutzerMapper {
 				n.setName(rs.getString("name"));
 
 
-				// Es wird ein neues Objekt hinzugefï¿½gt
+				// Es wird ein neues Objekt hinzugefuegt
 				return n;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		// null wird zurï¿½ckgegegeben
+		// null wird zurueckgegegeben
 		return null;
 	}
 
@@ -176,23 +178,23 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			// Der hï¿½chste Primï¿½rschlï¿½sselwert wird ï¿½berprï¿½ft
+			// Der hoechste Primïaerschluesselwert wird ueberprueft
 
 			ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid "
 					+ "FROM nutzer ");
 
-			// Sollte etwas zurï¿½ckgegeben werden, so kann dies nur einzeilig
+			// Sollte etwas zurueckgegeben werden, so kann dies nur einzeilig
 			// sein
 			if (rs.next()) {
 				/*
-				 * c kriegt nun den maximalen Primï¿½rschlï¿½ssel, welcher mit dem
+				 * c kriegt nun den maximalen Primaerschluessel, welcher mit dem
 				 * Wert 1 inkrementiert wird
 				 */
 				n.setNutzerId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Hier erfolgt die entscheidende Einfï¿½geoperation
+				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO nutzer (nutzerId, email, name) "
 						+ "VALUES (" + n.getNutzerId() + ", \"" + n.getEmail()
 						+ "\", \"" + n.getName() + "\")";
@@ -204,10 +206,10 @@ public class NutzerMapper {
 		}
 
 		/*
-		 * Sollte es korrigierte Nutzer geben, so werden diese zurï¿½ckgegeben
+		 * Sollte es korrigierte Nutzer geben, so werden diese zurueckgegeben
 		 * 
-		 * So besteht die Mï¿½glichkeit anzudeuten ob sich ein Objekt verï¿½ndert
-		 * hat, wï¿½hrend die Methode ausgefï¿½hrt wurde
+		 * So besteht die Moeglichkeit anzudeuten ob sich ein Objekt veraendert
+		 * hat, waehrend die Methode ausgefuehrt wurde
 		 */
 		return n;
 	}
@@ -242,13 +244,13 @@ public class NutzerMapper {
 			e.printStackTrace();
 		}
 
-		// Um ï¿½hnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren,
-		// geben wir nun c zurï¿½ck
+		// Um aehnliche Strukturen wie zu anlegenNutzer(Nutzer c) zu wahren,
+		// geben wir nun c zurueck
 		return n;
 	}
 
 	/**
-	 * Lï¿½schen der Daten eines Nutzer-Objekts aus der Datenbank.
+	 * Loeschen der Daten eines Nutzer-Objekts aus der Datenbank.
 	 */
 	public void loeschenNutzer(Nutzer n) {
 		Connection con = DBConnection.connection();
@@ -264,7 +266,7 @@ public class NutzerMapper {
 	}
 
 	/**
-	 * Auslesen der zugehï¿½rigen Notizen-Objekte zu einem gegebenen Nutzer.
+	 * Auslesen der zugehoerigen Notizen-Objekte zu einem gegebenen Nutzer.
 	 */
 
 	public List<Notiz> getNotizOf(Nutzer n) {
@@ -272,7 +274,7 @@ public class NutzerMapper {
 	}
 
 	/**
-	 * Auslesen der zugehï¿½rigen Notizbï¿½cher-Objekte zu einem gegebenen Nutzer.
+	 * Auslesen der zugehoerigen Notizbuecher-Objekte zu einem gegebenen Nutzer.
 	 */
 	public List<Notizbuch> getNotizbuchOf(Nutzer c) {
 		return NotizbuchMapper.notizbuchMapper().nachEigentuemerSuchen(c);

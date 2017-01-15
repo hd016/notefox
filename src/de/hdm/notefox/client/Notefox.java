@@ -2,6 +2,8 @@ package de.hdm.notefox.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -16,6 +18,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
+import de.hdm.notefox.client.gui.Impressum;
 import de.hdm.notefox.client.gui.NotizBaumModel;
 import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
@@ -45,11 +48,21 @@ public class Notefox implements EntryPoint {
 	CellTree celltree;
 
 	FooterPanel footerPanel = new FooterPanel();
+	
 
 	LoginInfo loginInfo;
 	
 	public final Anchor logoutLink = new Anchor("Abmelden");
 
+	public final Anchor impressumLink = new Anchor("Impressum");
+	
+	public final Anchor startseiteLink = new Anchor("Startseite");
+	
+	public final Anchor meinProfilLink = new Anchor("Mein Profil");
+	
+	Impressum impressum = new Impressum();
+
+	
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
@@ -81,6 +94,9 @@ public class Notefox implements EntryPoint {
 	}
 
 	private void onModuleLoadLoggedIn() {
+		
+
+		
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		zeigeInhalt(new VerticalPanel());
@@ -105,11 +121,24 @@ public class Notefox implements EntryPoint {
 		Label welcomeLabel = new Label();
 		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!"); 
 		
-		logoutLink.addStyleName("Abmelden");
+		logoutLink.addStyleName("Abmelden-Link");
+		impressumLink.addStyleName("Impressum-Link");
+		startseiteLink.addStyleName("Startseite-Link");
+		meinProfilLink.addStyleName("MeinProfil-Link");
 		logoutLink.setHref(loginInfo.getLogoutUrl());
+
+		impressumLink.addClickHandler(new ImpressumClickHandler());
+		
+		meinProfilLink.addClickHandler(new MeinProfilClickHandler());
+		
+		
+		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
+		headerPanel.add(startseiteLink);
+		headerPanel.add(meinProfilLink);
+		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
 		
 		RootPanel.get("head").add(headerPanel);
@@ -188,6 +217,80 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 		vPanel.add(br);
+	}
+	private class ImpressumClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			RootPanel.get("text").clear();
+			RootPanel.get("gwtContainer").clear();
+			RootPanel.get("text").add(impressum);
+			
+		}
+		
+	}
+	
+	private class MeinProfilClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+
+			HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
+			Label labelName = new Label();
+			Label labelEmail = new Label();
+			
+			VerticalPanel vPanel = new VerticalPanel();
+			
+			Anchor profilLoeschen = new Anchor("Mein Profil löschen");
+			labelName.setText("Name: " + loginInfo.getNutzer().getEmail().split("@")[0]);
+			labelEmail.setText("Email: " + loginInfo.getNutzer().getEmail());
+			
+			uberschrift.addStyleName("meinProfil-labels");
+			labelName.addStyleName("meinProfil-labels");
+			labelEmail.addStyleName("meinProfil-labels");
+			profilLoeschen.addStyleName("meinProfil-labels");
+			vPanel.add(uberschrift);
+			vPanel.add(labelName);
+			vPanel.add(labelEmail);
+			vPanel.add(profilLoeschen);
+			RootPanel.get("nav").add(vPanel);
+			
+			profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
+			
+
+		}
+		
+	}
+	
+	
+	private class NutzerLoeschenClickHandler implements ClickHandler{
+
+		@Override
+		public void onClick(ClickEvent event) {
+			boolean confirm = Window.confirm("Sollte Ihr Account unwiderruflich gelöscht werden?");
+			if(confirm){administration.loeschenNutzer(loginInfo.getNutzer(),new NutzerLoeschenAsyncCallback());
+			}
+			else {
+				Window.alert("Ihr Account wurde nicht gelöscht.");
+			}
+			
+		}
+		
+	}
+	
+	private class NutzerLoeschenAsyncCallback implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("NÖ!");
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("OK!");
+			Window.Location.replace(loginInfo.getLogoutUrl());
+		}
+		
 	}
 
 }

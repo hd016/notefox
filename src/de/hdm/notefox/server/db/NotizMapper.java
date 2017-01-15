@@ -2,26 +2,34 @@ package de.hdm.notefox.server.db;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
+import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
 import de.hdm.notefox.shared.bo.*;
 
-/**
- * �Unsere Mapper-Klassen erf�llen den Zweck unsere Objekte auf eine
- * relationale Datenbankabzubilden. Durch die bereitgestellten Methoden kann man
- * Objekte anlegen, editieren, l�schen, teilen und speichern.Objekte k�nnen
- * auf diese Weise in Datenbankstrukturen umgewandelt werden.
- * Datenbankstrukturen k�nnen umgekehrt auch in Objekte umgewandelt werden.�
+/*
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
+ * 
+ * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
+ * Datenbankabzubilden. Durch die bereitgestellten Methoden kann man Objekte
+ * anlegen, editieren, loeschen, teilen und speichern.Objekte koennen auf diese
+ * Weise in Datenbankstrukturen umgewandelt werden. Datenbankstrukturen koennen
+ * umgekehrt auch in Objekte umgewandelt werden.
  */
 
 public class NotizMapper {
 
 	/**
-	 * Eimalige Instantierung der Klasse NotizMapper (Singleton) Einmal f�r
-	 * s�mtliche Instanzen dieser Klasse vorhanden, speichert die eizige
+	 * Eimalige Instantierung der Klasse NotizMapper (Singleton) Einmal fuer
+	 * saemtliche Instanzen dieser Klasse vorhanden, speichert die eizige
 	 * Instanz dieser Klasse
 	 */
 
@@ -64,16 +72,17 @@ public class NotizMapper {
 			Statement stmt = con.createStatement();
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
-			ResultSet rs = stmt.executeQuery("SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
-					+ " WHERE id=" + id);
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
+							+ " WHERE id=" + id);
 
 			/*
-			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
-			 * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
-			 * einen Prim�rschl�ssel handelt.
+			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
+			 * vorliegt. Man erhaelt maximal 1 Tupel, da es sich bei id um einen
+			 * Primaerschluessel handelt.
 			 */
 			if (rs.next()) {
-				// Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
+				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Notiz no = new Notiz();
 				no.setId(rs.getInt("id"));
@@ -84,15 +93,12 @@ public class NotizMapper {
 				no.setErstelldatum(rs.getDate("erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
 				no.setNotizbuchId(rs.getInt("notizbuch"));
-				
+
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				nutzer.setEmail(rs.getString("nutzer.email"));
 				no.setEigentuemer(nutzer);
 				return no;
-			
-				
-				
 
 			}
 		} catch (SQLException e2) {
@@ -116,18 +122,18 @@ public class NotizMapper {
 			// angelegt
 			Statement stmt = con.createStatement();
 
-			// Das Statement wird ausgef�llt und an die Datebank verschickt
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, notizquelle.* FROM notiz LEFT JOIN notiz ON notiz.id = notizquelle.notizquelleId "
+			// Das Statement wird ausgefuellt und an die Datebank verschickt
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, notizquelle.* FROM notiz LEFT JOIN notiz ON notiz.id = notizquelle.notizquelleId "
 							+ " ORDER BY id");
 
 			/*
-			 * An dieser Stelle kann man pr�fen ob bereits ein Ergebnis
-			 * vorliegt. Man erh�lt maximal 1 Tupel, da es sich bei id um
-			 * einen Prim�rschl�ssel handelt.
+			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
+			 * vorliegt. Man erhaelt maximal 1 Tupel, da es sich bei id um einen
+			 * Primaerschluessel handelt.
 			 */
 			if (rs.next()) {
-				// Das daraus ergebene Tupel muss in ein Objekt �berf�hrt
+				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Notiz no = new Notiz();
 				no.setId(rs.getInt("id"));
@@ -161,14 +167,12 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.execute("DELETE FROM notiz " + "WHERE faelligkeitsdatum="
-					+ no.getFaelligkeitsdatum());
+			stmt.execute("DELETE FROM notiz " + "WHERE faelligkeitsdatum=" + no.getFaelligkeitsdatum());
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Auslesen aller Notizen.
@@ -183,11 +187,11 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT nutzer.*, notiz.*, FROM notiz LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
+			ResultSet rs = stmt.executeQuery(
+					"SELECT nutzer.*, notiz.*, FROM notiz LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
 							+ " ORDER BY nutzerId");
 
-			// Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
 			// ein Notiz Objekt erstellt
 			while (rs.next()) {
 				Notiz no = new Notiz();
@@ -204,27 +208,27 @@ public class NotizMapper {
 				no.setNotizbuchId(rs.getInt("notizbuch"));
 				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
 
-				// Der Ergebnisliste wird ein neues Objekt hinzugef�gt
+				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
 				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Die Ergebnisliste wird zur�ckgegeben
+		// Die Ergebnisliste wird zurueckgegeben
 		return result;
 	}
 
 	/**
-	 * Auslesen aller Notizen eines durch Fremdschlüssel (Id) gegebenen
+	 * Auslesen aller Notizen eines durch Fremdschluessel (Id) gegebenen
 	 * Notizbuches.
 	 * 
 	 * @param notizbuchId
-	 *            Schlüssel des zugehörigen Notizbuches.
+	 *            Schluessel des zugehoerigen Notizbuches.
 	 * @return Eine Liste mit Notiz-Objekten, die sämtliche Notizen des
 	 *         betreffenden Notizbuches repräsentieren. Bei evtl. Exceptions
-	 *         wird ein partiell gefüllter oder ggf. auch leerer Vetor
-	 *         zurückgeliefert.
+	 *         wird ein partiell gefaellter oder ggf. auch leerer Vetor
+	 *         zurueckgeliefert.
 	 */
 	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(int id) {
 		Connection con = DBConnection.connection();
@@ -233,11 +237,11 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
 							+ " WHERE notiz.notizbuch=" + id);
 
-			// Für jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt
+			// Fuer jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Notiz no = new Notiz();
@@ -255,18 +259,18 @@ public class NotizMapper {
 				no.setNotizbuchId(rs.getInt("notiz.notizbuch"));
 				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
 
-				// Hinzufügen des neuen Objekts zur Ergebnisliste
+				// Hinzufuegen des neuen Objekts zur Ergebnisliste
 				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
-		// Ergebnisliste zurückgeben
+		// Ergebnisliste zurueckgeben
 		return result;
 	}
 
 	/**
-	 * Auslesen aller Notizen eines durch Fremdschl�ssel (NutzerId) gegebenen
+	 * Auslesen aller Notizen eines durch Fremdschluessel (NutzerId) gegebenen
 	 * Nutzern.
 	 */
 	public List<Notiz> nachEigentuemerDerNotizSuchen(int id) {
@@ -276,11 +280,11 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
-							+ " WHERE notiz.eigentuemer= " + id  + " ORDER BY id");
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+							+ " WHERE notiz.eigentuemer= " + id + " ORDER BY id");
 
-			// Jetzt werden die Eintr�ge durchsucht und f�r jedes gefundene
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
 			// ein Notiz Objekt erstellt
 			while (rs.next()) {
 				Notiz no = new Notiz();
@@ -297,45 +301,44 @@ public class NotizMapper {
 				no.setNotizbuchId(rs.getInt("notizbuch"));
 				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
 
-				// Der Ergebnisliste wird ein neues Objekt hinzugef�gt
+				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
 				result.add(no);
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 
-		// Die Ergebnisliste wird zur�ckgegeben
+		// Die Ergebnisliste wird zurueckgegeben
 		return result;
 	}
 
 	/**
-	 * Auslesen aller Notizen eines Nutzers //TODO
+	 * Auslesen aller Notizen eines Nutzers
 	 */
-	public List<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) { // TODO
+	public List<Notiz> nachEigentuemerSuchen(Nutzer eigentuemer) {
 
-		// Die Id des Notiz Objekts wird ausgelesen, und die Methode ist f�r
-		// die weitere Bearbeitung zust�ndig.
+		// Die Id des Notiz Objekts wird ausgelesen, und die Methode ist fuer
+		// die weitere Bearbeitung zustaendig.
 
 		return nachEigentuemerDerNotizSuchen(eigentuemer.getNutzerId());
 	}
 
 	/**
-	 * Auslesen des zugeh??en <code>Notizbuch</code>-Objekts zu einem
+	 * Auslesen des zugehoerenden <code>Notizbuch</code>-Objekts zu einer
 	 * gegebenen Notiz.
 	 * 
 	 * @param no
-	 *            die Notiz, dessen Notizbuch wir auslesen m??en
+	 *            die Notiz, dessen Notizbuch wir auslesen muessen
 	 * @return ein Objekt, das das Notizbuch der Notiz darstellt
 	 */
 	public Notizbuch nachZugehoerigemNotizbuchSuchen(Notiz no) {
 		/*
-		 * Wir bedienen uns hier einfach des NotizbuchMapper. Diesem geben wir
-		 * einfach den in dem Notiz-Objekt enthaltenen Fremdschl??l f??as
-		 * Notizbuch. Der NotizbuchMapper l??uns dann diese ID in ein Objekt
+		 * Wir bedienen uns hier einfach an dem NotizbuchMapper. Diesem geben
+		 * wir einfach den in dem Notiz-Objekt enthaltenen Fremdschluessel fuer
+		 * das Notizbuch. Der NotizbuchMapper loest uns dann diese ID in ein Objekt
 		 * auf.
 		 */
-		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(
-				no.getNotizbuchId());
+		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(no.getNotizbuchId());
 	}
 
 	/**
@@ -348,38 +351,24 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			// Der h�chste Prim�rschl�sselwert wird �berpr�ft
-			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid "
-					+ "FROM notiz ");
+			// Der hoechste Primaerschluesselwert wird ueberprueft
+			ResultSet rs = stmt.executeQuery("SELECT MAX(id) AS maxid " + "FROM notiz ");
 
-			// Sollte etwas zur�ckgegeben werden, so kann dies nur einzeilig
+			// Sollte etwas zurueckgegeben werden, so kann dies nur einzeilig
 			// sein
 			if (rs.next()) {
-				// a kriegt nun den maximalen Prim�rschl�ssel, welcher mit
+				// a kriegt nun den maximalen Primaerschluessel, welcher mit
 				// dem Wert 1 inkrementiert wird
 				no.setId(rs.getInt("maxid") + 1);
 
 				stmt = con.createStatement();
 
-				// Hier erfolgt die entscheidende Einf�geoperation
+				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch, faelligkeitsdatum ) "
-						+ "VALUES ("
-						+ no.getId()
-						+ ", "
-						+ no.getEigentuemer().getNutzerId()
-						+ ", \""
-						+ no.getTitel()
-						+ "\", \""
-						+ no.getSubtitel()
-						+ "\", \""
-						+ no.getInhalt()
-						+ "\""
-						+ ", NOW(), NOW()"
-						+ ", "
-						+ no.getNotizbuchId()
-						+ ", \""
-						+ new SimpleDateFormat("yyyy-MM-dd").format(no
-								.getFaelligkeitsdatum()) + "\")";
+						+ "VALUES (" + no.getId() + ", " + no.getEigentuemer().getNutzerId() + ", \"" + no.getTitel()
+						+ "\", \"" + no.getSubtitel() + "\", \"" + no.getInhalt() + "\"" + ", NOW(), NOW()" + ", "
+						+ no.getNotizbuchId() + ", \""
+						+ new SimpleDateFormat("yyyy-MM-dd").format(no.getFaelligkeitsdatum()) + "\")";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
 
@@ -389,10 +378,10 @@ public class NotizMapper {
 		}
 
 		/*
-		 * Sollte es korrigierte Notizen geben, so werden diese zur�ckgegeben
+		 * Sollte es korrigierte Notizen geben, so werden diese zurueckgegeben
 		 * 
-		 * So besteht die M�glichkeit anzudeuten ob sich ein Objekt
-		 * ver�ndert hat, w�hrend die Methode ausgef�hrt wurde
+		 * So besteht die Moeglichkeit anzudeuten ob sich ein Objekt
+		 * veraendert hat, waehrend die Methode ausgefuehrt wurde
 		 */
 		return no;
 	}
@@ -421,9 +410,8 @@ public class NotizMapper {
 
 		try {
 			String sql = "UPDATE notiz " + "SET titel=\"" + no.getTitel() + "\", inhalt=?"
-					+ ", modifikationsdatum=NOW(), faelligkeitsdatum=?"
-					+ ", eigentuemer=" + no.getEigentuemer().getNutzerId()
-					+ " WHERE id=" + no.getId();
+					+ ", modifikationsdatum=NOW(), faelligkeitsdatum=?" + ", eigentuemer="
+					+ no.getEigentuemer().getNutzerId() + " WHERE id=" + no.getId();
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, no.getInhalt());
 			statement.setDate(2, new java.sql.Date(no.getFaelligkeitsdatum().getTime()));
@@ -432,13 +420,13 @@ public class NotizMapper {
 			e2.printStackTrace();
 		}
 
-		// Um �hnliche Strukturen wie zu anlegenNotiz(Notiz a) zu wahren,
-		// geben wir nun a zur�ck
+		// Um aehnliche Strukturen wie zu anlegenNotiz(Notiz a) zu wahren,
+		// geben wir nun a zurueck
 		return no;
 	}
 
 	/**
-	 * L�schen der Daten eines Notiz-Objekts aus der Datenbank.
+	 * Loeschen der Daten eines Notiz-Objekts aus der Datenbank.
 	 */
 	public void loeschenNotiz(Notiz no) {
 		Connection con = DBConnection.connection();
@@ -454,8 +442,8 @@ public class NotizMapper {
 	}
 
 	/**
-	 * L�schen s�mtlicher Notizen eines Nutzers (sollte dann aufgerufen
-	 * werden, bevor ein Nutzer-Objekt gel�scht wird)
+	 * Loeschen saemtlicher Notizen eines Nutzers (sollte dann aufgerufen
+	 * werden, bevor ein Nutzer-Objekt geloescht wird)
 	 */
 	public void loeschenNotizVon(Nutzer n) {
 		Connection con = DBConnection.connection();
@@ -463,19 +451,86 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM notiz " + "WHERE nutzerId="
-					+ n.getNutzerId());
+			stmt.executeUpdate("DELETE FROM notiz " + "WHERE nutzerId=" + n.getNutzerId());
 
 		} catch (SQLException e2) {
 			e2.printStackTrace();
 		}
 	}
 
-	/**
-	 * Auslesen des zugeh�rigen Nutzer-Objekts zu einem gegebenen Notiz.
-	 */
-	public Nutzer getNutzerId(Notiz no) {
-		return NutzerMapper.nutzerMapper().nachNutzerIdSuchen(no.getId());
+	public List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Date erstellDatumVon = filter.getErstellDatumVon();
+			Date erstellDatumBis = filter.getErstellDatumBis();
+			Date modifikationsDatumVon = filter.getModifikationsDatumVon();
+			Date modifikationsDatumBis = filter.getModifikationsDatumBis();
+			Date faelligkeitsDatumVon = filter.getFaelligkeitsDatumVon();
+			Date faelligkeitsDatumBis = filter.getFaelligkeitsDatumBis();
+
+			String sql = ("SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId LEFT JOIN berechtigung ON notiz.id = berechtigung.notiz "
+					+ " WHERE titel LIKE ? AND nutzer.email LIKE ? AND erstelldatum BETWEEN ? AND ? AND modifikationsdatum BETWEEN ? AND ? AND faelligkeitsdatum BETWEEN ? AND ?"
+					+ (filter.isLeseBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LESEN'" : "")
+					+ (filter.isLoeschenBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LOESCHEN'" : "")
+					+ (filter.isSchreibBerechtigungen() ? " AND berechtigung.berechtigungsart = 'EDITIEREN'" : ""));
+			PreparedStatement statement = con.prepareStatement(sql);
+
+			int i = 1;
+			statement.setString(i++, "%" + filter.getTitel() + "%");
+			statement.setString(i++, "%" + filter.getNutzer() + "%");
+			statement.setDate(i++, standardDatumVon(erstellDatumVon));
+			statement.setDate(i++, standardDatumBis(erstellDatumBis));
+			statement.setDate(i++, standardDatumVon(modifikationsDatumVon));
+			statement.setDate(i++, standardDatumBis(modifikationsDatumBis));
+			statement.setDate(i++, standardDatumVon(faelligkeitsDatumVon));
+			statement.setDate(i++, standardDatumBis(faelligkeitsDatumBis));
+			ResultSet rs = statement.executeQuery();
+
+			List<Notiz> result = new ArrayList<>();
+			while (rs.next()) {
+				Notiz no = new Notiz();
+				no.setId(rs.getInt("id"));
+				Nutzer nutzer = new Nutzer();
+				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
+				nutzer.setEmail(rs.getString("nutzer.email"));
+				no.setEigentuemer(nutzer);
+				no.setTitel(rs.getString("titel"));
+				no.setSubtitel(rs.getString("subtitel"));
+				no.setInhalt(rs.getString("inhalt"));
+				no.setErstelldatum(rs.getDate("erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
+				no.setNotizbuchId(rs.getInt("notizbuch"));
+				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+
+				// Der Ergebnisliste wird ein neues Objekt hinzugefügt
+				result.add(no);
+			}
+			return result;
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+
+		return new ArrayList<>();
+
+	}
+
+	private java.sql.Date standardDatumVon(Date date) {
+		/*
+		 * Datum in ferner Vergangenheit (sollte immer zutreffen)
+		 */
+		return standardDatum(date, new Date(0));
+	}
+
+	private java.sql.Date standardDatumBis(Date date) {
+		/*
+		 * Datum in ferner Zukunft (sollte immer zutreffen)
+		 */
+		return standardDatum(date, new Date(3999, 0, 1));
+	}
+
+	private java.sql.Date standardDatum(Date date, Date defaultValue) {
+		return new java.sql.Date((date != null ? date : defaultValue).getTime());
 	}
 
 }

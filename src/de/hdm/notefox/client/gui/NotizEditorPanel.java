@@ -2,12 +2,10 @@ package de.hdm.notefox.client.gui;
 
 import java.util.List;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -21,16 +19,15 @@ import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.client.ClientsideSettings;
+import de.hdm.notefox.client.Notefox;
 import de.hdm.notefox.shared.LoginInfo;
-import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.NutzerAusnahme;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
-import de.hdm.notefox.client.ClientsideSettings;
-import de.hdm.notefox.client.Notefox;
 
 public class NotizEditorPanel extends HorizontalPanel {
 
@@ -44,7 +41,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 	// NotizObjektTree = null;
 
 	Label Notiztitel = new Label("Titel");
-	Label eigentuemerTitel = new Label("Eigentuemer");
+	Label eigentuemerTitel = new Label("Eigentümer");
 	Label notizbuchSubtitel = new Label("Subtitel");
 	RichTextArea area = new RichTextArea();
 	RichTextToolbar Rich = new RichTextToolbar(area);
@@ -188,12 +185,14 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Notiz wurde nicht gespeichert");
+
 			}
 		}
 
 		@Override
 		public void onSuccess(Notiz result) {
-			Window.alert("Ok");
+			Window.alert("Notiz gespeichert");
 			setNotizobjekt(result);
 		}
 
@@ -206,12 +205,16 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Notizbuch wurde nicht gespeichert");
+
 			}
 		}
 
 		@Override
 		public void onSuccess(Notizbuch result) {
 			setNotizobjekt(result);
+			Window.alert("Notizbuch wurde gespeichert");
+
 		}
 
 	}
@@ -220,16 +223,16 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 		@Override
 		public void onClick(ClickEvent event) {
-			if (notizobjekt instanceof Notiz) {
-				Notiz notiz = (Notiz) notizobjekt;
-				notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
-			} else if (notizobjekt instanceof Notizbuch) {
-				Notizbuch notizbuch = (Notizbuch) notizobjekt;
-				notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+			if (Window.confirm("Sind Sie sich sicher, ob Sie die Notiz löschen möchten?")) {
+				if (notizobjekt instanceof Notiz) {
+					Notiz notiz = (Notiz) notizobjekt;
+					notizobjektverwaltung.loeschenNotiz(notiz, new loeschenAsyncCallback());
+				} else if (notizobjekt instanceof Notizbuch) {
+					Notizbuch notizbuch = (Notizbuch) notizobjekt;
+					notizobjektverwaltung.loeschenNotizbuch(notizbuch, new loeschenAsyncCallback());
+				}
 			}
-
 		}
-
 	}
 
 	private class loeschenAsyncCallback implements AsyncCallback<Void> {
@@ -239,6 +242,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Löschen nicht erfolgreich");
 			}
 		}
 
@@ -266,51 +270,4 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 	}
 
-	private class freigebenAsyncCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
 }
-
-/*
- * public NotizEditorPanel(final Notiz notiz) { add(titel); add(Rich);
- * add(area); add(hPanel);
- * 
- * area.addStyleName("textarea"); speichern.addStyleName("gwt-Green-Button");
- * 
- * 
- * speichern.addClickHandler(new ClickHandler() {
- * 
- * @Override public void onClick(ClickEvent event) {
- * notiz.setInhalt(area.getHTML()); notiz.setTitel(titel.getText()); //
- * Window.alert("Titel: " + titel.getText() + "\n Inhalt: " + area.getHTML());
- * 
- * 
- * notizobjektverwaltung.speichern(notiz, new AsyncCallback<Void>() {
- * 
- * @Override public void onFailure(Throwable caught) { // TODO Auto-generated
- * method stub
- * 
- * }
- * 
- * @Override public void onSuccess(Void result) { // TODO Auto-generated method
- * stub
- * 
- * }
- * 
- * }); } });
- * 
- * }}
- */

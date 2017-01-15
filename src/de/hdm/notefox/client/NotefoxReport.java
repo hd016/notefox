@@ -11,9 +11,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.client.gui.FilterPanel;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
+import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
 /**
@@ -23,14 +25,18 @@ import de.hdm.notefox.shared.report.HTMLReportWriter;
 public class NotefoxReport implements EntryPoint {
 
 	ReportGeneratorAsync reportGenerator = null;
-	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
+//	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
 	Button notizbucherButton = new Button("Report");
-	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
+	//Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Report");
-	HorizontalPanel main = new HorizontalPanel();
-	VerticalPanel vPanelNotizen = new VerticalPanel();
-	VerticalPanel vPanelNotizbucher = new VerticalPanel();
-
+	FilterPanel filterPanel = new FilterPanel();
+	
+	
+	VerticalPanel mainPanel = new VerticalPanel();
+	VerticalPanel erstPanel = new VerticalPanel();
+	VerticalPanel zweitPanel = new VerticalPanel();
+	
+	
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	 * zusichert, benÃ¶tigen wir eine Methode
@@ -50,33 +56,36 @@ public class NotefoxReport implements EntryPoint {
 			reportGenerator = ClientsideSettings.getReportGenerator();
 		}
 
-		vPanelNotizen.add(notizenLabel);
-		vPanelNotizen.add(notizenButton);
+		//vPanelNotizen.add(notizenLabel);
+		erstPanel.add(filterPanel);
+		zweitPanel.add(notizenButton);
+		mainPanel.add(erstPanel);
+		mainPanel.add(zweitPanel);
 
-		vPanelNotizbucher.add(notizbucherLabel);
-		vPanelNotizbucher.add(notizbucherButton);
+		//vPanelNotizbucher.add(notizbucherLabel);
+		//vPanelNotizbucher.add(notizbucherButton);
+		
 
-		notizenButton.addStyleName("gwt-Green-Button");
-		notizbucherButton.addStyleName("gwt-Green-Button");
+		notizenButton.addStyleName("Report-Button");
+		notizbucherButton.addStyleName("Report-Button");
 
 		notizenButton.addClickHandler(new notizReportClickHandler());
 		notizbucherButton.addClickHandler(new notizbuchReportClickHandler());
 
-		vPanelNotizbucher.addStyleName("ReportLabel");
-		vPanelNotizen.addStyleName("ReportLabel");
+		//vPanelNotizbucher.addStyleName("ReportLabel");
+		//vPanelNotizen.addStyleName("ReportLabel");
 		
 
-		main.addStyleName("ReportMain");
-		main.add(vPanelNotizbucher);
-		main.add(vPanelNotizen);
-		RootPanel.get("nav").add(main);
+		mainPanel.addStyleName("ReportMain");
+		RootPanel.get("nav").add(mainPanel);
+
 
 	}
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * SchaltflÃ¤che zum AuslÃ¶sen der Reportgenerierung und einem "Datenteil"
-	 * fÃ¼r die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * für die HTML-Version des Reports.
 	 */
 
 	private class notizbuchReportClickHandler implements ClickHandler {
@@ -91,15 +100,14 @@ public class NotefoxReport implements EntryPoint {
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * SchaltflÃ¤che zum AuslÃ¶sen der Reportgenerierung und einem "Datenteil"
-	 * fÃ¼r die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * für die HTML-Version des Reports.
 	 */
 
 	private class notizReportClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			reportGenerator
-					.erstelleAlleNotizenAllerNutzerReport(new erstelleAlleNotizenAllerNutzerReportCallback());
+			reportGenerator.erstelleGefilterteNotizenReport(filterPanel.erstelleFilterobjekt(), new erstelleAlleNotizenAllerNutzerReportCallback());
 
 		}
 
@@ -144,7 +152,7 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
  * @version 1.0
  */
 class erstelleAlleNotizenAllerNutzerReportCallback implements
-		AsyncCallback<AlleNotizenAllerNutzerReport> {
+		AsyncCallback<AlleNotizenDesNutzersReport> {
 	@Override
 	public void onFailure(Throwable caught) {
 		/*
@@ -156,7 +164,7 @@ class erstelleAlleNotizenAllerNutzerReportCallback implements
 	}
 
 	@Override
-	public void onSuccess(AlleNotizenAllerNutzerReport report) {
+	public void onSuccess(AlleNotizenDesNutzersReport report) {
 		if (report != null) {
 			HTMLReportWriter writer = new HTMLReportWriter();
 			writer.process(report);

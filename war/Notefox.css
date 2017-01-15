@@ -249,9 +249,24 @@ h5 {
 	display: block;
 }
 
-.Abmelden {
-	margin-left: 48vw;
+.Abmelden-Link {
+
+	margin-left: 10px;
 }
+
+.Impressum-Link {
+	margin-left: 10px;
+
+}
+
+.Startseite-Link {
+	margin-left: 30vw;
+}
+
+.MeinProfil-Link {
+	margin-left: 10px;
+}
+
 
 .rot{
 	background-color: red;
@@ -270,3 +285,7 @@ h5 {
 	height: 50px;
 }
 
+.meinProfil-labels{
+	margin-left: 10px;
+	margin-top: 10px;
+}
