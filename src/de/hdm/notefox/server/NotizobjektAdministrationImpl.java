@@ -302,8 +302,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 * Zun�chst werden s�mtl. Notizen und Notizbuecher des Nutzers aus der
 		 * DB entfernt.
 		 * 
-		 * Beachten Sie, dass wir dies auf Ebene der Applikationslogik, konkret:
-		 * in der Klasse NotizobjektVerwaltungImpl, durchf�hren. Grund: In der
+		 * Dies wird auf der Ebene der Applikationslogik, konkret
+		 * in der Klasse NotizobjektVerwaltungImpl, durchgef�hrt. Grund: In der
 		 * Klasse NotizobjektVerwaltungImpl ist die Verflechtung s�mtlicher
 		 * Klassen bzw. ihrer Objekte bekannt. Nur hier kann sinnvoll ein
 		 * umfassender Verwaltungsakt wie z.B. dieser L�schvorgang realisiert
@@ -383,28 +383,15 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	@Override
 	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
 		if (berechtigungAnwenden(no, Berechtigungsart.LOESCHEN) != null) {
-			// /*
-			// * Zun�chst werden s�mtl. Notizquellen-Objekte und Datum-Objekte
-			// des
-			// * Nutzers aus der DB entfernt.
-			// */
-			// List<Notizquelle> notizquellen =
-			// this.nachAllenNotizquellenDesNutzersSuchen(no);
-			// List<Datum> faelligkeiten =
-			// this.nachAllenFaelligkeitenDerNotizenDesNutzerSuchen(no);
-			//
-			// if (notizquellen != null) {
-			// for (Notizquelle nq : notizquellen) {
-			// this.loeschenNotizquelleVon(nq);
-			// }
-			// }
-			//
-			// if (faelligkeiten != null) {
-			// for (Datum d : faelligkeiten) {
-			// this.loeschenDatumVon(d);
-			// }
-			// }
-
+			
+			/*
+			 * Löschen aller Berechtigungen der Notiz
+			 */
+			List<Berechtigung> alleBerechtigungen = bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(no);
+			for (Berechtigung berechtigung : alleBerechtigungen) {
+				bMapper.berechtigungVerweigern(berechtigung);
+			}
+			
 			// Notiz aus der DB entfernen
 			this.noMapper.loeschenNotiz(no);
 		} else {
@@ -582,6 +569,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	public void loeschenNotizbuch(Notizbuch nb) throws NutzerAusnahme {
 		if (berechtigungAnwenden(nb, Berechtigungsart.LOESCHEN) != null) {
 
+			/*
+			 * Löschen aller Berechtigungen des Notizbuches
+			 */
+			List<Berechtigung> alleBerechtigungen = bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(nb);
+			for (Berechtigung berechtigung : alleBerechtigungen) {
+				bMapper.berechtigungVerweigern(berechtigung);
+			}
+			
 			/*
 			 * Zun�chst werden s�mtl. Notizen des Nutzers aus der DB entfernt.
 			 */

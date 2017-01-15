@@ -184,12 +184,15 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Notiz wurde nicht gespeichert");
+
 			}
 		}
 
 		@Override
 		public void onSuccess(Notiz result) {
 			notefox.ersetzeBaum(result.getNotizbuch());
+			Window.alert("Notiz gespeichert");
 		}
 
 	}
@@ -201,12 +204,15 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Notizbuch wurde nicht gespeichert");
+
 			}
 		}
 
 		@Override
 		public void onSuccess(Notizbuch result) {
 			notefox.ersetzeBaum(result);
+			Window.alert("Notizbuch wurde gespeichert");
 		}
 
 	}
@@ -234,6 +240,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 			if (caught instanceof NutzerAusnahme) {
 				NutzerAusnahme nutzerAusnahme = (NutzerAusnahme) caught;
 				Window.alert(nutzerAusnahme.getMessage());
+				Window.alert("Löschen nicht erfolgreich");
 			}
 		}
 
@@ -261,51 +268,4 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 	}
 
-	private class freigebenAsyncCallback implements AsyncCallback {
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void onSuccess(Object result) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
 }
-
-/*
- * public NotizEditorPanel(final Notiz notiz) { add(titel); add(Rich);
- * add(area); add(hPanel);
- * 
- * area.addStyleName("textarea"); speichern.addStyleName("gwt-Green-Button");
- * 
- * 
- * speichern.addClickHandler(new ClickHandler() {
- * 
- * @Override public void onClick(ClickEvent event) {
- * notiz.setInhalt(area.getHTML()); notiz.setTitel(titel.getText()); //
- * Window.alert("Titel: " + titel.getText() + "\n Inhalt: " + area.getHTML());
- * 
- * 
- * notizobjektverwaltung.speichern(notiz, new AsyncCallback<Void>() {
- * 
- * @Override public void onFailure(Throwable caught) { // TODO Auto-generated
- * method stub
- * 
- * }
- * 
- * @Override public void onSuccess(Void result) { // TODO Auto-generated method
- * stub
- * 
- * }
- * 
- * }); } });
- * 
- * }}
- */
