@@ -154,7 +154,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen
 		 * wir also entsprechende Überschriften ab.
 		 */
-		headline.addColumn(new Column("NotizId"));
+		
 		headline.addColumn(new Column("Titel"));
 		headline.addColumn(new Column("Erstelldatum"));
 		headline.addColumn(new Column("Modifikationsdatum"));
@@ -175,7 +175,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			Row notizRow = new Row();
 
 			// Erste Spalte: Kontonummer hinzufügen
-			notizRow.addColumn(new Column(String.valueOf(no.getId())));
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
 			notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
@@ -249,7 +248,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen
 		 * wir also entsprechende Überschriften ab.
 		 */
-		headline.addColumn(new Column("NotizId"));
 		headline.addColumn(new Column("Titel"));
 		headline.addColumn(new Column("Erstelldatum"));
 		headline.addColumn(new Column("Modifikationsdatum"));
@@ -270,7 +268,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			Row notizRow = new Row();
 
 			// Erste Spalte: Kontonummer hinzufügen
-			notizRow.addColumn(new Column(String.valueOf(no.getId())));
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
 			notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
@@ -414,7 +411,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 		 * 
 		 * opfzeile legen wir also entsprechende Überschriften ab.
 		 */
-		headline.addColumn(new Column("NotizbuchId"));
 		headline.addColumn(new Column("Titel"));
 		headline.addColumn(new Column("Erstelldatum"));
 		headline.addColumn(new Column("Modifikationsdatum"));
@@ -434,7 +430,6 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 			Row notizbuchRow = new Row();
 
 			// Erste Spalte: NotizbuchId hinzuf�gen.
-			notizbuchRow.addColumn(new Column(String.valueOf(nb.getId())));
 			notizbuchRow.addColumn(new Column(nb.getTitel()));
 			notizbuchRow.addColumn(new Column(String.valueOf(nb.getErstelldatum())));
 			notizbuchRow.addColumn(new Column(String.valueOf(nb.getModifikationsdatum())));

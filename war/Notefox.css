@@ -258,11 +258,7 @@ h5 {
 }
 
 .Startseite-Link {
-	margin-left: 30vw;
-}
-
-.MeinProfil-Link {
-	margin-left: 10px;
+	margin-left: 37vw;
 }
 
 .rot {
@@ -283,8 +279,12 @@ h5 {
 }
 
 .meinProfil-labels {
-	margin-left: 10px;
 	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.meinProfilemail-labels {
+	margin-left: 10px;
 }
 
 .neueNotiz {
