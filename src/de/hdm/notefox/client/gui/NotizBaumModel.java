@@ -139,7 +139,8 @@ public class NotizBaumModel implements TreeViewModel {
 	public boolean isLeaf(Object value) {
 
 		if (value instanceof Notizbuch) {
-			return false;
+			Notizbuch notizbuch = (Notizbuch) value;
+			return notizbuch.getId() == -1;
 		} else if (value instanceof Notiz) {
 			return true;
 		}
