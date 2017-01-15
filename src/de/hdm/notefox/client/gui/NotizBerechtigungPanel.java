@@ -111,16 +111,7 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 			}
 		});
 
-		if (notizobjekt instanceof Notiz) {
-			Notiz notiz = (Notiz) notizobjekt;
-			notizobjektadministration.nachAllenBerechtigungenDerNotizSuchen(notiz,
-					new BerechtigungAsyncCallback());
-
-		} else if (notizobjekt instanceof Notizbuch) {
-			Notizbuch notizbuch = (Notizbuch) notizobjekt;
-			notizobjektadministration.nachAllenBerechtigungenDesNotizbuchesSuchen(notizbuch,
-					new BerechtigungAsyncCallback());
-		}
+		refresh();
 
 		VerticalPanel panel = new VerticalPanel();
 		panel.setBorderWidth(1);
@@ -131,6 +122,20 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		
 		
 	}
+	
+	public void refresh(){
+		if (notizobjekt instanceof Notiz) {
+			Notiz notiz = (Notiz) notizobjekt;
+			notizobjektadministration.nachAllenBerechtigungenDerNotizSuchen(notiz,
+					new BerechtigungAsyncCallback());
+
+		} else if (notizobjekt instanceof Notizbuch) {
+			Notizbuch notizbuch = (Notizbuch) notizobjekt;
+			notizobjektadministration.nachAllenBerechtigungenDesNotizbuchesSuchen(notizbuch,
+					new BerechtigungAsyncCallback());
+		}
+	}
+	
 	private class BerechtigungLoeschenAsnyCallback implements AsyncCallback<Berechtigung>{
 
 		@Override
@@ -141,16 +146,7 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 
 		@Override
 		public void onSuccess(Berechtigung result) {
-			if (notizobjekt instanceof Notiz) {
-				Notiz notiz = (Notiz) notizobjekt;
-				notizobjektadministration.nachAllenBerechtigungenDerNotizSuchen(notiz,
-						new BerechtigungAsyncCallback());
-
-			} else if (notizobjekt instanceof Notizbuch) {
-				Notizbuch notizbuch = (Notizbuch) notizobjekt;
-				notizobjektadministration.nachAllenBerechtigungenDesNotizbuchesSuchen(notizbuch,
-						new BerechtigungAsyncCallback());
-			}
+			refresh();
 		}
 		
 	}

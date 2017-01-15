@@ -38,12 +38,14 @@ public class FreigebenDialogBox extends DialogBox {
 
 	private Notizobjekt notizobjekt;
 
+	private NotizBerechtigungPanel nbPanel;
+
 	FreigebenDialogBox(Notizobjekt notizobjekt) {
 
 		lesen.setValue(true);
 		
 		this.notizobjekt = notizobjekt;
-		NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel(notizobjekt);
+		nbPanel = new NotizBerechtigungPanel(notizobjekt);
 
 		setText("Freigeben für..");
 		setAnimationEnabled(true);
@@ -168,6 +170,8 @@ public class FreigebenDialogBox extends DialogBox {
 				}
 				berechtigung.setBerechtigungsart(berechtigungsart);
 				notizobjektadministration.anlegenBerechtigung(berechtigung, new freigebenAsyncCallback());
+			
+				nbPanel.refresh();
 			} else {
 				Window.alert("Nutzer nicht gefunden!");
 			}
