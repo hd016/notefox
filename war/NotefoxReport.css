@@ -46,29 +46,30 @@ body {
 	border-radius: 0.5vw;
 	background-color: #FFFFFF;
 	height: 3vw;
-	width: 72vw;
+	width: 82vw;
 	margin-bottom: 1vw;
 }
 
 #nav {
 	border-radius: 0.5vw;
 	background-color: #FFFFFF;
-	height: 9vw;
-	width: 72vw;
+	height: 15vw;
+	width: 82vw;
 }
 
 #logobox {
 	border-radius: 0.5vw;
-	max-height: 13vw;
-	width: 22vw;
+	height: 19vw;
+	width: 12vw;
 	background-color: #FFFFFF;
 	float: right;
 }
 
 .logo {
 	margin: 0.5vw;
-	max-width: 21vw;
+	max-width: 11vw;
 	max-height: 13vw;
+	margin-top: 6.5vw;
 }
 
 
@@ -249,4 +250,17 @@ h5 {
 
 .ReportMain {
 	margin-left: 1vw;
+}
+
+.Report-Button{
+	color: #008cc6;
+	margin: 0;
+	margin-bottom: 5vw;
+	margin-left: 1vw;
+	margin-top: 1vw;
+	width: 10.2vw;
+	height: 2.5vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
 }

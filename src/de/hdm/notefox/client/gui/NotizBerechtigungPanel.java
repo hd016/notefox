@@ -9,6 +9,7 @@ import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
@@ -91,12 +92,14 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 
 				super.onBrowserEvent(context, elem, object, event);
 				if (CLICK.equals(event.getType())) {
-					notizobjektadministration.loeschenBerechtigung(object, new BerechtigungLoeschenAsnyCallback());
+					if (Window.confirm("Möchten Sie es wirklich löschen?")) {
+						notizobjektadministration.loeschenBerechtigung(object, new BerechtigungLoeschenAsnyCallback());
+					}
 				}
 			}
-
 		};
 		table.addColumn(loschenColumn, "Löschen");
+		table.getElement().getStyle().setCursor(Cursor.POINTER);
 
 		// Add a selection model für user auswahl
 		final SingleSelectionModel<Berechtigung> selectionModel = new SingleSelectionModel<Berechtigung>();
@@ -111,21 +114,19 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 			}
 		});
 
-
 		VerticalPanel panel = new VerticalPanel();
 		panel.setBorderWidth(1);
 		panel.setWidth("400");
 		panel.add(table);
 		add(panel);
-		
+
 		refresh();
 	}
-	
-	public void refresh(){
+
+	public void refresh() {
 		if (notizobjekt instanceof Notiz) {
 			Notiz notiz = (Notiz) notizobjekt;
-			notizobjektadministration.nachAllenBerechtigungenDerNotizSuchen(notiz,
-					new BerechtigungAsyncCallback());
+			notizobjektadministration.nachAllenBerechtigungenDerNotizSuchen(notiz, new BerechtigungAsyncCallback());
 
 		} else if (notizobjekt instanceof Notizbuch) {
 			Notizbuch notizbuch = (Notizbuch) notizobjekt;
@@ -133,19 +134,18 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 					new BerechtigungAsyncCallback());
 		}
 	}
-	
-	private class BerechtigungLoeschenAsnyCallback implements AsyncCallback<Berechtigung>{
+
+	private class BerechtigungLoeschenAsnyCallback implements AsyncCallback<Berechtigung> {
 
 		@Override
 		public void onFailure(Throwable caught) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void onSuccess(Berechtigung result) {
 			refresh();
 		}
-		
 	}
 }

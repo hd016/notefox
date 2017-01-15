@@ -50,4 +50,6 @@ public interface ReportGenerator extends RemoteService {
    */
   public abstract AlleNotizbuecherAllerNutzerReport erstelleAlleNotizbuecherAllerNutzerReport() 
 		  throws IllegalArgumentException;
+
+AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(Filterobjekt f) throws IllegalArgumentException;
 }
