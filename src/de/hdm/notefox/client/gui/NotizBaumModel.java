@@ -1,6 +1,5 @@
 package de.hdm.notefox.client.gui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -22,7 +21,6 @@ import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
-import de.hdm.notefox.shared.bo.Notizobjekt;
 
 public class NotizBaumModel implements TreeViewModel {
 
@@ -152,7 +150,8 @@ public class NotizBaumModel implements TreeViewModel {
 	public boolean isLeaf(Object value) {
 
 		if (value instanceof Notizbuch) {
-			return false;
+			Notizbuch notizbuch = (Notizbuch) value;
+			return notizbuch.getId() == -1;
 		} else if (value instanceof Notiz) {
 			return true;
 		}

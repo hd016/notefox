@@ -72,9 +72,9 @@ public class NotizMapper {
 			Statement stmt = con.createStatement();
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
-			ResultSet rs = stmt.executeQuery(
-					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
-							+ " WHERE id=" + id);
+			ResultSet rs = stmt
+					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
+							+ " WHERE notiz.id=" + id);
 
 			/*
 			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
@@ -85,14 +85,22 @@ public class NotizMapper {
 				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
-				no.setInhalt(rs.getString("inhalt"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setNotizbuchId(rs.getInt("notizbuch"));
+				no.setId(rs.getInt("notiz.id"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+			
+				Notizbuch nb = new Notizbuch();
+				nb.setId(rs.getInt("notizbuch.id"));
+				nb.setTitel(rs.getString("notizbuch.titel"));
+				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+				nb.setModifikationsdatum(rs
+						.getDate("notizbuch.modifikationsdatum"));
+				no.setNotizbuch(nb);
 
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
@@ -136,16 +144,16 @@ public class NotizMapper {
 				// Das daraus ergebene Tupel muss in ein Objekt ueberfuehrt
 				// werden.
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
+				no.setId(rs.getInt("notiz.id"));
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				nutzer.setEmail(rs.getString("nutzer.email"));
 				no.setEigentuemer(nutzer);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setInhalt(rs.getString("inhalt"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
 				return no;
 			}
 		} catch (SQLException e2) {
@@ -187,26 +195,35 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery(
-					"SELECT nutzer.*, notiz.*, FROM notiz LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
+			ResultSet rs = stmt
+					.executeQuery("SELECT nutzer.*, notiz.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
 							+ " ORDER BY nutzerId");
 
 			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
 			// ein Notiz Objekt erstellt
 			while (rs.next()) {
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
+				no.setId(rs.getInt("notiz.id"));
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				nutzer.setEmail(rs.getString("nutzer.email"));
 				no.setEigentuemer(nutzer);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setInhalt(rs.getString("inhalt"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setNotizbuchId(rs.getInt("notizbuch"));
-				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+				
+				Notizbuch nb = new Notizbuch();
+				nb.setId(rs.getInt("notizbuch.id"));
+				nb.setTitel(rs.getString("notizbuch.titel"));
+				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+				nb.setModifikationsdatum(rs
+						.getDate("notizbuch.modifikationsdatum"));
+				no.setNotizbuch(nb);
+				
+				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
 				result.add(no);
@@ -237,27 +254,37 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery(
-					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
 							+ " WHERE notiz.notizbuch=" + id);
 
 			// Fuer jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt
 			// erstellt.
 			while (rs.next()) {
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
+				no.setId(rs.getInt("notiz.id"));
 				Nutzer n = new Nutzer();
 				n.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				n.setEmail(rs.getString("nutzer.email"));
 				n.setName(rs.getString("nutzer.name"));
 				no.setEigentuemer(n);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setInhalt(rs.getString("inhalt"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setNotizbuchId(rs.getInt("notiz.notizbuch"));
-				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+				
+				Notizbuch nb = new Notizbuch();
+				nb.setId(rs.getInt("notizbuch.id"));
+				nb.setTitel(rs.getString("notizbuch.titel"));
+				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+				nb.setModifikationsdatum(rs
+						.getDate("notizbuch.modifikationsdatum"));
+				no.setNotizbuch(nb);
+				
+				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Hinzufuegen des neuen Objekts zur Ergebnisliste
 				result.add(no);
@@ -280,26 +307,37 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery(
-					"SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
-							+ " WHERE notiz.eigentuemer= " + id + " ORDER BY id");
+			ResultSet rs = stmt
+					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+							+ " WHERE notiz.eigentuemer= "
+							+ id
+							+ " ORDER BY id");
 
 			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
 			// ein Notiz Objekt erstellt
 			while (rs.next()) {
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
+				no.setId(rs.getInt("notiz.id"));
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				nutzer.setEmail(rs.getString("nutzer.email"));
 				no.setEigentuemer(nutzer);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setInhalt(rs.getString("inhalt"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setNotizbuchId(rs.getInt("notizbuch"));
-				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+				
+				Notizbuch nb = new Notizbuch();
+				nb.setId(rs.getInt("notizbuch.id"));
+				nb.setTitel(rs.getString("notizbuch.titel"));
+				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+				nb.setModifikationsdatum(rs
+						.getDate("notizbuch.modifikationsdatum"));
+				no.setNotizbuch(nb);
+				
+				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
 				result.add(no);
@@ -338,7 +376,8 @@ public class NotizMapper {
 		 * das Notizbuch. Der NotizbuchMapper loest uns dann diese ID in ein Objekt
 		 * auf.
 		 */
-		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(no.getNotizbuchId());
+		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(
+				no.getNotizbuch().getId());
 	}
 
 	/**
@@ -365,10 +404,23 @@ public class NotizMapper {
 
 				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch, faelligkeitsdatum ) "
-						+ "VALUES (" + no.getId() + ", " + no.getEigentuemer().getNutzerId() + ", \"" + no.getTitel()
-						+ "\", \"" + no.getSubtitel() + "\", \"" + no.getInhalt() + "\"" + ", NOW(), NOW()" + ", "
-						+ no.getNotizbuchId() + ", \""
-						+ new SimpleDateFormat("yyyy-MM-dd").format(no.getFaelligkeitsdatum()) + "\")";
+						+ "VALUES ("
+						+ no.getId()
+						+ ", "
+						+ no.getEigentuemer().getNutzerId()
+						+ ", \""
+						+ no.getTitel()
+						+ "\", \""
+						+ no.getSubtitel()
+						+ "\", \""
+						+ no.getInhalt()
+						+ "\""
+						+ ", NOW(), NOW()"
+						+ ", "
+						+ no.getNotizbuch().getId()
+						+ ", \""
+						+ new SimpleDateFormat("yyyy-MM-dd").format(no
+								.getFaelligkeitsdatum()) + "\")";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
 
@@ -469,7 +521,7 @@ public class NotizMapper {
 			Date faelligkeitsDatumVon = filter.getFaelligkeitsDatumVon();
 			Date faelligkeitsDatumBis = filter.getFaelligkeitsDatumBis();
 
-			String sql = ("SELECT notiz.*, nutzer.* FROM notiz LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId LEFT JOIN berechtigung ON notiz.id = berechtigung.notiz "
+			String sql = ("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId LEFT JOIN berechtigung ON notiz.id = berechtigung.notiz "
 					+ " WHERE titel LIKE ? AND nutzer.email LIKE ? AND erstelldatum BETWEEN ? AND ? AND modifikationsdatum BETWEEN ? AND ? AND faelligkeitsdatum BETWEEN ? AND ?"
 					+ (filter.isLeseBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LESEN'" : "")
 					+ (filter.isLoeschenBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LOESCHEN'" : "")
@@ -490,18 +542,27 @@ public class NotizMapper {
 			List<Notiz> result = new ArrayList<>();
 			while (rs.next()) {
 				Notiz no = new Notiz();
-				no.setId(rs.getInt("id"));
+				no.setId(rs.getInt("notiz.id"));
 				Nutzer nutzer = new Nutzer();
 				nutzer.setNutzerId(rs.getInt("nutzer.nutzerId"));
 				nutzer.setEmail(rs.getString("nutzer.email"));
 				no.setEigentuemer(nutzer);
-				no.setTitel(rs.getString("titel"));
-				no.setSubtitel(rs.getString("subtitel"));
-				no.setInhalt(rs.getString("inhalt"));
-				no.setErstelldatum(rs.getDate("erstelldatum"));
-				no.setModifikationsdatum(rs.getDate("modifikationsdatum"));
-				no.setNotizbuchId(rs.getInt("notizbuch"));
-				no.setFaelligkeitsdatum(rs.getDate("faelligkeitsdatum"));
+				no.setTitel(rs.getString("notiz.titel"));
+				no.setSubtitel(rs.getString("notiz.subtitel"));
+				no.setInhalt(rs.getString("notiz.inhalt"));
+				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
+				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
+				
+				Notizbuch nb = new Notizbuch();
+				nb.setId(rs.getInt("notizbuch.id"));
+				nb.setTitel(rs.getString("notizbuch.titel"));
+				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
+				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
+				nb.setModifikationsdatum(rs
+						.getDate("notizbuch.modifikationsdatum"));
+				no.setNotizbuch(nb);
+				
+				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefügt
 				result.add(no);
