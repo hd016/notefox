@@ -400,30 +400,26 @@ public class NotizMapper {
 				// dem Wert 1 inkrementiert wird
 				no.setId(rs.getInt("maxid") + 1);
 
+				
 				stmt = con.createStatement();
 
 				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch, faelligkeitsdatum ) "
-						+ "VALUES ("
-						+ no.getId()
-						+ ", "
-						+ no.getEigentuemer().getNutzerId()
-						+ ", \""
-						+ no.getTitel()
-						+ "\", \""
-						+ no.getSubtitel()
-						+ "\", \""
-						+ no.getInhalt()
-						+ "\""
+						+ "VALUES (?, ?, ?, ?, ? "
 						+ ", NOW(), NOW()"
 						+ ", "
 						+ no.getNotizbuch().getId()
 						+ ", \""
 						+ new SimpleDateFormat("yyyy-MM-dd").format(no
 								.getFaelligkeitsdatum()) + "\")";
+				PreparedStatement prepareStatement = con.prepareStatement(sql);
+				prepareStatement.setInt(1, no.getId());
+				prepareStatement.setInt(2, no.getEigentuemer().getNutzerId());
+				prepareStatement.setString(3, no.getTitel());
+				prepareStatement.setString(4, no.getSubtitel());
+				prepareStatement.setString(5, no.getInhalt());
 				System.out.println(sql);
-				stmt.executeUpdate(sql);
-
+				prepareStatement.executeUpdate();
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
