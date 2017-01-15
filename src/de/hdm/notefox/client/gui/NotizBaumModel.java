@@ -8,6 +8,7 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Style.Cursor;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -82,9 +83,14 @@ public class NotizBaumModel implements TreeViewModel {
 								com.google.gwt.cell.client.Cell.Context context,
 								Notizbuch value, SafeHtmlBuilder sb) {
 							if (value.getId() == -1){
-								sb.appendEscaped("Neues Notizbuch");
-							}
-							else {
+								sb.append(new SafeHtml() {
+									
+									@Override
+									public String asString() {
+										return "<button class=\"buttonNeuesNotizbuch\" style=\"vertical-align:middle\"><span>Neues Notizbuch</span></button>";
+									}
+								});
+							}	else {
 							sb.appendEscaped(value.getTitel());
 							}
 						}
