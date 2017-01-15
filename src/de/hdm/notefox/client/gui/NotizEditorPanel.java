@@ -96,6 +96,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 	public void setNotizobjekt(final Notizobjekt notizobjekt) {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
+		subtitel.setValue(notizobjekt.getSubtitel());
 		area.setHTML(notizobjekt.getInhalt());
 		if (notizobjekt instanceof Notiz) {
 			Notiz notiz = (Notiz) notizobjekt;
