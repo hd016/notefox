@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class Notiz extends Notizobjekt {
 
-	/** Unique IDentifier
+	/**
+	 * Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	  /** Konstruktor
-	   */
+
+	/**
+	 * Konstruktor
+	 */
 	public Notiz() {
 	}
 
@@ -18,17 +20,15 @@ public class Notiz extends Notizobjekt {
 	 */
 	private Date faelligkeitsdatum;
 	private String notizquelle;
-	private int notizbuchId;
-	
+	private Notizbuch notizbuch;
 
-	
-	/** Setzen und Auslesen der Variablen
+	/**
+	 * Setzen und Auslesen der Variablen
 	 */
 
 	public Date getFaelligkeitsdatum() {
 		return faelligkeitsdatum;
 	}
-
 
 	public void setFaelligkeitsdatum(Date faelligkeitsdatum) {
 		this.faelligkeitsdatum = faelligkeitsdatum;
@@ -42,14 +42,12 @@ public class Notiz extends Notizobjekt {
 		this.notizquelle = notizquelle;
 	}
 
-
-	public int getNotizbuchId() {
-		return notizbuchId;
+	public Notizbuch getNotizbuch() {
+		return notizbuch;
 	}
 
-
-	public void setNotizbuchId(int notizbuchID) {
-		this.notizbuchId = notizbuchID;
+	public void setNotizbuch(Notizbuch notizbuch) {
+		this.notizbuch = notizbuch;
 	}
 
 }

@@ -107,8 +107,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
  * @author Thies
  */
 @SuppressWarnings("serial")
-public class NotizobjektAdministrationImpl extends RemoteServiceServlet
-		implements NotizobjektAdministration {
+public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
 
 	/**
 	 * Referenz auf das zugeh�rige Notiz- und Notizbuch-Objekte.
@@ -203,8 +202,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Berechtigungen der übergebenen Notiz.
 	 */
 	@Override
-	public List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no)
-			throws IllegalArgumentException {
+	public List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no) throws IllegalArgumentException {
 		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(no);
 	}
 
@@ -212,8 +210,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Berechtigungen des übergebenen Notizbuches.
 	 */
 	@Override
-	public List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(
-			Notizbuch nb) throws IllegalArgumentException {
+	public List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb)
+			throws IllegalArgumentException {
 		return this.bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(nb);
 	}
 
@@ -244,8 +242,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * @see speichern(Nutzer c)
 	 */
 	@Override
-	public Nutzer anlegenNutzer(int nutzerId, String email)
-			throws IllegalArgumentException {
+	public Nutzer anlegenNutzer(int nutzerId, String email) throws IllegalArgumentException {
 		Nutzer n = new Nutzer();
 		n.setNutzerId(nutzerId);
 		n.setEmail(email);
@@ -264,8 +261,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Nutzer, die den �bergebenen Namen besitzen.
 	 */
 	@Override
-	public Nutzer nachNutzerEmailSuchen(String email)
-			throws IllegalArgumentException {
+	public Nutzer nachNutzerEmailSuchen(String email) throws IllegalArgumentException {
 		return this.nuMapper.nachNutzerEmailSuchen(email);
 	}
 
@@ -273,8 +269,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen eines Nutzers anhand seiner NutzerId.
 	 */
 	@Override
-	public Nutzer nachNutzerIdSuchen(int nutzerId)
-			throws IllegalArgumentException {
+	public Nutzer nachNutzerIdSuchen(int nutzerId) throws IllegalArgumentException {
 		return this.nuMapper.nachNutzerIdSuchen(nutzerId);
 	}
 
@@ -282,8 +277,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Nutzer.
 	 */
 	@Override
-	public List<Nutzer> nachAllenNutzernSuchen()
-			throws IllegalArgumentException {
+	public List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException {
 		return this.nuMapper.nachAllenNutzernSuchen();
 	}
 
@@ -323,8 +317,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		 * zuvor genannte Verflechtung nicht umf�nglich kennen kann.
 		 */
 		List<Notiz> notizen = this.nachAllenNotizenDesNutzersSuchen(n);
-		List<Notizbuch> notizbuecher = this
-				.nachAllenNotizbuechernDesNutzersSuchen(n);
+		List<Notizbuch> notizbuecher = this.nachAllenNotizbuechernDesNutzersSuchen(n);
 
 		if (notizen != null) {
 			for (Notiz no : notizen) {
@@ -367,8 +360,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Notizen des �bergeben Nutzers.
 	 */
 	@Override
-	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n)
-			throws IllegalArgumentException {
+	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
 		return this.noMapper.nachEigentuemerSuchen(n);
 	}
 
@@ -377,8 +369,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public Notiz nachNotizIdSuchen(int id) throws IllegalArgumentException {
-		return berechtigungAnwenden(noMapper.nachNotizIdSuchen(id),
-				Berechtigungsart.LESEN);
+		return berechtigungAnwenden(noMapper.nachNotizIdSuchen(id), Berechtigungsart.LESEN);
 	}
 
 	/**
@@ -408,14 +399,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		}
 	}
 	// Berechtigung Methoden
-	
-	public Berechtigung anlegenBerechtigung(Berechtigung berechtigung){
+
+	public Berechtigung anlegenBerechtigung(Berechtigung berechtigung) {
 		return bMapper.anlegenBerechtigung(berechtigung);
-		
+
 	}
-	
-	
-	
 
 	// externe Webseiten auslesen und in Notiz anlegen//
 	public Notiz anlegenNotiz(String url) throws IllegalArgumentException {
@@ -471,6 +459,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		return stringBuilder.toString();
 	}
 
+	@Override
+	public Notiz anlegenNotiz(Notizbuch notizbuch) throws IllegalArgumentException {
+		return anlegenNotiz(notizbuch, new Notiz());
+	}
+
 	/**
 	 * Anlegen einer neuen Notiz. Dies f�hrt implizit zu einem Speichern der
 	 * neuen, leeren Notiz in der Datenbank.
@@ -481,14 +474,13 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * 
 	 * @see speichern(Notiz a)
 	 */
-	@Override
-	public Notiz anlegenNotiz(Notizbuch notizbuch)
-			throws IllegalArgumentException {
-		Notiz notiz = new Notiz();
+	public Notiz anlegenNotiz(Notizbuch notizbuch, Notiz notiz) throws IllegalArgumentException {
 		notiz.setEigentuemer(loginService.getCurrentNutzer());
-		notiz.setNotizbuchId(notizbuch.getId());
+		notiz.setNotizbuch(notizbuch);
 		notiz.setFaelligkeitsdatum(new Date());
-		notiz.setTitel("Neue Notiz");
+		if (notiz.getTitel() == null || notiz.getTitel().isEmpty()) {
+			notiz.setTitel("Neue Notiz");
+		}
 
 		if (berechtigungAnwenden(notizbuch, Berechtigungsart.EDITIEREN) != null) {
 
@@ -504,10 +496,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public Notiz speichern(Notiz no) throws NutzerAusnahme {
-		if (berechtigungAnwenden(no, Berechtigungsart.EDITIEREN) != null) {
-			return this.noMapper.update(no);
+		if (no.getId() > 0) {
+			if (berechtigungAnwenden(no, Berechtigungsart.EDITIEREN) != null) {
+				return this.noMapper.update(no);
+			} else {
+				throw new NutzerAusnahme("Keine Berechtigung vorhanden.");
+			}
 		} else {
-			throw new NutzerAusnahme("Keine Berechtigung vorhanden.");
+			return anlegenNotiz(no.getNotizbuch(), no);
 		}
 	}
 
@@ -529,13 +525,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen s�mtlicher Notizbuecher dieses Systems.
 	 */
 	@Override
-	public List<Notizbuch> nachAllenNotizbuechernSuchen()
-			throws IllegalArgumentException {
-		List<Notizbuch> notizbuecher = berechtigungAnwenden(
-				nbMapper.nachAllenNotizbuechernSuchen(), Berechtigungsart.LESEN);
+	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException {
+		List<Notizbuch> notizbuecher = berechtigungAnwenden(nbMapper.nachAllenNotizbuechernSuchen(),
+				Berechtigungsart.LESEN);
 		for (Notizbuch notizbuch : notizbuecher) {
-			notizbuch.setNotizen(berechtigungAnwenden(noMapper
-					.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
+			notizbuch.setNotizen(berechtigungAnwenden(noMapper.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
 					Berechtigungsart.LESEN));
 		}
 		return notizbuecher;
@@ -545,12 +539,10 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen aller Notizbuecher des �bergeben Nutzers.
 	 */
 	@Override
-	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n)
-			throws IllegalArgumentException {
+	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException {
 		List<Notizbuch> notizbuecher = this.nbMapper.nachEigentuemerSuchen(n);
 		for (Notizbuch notizbuch : notizbuecher) {
-			notizbuch.setNotizen(berechtigungAnwenden(noMapper
-					.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
+			notizbuch.setNotizen(berechtigungAnwenden(noMapper.nachAllenNotizenDesNotizbuchesSuchen(notizbuch.getId()),
 					Berechtigungsart.LESEN));
 		}
 		return notizbuecher;
@@ -560,10 +552,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * Auslesen des Notizbuches mit einer bestimmten Id.
 	 */
 	@Override
-	public Notizbuch nachNotizbuchIdSuchen(int id)
-			throws IllegalArgumentException {
-		return berechtigungAnwenden(nbMapper.nachNotizbuchIdSuchen(id),
-				Berechtigungsart.LESEN);
+	public Notizbuch nachNotizbuchIdSuchen(int id) throws IllegalArgumentException {
+		return berechtigungAnwenden(nbMapper.nachNotizbuchIdSuchen(id), Berechtigungsart.LESEN);
 	}
 
 	/**
@@ -604,6 +594,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		}
 	}
 
+	@Override
+	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException {
+		return anlegenNotizbuecherFuer(n, new Notizbuch());
+	}
+
 	/**
 	 * Anlegen eines neuen Notizbuches f�r den �bergebenen Nutzers. Dies f�hrt
 	 * implizit zu einem Speichern des neuen, leeren Notizbuches in der
@@ -616,12 +611,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * 
 	 * @see speichern(Notizbuch a)
 	 */
-	@Override
-	public Notizbuch anlegenNotizbuecherFuer(Nutzer n)
-			throws IllegalArgumentException {
-		Notizbuch nb = new Notizbuch();
+	public Notizbuch anlegenNotizbuecherFuer(Nutzer n, Notizbuch nb) throws IllegalArgumentException {
 		nb.setEigentuemer(n);
-		nb.setTitel("Neues Notizbuch");
+		if (nb.getTitel() == null || nb.getTitel().isEmpty()) {
+			nb.setTitel("Neues Notizbuch");
+		}
 
 		/*
 		 * Setzen einer vorl�ufigen NotizbuchId. Der anlegenNotizbuch-Aufruf
@@ -643,11 +637,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * @throws IllegalArgumentException
 	 */
 	@Override
-	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb)
-			throws IllegalArgumentException {
-		return berechtigungAnwenden(
-				noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId()),
-				Berechtigungsart.LESEN);
+	public List<Notiz> nachAllenNotizenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException {
+		return berechtigungAnwenden(noMapper.nachAllenNotizenDesNotizbuchesSuchen(nb.getId()), Berechtigungsart.LESEN);
 	}
 
 	/**
@@ -655,10 +646,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public Notizbuch speichern(Notizbuch nb) throws NutzerAusnahme {
-		if (berechtigungAnwenden(nb, Berechtigungsart.EDITIEREN) != null) {
-			return this.nbMapper.update(nb);
+		if (nb.getId() > 0) {
+			if (berechtigungAnwenden(nb, Berechtigungsart.EDITIEREN) != null) {
+				return this.nbMapper.update(nb);
+			} else {
+				throw new NutzerAusnahme("Keine Berechtigung vorhanden");
+			}
 		} else {
-			throw new NutzerAusnahme("Keine Berechtigung vorhanden");
+			return anlegenNotizbuecherFuer(nb.getEigentuemer(), nb);
 		}
 	}
 
@@ -669,23 +664,20 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 	 * **
 	 */
 
-	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt,
-			Berechtigungsart berechtigungsart) {
+	private <T extends Notizobjekt> T berechtigungAnwenden(T notizobjekt, Berechtigungsart berechtigungsart) {
 		if (notizobjekt == null) {
 			return null;
 		}
 
 		Nutzer aktuellerNutzer = loginService.getCurrentNutzer();
-		List<Berechtigung> berechtigungen = bMapper
-				.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
-						aktuellerNutzer);
+		List<Berechtigung> berechtigungen = bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
+				aktuellerNutzer);
 
 		if (aktuellerNutzer == null) {
 			return null;
 		}
 
-		if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt,
-				berechtigungsart)) {
+		if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt, berechtigungsart)) {
 			return notizobjekt;
 
 		} else {
@@ -693,8 +685,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 		}
 	}
 
-	private <T extends Notizobjekt> List<T> berechtigungAnwenden(
-			List<T> notizobjekte, Berechtigungsart berechtigungsart) {
+	private <T extends Notizobjekt> List<T> berechtigungAnwenden(List<T> notizobjekte,
+			Berechtigungsart berechtigungsart) {
 		Nutzer aktuellerNutzer = loginService.getCurrentNutzer();
 
 		if (aktuellerNutzer == null) {
@@ -703,29 +695,26 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 
 		List<T> ergebnis = new ArrayList<>();
 		for (T notizobjekt : notizobjekte) {
-			List<Berechtigung> berechtigungen = bMapper
-					.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
-							aktuellerNutzer);
-			if (pruefeBerechtigung(berechtigungen, aktuellerNutzer,
-					notizobjekt, berechtigungsart)) {
+			List<Berechtigung> berechtigungen = bMapper.nachAllenBerechtigungenDerNotizobjekteSuchen(notizobjekt,
+					aktuellerNutzer);
+			if (pruefeBerechtigung(berechtigungen, aktuellerNutzer, notizobjekt, berechtigungsart)) {
 				ergebnis.add(notizobjekt);
 			}
 		}
 		return ergebnis;
 	}
 
-	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen,
-			Nutzer aktuellerNutzer, Notizobjekt notizobjekt,
-			Berechtigungsart berechtigungsart) {
+	private boolean pruefeBerechtigung(List<Berechtigung> berechtigungen, Nutzer aktuellerNutzer,
+			Notizobjekt notizobjekt, Berechtigungsart berechtigungsart) {
 
-		if(notizobjekt.getId() > 0){
-			if(notizobjekt instanceof Notiz){
+		if (notizobjekt.getId() > 0) {
+			if (notizobjekt instanceof Notiz) {
 				Notiz notiz = (Notiz) notizobjekt;
 				Notiz notizAusDB = noMapper.nachNotizIdSuchen(notiz.getId());
 				if (notizAusDB.getEigentuemer().equals(aktuellerNutzer)) {
 					return true;
 				}
-			} else if (notizobjekt instanceof Notizbuch){
+			} else if (notizobjekt instanceof Notizbuch) {
 				Notizbuch notizbuch = (Notizbuch) notizobjekt;
 				Notizbuch notizbuchAusDB = nbMapper.nachNotizbuchIdSuchen(notizbuch.getId());
 				if (notizbuchAusDB.getEigentuemer().equals(aktuellerNutzer)) {
@@ -745,15 +734,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 
 	@Override
 	public Berechtigung loeschenBerechtigung(Berechtigung be) {
-		
-		 bMapper.berechtigungVerweigern(be);
-		 return be;
+
+		bMapper.berechtigungVerweigern(be);
+		return be;
 	}
 
 	@Override
 	public List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter) {
 		return noMapper.nachNotizenDesFilterSuchen(filter);
 	}
-	
-	
+
 }
