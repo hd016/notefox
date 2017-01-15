@@ -400,30 +400,26 @@ public class NotizMapper {
 				// dem Wert 1 inkrementiert wird
 				no.setId(rs.getInt("maxid") + 1);
 
+				
 				stmt = con.createStatement();
 
 				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch, faelligkeitsdatum ) "
-						+ "VALUES ("
-						+ no.getId()
-						+ ", "
-						+ no.getEigentuemer().getNutzerId()
-						+ ", \""
-						+ no.getTitel()
-						+ "\", \""
-						+ no.getSubtitel()
-						+ "\", \""
-						+ no.getInhalt()
-						+ "\""
+						+ "VALUES (?, ?, ?, ?, ? "
 						+ ", NOW(), NOW()"
 						+ ", "
 						+ no.getNotizbuch().getId()
 						+ ", \""
 						+ new SimpleDateFormat("yyyy-MM-dd").format(no
 								.getFaelligkeitsdatum()) + "\")";
+				PreparedStatement prepareStatement = con.prepareStatement(sql);
+				prepareStatement.setInt(1, no.getId());
+				prepareStatement.setInt(2, no.getEigentuemer().getNutzerId());
+				prepareStatement.setString(3, no.getTitel());
+				prepareStatement.setString(4, no.getSubtitel());
+				prepareStatement.setString(5, no.getInhalt());
 				System.out.println(sql);
-				stmt.executeUpdate(sql);
-
+				prepareStatement.executeUpdate();
 			}
 		} catch (SQLException e2) {
 			e2.printStackTrace();
@@ -522,7 +518,7 @@ public class NotizMapper {
 			Date faelligkeitsDatumBis = filter.getFaelligkeitsDatumBis();
 
 			String sql = ("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId LEFT JOIN berechtigung ON notiz.id = berechtigung.notiz "
-					+ " WHERE titel LIKE ? AND nutzer.email LIKE ? AND erstelldatum BETWEEN ? AND ? AND modifikationsdatum BETWEEN ? AND ? AND faelligkeitsdatum BETWEEN ? AND ?"
+					+ " WHERE notiz.titel LIKE ? AND nutzer.email LIKE ? AND notiz.erstelldatum BETWEEN ? AND ? AND notiz.modifikationsdatum BETWEEN ? AND ? AND notiz.faelligkeitsdatum BETWEEN ? AND ?"
 					+ (filter.isLeseBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LESEN'" : "")
 					+ (filter.isLoeschenBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LOESCHEN'" : "")
 					+ (filter.isSchreibBerechtigungen() ? " AND berechtigung.berechtigungsart = 'EDITIEREN'" : ""));

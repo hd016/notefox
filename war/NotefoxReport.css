@@ -259,7 +259,7 @@ h5 {
 	margin-left: 1vw;
 	margin-top: 1vw;
 	width: 10.2vw;
-	height: 2.5vw;
+	height: initial;
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
