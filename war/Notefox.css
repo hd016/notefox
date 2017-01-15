@@ -112,6 +112,10 @@ body {
 	padding: 0.5vw;
 }
 
+.notizeditorpanelVpanel {
+	margin-left: 6px;
+}
+
 }
 h5 {
 	font-size: 2em;
@@ -196,7 +200,7 @@ h5 {
 }
 
 .gwt-TextBox {
-	margin-left: 10px;
+	margin-left: 3px;
 }
 
 .datePicker {

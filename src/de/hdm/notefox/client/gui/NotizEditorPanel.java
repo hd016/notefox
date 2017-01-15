@@ -68,6 +68,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		vPanel.add(eigentuemer);
 		vPanel.add(Rich);
 		vPanel.add(area);
+		vPanel.addStyleName("notizeditorpanelVpanel");
 		this.add(vPanel);
 		this.add(faelligkeiten);
 

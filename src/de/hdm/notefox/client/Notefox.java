@@ -38,7 +38,7 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Label meineNotizBuecher = new Label("Meine Notizbücher");
+	HTML meineNotizBuecher = new HTML("<h3>Meine Notizbücher</h3>");
 
 	HTML br = new HTML("<br>");
 
@@ -265,12 +265,12 @@ public class Notefox implements EntryPoint {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			Window.alert("NÖ!");
+			Window.alert("Ein Fehler ist aufgetreten!");
 		}
 
 		@Override
 		public void onSuccess(Void result) {
-			Window.alert("OK!");
+			Window.alert("Auf Wiedersehen!");
 			Window.Location.replace(loginInfo.getLogoutUrl());
 		}
 
