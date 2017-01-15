@@ -718,17 +718,19 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet
 			Nutzer aktuellerNutzer, Notizobjekt notizobjekt,
 			Berechtigungsart berechtigungsart) {
 
-		if(notizobjekt instanceof Notiz){
-			Notiz notiz = (Notiz) notizobjekt;
-			Notiz notizAusDB = noMapper.nachNotizIdSuchen(notiz.getId());
-			if (notizAusDB.getEigentuemer().equals(aktuellerNutzer)) {
-				return true;
-			}
-		} else if (notizobjekt instanceof Notizbuch){
-			Notizbuch notizbuch = (Notizbuch) notizobjekt;
-			Notizbuch notizbuchAusDB = nbMapper.nachNotizbuchIdSuchen(notizbuch.getId());
-			if (notizbuchAusDB.getEigentuemer().equals(aktuellerNutzer)) {
-				return true;
+		if(notizobjekt.getId() > 0){
+			if(notizobjekt instanceof Notiz){
+				Notiz notiz = (Notiz) notizobjekt;
+				Notiz notizAusDB = noMapper.nachNotizIdSuchen(notiz.getId());
+				if (notizAusDB.getEigentuemer().equals(aktuellerNutzer)) {
+					return true;
+				}
+			} else if (notizobjekt instanceof Notizbuch){
+				Notizbuch notizbuch = (Notizbuch) notizobjekt;
+				Notizbuch notizbuchAusDB = nbMapper.nachNotizbuchIdSuchen(notizbuch.getId());
+				if (notizbuchAusDB.getEigentuemer().equals(aktuellerNutzer)) {
+					return true;
+				}
 			}
 		}
 

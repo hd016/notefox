@@ -1,10 +1,13 @@
 package de.hdm.notefox.client;
 
+import java.util.List;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTree;
+import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
@@ -44,25 +47,22 @@ public class Notefox implements EntryPoint {
 
 	Panel notizeditorpanel = new VerticalPanel();
 	Berechtigung berechtigung;
-	
+
 	CellTree celltree;
 
 	FooterPanel footerPanel = new FooterPanel();
-	
 
 	LoginInfo loginInfo;
-	
+
 	public final Anchor logoutLink = new Anchor("Abmelden");
 
 	public final Anchor impressumLink = new Anchor("Impressum");
-	
-	public final Anchor startseiteLink = new Anchor("Startseite");
-	
-	public final Anchor meinProfilLink = new Anchor("Mein Profil");
-	
-	Impressum impressum = new Impressum();
 
-	
+	public final Anchor startseiteLink = new Anchor("Startseite");
+
+	public final Anchor meinProfilLink = new Anchor("Mein Profil");
+
+	Impressum impressum = new Impressum();
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
@@ -74,53 +74,52 @@ public class Notefox implements EntryPoint {
 		LoginServiceAsync loginService = GWT.create(LoginService.class);
 
 		String urlParameter = Window.Location.getParameter("url");
-		
-		loginService.login(GWT.getHostPageBaseURL() + (urlParameter != null ? "?url=" + urlParameter : ""), new AsyncCallback<LoginInfo>() {
 
-			public void onFailure(Throwable error) {
-			}
+		loginService.login(GWT.getHostPageBaseURL() + (urlParameter != null ? "?url=" + urlParameter : ""),
+				new AsyncCallback<LoginInfo>() {
 
-			public void onSuccess(LoginInfo loginInfo) {
-				Notefox.this.loginInfo = loginInfo;
-				if (loginInfo.isLoggedIn()) {
-					onModuleLoadLoggedIn();
-				} else {
-					RootPanel.get("gwtContainer").clear();
-					RootPanel.get("gwtContainer").add(new LoginPanel(loginInfo));
-				}
-			}
-		});
+					public void onFailure(Throwable error) {
+					}
+
+					public void onSuccess(LoginInfo loginInfo) {
+						Notefox.this.loginInfo = loginInfo;
+						if (loginInfo.isLoggedIn()) {
+							onModuleLoadLoggedIn();
+						} else {
+							RootPanel.get("gwtContainer").clear();
+							RootPanel.get("gwtContainer").add(new LoginPanel(loginInfo));
+						}
+					}
+				});
 
 	}
 
 	private void onModuleLoadLoggedIn() {
-		
-
-		
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		zeigeInhalt(new VerticalPanel());
-		
+
 		String urlParameter = Window.Location.getParameter("url");
-		if(urlParameter != null){
+		if (urlParameter != null) {
 			administration.anlegenNotiz(urlParameter, new AsyncCallback<Notiz>() {
-				
+
 				@Override
 				public void onSuccess(Notiz result) {
 					zeigeNotiz(result);
 				}
-				
+
 				@Override
 				public void onFailure(Throwable caught) {
 					Window.alert("FEHLER! tut mir leid");
 				}
 			});
 		}
-		
-		ersetzeBaum();
+
+		ersetzeBaum(null);
 		Label welcomeLabel = new Label();
-		welcomeLabel.setText("Herzlich Willkommen: " +  loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!"); 
-		
+		welcomeLabel
+				.setText("Herzlich Willkommen: " + loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
+
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
@@ -128,10 +127,9 @@ public class Notefox implements EntryPoint {
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
 		impressumLink.addClickHandler(new ImpressumClickHandler());
-		
+
 		meinProfilLink.addClickHandler(new MeinProfilClickHandler());
-		
-		
+
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		HorizontalPanel headerPanel = new HorizontalPanel();
@@ -140,10 +138,9 @@ public class Notefox implements EntryPoint {
 		headerPanel.add(meinProfilLink);
 		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
-		
+
 		RootPanel.get("head").add(headerPanel);
 
-		
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
 		VerticalPanel vPanelRight = new VerticalPanel();
 		hPanelNotizNotizbuch.add(notizeditorpanel);
@@ -166,12 +163,14 @@ public class Notefox implements EntryPoint {
 		zeigeInhalt(null);
 	}
 
-	public void neueNotiz(Notizbuch notizbuch) {
+	public void neueNotiz(final Notizbuch notizbuch) {
 		administration.anlegenNotiz(notizbuch, new AsyncCallback<Notiz>() {
 
 			@Override
 			public void onSuccess(Notiz result) {
 				zeigeNotiz(result);
+				ersetzeBaum(notizbuch);
+
 			}
 
 			@Override
@@ -192,7 +191,7 @@ public class Notefox implements EntryPoint {
 			@Override
 			public void onSuccess(Notizbuch result) {
 				zeigeNotizbuch(result);
-				ersetzeBaum();
+				ersetzeBaum(result);
 			}
 		});
 
@@ -208,8 +207,13 @@ public class Notefox implements EntryPoint {
 		((NotizEditorPanel) notizeditorpanel).setNotizobjekt(notizbuch);
 	}
 
-	public void ersetzeBaum() {
-		celltree = new CellTree(new NotizBaumModel(this, loginInfo.getNutzer()), null);
+	public CellTree getCelltree() {
+		return celltree;
+	}
+	
+	public void ersetzeBaum(Notizbuch notizbuch) {
+		NotizBaumModel viewModel = new NotizBaumModel(this, notizbuch);
+		celltree = new CellTree(viewModel, null);
 
 		vPanel.clear();
 		vPanel.add(meineNotizBuecher);
@@ -218,19 +222,30 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 	}
-	private class ImpressumClickHandler implements ClickHandler{
+	
+	public void baumNeuOeffnen(){
+		TreeNode rootTreeNode = celltree.getRootTreeNode();
+		for (int i = 0; i < rootTreeNode.getChildCount(); i++) {
+			if(rootTreeNode.isChildOpen(i)){
+				rootTreeNode.setChildOpen(i, false);
+				rootTreeNode.setChildOpen(i, true);
+			}
+		}
+	}
+
+	private class ImpressumClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			RootPanel.get("text").clear();
 			RootPanel.get("gwtContainer").clear();
 			RootPanel.get("text").add(impressum);
-			
+
 		}
-		
+
 	}
-	
-	private class MeinProfilClickHandler implements ClickHandler{
+
+	private class MeinProfilClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
@@ -238,13 +253,13 @@ public class Notefox implements EntryPoint {
 			HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
 			Label labelName = new Label();
 			Label labelEmail = new Label();
-			
+
 			VerticalPanel vPanel = new VerticalPanel();
-			
+
 			Anchor profilLoeschen = new Anchor("Mein Profil löschen");
 			labelName.setText("Name: " + loginInfo.getNutzer().getEmail().split("@")[0]);
 			labelEmail.setText("Email: " + loginInfo.getNutzer().getEmail());
-			
+
 			uberschrift.addStyleName("meinProfil-labels");
 			labelName.addStyleName("meinProfil-labels");
 			labelEmail.addStyleName("meinProfil-labels");
@@ -254,31 +269,29 @@ public class Notefox implements EntryPoint {
 			vPanel.add(labelEmail);
 			vPanel.add(profilLoeschen);
 			RootPanel.get("nav").add(vPanel);
-			
+
 			profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
-			
 
 		}
-		
+
 	}
-	
-	
-	private class NutzerLoeschenClickHandler implements ClickHandler{
+
+	private class NutzerLoeschenClickHandler implements ClickHandler {
 
 		@Override
 		public void onClick(ClickEvent event) {
 			boolean confirm = Window.confirm("Sollte Ihr Account unwiderruflich gelöscht werden?");
-			if(confirm){administration.loeschenNutzer(loginInfo.getNutzer(),new NutzerLoeschenAsyncCallback());
-			}
-			else {
+			if (confirm) {
+				administration.loeschenNutzer(loginInfo.getNutzer(), new NutzerLoeschenAsyncCallback());
+			} else {
 				Window.alert("Ihr Account wurde nicht gelöscht.");
 			}
-			
+
 		}
-		
+
 	}
-	
-	private class NutzerLoeschenAsyncCallback implements AsyncCallback<Void>{
+
+	private class NutzerLoeschenAsyncCallback implements AsyncCallback<Void> {
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -290,7 +303,7 @@ public class Notefox implements EntryPoint {
 			Window.alert("OK!");
 			Window.Location.replace(loginInfo.getLogoutUrl());
 		}
-		
+
 	}
 
 }

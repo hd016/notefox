@@ -38,12 +38,14 @@ public class FreigebenDialogBox extends DialogBox {
 
 	private Notizobjekt notizobjekt;
 
+	private NotizBerechtigungPanel nbPanel;
+
 	FreigebenDialogBox(Notizobjekt notizobjekt) {
 
 		lesen.setValue(true);
 		
 		this.notizobjekt = notizobjekt;
-		NotizBerechtigungPanel nbPanel = new NotizBerechtigungPanel(notizobjekt);
+		nbPanel = new NotizBerechtigungPanel(notizobjekt);
 
 		setText("Freigeben für..");
 		setAnimationEnabled(true);
@@ -130,7 +132,7 @@ public class FreigebenDialogBox extends DialogBox {
 		@Override
 		public void onSuccess(Berechtigung result) {
 			Window.alert("Berechtigung wurde angelegt");
-
+			nbPanel.refresh();
 		}
 
 	}

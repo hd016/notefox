@@ -1,7 +1,6 @@
 package de.hdm.notefox.client.gui;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.google.gwt.cell.client.AbstractCell;
@@ -10,11 +9,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.ListDataProvider;
@@ -23,21 +18,22 @@ import com.google.gwt.view.client.TreeViewModel;
 import de.hdm.notefox.client.Notefox;
 import de.hdm.notefox.shared.NotizobjektAdministration;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
-import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
+import de.hdm.notefox.shared.bo.Notizobjekt;
 
 public class NotizBaumModel implements TreeViewModel {
 
-	private final Nutzer nutzer;
 	private Notefox notefox;
+	private Notizbuch geoeffnet;
 
 	final NotizobjektAdministrationAsync administration = GWT
 			.create(NotizobjektAdministration.class);
+
 	
-	public NotizBaumModel(Notefox notefox, Nutzer nutzer) {
+	public NotizBaumModel( Notefox notefox, Notizbuch geoeffnet) {
 		this.notefox = notefox;
-		this.nutzer = nutzer;
+		this.geoeffnet = geoeffnet;
 	}
 
 	@Override
@@ -60,6 +56,15 @@ public class NotizBaumModel implements TreeViewModel {
 									
 									updateRowCount(result.size(), true);
 									updateRowData(0, result);
+									
+									if (geoeffnet != null) {
+
+										for (int i = 0; i < result.size(); i++) {
+											if (result.get(i).equals(geoeffnet)) {
+												notefox.getCelltree().getRootTreeNode().setChildOpen(i, true);
+											}
+										}
+									}
 								}
 
 								@Override
