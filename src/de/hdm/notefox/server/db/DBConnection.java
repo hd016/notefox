@@ -3,6 +3,9 @@ package de.hdm.notefox.server.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.appengine.api.utils.SystemProperty;
 
 /*
@@ -25,86 +28,91 @@ import com.google.appengine.api.utils.SystemProperty;
  */
 public class DBConnection {
 
-    /**
-     * Die Klasse DBConnection wird nur einmal instantiiert. Man spricht hierbei
-     * von einem sogenannten <b>Singleton</b>.
-     * <p>
-     * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
-     * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
-     * speichert die einzige Instanz dieser Klasse.
-     * 
-     * @see NotizMapper.notizMapper()
-     * @see NotizbuchMapper.notizbuchMapper()
-     * @see NutzerMapper.nutzerMapper()
-     */
-    private static Connection con = null;
+	/**
+	 * Die Klasse DBConnection wird nur einmal instantiiert. Man spricht hierbei
+	 * von einem sogenannten <b>Singleton</b>.
+	 * <p>
+	 * Diese Variable ist durch den Bezeichner <code>static</code> nur einmal
+	 * fuer saemtliche eventuellen Instanzen dieser Klasse vorhanden. Sie
+	 * speichert die einzige Instanz dieser Klasse.
+	 * 
+	 * @see NotizMapper.notizMapper()
+	 * @see NotizbuchMapper.notizbuchMapper()
+	 * @see NutzerMapper.nutzerMapper()
+	 */
+	private static Connection con = null;
 
-    /**
-     * Die URL, mit deren Hilfe die Datenbank angesprochen wird. In einer
-     * professionellen Applikation wuerde diese Zeichenkette aus einer
-     * Konfigurationsdatei eingelesen oder ueber einen Parameter von aussen
-     * mitgegeben, um bei einer Veraenderung dieser URL nicht die gesamte
-     * Software neu komilieren zu muessen.
-     */
-    private static String googleUrl = "jdbc:mysql://173.194.104.160:3306/notefox?user=admin&password=test1";
-    private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=414159426";
-    
-    /**
-     * Diese statische Methode kann aufgrufen werden durch
-     * <code>DBConnection.connection()</code>. Sie stellt die
-     * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine
-     * einzige Instanz von <code>DBConnection</code> existiert.
-     * <p>
-     * 
-     * <b>Fazit:</b> DBConnection sollte nicht mittels <code>new</code>
-     * instantiiert werden, sondern stets durch Aufruf dieser statischen
-     * Methode.
-     * <p>
-     * 
-     * <b>Nachteil:</b> Bei Zusammenbruch der Verbindung zur Datenbank - dies
-     * kann z.B. durch ein unbeabsichtigtes Herunterfahren der Datenbank
-     * ausgeloest werden - wird keine neue Verbindung aufgebaut, so dass die in
-     * einem solchen Fall die gesamte Software neu zu starten ist. In einer
-     * robusten Loesung wuerde man hier die Klasse dahingehend modifizieren, dass
-     * bei einer nicht mehr funktionsfaehigen Verbindung stets versucht wuerde,
-     * eine neue Verbindung aufzubauen. Dies wuerde allerdings ebenfalls den
-     * Rahmen dieses Projekts sprengen.
-     * 
-     * @return DAS <code>DBConncetion</code>-Objekt.
-     * @see con
-     */
-    public static Connection connection() {
-        // Wenn es bisher keine Connection zur DB gibt, ...
-        if (con == null) {
-            String url = null;
-            try {
-//                if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
-                	// Load the class that provides the new
-                    // "jdbc:google:mysql://" prefix.
-//                    Class.forName("com.mysql.jdbc.GoogleDriver");
-                    url = googleUrl;
-//                } else {
-                	// Local MySQL instance to use during development.
-                    Class.forName("com.mysql.jdbc.Driver");
-//                    url = localUrl;
-//                }
-                /*
-                 * Dann erst kann uns der DriverManager eine Verbindung mit den
-                 * oben in der Variable url angegebenen Verbindungsinformationen
-                 * aufbauen.
-                 * 
-                 * Diese Verbindung wird dann in der statischen Variable con
-                 * abgespeichert und fortan verwendet.
-                 */
-                con = DriverManager.getConnection(url);
-            } catch (Exception e) {
-                con = null;
-                e.printStackTrace();
-            }
-        }
+	/**
+	 * Die URL, mit deren Hilfe die Datenbank angesprochen wird. In einer
+	 * professionellen Applikation wuerde diese Zeichenkette aus einer
+	 * Konfigurationsdatei eingelesen oder ueber einen Parameter von aussen
+	 * mitgegeben, um bei einer Veraenderung dieser URL nicht die gesamte
+	 * Software neu komilieren zu muessen.
+	 */
+	private static String googleUrl = "jdbc:google:mysql://notefox-152421:notefox/notefox?user=root";
+	private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=414159426";
 
-        // Verbindung wird zurueckgegeben
-        return con;
-    }
+	/**
+	 * Diese statische Methode kann aufgrufen werden durch
+	 * <code>DBConnection.connection()</code>. Sie stellt die
+	 * Singleton-Eigenschaft sicher, indem Sie dafuer sorgt, dass nur eine
+	 * einzige Instanz von <code>DBConnection</code> existiert.
+	 * <p>
+	 * 
+	 * <b>Fazit:</b> DBConnection sollte nicht mittels <code>new</code>
+	 * instantiiert werden, sondern stets durch Aufruf dieser statischen
+	 * Methode.
+	 * <p>
+	 * 
+	 * <b>Nachteil:</b> Bei Zusammenbruch der Verbindung zur Datenbank - dies
+	 * kann z.B. durch ein unbeabsichtigtes Herunterfahren der Datenbank
+	 * ausgeloest werden - wird keine neue Verbindung aufgebaut, so dass die in
+	 * einem solchen Fall die gesamte Software neu zu starten ist. In einer
+	 * robusten Loesung wuerde man hier die Klasse dahingehend modifizieren,
+	 * dass bei einer nicht mehr funktionsfaehigen Verbindung stets versucht
+	 * wuerde, eine neue Verbindung aufzubauen. Dies wuerde allerdings ebenfalls
+	 * den Rahmen dieses Projekts sprengen.
+	 * 
+	 * @return DAS <code>DBConncetion</code>-Objekt.
+	 * @see con
+	 */
+	public static Connection connection() {
+		Logger logger = Logger.getLogger("DBConnection");
+		
+		// Wenn es bisher keine Connection zur DB gibt, ...
+		if (con == null) {
+			String url = null;
+			try {
+				if (SystemProperty.environment.value() == SystemProperty.Environment.Value.Production) {
+					// Load the class that provides the new
+					// "jdbc:google:mysql://" prefix.
+					Class.forName("com.mysql.jdbc.GoogleDriver");
+					url = googleUrl;
+					logger.log(Level.INFO, "Run in production mode");
+				} else {
+					// Local MySQL instance to use during development.
+					Class.forName("com.mysql.jdbc.Driver");
+					url = localUrl;
+					logger.log(Level.INFO, "Run in development mode");
+				}
+				/*
+				 * Dann erst kann uns der DriverManager eine Verbindung mit den
+				 * oben in der Variable url angegebenen Verbindungsinformationen
+				 * aufbauen.
+				 * 
+				 * Diese Verbindung wird dann in der statischen Variable con
+				 * abgespeichert und fortan verwendet.
+				 */
+				con = DriverManager.getConnection(url);
+			} catch (Exception e) {
+				con = null;
+				
+				logger.log(Level.SEVERE, "error while creating db connection", e);
+			}
+		}
+
+		// Verbindung wird zurueckgegeben
+		return con;
+	}
 
 }
