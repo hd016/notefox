@@ -518,7 +518,7 @@ public class NotizMapper {
 			Date faelligkeitsDatumBis = filter.getFaelligkeitsDatumBis();
 
 			String sql = ("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId LEFT JOIN berechtigung ON notiz.id = berechtigung.notiz "
-					+ " WHERE titel LIKE ? AND nutzer.email LIKE ? AND erstelldatum BETWEEN ? AND ? AND modifikationsdatum BETWEEN ? AND ? AND faelligkeitsdatum BETWEEN ? AND ?"
+					+ " WHERE notiz.titel LIKE ? AND nutzer.email LIKE ? AND notiz.erstelldatum BETWEEN ? AND ? AND notiz.modifikationsdatum BETWEEN ? AND ? AND notiz.faelligkeitsdatum BETWEEN ? AND ?"
 					+ (filter.isLeseBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LESEN'" : "")
 					+ (filter.isLoeschenBerechtigungen() ? " AND berechtigung.berechtigungsart = 'LOESCHEN'" : "")
 					+ (filter.isSchreibBerechtigungen() ? " AND berechtigung.berechtigungsart = 'EDITIEREN'" : ""));

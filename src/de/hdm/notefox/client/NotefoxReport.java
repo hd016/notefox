@@ -3,6 +3,7 @@ package de.hdm.notefox.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
@@ -25,14 +26,14 @@ import de.hdm.notefox.shared.report.HTMLReportWriter;
 public class NotefoxReport implements EntryPoint {
 
 	ReportGeneratorAsync reportGenerator = null;
-//	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
-	Button notizbucherButton = new Button("Report");
-	//Label notizenLabel = new Label("Alle Notizen aller Nutzer");
-	Button notizenButton = new Button("Report");
+    Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
+	Button notizbucherButton = new Button("Alle Notizbücher aller Nutzer");
+	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
+	Button notizenButton = new Button("Alle Notizen aller Nutzer");
 	FilterPanel filterPanel = new FilterPanel();
 	
 	
-	VerticalPanel mainPanel = new VerticalPanel();
+	HorizontalPanel mainPanel = new HorizontalPanel();
 	VerticalPanel erstPanel = new VerticalPanel();
 	VerticalPanel zweitPanel = new VerticalPanel();
 	
@@ -62,8 +63,7 @@ public class NotefoxReport implements EntryPoint {
 		mainPanel.add(erstPanel);
 		mainPanel.add(zweitPanel);
 
-		//vPanelNotizbucher.add(notizbucherLabel);
-		//vPanelNotizbucher.add(notizbucherButton);
+		mainPanel.add(notizbucherButton);
 		
 
 		notizenButton.addStyleName("Report-Button");
