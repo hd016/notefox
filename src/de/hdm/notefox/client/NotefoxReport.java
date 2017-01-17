@@ -25,9 +25,9 @@ import de.hdm.notefox.shared.report.HTMLReportWriter;
 public class NotefoxReport implements EntryPoint {
 
 	ReportGeneratorAsync reportGenerator = null;
-//	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
+//	Label notizbucherLabel = new Label("Notizbücher");
 	Button notizbucherButton = new Button("Report");
-	//Label notizenLabel = new Label("Alle Notizen aller Nutzer");
+	//Label notizenLabel = new Label("Notiz");
 	Button notizenButton = new Button("Report");
 	FilterPanel filterPanel = new FilterPanel();
 	
