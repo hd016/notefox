@@ -3,313 +3,304 @@ package de.hdm.notefox.shared.report;
 import java.util.Vector;
 
 /**
- * Reports werden mit dem ReportWriter mittels HTML formatiert. 
+ * Reports werden mit dem ReportWriter mittels HTML formatiert.
  */
 public class HTMLReportWriter extends ReportWriter {
 
-  /**
-   * Belegung der Variable mit dem Ergebnis einer Umwandlung. 
-   * Format: HTML-Text
-   */
-  private String reportText = "";
+	/**
+	 * Belegung der Variable mit dem Ergebnis einer Umwandlung. Format:
+	 * HTML-Text
+	 */
+	private String reportText = "";
 
-  /**
-   * reportText-Varibale wird zur�ckgesetzt.
-   */
-  public void resetReportText() {
-    this.reportText = "";
-  }
+	/**
+	 * reportText-Varibale wird zur�ckgesetzt.
+	 */
+	public void resetReportText() {
+		this.reportText = "";
+	}
 
-  /**
-   * ParagraphObjekt in HTML umwandeln.t
-   */
-  public String paragraph2HTML(Paragraph p) {
-    if (p instanceof CompositeParagraph) {
-      return this.paragraph2HTML((CompositeParagraph) p);
-    }
-    else {
-      return this.paragraph2HTML((SimpleParagraph) p);
-    }
-  }
+	/**
+	 * ParagraphObjekt in HTML umwandeln.t
+	 */
+	public String paragraph2HTML(Paragraph p) {
+		if (p instanceof CompositeParagraph) {
+			return this.paragraph2HTML((CompositeParagraph) p);
+		} else {
+			return this.paragraph2HTML((SimpleParagraph) p);
+		}
+	}
 
-  /**
-   * CompositeParagraph-Objekt in HTML umwandeln.
-   */
-  public String paragraph2HTML(CompositeParagraph p) {
-    StringBuffer result = new StringBuffer();
+	/**
+	 * CompositeParagraph-Objekt in HTML umwandeln.
+	 */
+	public String paragraph2HTML(CompositeParagraph p) {
+		StringBuffer result = new StringBuffer();
 
-    for (int i = 0; i < p.getNumParagraphs(); i++) {
-      result.append("<p>" + p.getParagraphAt(i) + "</p>");
-    }
+		for (int i = 0; i < p.getNumParagraphs(); i++) {
+			result.append("<p>" + p.getParagraphAt(i) + "</p>");
+		}
 
-    return result.toString();
-  }
+		return result.toString();
+	}
 
-  /**
-   * SimpleParagraph-Objekt in HTML umwandeln.
-   */
-  public String paragraph2HTML(SimpleParagraph p) {
-    return "<p>" + p.toString() + "</p>";
-  }
+	/**
+	 * SimpleParagraph-Objekt in HTML umwandeln.
+	 */
+	public String paragraph2HTML(SimpleParagraph p) {
+		return "<p>" + p.toString() + "</p>";
+	}
 
-  /**
-   * Produzierung des HTML-Header-Textes.
-   */
-  public String getHeader() {
-    StringBuffer result = new StringBuffer();
+	/**
+	 * Produzierung des HTML-Header-Textes.
+	 */
+	public String getHeader() {
+		StringBuffer result = new StringBuffer();
 
-    result.append("<html><head><title></title></head><body>");
-    return result.toString();
-  }
+		result.append("<html><head><title></title></head><body>");
+		return result.toString();
+	}
 
-  /**
-   * Produzierung des HTML-Trailer-Textes.
-   */
-  public String getTrailer() {
-    return "</body></html>";
-  }
+	/**
+	 * Produzierung des HTML-Trailer-Textes.
+	 */
+	public String getTrailer() {
+		return "</body></html>";
+	}
 
-  /**
-   * �bergebener Report und Ablage im Zielformat. 
-   */
- 
-public void process(AlleNotizenDesNutzersReport r) {
-    // L�schen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+	/**
+	 * �bergebener Report und Ablage im Zielformat.
+	 */
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * w�hrend der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+	public void process(AlleNotizenDesNutzersReport r) {
+		// Löschen der Ergebnisse vorhergehender Prozessierungen. 
+		this.resetReportText();
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das �bersetzen in HTML-Form. (Schritt f�r Schritt).
-     */
-    result.append("<H1>" + r.getTitle() + "</H1>");
-    result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-    result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
-        + "</b></td>");
-    result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
-        + "</td>");
-    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-        + "</td></tr></table>");
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-    Vector<Row> rows = r.getRows();
-    result.append("<table style=\"width:400px\">");
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
+		 * HTML-Form. (Schritt für Schritt).
+		 */
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData()) + "</b></td>");
+		result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
-    for (int i = 0; i < rows.size(); i++) {
-      Row row = rows.elementAt(i);
-      result.append("<tr>");
-      for (int k = 0; k < row.getNumColumns(); k++) {
-        if (i == 0) {
-          result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
-              + "</td>");
-        }
-        else {
-          if (i > 1) {
-            result.append("<td style=\"border-top:1px solid silver\">"
-                + row.getColumnAt(k) + "</td>");
-          }
-          else {
-            result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
-          }
-        }
-      }
-      result.append("</tr>");
-    }
+		Vector<Row> rows = r.getRows();
+		result.append("<table style=\"width:400px\">");
 
-    result.append("</table>");
+		for (int i = 0; i < rows.size(); i++) {
+			Row row = rows.elementAt(i);
+			result.append("<tr>");
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				if (i == 0) {
+					result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k) + "</td>");
+				} else {
+					if (i > 1) {
+						result.append("<td style=\"border-top:1px solid silver\">" + row.getColumnAt(k) + "</td>");
+					} else {
+						result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
+					}
+				}
+			}
+			result.append("</tr>");
+		}
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das erm�glicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+		result.append("</table>");
 
-/**
- * �bergebener Report und Ablage im Zielformat. 
- */
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das ermöglicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-public void process(AlleNotizbuecherDesNutzersReport r) {
-  // L�schen der Ergebnisse vorhergehender Prozessierungen.
-  this.resetReportText();
+	/**
+	 * Übergebener Report und Ablage im Zielformat.
+	 */
 
-  /*
-   * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-   * w�hrend der Prozessierung 
-   */
-  StringBuffer result = new StringBuffer();
+	public void process(AlleNotizbuecherDesNutzersReport r) {
+		// Löschen der Ergebnisse vorhergehender Prozessierungen.
+		this.resetReportText();
 
-  /*
-   * Auslesen der einzelnen Bestandteile des Reports
-   * und das �bersetzen in HTML-Form. (Schritt f�r Schritt).
-   */
-  result.append("<H1>" + r.getTitle() + "</H1>");
-  result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-  result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData())
-      + "</b></td>");
-  result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint())
-      + "</td>");
-  result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-      + "</td></tr></table>");
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-  Vector<Row> rows = r.getRows();
-  result.append("<table style=\"width:400px\">");
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
+		 * HTML-Form. (Schritt fÜr Schritt).
+		 */
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
+		result.append("<td valign=\"top\"><b>" + paragraph2HTML(r.getHeaderData()) + "</b></td>");
+		result.append("<td valign=\"top\">" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
-  for (int i = 0; i < rows.size(); i++) {
-    Row row = rows.elementAt(i);
-    result.append("<tr>");
-    for (int k = 0; k < row.getNumColumns(); k++) {
-      if (i == 0) {
-        result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k)
-            + "</td>");
-      }
-      else {
-        if (i > 1) {
-          result.append("<td style=\"border-top:1px solid silver\">"
-              + row.getColumnAt(k) + "</td>");
-        }
-        else {
-          result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
-        }
-      }
-    }
-    result.append("</tr>");
-  }
+		Vector<Row> rows = r.getRows();
+		result.append("<table style=\"width:400px\">");
 
-  result.append("</table>");
+		for (int i = 0; i < rows.size(); i++) {
+			Row row = rows.elementAt(i);
+			result.append("<tr>");
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				if (i == 0) {
+					result.append("<td style=\"background:silver;font-weight:bold\">" + row.getColumnAt(k) + "</td>");
+				} else {
+					if (i > 1) {
+						result.append("<td style=\"border-top:1px solid silver\">" + row.getColumnAt(k) + "</td>");
+					} else {
+						result.append("<td valign=\"top\">" + row.getColumnAt(k) + "</td>");
+					}
+				}
+			}
+			result.append("</tr>");
+		}
 
-  /*
-   * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-   * Das erm�glicht das Ergebnis mit getReportText() auszulesen.
-   */
-  this.reportText = result.toString();
-}
+		result.append("</table>");
 
-  /**
-   * �bergebener Report und Ablage im Zielformat. 
-   */
-public void process(AlleNotizenAllerNutzerReport r) {
-	// L�schen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das erm�glicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * w�hrend der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+	/**
+	 * Übergebener Report und Ablage im Zielformat.
+	 */
+	public void process(AlleNotizenAllerNutzerReport r) {
+		/** LÖschen der Ergebnisse vorhergehender Prozessierungen. */
+		this.resetReportText();
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das �bersetzen in HTML-Form. (Schritt f�r Schritt).
-     */
-    result.append("<table><tr>");
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, 
+		 *  während der Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-    if (r.getHeaderData() != null) {
-      result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-    }
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
+		 * HTML-Form. (Schritt für Schritt).
+		 */
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table><tr>");
 
-    result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
-    result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-        + "</td></tr></table>");
+		if (r.getHeaderData() != null) {
+			result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+		}
 
-    /*
-     * r enth�lt eine Menge von Teil-Reports des Typs AlleNotizenDesNutzersReport,
-     * da AlleNotizenAllerNutzerReport ein CompositeReport ist.
-     * processAlleNotizenDesNutzersReport wird f�r jeden dieser Teil-Reports
-     * aufgerufen. Dem Buffer wird das Ergebnis des jew. Aufrufs hinzugef�gt.
-     */
-    for (int i = 0; i < r.getNumSubReports(); i++) {
-      /*
-       * Voraussertzung des AlleNotizenDesNutzersReports als Typ der SubReports
-       */
-    	AlleNotizenDesNutzersReport subReport = (AlleNotizenDesNutzersReport) r
-          .getSubReportAt(i);
+		result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
-      this.process(subReport);
+		/*
+		 * r enthält eine Menge von Teil-Reports des Typs
+		 * AlleNotizenDesNutzersReport, da AlleNotizenAllerNutzerReport ein
+		 * CompositeReport ist. processAlleNotizenDesNutzersReport wird für
+		 * jeden dieser Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis
+		 * des jew. Aufrufs hinzugefügt.
+		 */
+		for (int i = 0; i < r.getNumSubReports(); i++) {
+			/*
+			 * Voraussertzung des AlleNotizenDesNutzersReports als Typ der
+			 * SubReports
+			 */
+			AlleNotizenDesNutzersReport subReport = (AlleNotizenDesNutzersReport) r.getSubReportAt(i);
 
-      result.append(this.reportText + "\n");
+			this.process(subReport);
 
-      /*
-       * Ergebnisvariable zur�cksetzen.
-       */
-      this.resetReportText();
-    }
+			result.append(this.reportText + "\n");
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das erm�glicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+			/**
+			 * Ergebnisvariable zurücksetzen.
+			 */
+			this.resetReportText();
+		}
 
-/**
- * �bergebener Report und Ablage im Zielformat. 
- */
-public void process(AlleNotizbuecherAllerNutzerReport r) {
-	// L�schen der Ergebnisse vorhergehender Prozessierungen.
-  this.resetReportText();
+		/*
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable. Das ermöglicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-  /*
-   * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-   * w�hrend der Prozessierung 
-   */
-  StringBuffer result = new StringBuffer();
+	/**
+	 * Übergebener Report und Ablage im Zielformat.
+	 */
+	public void process(AlleNotizbuecherAllerNutzerReport r) {
+		/** Löschen der Ergebnisse vorhergehender Prozessierungen.*/
+		this.resetReportText();
 
-  /*
-   * Auslesen der einzelnen Bestandteile des Reports
-   * und das �bersetzen in HTML-Form. (Schritt f�r Schritt).
-   */
-  result.append("<H1>" + r.getTitle() + "</H1>");
-  result.append("<table><tr>");
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-  if (r.getHeaderData() != null) {
-    result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
-  }
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
+		 * HTML-Form. (Schritt für Schritt).
+		 */
+		result.append("<H1>" + r.getTitle() + "</H1>");
+		result.append("<table><tr>");
 
-  result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
-  result.append("</tr><tr><td></td><td>" + r.getCreated().toString()
-      + "</td></tr></table>");
+		if (r.getHeaderData() != null) {
+			result.append("<td>" + paragraph2HTML(r.getHeaderData()) + "</td>");
+		}
 
-  /*
-   * r enth�lt eine Menge von Teil-Reports des Typs AlleNotizbuecherDesNutzersReport,
-   * da AlleNotizbuecherAllerNutzerReport ein CompositeReport ist.
-   * processAlleNotizbuecherDesNutzersReport wird f�r jeden dieser Teil-Reports
-   * aufgerufen. Dem Buffer wird das Ergebnis des jew. Aufrufs hinzugef�gt.
-   */
-  for (int i = 0; i < r.getNumSubReports(); i++) {
-    /*
-     * Voraussertzung des AlleNotizbuecherDesNutzersReports als Typ der SubReports
-     */
-  	AlleNotizbuecherDesNutzersReport subReport = (AlleNotizbuecherDesNutzersReport) r
-        .getSubReportAt(i);
+		result.append("<td>" + paragraph2HTML(r.getImprint()) + "</td>");
+		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
-    this.process(subReport);
+		/*
+		 * r enthält eine Menge von Teil-Reports des Typs
+		 * AlleNotizbuecherDesNutzersReport, da
+		 * AlleNotizbuecherAllerNutzerReport ein CompositeReport ist.
+		 * processAlleNotizbuecherDesNutzersReport wird für jeden dieser
+		 * Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis des jew.
+		 * Aufrufs hinzugefügt.
+		 */
+		for (int i = 0; i < r.getNumSubReports(); i++) {
+			/*
+			 * Voraussertzung des AlleNotizbuecherDesNutzersReports als Typ der
+			 * SubReports
+			 */
+			AlleNotizbuecherDesNutzersReport subReport = (AlleNotizbuecherDesNutzersReport) r.getSubReportAt(i);
 
-    result.append(this.reportText + "\n");
+			this.process(subReport);
 
-    /*
-     * Ergebnisvariable zur�cksetzen.
-     */
-    this.resetReportText();
-  }
+			result.append(this.reportText + "\n");
 
-  /*
-   * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-   * Das erm�glicht das Ergebnis mit getReportText() auszulesen.
-   */
-  this.reportText = result.toString();
-}
+			/**
+			 * Ergebnisvariable zurücksetzen.
+			 */
+			this.resetReportText();
+		}
 
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das ermöglicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-  /**
-   * Das Ergebnis der zuletzt aufgerufenen Prozessierungsmethode wird ausgelesen.
-   */
-  public String getReportText() {
-    return this.getHeader() + this.reportText + this.getTrailer();
-  }
+	/**
+	 * Das Ergebnis der zuletzt aufgerufenen Prozessierungsmethode wird
+	 * ausgelesen.
+	 */
+	public String getReportText() {
+		return this.getHeader() + this.reportText + this.getTrailer();
+	}
 
 }

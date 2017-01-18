@@ -8,228 +8,234 @@ import java.util.Vector;
 public class PlainTextReportWriter extends ReportWriter {
 
 	/**
-	 * Belegung der Variable mit dem Ergebnis einer Umwandlung. 
-	 * Format: Text
+	 * Belegung der Variable mit dem Ergebnis einer Umwandlung. Format: Text
 	 */
 
-  private String reportText = "";
+	private String reportText = "";
 
-  /**
-   * reportText-Varibale wird zurückgesetzt.
-   */
-  public void resetReportText() {
-    this.reportText = "";
-  }
+	/**
+	 * reportText-Varibale wird zurï¿½ckgesetzt.
+	 */
+	public void resetReportText() {
+		this.reportText = "";
+	}
 
-  /**
-   * Produzieren des Headertextes.
-   */
-  public String getHeader() {
-    return "";
-  }
+	/**
+	 * Produzieren des Headertextes.
+	 */
+	public String getHeader() {
+		return "";
+	}
 
-  /**
-   * Produzieren des Trailer-Textes.
-   */
-  public String getTrailer() {
-    // Einfache Trennlinie, um das Report-Ende zu markieren.
-    return "___________________________________________";
-  }
+	/**
+	 * Produzieren des Trailer-Textes.
+	 */
+	public String getTrailer() {
+		// Einfache Trennlinie, um das Report-Ende zu markieren.
+		return "___________________________________________";
+	}
 
-  /**
-   * Übergebenes Report und Ablage im Zielformat prozessieren.
-   * Auslesen des Ergebinus mittels getReportText().
-   */
-public void process(AlleNotizenDesNutzersReport r) {
+	/**
+	 * Ãœbergebenes Report und Ablage im Zielformat prozessieren. Auslesen des
+	 * Ergebinus mittels getReportText().
+	 */
+	public void process(AlleNotizenDesNutzersReport r) {
 
-	// Löschen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+		// LÃ¶schen der Ergebnisse vorhergehender Prozessierungen.
+		this.resetReportText();
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * während der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+		/*
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, wÃ¤hrend der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das Übersetzen in Text-Form. (Schritt für Schritt).
-     */
-    result.append("*** " + r.getTitle() + " ***\n\n");
-    result.append(r.getHeaderData() + "\n");
-    result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
-    Vector<Row> rows = r.getRows();
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Ãœbersetzen in
+		 * Text-Form. (Schritt fÃ¼r Schritt).
+		 */
+		result.append("*** " + r.getTitle() + " ***\n\n");
+		result.append(r.getHeaderData() + "\n");
+		result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
+		Vector<Row> rows = r.getRows();
 
-    for (Row row : rows) {
-      for (int k = 0; k < row.getNumColumns(); k++) {
-        result.append(row.getColumnAt(k) + "\t ; \t");
-      }
+		for (Row row : rows) {
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				result.append(row.getColumnAt(k) + "\t ; \t");
+			}
 
-      result.append("\n");
-    }
+			result.append("\n");
+		}
 
-    result.append("\n");
-    result.append(r.getImprint() + "\n");
+		result.append("\n");
+		result.append(r.getImprint() + "\n");
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das ermöglicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+		/*
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das ermÃ¶glicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-  /**
-   * Übergebenes Report und Ablage im Zielformat prozessieren.
-   * Auslesen des Ergebinus mittels getReportText().
-   */
-public void process(AlleNotizenAllerNutzerReport r) {
+	/**
+	 * Ãœbergebenes Report und Ablage im Zielformat prozessieren. Auslesen des
+	 * Ergebinus mittels getReportText().
+	 */
+	public void process(AlleNotizenAllerNutzerReport r) {
 
-	// Löschen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+		// LÃ¶schen der Ergebnisse vorhergehender Prozessierungen.
+		this.resetReportText();
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * während der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, wÃ¤hrend der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das Übersetzen in Text-Form. (Schritt für Schritt).
-     */
-    result.append("*** " + r.getTitle() + " ***\n\n");
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Ã¼bersetzen in
+		 * Text-Form. (Schritt fÃ¼r Schritt).
+		 */
+		result.append("*** " + r.getTitle() + " ***\n\n");
 
-    if (r.getHeaderData() != null)
-      result.append(r.getHeaderData() + "\n");
+		if (r.getHeaderData() != null)
+			result.append(r.getHeaderData() + "\n");
 
-    result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
-    
-    /*
-     * r enthält eine Menge von Teil-Reports des Typs AlleNotizenDesNutzersReport,
-     * da AlleNotizenAllerNutzerReport ein CompositeReport ist.
-     * processAlleNotizbuecherDesNutzersReport wird für jeden dieser Teil-Reports
-     * aufgerufen. Dem Buffer wird das Ergebnis des jew. Aufrufs hinzugefügt.
-     */
-    for (int i = 0; i < r.getNumSubReports(); i++) {
-    	
-    /*
-     * Voraussertzung des AlleNotizenDesNutzersReports als Typ der SubReports
-     */
-      AlleNotizenDesNutzersReport subReport = (AlleNotizenDesNutzersReport) r
-          .getSubReportAt(i);
+		result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
 
-      this.process(subReport);
+		/*
+		 * r enthÃ¤lt eine Menge von Teil-Reports des Typs
+		 * AlleNotizenDesNutzersReport, da AlleNotizenAllerNutzerReport ein
+		 * CompositeReport ist. processAlleNotizbuecherDesNutzersReport wird fÃ¼r
+		 * jeden dieser Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis
+		 * des jew. Aufrufs hinzugefÃ¼gt.
+		 */
+		for (int i = 0; i < r.getNumSubReports(); i++) {
 
-      result.append(this.reportText + "\n\n\n\n\n");
+			/*
+			 * Voraussertzung des AlleNotizenDesNutzersReports als Typ der
+			 * SubReports
+			 */
+			AlleNotizenDesNutzersReport subReport = (AlleNotizenDesNutzersReport) r.getSubReportAt(i);
 
-      /*
-       * Ergebnisvariable zurücksetzen.
-       */
-      this.resetReportText();
-    }
+			this.process(subReport);
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das ermöglicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+			result.append(this.reportText + "\n\n\n\n\n");
 
-public void process(AlleNotizbuecherDesNutzersReport r) {
+			/**
+			 * Ergebnisvariable zurÃ¼cksetzen.
+			 */
+			this.resetReportText();
+		}
 
-	// Löschen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable. Das ermÃ¶glicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * während der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+	public void process(AlleNotizbuecherDesNutzersReport r) {
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das Übersetzen in Text-Form. (Schritt für Schritt).
-     */
-    result.append("*** " + r.getTitle() + " ***\n\n");
-    result.append(r.getHeaderData() + "\n");
-    result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
-    Vector<Row> rows = r.getRows();
+		// LÃ¶schen der Ergebnisse vorhergehender Prozessierungen.
+		this.resetReportText();
 
-    for (Row row : rows) {
-      for (int k = 0; k < row.getNumColumns(); k++) {
-        result.append(row.getColumnAt(k) + "\t ; \t");
-      }
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, wÃ„hrend der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-      result.append("\n");
-    }
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Ãœbersetzen in
+		 * Text-Form. (Schritt fÃ¼r Schritt).
+		 */
+		result.append("*** " + r.getTitle() + " ***\n\n");
+		result.append(r.getHeaderData() + "\n");
+		result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
+		Vector<Row> rows = r.getRows();
 
-    result.append("\n");
-    result.append(r.getImprint() + "\n");
+		for (Row row : rows) {
+			for (int k = 0; k < row.getNumColumns(); k++) {
+				result.append(row.getColumnAt(k) + "\t ; \t");
+			}
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das ermöglicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+			result.append("\n");
+		}
 
-public void process(AlleNotizbuecherAllerNutzerReport r) {
+		result.append("\n");
+		result.append(r.getImprint() + "\n");
 
-	// Löschen der Ergebnisse vorhergehender Prozessierungen.
-    this.resetReportText();
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das ermÃ¶glicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
 
-    /*
-     * Sukzessives Schreiben der Ergebnisse in diesen Buffer,
-     * während der Prozessierung 
-     */
-    StringBuffer result = new StringBuffer();
+	public void process(AlleNotizbuecherAllerNutzerReport r) {
 
-    /*
-     * Auslesen der einzelnen Bestandteile des Reports
-     * und das Übersetzen in Text-Form. (Schritt für Schritt).
-     */
-    result.append("*** " + r.getTitle() + " ***\n\n");
+		// LÃ¶schen der Ergebnisse vorhergehender Prozessierungen.
+		this.resetReportText();
 
-    if (r.getHeaderData() != null)
-      result.append(r.getHeaderData() + "\n");
+		/**
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, wÃ¤hrend der
+		 * Prozessierung
+		 */
+		StringBuffer result = new StringBuffer();
 
-    result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
-    
-    /*
-     * r enthält eine Menge von Teil-Reports des Typs AlleNotizbuecherDesNutzersReport,
-     * da AlleNotizbuecherAllerNutzerReport ein CompositeReport ist.
-     * processAlleNotizbuecherDesNutzersReport wird für jeden dieser Teil-Reports
-     * aufgerufen. Dem Buffer wird das Ergebnis des jew. Aufrufs hinzugefügt.
-     */
-    for (int i = 0; i < r.getNumSubReports(); i++) {
-    	
-    /*
-     * Voraussetzung des AlleNotizbuecherDesNutzersReports als Typ der SubReports
-     */
-      AlleNotizbuecherDesNutzersReport subReport = (AlleNotizbuecherDesNutzersReport) r
-          .getSubReportAt(i);
+		/*
+		 * Auslesen der einzelnen Bestandteile des Reports und das Ãœbersetzen in
+		 * Text-Form. (Schritt fÃ¼r Schritt).
+		 */
+		result.append("*** " + r.getTitle() + " ***\n\n");
 
-      this.process(subReport);
+		if (r.getHeaderData() != null)
+			result.append(r.getHeaderData() + "\n");
 
-      result.append(this.reportText + "\n\n\n\n\n");
+		result.append("Erstellt am: " + r.getCreated().toString() + "\n\n");
 
-      /*
-       * Ergebnisvariable zurücksetzen.
-       */
-      this.resetReportText();
-    }
+		/*
+		 * r enthÃ¤lt eine Menge von Teil-Reports des Typs
+		 * AlleNotizbuecherDesNutzersReport, da
+		 * AlleNotizbuecherAllerNutzerReport ein CompositeReport ist.
+		 * processAlleNotizbuecherDesNutzersReport wird fÃ¼r jeden dieser
+		 * Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis des jew.
+		 * Aufrufs hinzugefï¿½gt.
+		 */
+		for (int i = 0; i < r.getNumSubReports(); i++) {
 
-    /*
-     * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der reportText-Variable
-     * Das ermöglicht das Ergebnis mit getReportText() auszulesen.
-     */
-    this.reportText = result.toString();
-  }
+			/*
+			 * Voraussetzung des AlleNotizbuecherDesNutzersReports als Typ der
+			 * SubReports
+			 */
+			AlleNotizbuecherDesNutzersReport subReport = (AlleNotizbuecherDesNutzersReport) r.getSubReportAt(i);
 
-  /**
-   * Das Ergebnis der zuletzt aufgerufenen Prozessierungsmethode auslesen.
-   */
-  public String getReportText() {
-    return this.getHeader() + this.reportText + this.getTrailer();
-  }
+			this.process(subReport);
+
+			result.append(this.reportText + "\n\n\n\n\n");
+
+			/**
+			 * Ergebnisvariable zurÃ¼cksetzen.
+			 */
+			this.resetReportText();
+		}
+
+		/**
+		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
+		 * reportText-Variable Das ermï¿½glicht das Ergebnis mit getReportText()
+		 * auszulesen.
+		 */
+		this.reportText = result.toString();
+	}
+
+	/**
+	 * Das Ergebnis der zuletzt aufgerufenen Prozessierungsmethode auslesen.
+	 */
+	public String getReportText() {
+		return this.getHeader() + this.reportText + this.getTrailer();
+	}
 }

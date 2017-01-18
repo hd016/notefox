@@ -253,7 +253,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 */
 		n.setNutzerId(1);
 
-		/** 
+		/**
 		 * Objekt in der DB speichern.
 		 */
 		return this.nuMapper.anlegenNutzer(n);
@@ -304,12 +304,11 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 * Zunächst werden sämtl. Notizen und Notizbuecher des Nutzers aus der
 		 * DB entfernt.
 		 * 
-		 * Dies wird auf der Ebene der Applikationslogik, konkret
-		 * in der Klasse NotizobjektVerwaltungImpl, durchgeführt. Grund: In der
-		 * Klasse NotizobjektVerwaltungImpl ist die Verflechtung sämtlicher
-		 * Klassen bzw. ihrer Objekte bekannt. Nur hier kann sinnvoll ein
-		 * umfassender Verwaltungsakt wie z.B. dieser Löschvorgang realisiert
-		 * werden.
+		 * Dies wird auf der Ebene der Applikationslogik, konkret in der Klasse
+		 * NotizobjektVerwaltungImpl, durchgeführt. Grund: In der Klasse
+		 * NotizobjektVerwaltungImpl ist die Verflechtung sämtlicher Klassen
+		 * bzw. ihrer Objekte bekannt. Nur hier kann sinnvoll ein umfassender
+		 * Verwaltungsakt wie z.B. dieser Löschvorgang realisiert werden.
 		 * 
 		 * Nat�rlich k�nnte man argumentieren, dass dies auch auf Datenbankebene
 		 * (sprich: mit SQL) effizienter möglich ist. Das Gegenargument ist
@@ -332,7 +331,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 				this.loeschenNotizbuch(nb);
 			}
 		}
-		
+
 		// Anschließend den Nutzers entfernen
 		this.nuMapper.loeschenNutzer(n);
 	}
@@ -386,7 +385,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	@Override
 	public void loeschenNotiz(Notiz no) throws IllegalArgumentException {
 		if (berechtigungAnwenden(no, Berechtigungsart.LOESCHEN) != null) {
-			
+
 			/*
 			 * Löschen aller Berechtigungen der Notiz
 			 */
@@ -394,7 +393,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 			for (Berechtigung berechtigung : alleBerechtigungen) {
 				bMapper.berechtigungVerweigern(berechtigung);
 			}
-			
+
 			// Notiz aus der DB entfernen
 			this.noMapper.loeschenNotiz(no);
 		} else {
@@ -477,13 +476,14 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 * 
 	 * @see speichern(Notiz a)
 	 */
-	
+
 	public Notiz anlegenNotiz(Notizbuch notizbuch, Notiz notiz) throws IllegalArgumentException {
 		notiz.setEigentuemer(loginService.getCurrentNutzer());
 		notiz.setNotizbuch(notizbuch);
 		notiz.setFaelligkeitsdatum(new Date());
+
 		if (notiz.getTitel() == null || notiz.getTitel().isEmpty()) {
-			notiz.setTitel("Neue Notiz");
+			notiz.setTitel("unbenannt");
 		}
 
 		if (berechtigungAnwenden(notizbuch, Berechtigungsart.EDITIEREN) != null) {
@@ -579,7 +579,7 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 			for (Berechtigung berechtigung : alleBerechtigungen) {
 				bMapper.berechtigungVerweigern(berechtigung);
 			}
-			
+
 			/*
 			 * Zun�chst werden s�mtl. Notizen des Nutzers aus der DB entfernt.
 			 */
@@ -617,8 +617,9 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 	 */
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n, Notizbuch nb) throws IllegalArgumentException {
 		nb.setEigentuemer(n);
+
 		if (nb.getTitel() == null || nb.getTitel().isEmpty()) {
-			nb.setTitel("Neues Notizbuch");
+			nb.setTitel("unbenannt");
 		}
 
 		/**
@@ -627,8 +628,8 @@ public class NotizobjektAdministrationImpl extends RemoteServiceServlet implemen
 		 */
 		nb.setId(1);
 
-		/** Objekt in der DB speichern.*/
-		
+		/** Objekt in der DB speichern. */
+
 		return this.nbMapper.anlegenNotizbuch(nb);
 	}
 

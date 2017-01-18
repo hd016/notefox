@@ -23,10 +23,11 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		ReportGenerator {
 
 	/**
-	 * Zugriff auf die NotizobjektAdministration ist f�r den ReportGenerator
-	 * notwendig, da diese die essentiellen Methoden f�r die Koexistenz von
-	 * Datenobjekten bietet.
+	 *  Für den Report Generator ist der Zugriff auf die NotizobjektAdministration notwendig,
+	 * da diese die essentiellen Methoden für die Koexistenz von Datenobjekten bietet.
 	 */
+	
+	
 	private NotizobjektAdministration administration = null;
 
 	/**

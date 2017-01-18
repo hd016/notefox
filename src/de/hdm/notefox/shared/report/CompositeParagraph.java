@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * Composite stellt eine Anzahl von Absätzen dar. 
+ * Composite stellt eine Anzahl von AbsÃ¤tzen dar. 
  * Als Unterabschnitte werden diese in einem Vector verwaltet.
  */
 public class CompositeParagraph extends Paragraph implements Serializable {
@@ -20,14 +20,14 @@ public class CompositeParagraph extends Paragraph implements Serializable {
   private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
 
   /**
-   * Hinzufügen eines Unterabschnitts.
+   * HinzufÃ¼gen eines Unterabschnitts.
    */
   public void addSubParagraph(SimpleParagraph p) {
     this.subParagraphs.addElement(p);
   }
 
   /**
-   * Löschen eines Unterabschnitts.
+   * LÃ¶schen eines Unterabschnitts.
    */
   public void removeSubParagraph(SimpleParagraph p) {
     this.subParagraphs.removeElement(p);
@@ -59,25 +59,26 @@ public class CompositeParagraph extends Paragraph implements Serializable {
    */
 
 public String toString() {
-    /*
+    /**
      * Erstellen eines leeren Buffers, alle sukzessive String-Darstellungen 
      * der Unterabschnitte werden eingetragen.
      */
     StringBuffer result = new StringBuffer();
 
-    // Über alle Unterabschnitte eine Schleife
+    /** Ãœber alle Unterabschnitte eine Schleife */
+    
     for (int i = 0; i < this.subParagraphs.size(); i++) {
       SimpleParagraph p = this.subParagraphs.elementAt(i);
 
-      /*
+      /**
        * Jeweiliger Unterabschnitt wird in einen String umgewandelt 
-       * und anschließend an den Buffer angehängt.
+       * und anschlieÃŸend an den Buffer angehÃ¤ngt.
        */
       result.append(p.toString() + "\n");
     }
 
-    /*
-     * Umwandlung des Buffers in einen String + Rückgabe dieser String
+    /**
+     * Umwandlung des Buffers in einen String + RÃ¼ckgabe dieser String
      */
     return result.toString();
   }
