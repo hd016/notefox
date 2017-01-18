@@ -38,7 +38,7 @@ public class Notefox implements EntryPoint {
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
-	Label meineNotizBuecher = new Label("Meine Notizbücher");
+	HTML meineNotizBuecher = new HTML("<h3>Meine Notizbücher</h3>");
 
 	HTML br = new HTML("<br>");
 
@@ -60,7 +60,6 @@ public class Notefox implements EntryPoint {
 
 	public final Anchor startseiteLink = new Anchor("Startseite");
 
-	public final Anchor meinProfilLink = new Anchor("Mein Profil");
 
 	Impressum impressum = new Impressum();
 
@@ -123,19 +122,15 @@ public class Notefox implements EntryPoint {
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
-		meinProfilLink.addStyleName("MeinProfil-Link");
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
 		impressumLink.addClickHandler(new ImpressumClickHandler());
-
-		meinProfilLink.addClickHandler(new MeinProfilClickHandler());
 
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
 		headerPanel.add(startseiteLink);
-		headerPanel.add(meinProfilLink);
 		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
 
@@ -149,6 +144,30 @@ public class Notefox implements EntryPoint {
 		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);
 		RootPanel.get("text").add(hPanelNotizNotizbuch);
+		
+
+		HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
+		Label labelName = new Label();
+		Label labelEmail = new Label();
+
+		VerticalPanel vPanel = new VerticalPanel();
+
+		Anchor profilLoeschen = new Anchor("Mein Profil löschen");
+		labelName.setText("Name: " + loginInfo.getNutzer().getEmail().split("@")[0]);
+		labelEmail.setText("Email: " + loginInfo.getNutzer().getEmail());
+
+		uberschrift.addStyleName("meinProfil-labels");
+		labelName.addStyleName("meinProfil-labels");
+		labelEmail.addStyleName("meinProfilemail-labels");
+		profilLoeschen.addStyleName("meinProfil-labels");
+		vPanel.add(uberschrift);
+		vPanel.add(labelName);
+		vPanel.add(labelEmail);
+		vPanel.add(profilLoeschen);
+		RootPanel.get("nav").add(vPanel);
+
+		profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
+
 
 	}
 
@@ -166,6 +185,7 @@ public class Notefox implements EntryPoint {
 	public void neueNotiz(final Notizbuch notizbuch) {
 		Notiz notiz = new Notiz();
 		notiz.setNotizbuch(notizbuch);
+		notiz.setEigentuemer(loginInfo.getNutzer());
 		
 		zeigeNotiz(notiz);
 	}
@@ -225,36 +245,6 @@ public class Notefox implements EntryPoint {
 
 	}
 
-	private class MeinProfilClickHandler implements ClickHandler {
-
-		@Override
-		public void onClick(ClickEvent event) {
-
-			HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
-			Label labelName = new Label();
-			Label labelEmail = new Label();
-
-			VerticalPanel vPanel = new VerticalPanel();
-
-			Anchor profilLoeschen = new Anchor("Mein Profil löschen");
-			labelName.setText("Name: " + loginInfo.getNutzer().getEmail().split("@")[0]);
-			labelEmail.setText("Email: " + loginInfo.getNutzer().getEmail());
-
-			uberschrift.addStyleName("meinProfil-labels");
-			labelName.addStyleName("meinProfil-labels");
-			labelEmail.addStyleName("meinProfil-labels");
-			profilLoeschen.addStyleName("meinProfil-labels");
-			vPanel.add(uberschrift);
-			vPanel.add(labelName);
-			vPanel.add(labelEmail);
-			vPanel.add(profilLoeschen);
-			RootPanel.get("nav").add(vPanel);
-
-			profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
-
-		}
-
-	}
 
 	private class NutzerLoeschenClickHandler implements ClickHandler {
 
@@ -275,12 +265,12 @@ public class Notefox implements EntryPoint {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			Window.alert("NÖ!");
+			Window.alert("Ein Fehler ist aufgetreten!");
 		}
 
 		@Override
 		public void onSuccess(Void result) {
-			Window.alert("OK!");
+			Window.alert("Auf Wiedersehen!");
 			Window.Location.replace(loginInfo.getLogoutUrl());
 		}
 

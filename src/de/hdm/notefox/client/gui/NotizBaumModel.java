@@ -7,6 +7,8 @@ import com.google.gwt.cell.client.ValueUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Style.Cursor;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.AsyncDataProvider;
@@ -79,9 +81,14 @@ public class NotizBaumModel implements TreeViewModel {
 								com.google.gwt.cell.client.Cell.Context context,
 								Notizbuch value, SafeHtmlBuilder sb) {
 							if (value.getId() == -1){
-								sb.appendEscaped("Neues Notizbuch");
-							}
-							else {
+								sb.append(new SafeHtml() {
+									
+									@Override
+									public String asString() {
+										return "<button class=\"buttonNeuesNotizbuch\" style=\"vertical-align:middle\"><span>Neues Notizbuch</span></button>";
+									}
+								});
+							}	else {
 							sb.appendEscaped(value.getTitel());
 							}
 						}
@@ -111,7 +118,13 @@ public class NotizBaumModel implements TreeViewModel {
 				@Override
 				public void render(com.google.gwt.cell.client.Cell.Context context, Notiz value, SafeHtmlBuilder sb) {
 					if (value.getId() == -1) {
-						sb.appendEscaped("Neue Notiz");
+						sb.append(new SafeHtml() {
+							
+							@Override
+							public String asString() {
+								return "<button class=\"button\" style=\"vertical-align:middle\"><span>Neue Notiz</span></button>";
+							}
+						});
 					} else {
 						sb.appendEscaped(value.getTitel());
 					}

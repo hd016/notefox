@@ -73,7 +73,7 @@ public class HTMLReportWriter extends ReportWriter {
 	 */
 
 	public void process(AlleNotizenDesNutzersReport r) {
-		/** Löschen der Ergebnisse vorhergehender Prozessierungen. */
+		// Löschen der Ergebnisse vorhergehender Prozessierungen. 
 		this.resetReportText();
 
 		/**
@@ -127,7 +127,7 @@ public class HTMLReportWriter extends ReportWriter {
 	 */
 
 	public void process(AlleNotizbuecherDesNutzersReport r) {
-		/** Löschen der Ergebnisse vorhergehender Prozessierungen.*/
+		// Löschen der Ergebnisse vorhergehender Prozessierungen.
 		this.resetReportText();
 
 		/**
@@ -184,8 +184,8 @@ public class HTMLReportWriter extends ReportWriter {
 		this.resetReportText();
 
 		/**
-		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
-		 * Prozessierung
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, 
+		 *  während der Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
