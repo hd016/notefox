@@ -11,7 +11,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import de.hdm.notefox.client.gui.FilterPanel;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
@@ -27,26 +26,25 @@ public class NotefoxReport implements EntryPoint {
 
 	ReportGeneratorAsync reportGenerator = null;
 
-    Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
+	Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
 	Button notizbucherButton = new Button("Notizbücher");
 	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Notizen");
 
-/**	Label notizbucherLabel = new Label("Notizbücher");
-	Button notizbucherButton = new Button("Report");
-	//Label notizenLabel = new Label("Notiz");
-	Button notizenButton = new Button("Report");*/
+	/**
+	 * Label notizbucherLabel = new Label("Notizbücher"); Button
+	 * notizbucherButton = new Button("Report"); //Label notizenLabel = new
+	 * Label("Notiz"); Button notizenButton = new Button("Report");
+	 */
 	FilterPanel filterPanel = new FilterPanel();
-	
-	
+
 	HorizontalPanel mainPanel = new HorizontalPanel();
 	VerticalPanel erstPanel = new VerticalPanel();
 	VerticalPanel zweitPanel = new VerticalPanel();
-	
-	
+
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
-	 * zusichert, benÃ¶tigen wir eine Methode
+	 * zusichert, benötigen wir eine Methode
 	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
 	 * <code>main()</code>-Methode normaler Java-Applikationen.
 	 */
@@ -55,22 +53,21 @@ public class NotefoxReport implements EntryPoint {
 	public void onModuleLoad() {
 
 		/*
-		 * ZunÃ¤chst weisen wir dem Report-Generator eine Notizobjekt-Instanz zu, die
-		 * fÃ¼r die Darstellung der Adressdaten des Kreditinstituts benÃ¶tigt
-		 * wird.
+		 * ZunÃ¤chst weisen wir dem Report-Generator eine Notizobjekt-Instanz
+		 * zu, die fÃ¼r die Darstellung der Adressdaten des Kreditinstituts
+		 * benÃ¶tigt wird.
 		 */
 		if (reportGenerator == null) {
 			reportGenerator = ClientsideSettings.getReportGenerator();
 		}
 
-		//vPanelNotizen.add(notizenLabel);
+		// vPanelNotizen.add(notizenLabel);
 		erstPanel.add(filterPanel);
 		zweitPanel.add(notizenButton);
 		mainPanel.add(erstPanel);
 		mainPanel.add(zweitPanel);
 
 		mainPanel.add(notizbucherButton);
-		
 
 		notizenButton.addStyleName("Report-Button");
 		notizbucherButton.addStyleName("Report-Button");
@@ -78,20 +75,18 @@ public class NotefoxReport implements EntryPoint {
 		notizenButton.addClickHandler(new notizReportClickHandler());
 		notizbucherButton.addClickHandler(new notizbuchReportClickHandler());
 
-		//vPanelNotizbucher.addStyleName("ReportLabel");
-		//vPanelNotizen.addStyleName("ReportLabel");
-		
+		// vPanelNotizbucher.addStyleName("ReportLabel");
+		// vPanelNotizen.addStyleName("ReportLabel");
 
 		mainPanel.addStyleName("ReportMain");
 		RootPanel.get("nav").add(mainPanel);
-
 
 	}
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
-	 * für die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil" für
+	 * die HTML-Version des Reports.
 	 */
 
 	private class notizbuchReportClickHandler implements ClickHandler {
@@ -106,14 +101,15 @@ public class NotefoxReport implements EntryPoint {
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil"
-	 * für die HTML-Version des Reports.
+	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil" für
+	 * die HTML-Version des Reports.
 	 */
 
 	private class notizReportClickHandler implements ClickHandler {
 		@Override
 		public void onClick(ClickEvent event) {
-			reportGenerator.erstelleGefilterteNotizenReport(filterPanel.erstelleFilterobjekt(), new erstelleAlleNotizenAllerNutzerReportCallback());
+			reportGenerator.erstelleGefilterteNotizenReport(filterPanel.erstelleFilterobjekt(),
+					new erstelleAlleNotizenAllerNutzerReportCallback());
 
 		}
 
@@ -121,21 +117,19 @@ public class NotefoxReport implements EntryPoint {
 }
 
 /**
- * Diese Nested Class wird als Callback fÃ¼r das Erzeugen des
- * AllAccountOfAllCustomersReport benÃ¶tigt.
+ * Diese Nested Class wird als Callback für das Erzeugen des
+ * AllAccountOfAllCustomersReport benötigt.
  * 
  * @author rathke
  * @version 1.0
  */
-class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
-		AsyncCallback<AlleNotizbuecherAllerNutzerReport> {
+class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback<AlleNotizbuecherAllerNutzerReport> {
 	@Override
 	public void onFailure(Throwable caught) {
 		/*
 		 * Wenn ein Fehler auftritt, dann geben wir eine kurze Log Message aus.
 		 */
-		ClientsideSettings.getLogger().severe(
-				"Erzeugen des Reports fehlgeschlagen!");
+		ClientsideSettings.getLogger().severe("Erzeugen des Reports fehlgeschlagen!");
 
 	}
 
@@ -151,21 +145,19 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
 }
 
 /**
- * Diese Nested Class wird als Callback fÃ¼r das Erzeugen des
- * AllAccountOfAllCustomersReport benÃ¶tigt.
+ * Diese Nested Class wird als Callback für das Erzeugen des
+ * AllAccountOfAllCustomersReport benötigt.
  * 
  * @author rathke
  * @version 1.0
  */
-class erstelleAlleNotizenAllerNutzerReportCallback implements
-		AsyncCallback<AlleNotizenDesNutzersReport> {
+class erstelleAlleNotizenAllerNutzerReportCallback implements AsyncCallback<AlleNotizenDesNutzersReport> {
 	@Override
 	public void onFailure(Throwable caught) {
 		/*
 		 * Wenn ein Fehler auftritt, dann geben wir eine kurze Log Message aus.
 		 */
-		ClientsideSettings.getLogger().severe(
-				"Erzeugen des Reports fehlgeschlagen!");
+		ClientsideSettings.getLogger().severe("Erzeugen des Reports fehlgeschlagen!");
 
 	}
 
