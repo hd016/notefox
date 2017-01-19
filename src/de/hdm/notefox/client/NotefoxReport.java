@@ -28,9 +28,9 @@ public class NotefoxReport implements EntryPoint {
 	ReportGeneratorAsync reportGenerator = null;
 
     Label notizbucherLabel = new Label("Alle Notizbücher aller Nutzer");
-	Button notizbucherButton = new Button("Alle Notizbücher aller Nutzer");
+	Button notizbucherButton = new Button("Notizbücher");
 	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
-	Button notizenButton = new Button("Alle Notizen aller Nutzer");
+	Button notizenButton = new Button("Notizen");
 
 /**	Label notizbucherLabel = new Label("Notizbücher");
 	Button notizbucherButton = new Button("Report");
