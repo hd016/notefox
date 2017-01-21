@@ -9,7 +9,7 @@ public class Filterobjekt implements Serializable {
 	 * Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/*
 	 * Variablen des Filterobjekts.
 	 */
@@ -29,7 +29,7 @@ public class Filterobjekt implements Serializable {
 	/*
 	 * Auslesen und Setzen der Variablen
 	 */
-	
+
 	public String getTitel() {
 		return titel;
 	}
@@ -119,3 +119,11 @@ public class Filterobjekt implements Serializable {
 	}
 
 }
+
+
+
+
+
+
+
+
