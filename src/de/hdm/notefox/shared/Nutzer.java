@@ -12,7 +12,7 @@ public class Nutzer implements Serializable {
 	 * Unique IDentifier
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/*
 	 * Variablen des Nutzers.
 	 */

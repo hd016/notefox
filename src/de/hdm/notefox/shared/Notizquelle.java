@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notizquelle implements Serializable {
-	
+
 	/**
 	 * Unique IDentifier
 	 */
@@ -17,21 +17,19 @@ public class Notizquelle implements Serializable {
 	 */
 
 	private int notizquelleId;
-	
-	private String notizquelleName;
-	
-	private String url;
-	
-	
-	/**
-	 * ArrayList mit Objekten der verbundenen Klasse 
-	 */
-	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>(); 
 
-	
-/*
- * Auslesen und Setzen der Variablen
- */
+	private String notizquelleName;
+
+	private String url;
+
+	/**
+	 * ArrayList mit Objekten der verbundenen Klasse
+	 */
+	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>();
+
+	/*
+	 * Auslesen und Setzen der Variablen
+	 */
 	public int getNotizquelleId() {
 		return notizquelleId;
 	}
