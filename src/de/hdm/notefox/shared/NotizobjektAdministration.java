@@ -1,4 +1,4 @@
- package de.hdm.notefox.shared;
+package de.hdm.notefox.shared;
 
 import java.util.List;
 
@@ -114,21 +114,19 @@ public interface NotizobjektAdministration extends RemoteService {
 	/**
 	 * Löschen der Daten eines übergegebenen Nutzer-Objekts.
 	 */
-	
+
 	public void loeschenNutzer(Nutzer n) throws IllegalArgumentException;
 
 	Notiz anlegenNotiz(String url) throws IllegalArgumentException;
 
-	List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no)
-			throws IllegalArgumentException;
+	List<Berechtigung> nachAllenBerechtigungenDerNotizSuchen(Notiz no) throws IllegalArgumentException;
 
-	List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb)
-			throws IllegalArgumentException;
+	List<Berechtigung> nachAllenBerechtigungenDesNotizbuchesSuchen(Notizbuch nb) throws IllegalArgumentException;
 
 	Berechtigung anlegenBerechtigung(Berechtigung berechtigung);
 
 	Berechtigung loeschenBerechtigung(Berechtigung be);
 
 	List<Notiz> nachNotizenDesFilterSuchen(Filterobjekt filter);
-	
+
 }

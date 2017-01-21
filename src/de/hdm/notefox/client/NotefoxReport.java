@@ -18,7 +18,7 @@ import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
-/**
+/*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) Entry-Point-Klasse des
  * Projekts <b>notefox</b>.
  */
@@ -145,7 +145,11 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback
 }
 
 /**
+<<<<<<< HEAD
+ * Diese Nested Class wird als Callback fÃ¼r das Erzeugen des
+=======
  * Diese Nested Class wird als Callback für das Erzeugen des
+>>>>>>> refs/remotes/origin/master
  * AllAccountOfAllCustomersReport benötigt.
  * 
  * @author rathke

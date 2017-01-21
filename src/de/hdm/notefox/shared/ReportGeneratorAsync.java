@@ -8,7 +8,7 @@ import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 /**
- * Semiautomatisch vom Google Plugin erstellt. Gegenstück des asynchronen
+ * Wird Semiautomatisch vom Google Plugin erstellt. Gegenstück des asynchronen
  * Interface (ReportGenerator).
  */
 public interface ReportGeneratorAsync {
