@@ -19,7 +19,7 @@ import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
-/**
+/*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) Entry-Point-Klasse des
  * Projekts <b>notefox</b>.
  */
@@ -46,7 +46,7 @@ public class NotefoxReport implements EntryPoint {
 	
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
-	 * zusichert, benÃ¶tigen wir eine Methode
+	 * zusichert, benötigen wir eine Methode
 	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
 	 * <code>main()</code>-Methode normaler Java-Applikationen.
 	 */
@@ -152,7 +152,7 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements
 
 /**
  * Diese Nested Class wird als Callback fÃ¼r das Erzeugen des
- * AllAccountOfAllCustomersReport benÃ¶tigt.
+ * AllAccountOfAllCustomersReport benötigt.
  * 
  * @author rathke
  * @version 1.0
