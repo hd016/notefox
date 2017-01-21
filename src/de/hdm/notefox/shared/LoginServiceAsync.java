@@ -14,3 +14,15 @@ public interface LoginServiceAsync {
 	void getCurrentNutzer(AsyncCallback<Nutzer> callback);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
