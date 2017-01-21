@@ -1,7 +1,6 @@
 package de.hdm.notefox.client;
 
 import java.util.List;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,7 +17,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.Impressum;
@@ -34,7 +32,15 @@ import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
+/**
+ * Entry-Point-Klasse des Projekts <b>Notefox</b>.
+ */
+
 public class Notefox implements EntryPoint {
+
+	/*
+	 * Es werden Panels erzeugt und jeweils zugewiesen.
+	 */
 
 	HorizontalPanel hPanel = new HorizontalPanel();
 	VerticalPanel vPanel_inhalt = new VerticalPanel();
@@ -54,17 +60,28 @@ public class Notefox implements EntryPoint {
 
 	LoginInfo loginInfo;
 
+	//TODO 
+	/*
+	 * Es werden 
+	 */
+
 	public final Anchor logoutLink = new Anchor("Abmelden");
 
 	public final Anchor impressumLink = new Anchor("Impressum");
 
 	public final Anchor startseiteLink = new Anchor("Startseite");
 
-
 	Impressum impressum = new Impressum();
 
 	NotizobjektAdministrationAsync administration = GWT.create(NotizobjektAdministration.class);
 
+	/**
+	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
+	 * zusichert, benötigen wir eine Methode
+	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
+	 * <code>main()</code>-Methode normaler Java-Applikationen.
+	 */
+	
 	@Override
 	public void onModuleLoad() {
 
@@ -119,6 +136,11 @@ public class Notefox implements EntryPoint {
 		welcomeLabel
 				.setText("Herzlich Willkommen: " + loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
 
+		/*
+		 * Hier werden die Namen definiert, welche auf der GUI zu sehen sind
+		 */
+		
+		
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
@@ -128,6 +150,10 @@ public class Notefox implements EntryPoint {
 
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
+		/*
+		 * Nun werden Anchors den Panels zugewiesen
+		 */
+		
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
 		headerPanel.add(startseiteLink);
@@ -144,7 +170,6 @@ public class Notefox implements EntryPoint {
 		RootPanel.get("gwtContainer").clear();
 		RootPanel.get("gwtContainer").add(vPanel);
 		RootPanel.get("text").add(hPanelNotizNotizbuch);
-		
 
 		HTML uberschrift = new HTML("<h3>Mein Profil</h3>");
 		Label labelName = new Label();
@@ -168,7 +193,6 @@ public class Notefox implements EntryPoint {
 
 		profilLoeschen.addClickHandler(new NutzerLoeschenClickHandler());
 
-
 	}
 
 	public void zeigeInhalt(Panel panel) {
@@ -186,14 +210,14 @@ public class Notefox implements EntryPoint {
 		Notiz notiz = new Notiz();
 		notiz.setNotizbuch(notizbuch);
 		notiz.setEigentuemer(loginInfo.getNutzer());
-		
+
 		zeigeNotiz(notiz);
 	}
 
 	public void neuesNotizbuch() {
 		Notizbuch notizbuch = new Notizbuch();
 		notizbuch.setEigentuemer(loginInfo.getNutzer());
-		
+
 		zeigeNotizbuch(notizbuch);
 	}
 
@@ -210,7 +234,7 @@ public class Notefox implements EntryPoint {
 	public CellTree getCelltree() {
 		return celltree;
 	}
-	
+
 	public void ersetzeBaum(Notizbuch notizbuch) {
 		NotizBaumModel viewModel = new NotizBaumModel(this, notizbuch);
 		celltree = new CellTree(viewModel, null);
@@ -222,11 +246,11 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 		vPanel.add(br);
 	}
-	
-	public void baumNeuOeffnen(){
+
+	public void baumNeuOeffnen() {
 		TreeNode rootTreeNode = celltree.getRootTreeNode();
 		for (int i = 0; i < rootTreeNode.getChildCount(); i++) {
-			if(rootTreeNode.isChildOpen(i)){
+			if (rootTreeNode.isChildOpen(i)) {
 				rootTreeNode.setChildOpen(i, false);
 				rootTreeNode.setChildOpen(i, true);
 			}
@@ -244,7 +268,6 @@ public class Notefox implements EntryPoint {
 		}
 
 	}
-
 
 	private class NutzerLoeschenClickHandler implements ClickHandler {
 
