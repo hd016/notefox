@@ -11,19 +11,19 @@ public abstract class Notizobjekt extends BusinessObject {
 	/**
 	 * Unique IDentifier
 	 */
-	
+
 	private static final long serialVersionUID = 1L;
 
 	/*
 	 * Variablen des Notizobjekts
 	 */
-	
+
 	private Nutzer eigentuemer;
-	
+
 	private String titel = "";
 
 	private String subtitel = "";
-	
+
 	private String inhalt = "";
 
 	private Date erstelldatum;

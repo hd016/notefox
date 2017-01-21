@@ -10,19 +10,14 @@ public class Notizbuch extends Notizobjekt {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
 	private List<Notiz> notizen = new ArrayList<Notiz>();
-
 
 	public List<Notiz> getNotizen() {
 		return notizen;
 	}
 
-
 	public void setNotizen(List<Notiz> notizen) {
 		this.notizen = notizen;
 	}
-
-
 
 }

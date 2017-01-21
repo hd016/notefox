@@ -20,12 +20,12 @@ public class Berechtigung implements Serializable {
 	private Notiz notiz;
 	private Notizbuch notizbuch;
 	private Nutzer berechtigter;
-	
+
 	public Berechtigung() {
 	}
-	
+
 	/*
-	 * Auslesen und Setzen der Variablen
+	 * Auslesen und Setzen der Variablen.
 	 */
 
 	public int getBrechtigungId() {
