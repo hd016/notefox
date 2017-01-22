@@ -2,11 +2,10 @@ package de.hdm.notefox.client.gui;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
 
-import java.util.Arrays;
 import java.util.List;
 
-import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.Cell.Context;
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Cursor;
@@ -17,20 +16,16 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.notefox.client.ClientsideSettings;
+import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
-import de.hdm.notefox.shared.Berechtigung;
-import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
 
 public class NotizBerechtigungPanel extends VerticalPanel {
 

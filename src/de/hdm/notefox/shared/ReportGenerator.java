@@ -3,8 +3,6 @@ package de.hdm.notefox.shared;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
-import de.hdm.notefox.shared.bo.Notiz;
-import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizbuecherDesNutzersReport;
 import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
