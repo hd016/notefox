@@ -3,6 +3,7 @@ package de.hdm.notefox.client.gui;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -18,7 +19,7 @@ public class FilterPanel extends HorizontalPanel {
 	private DateBox modifikationsBisDateBox;
 	private DateBox faelligkeitsDatumVonDateBox;
 	private DateBox faelligkeitsDatumBisDateBox;
-	private TextBox nutzerTextBox;
+	private SuggestBox nutzerSuggestBox;
 	private CheckBox lesenCheckBox;
 	private CheckBox schreibenCheckBox;
 	private CheckBox loeschenCheckBox;
@@ -34,7 +35,7 @@ public class FilterPanel extends HorizontalPanel {
 		modifikationsVonDateBox = new DateBox();
 		Label modifikationsDatumBisLabel = new Label("bis");
 		modifikationsBisDateBox = new DateBox();
-		Label faelligkeitsDatumVonLabel = new Label("FälligkeitsDatum von");
+		Label faelligkeitsDatumVonLabel = new Label("Fälligkeitsdatum von");
 		faelligkeitsDatumVonDateBox = new DateBox();
 		Label faelligkeitsDatumBisLabel = new Label("bis");
 		faelligkeitsDatumBisDateBox = new DateBox();
@@ -43,7 +44,7 @@ public class FilterPanel extends HorizontalPanel {
 		Label lesenBerechtigungLabel = new Label("Leseberechtigung");
 		Label schreibenBerechtitgungLabel = new Label("Schreibberechtigung");
 		Label loeschenBerechtigungLabel = new Label("Löschberechtigung");
-		nutzerTextBox = new TextBox();
+		nutzerSuggestBox = new SuggestBox();
 		lesenCheckBox = new CheckBox();
 		schreibenCheckBox = new CheckBox();
 		loeschenCheckBox = new CheckBox();
@@ -83,7 +84,7 @@ public class FilterPanel extends HorizontalPanel {
 		spalte4.add(faelligkeitsDatumBisDateBox);
 
 		spalte5.add(nutzerLabel);
-		spalte5.add(nutzerTextBox);
+		spalte5.add(nutzerSuggestBox);
 
 		spalte6.add(berechtigungLabel);
 
@@ -101,7 +102,7 @@ public class FilterPanel extends HorizontalPanel {
 	public Filterobjekt erstelleFilterobjekt() {
 		Filterobjekt filterobjekt = new Filterobjekt();
 		filterobjekt.setTitel(titelTextBox.getValue());
-		filterobjekt.setNutzer(nutzerTextBox.getValue());
+		filterobjekt.setNutzer(nutzerSuggestBox.getValue());
 		filterobjekt.setErstellDatumVon(erstellDatumVonDateBox.getValue());
 		filterobjekt.setErstellDatumBis(erstellDatumBisDateBox.getValue());
 		filterobjekt.setFaelligkeitsDatumVon(faelligkeitsDatumVonDateBox.getValue());

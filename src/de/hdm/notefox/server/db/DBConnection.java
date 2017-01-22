@@ -49,7 +49,7 @@ public class DBConnection {
 	 * Software neu komilieren zu muessen.
 	 */
 	private static String googleUrl = "jdbc:google:mysql://notefox-152421:notefox/notefox?user=root";
-	private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=414159426";
+	private static String localUrl = "jdbc:mysql://localhost:3306/notefox?user=root&password=";
 
 	/**
 	 * Diese statische Methode kann aufgrufen werden durch
