@@ -10,6 +10,9 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import de.hdm.notefox.shared.LoginService;
+import de.hdm.notefox.shared.LoginServiceAsync;
+
 public class NotizquelleDialogBox extends DialogBox {
 
 	public NotizquelleDialogBox() {
@@ -25,13 +28,14 @@ public class NotizquelleDialogBox extends DialogBox {
 		HorizontalPanel hPanelTextBox = new HorizontalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 
+		
 		Label einleitung = new Label("Bitte Kopiere das HTML Code und füge es auf deiner Webseite ein.");
 
 		TextBox output = new TextBox();
 		output.setReadOnly(isGlassEnabled());
 		output.addStyleName("gwt-TextBox-Dialogbox");
 		output.setText("<a id=\"note-fox-link\" href=\"#\">Link</a><script>var notefoxUrl = \""+GWT.getHostPageBaseURL()+"\";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
-		output.setText("<p><strong>Teile diesen Inhalt auf Notefox!</strong></p><p>&nbsp;</p><p>&nbsp;</p><a id=\"note-fox-link\" href=\"#\"><img src=\"http://leqsico.de/notefox/notefox+.png\" alt=\"\" width=\"500\" height=\"300\" /></a><script>var notefoxUrl = \"http://127.0.0.1:8888/\";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
+		output.setText("<p><strong>Teile diesen Inhalt auf Notefox!</strong></p><p>&nbsp;</p><p>&nbsp;</p><a id=\"note-fox-link\" href=\"#\"><img src=\"http://leqsico.de/notefox/notefox+.png\" alt=\"\" width=\"500\" height=\"300\" /></a><script>var notefoxUrl =" + GWT.getHostPageBaseURL() +";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
 		hPanel.add(einleitung);
 		hPanelTextBox.addStyleName("gwt-DialogBox");
 		hPanelTextBox.add(output);
