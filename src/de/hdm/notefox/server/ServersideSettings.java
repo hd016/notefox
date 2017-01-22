@@ -7,12 +7,12 @@ import de.hdm.notefox.shared.CommonSettings;
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * <p>
- * Klasse mit Eigenschaften und Diensten, die für alle Server-seitigen Klassen
+ * Klasse mit Eigenschaften und Diensten, die fuer alle Server-seitigen Klassen
  * relevant sind.
  * </p>
  * <p>
- * In ihrem aktuellen Entwicklungsstand bietet die Klasse eine rudimentäre
- * Unterstützung der Logging-Funkionalität unter Java. Es wird ein
+ * In ihrem aktuellen Entwicklungsstand bietet die Klasse eine rudimentaere
+ * Unterstuetzung der Logging-Funkionalität unter Java. Es wird ein
  * applikationszentraler Logger realisiert, der mittels
  * <code>ServerSideSettings.getLogger()</code> genutzt werden kann.
  * </p>
@@ -57,21 +57,21 @@ public class ServersideSettings extends CommonSettings {
 	 * <h2>HINWEIS:</h2>
 	 * <p>
 	 * Beachten Sie, dass Sie den auszugebenden Log nun nicht mehr durch
-	 * bedarfsweise Einfügen und Auskommentieren etwa von
-	 * <code>System.out.println(...);</code> steuern. Sie belassen künftig
-	 * sämtliches Logging im Code und können ohne abermaliges Kompilieren den
-	 * Log Level "von außen" durch die Datei <code>logging.properties</code>
+	 * bedarfsweise Einfuegen und Auskommentieren etwa von
+	 * <code>System.out.println(...);</code> steuern. Sie belassen kuenftig
+	 * saemtliches Logging im Code und koennen ohne abermaliges Kompilieren den
+	 * Log Level "von au�en" durch die Datei <code>logging.properties</code>
 	 * steuern. Sie finden diese Datei in dem <code>war/WEB-INF</code>-Ordner
-	 * Ihres Projekts. Der dort standardmäßig vorgegebene Log Level ist
-	 * <code>WARN</code>. Dies würde bedeuten, dass Sie keine <code>INFO</code>
+	 * Ihres Projekts. Der dort standardmae�ig vorgegebene Log Level ist
+	 * <code>WARN</code>. Dies wuerde bedeuten, dass Sie keine <code>INFO</code>
 	 * -Meldungen wohl aber <code>WARN</code>- und <code>SEVERE</code>-Meldungen
 	 * erhielten. Wenn Sie also auch Log des Levels <code>INFO</code> wollten,
-	 * müssten Sie in dieser Datei <code>.level = INFO</code> setzen.
+	 * muessten Sie in dieser Datei <code>.level = INFO</code> setzen.
 	 * </p>
 	 * 
 	 * Weitere Infos siehe Dokumentation zu Java Logging.
 	 * 
-	 * @return die Logger-Instanz für die Server-Seite
+	 * @return die Logger-Instanz fuer die Server-Seite
 	 */
 	public static Logger getLogger() {
 		return log;

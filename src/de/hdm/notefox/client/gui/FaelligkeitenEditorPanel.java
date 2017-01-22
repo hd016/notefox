@@ -27,7 +27,7 @@ public class FaelligkeitenEditorPanel extends VerticalPanel {
 		setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
-		// setValue ins textbox, was vom user ausgewählt wird
+		// setValue ins textbox, was vom user ausgewaehlt wird
 		datepicker.addValueChangeHandler(new ValueChangeHandler<Date>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<Date> event) {

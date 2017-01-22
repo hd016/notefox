@@ -11,7 +11,7 @@ import de.hdm.notefox.shared.ReportGeneratorAsync;
 
 /**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) Klasse mit Eigenschaften
- * und Diensten, die fÃ¼r alle Client-seitigen Klassen relevant sind.
+ * und Diensten, die fuer alle Client-seitigen Klassen relevant sind.
  * 
  * @author thies
  * @version 1.0
@@ -74,21 +74,21 @@ public class ClientsideSettings extends CommonSettings {
 	 * <h2>HINWEIS:</h2>
 	 * <p>
 	 * Beachten Sie, dass Sie den auszugebenden Log nun nicht mehr durch
-	 * bedarfsweise Einfügen und Auskommentieren etwa von
-	 * <code>System.out.println(...);</code> steuern. Sie belassen künftig
+	 * bedarfsweise Einfuegen und Auskommentieren etwa von
+	 * <code>System.out.println(...);</code> steuern. Sie belassen kuenftig
 	 * sämtliches Logging im Code und können ohne abermaliges Kompilieren den
-	 * Log Level "von außen" durch die Datei <code>logging.properties</code>
+	 * Log Level "von au�en" durch die Datei <code>logging.properties</code>
 	 * steuern. Sie finden diese Datei in Ihrem <code>war/WEB-INF</code>-Ordner.
 	 * Der dort standardmäßig vorgegebene Log Level ist <code>WARN</code>. Dies
-	 * würde bedeuten, dass Sie keine <code>INFO</code>-Meldungen wohl aber
+	 * wuerde bedeuten, dass Sie keine <code>INFO</code>-Meldungen wohl aber
 	 * <code>WARN</code>- und <code>SEVERE</code>-Meldungen erhielten. Wenn Sie
-	 * also auch Log des Levels <code>INFO</code> wollten, müssten Sie in dieser
+	 * also auch Log des Levels <code>INFO</code> wollten, muessten Sie in dieser
 	 * Datei <code>.level = INFO</code> setzen.
 	 * </p>
 	 * 
 	 * Weitere Infos siehe Dokumentation zu Java Logging.
 	 * 
-	 * @return die Logger-Instanz für die Server-Seite
+	 * @return die Logger-Instanz fuer die Server-Seite
 	 */
 	public static Logger getLogger() {
 		return log;
@@ -99,7 +99,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * Anlegen und Auslesen der applikationsweit eindeutigen BankAdministration.
 	 * Diese Methode erstellt die BankAdministration, sofern sie noch nicht
 	 * existiert. Bei wiederholtem Aufruf dieser Methode wird stets das bereits
-	 * zuvor angelegte Objekt zurückgegeben.
+	 * zuvor angelegte Objekt zurueckgegeben.
 	 * </p>
 	 * 
 	 * <p>
@@ -128,7 +128,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * Anlegen und Auslesen des applikationsweit eindeutigen ReportGenerators.
 	 * Diese Methode erstellt den ReportGenerator, sofern dieser noch nicht
 	 * existiert. Bei wiederholtem Aufruf dieser Methode wird stets das bereits
-	 * zuvor angelegte Objekt zurückgegeben.
+	 * zuvor angelegte Objekt zurueckgegeben.
 	 * </p>
 	 * 
 	 * <p>
@@ -162,7 +162,7 @@ public class ClientsideSettings extends CommonSettings {
 			reportGenerator.initialisieren(initReportGeneratorCallback);
 		}
 
-		// So, nun brauchen wir den ReportGenerator nur noch zurÃ¼ckzugeben.
+		// So, nun brauchen wir den ReportGenerator nur noch zurueckzugeben.
 		return reportGenerator;
 	}
 

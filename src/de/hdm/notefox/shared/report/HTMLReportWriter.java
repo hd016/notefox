@@ -14,7 +14,7 @@ public class HTMLReportWriter extends ReportWriter {
 	private String reportText = "";
 
 	/**
-	 * reportText-Varibale wird zur�ckgesetzt.
+	 * reportText-Varibale wird zurueckgesetzt.
 	 */
 	public void resetReportText() {
 		this.reportText = "";
@@ -69,7 +69,7 @@ public class HTMLReportWriter extends ReportWriter {
 	}
 
 	/**
-	 * �bergebener Report und Ablage im Zielformat.
+	 * uebergebener Report und Ablage im Zielformat.
 	 */
 
 	public void process(AlleNotizenDesNutzersReport r) {
@@ -77,14 +77,14 @@ public class HTMLReportWriter extends ReportWriter {
 		this.resetReportText();
 
 		/**
-		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, waehrend der
 		 * Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
-		 * HTML-Form. (Schritt für Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
+		 * HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
@@ -123,22 +123,22 @@ public class HTMLReportWriter extends ReportWriter {
 	}
 
 	/**
-	 * Übergebener Report und Ablage im Zielformat.
+	 * uebergebener Report und Ablage im Zielformat.
 	 */
 
 	public void process(AlleNotizbuecherDesNutzersReport r) {
-		// Löschen der Ergebnisse vorhergehender Prozessierungen.
+		// Loeschen der Ergebnisse vorhergehender Prozessierungen.
 		this.resetReportText();
 
 		/**
-		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, waehrend der
 		 * Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
-		 * HTML-Form. (Schritt fÜr Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
+		 * HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
@@ -170,28 +170,28 @@ public class HTMLReportWriter extends ReportWriter {
 
 		/**
 		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
-		 * reportText-Variable Das erm�glicht das Ergebnis mit getReportText()
+		 * reportText-Variable Das ermoeglicht das Ergebnis mit getReportText()
 		 * auszulesen.
 		 */
 		this.reportText = result.toString();
 	}
 
 	/**
-	 * Übergebener Report und Ablage im Zielformat.
+	 * uebergebener Report und Ablage im Zielformat.
 	 */
 	public void process(AlleNotizenAllerNutzerReport r) {
-		/** LÖschen der Ergebnisse vorhergehender Prozessierungen. */
+		/** Loeschen der Ergebnisse vorhergehender Prozessierungen. */
 		this.resetReportText();
 
 		/**
 		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, 
-		 *  während der Prozessierung
+		 *  waehrend der Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
-		 * HTML-Form. (Schritt für Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
+		 * HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table><tr>");
@@ -204,11 +204,11 @@ public class HTMLReportWriter extends ReportWriter {
 		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
 		/*
-		 * r enthält eine Menge von Teil-Reports des Typs
+		 * r enthaelt eine Menge von Teil-Reports des Typs
 		 * AlleNotizenDesNutzersReport, da AlleNotizenAllerNutzerReport ein
-		 * CompositeReport ist. processAlleNotizenDesNutzersReport wird für
+		 * CompositeReport ist. processAlleNotizenDesNutzersReport wird fuer
 		 * jeden dieser Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis
-		 * des jew. Aufrufs hinzugefügt.
+		 * des jew. Aufrufs hinzugefuegt.
 		 */
 		for (int i = 0; i < r.getNumSubReports(); i++) {
 			/*
@@ -222,35 +222,35 @@ public class HTMLReportWriter extends ReportWriter {
 			result.append(this.reportText + "\n");
 
 			/**
-			 * Ergebnisvariable zurücksetzen.
+			 * Ergebnisvariable zuruecksetzen.
 			 */
 			this.resetReportText();
 		}
 
 		/*
 		 * Umwandeln des Arbeits-Buffers in einen String + Zuweisung der
-		 * reportText-Variable. Das ermöglicht das Ergebnis mit getReportText()
+		 * reportText-Variable. Das ermoeglicht das Ergebnis mit getReportText()
 		 * auszulesen.
 		 */
 		this.reportText = result.toString();
 	}
 
 	/**
-	 * Übergebener Report und Ablage im Zielformat.
+	 * uebergebener Report und Ablage im Zielformat.
 	 */
 	public void process(AlleNotizbuecherAllerNutzerReport r) {
-		/** Löschen der Ergebnisse vorhergehender Prozessierungen.*/
+		/** Loeschen der Ergebnisse vorhergehender Prozessierungen.*/
 		this.resetReportText();
 
 		/**
-		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, während der
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, waehrend der
 		 * Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das Übersetzen in
-		 * HTML-Form. (Schritt für Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
+		 * HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table><tr>");
@@ -263,12 +263,12 @@ public class HTMLReportWriter extends ReportWriter {
 		result.append("</tr><tr><td></td><td>" + r.getCreated().toString() + "</td></tr></table>");
 
 		/*
-		 * r enthält eine Menge von Teil-Reports des Typs
+		 * r enthaelt eine Menge von Teil-Reports des Typs
 		 * AlleNotizbuecherDesNutzersReport, da
 		 * AlleNotizbuecherAllerNutzerReport ein CompositeReport ist.
-		 * processAlleNotizbuecherDesNutzersReport wird für jeden dieser
+		 * processAlleNotizbuecherDesNutzersReport wird fuer jeden dieser
 		 * Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis des jew.
-		 * Aufrufs hinzugefügt.
+		 * Aufrufs hinzugefuegt.
 		 */
 		for (int i = 0; i < r.getNumSubReports(); i++) {
 			/*

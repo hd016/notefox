@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * Zeile einer Tabelle eines SimpleReport-Objekts. Damit können Kopien z.B. vom
- * Server an den Clienten übertragen werden, da das Interface Serializable
+ * Zeile einer Tabelle eines SimpleReport-Objekts. Damit koennen Kopien z.B. vom
+ * Server an den Clienten uebertragen werden, da das Interface Serializable
  * implementiert wurde.
  */
 public class Row implements Serializable {
@@ -20,7 +20,7 @@ public class Row implements Serializable {
 	private Vector<Column> columns = new Vector<Column>();
 
 	/**
-	 * Eine Spalte hinzufügen.
+	 * Eine Spalte hinzufuegen.
 	 */
 	public void addColumn(Column c) {
 		this.columns.addElement(c);
@@ -49,7 +49,7 @@ public class Row implements Serializable {
 
 	/**
 	 * Einzelne Spalten-Objekts werden ausgelesen. Index i der auszulesenden
-	 * Spalte und n für die Anzahl der Spalten.
+	 * Spalte und n fuer die Anzahl der Spalten.
 	 */
 	public Column getColumnAt(int i) {
 		return this.columns.elementAt(i);

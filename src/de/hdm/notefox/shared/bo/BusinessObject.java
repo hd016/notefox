@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 /**
  * Businessobjekt.java ist die Superklasse aller relevanten Klassen im Objekt.
- * Die Business Objekts repräsentieren reale betriebswirtschaftliche Objekte,
- * die f�r die Umsetzung des Fachkonzepts wichtig sind. Jedes Businessobjekt hat
- * einen Primärschlüssel, die das Objekt in einer relationalen
+ * Die Business Objekts repraesentieren reale betriebswirtschaftliche Objekte,
+ * die fuer die Umsetzung des Fachkonzepts wichtig sind. Jedes Businessobjekt hat
+ * einen Primaerschluessel, die das Objekt in einer relationalen
  * Datenbankeindeutig identifizieren. Sie implementiert das Interface
- * >>Serializable<<, dadurch können die Objekte in eine textuelle Form überführt
- * werden. Dies wird benötigt, damit der Client und der Server Objekte unter
+ * >>Serializable<<, dadurch koennen die Objekte in eine textuelle Form Ueberfuehrt
+ * werden. Dies wird benoetigt, damit der Client und der Server Objekte unter
  * sich austauschen kann.
  */
 public abstract class BusinessObject implements Serializable {
@@ -47,7 +47,7 @@ public abstract class BusinessObject implements Serializable {
 	}
 
 	/**
-	 * Inhaltlicher Gleichheit feststellen (in diesem Fall �ber die ID)
+	 * Inhaltlicher Gleichheit feststellen (in diesem Fall ueber die ID)
 	 */
 
 	public boolean equals(Object o) {
@@ -62,19 +62,19 @@ public abstract class BusinessObject implements Serializable {
 					return true;
 			} catch (IllegalArgumentException e) {
 				/**
-				 * ggb. false zurückgeben
+				 * ggb. false zurueckgeben
 				 */
 				return false;
 			}
 		}
 		/**
-		 * keine Gleichheit, dann false zurückgeben
+		 * keine Gleichheit, dann false zurueckgeben
 		 */
 		return false;
 	}
 
 	/**
-	 * HashCode-Mehtode erzeugt eine ganze Zahl, die f�r das BusinessObject
+	 * HashCode-Mehtode erzeugt eine ganze Zahl, die fuer das BusinessObject
 	 * charakteristisch ist.
 	 */
 
