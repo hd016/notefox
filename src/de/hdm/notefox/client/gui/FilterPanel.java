@@ -1,17 +1,28 @@
 package de.hdm.notefox.client.gui;
 
+import java.util.List;
+
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 
+import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Filterobjekt;
+import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
+import de.hdm.notefox.shared.Nutzer;
+import de.hdm.notefox.shared.ReportGeneratorAsync;
 
 public class FilterPanel extends HorizontalPanel {
 
+	ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
+	
 	private TextBox titelTextBox;
 	private DateBox erstellDatumVonDateBox;
 	private DateBox erstellDatumBisDateBox;
@@ -19,7 +30,7 @@ public class FilterPanel extends HorizontalPanel {
 	private DateBox modifikationsBisDateBox;
 	private DateBox faelligkeitsDatumVonDateBox;
 	private DateBox faelligkeitsDatumBisDateBox;
-	private SuggestBox nutzerSuggestBox;
+	private ListBox nutzerListBox;
 	private CheckBox lesenCheckBox;
 	private CheckBox schreibenCheckBox;
 	private CheckBox loeschenCheckBox;
@@ -44,11 +55,27 @@ public class FilterPanel extends HorizontalPanel {
 		Label lesenBerechtigungLabel = new Label("Leseberechtigung");
 		Label schreibenBerechtitgungLabel = new Label("Schreibberechtigung");
 		Label loeschenBerechtigungLabel = new Label("Löschberechtigung");
-		nutzerSuggestBox = new SuggestBox();
+		nutzerListBox = new ListBox();
 		lesenCheckBox = new CheckBox();
 		schreibenCheckBox = new CheckBox();
 		loeschenCheckBox = new CheckBox();
 
+		reportGenerator.nachAllenNutzernSuchen(new AsyncCallback<List<Nutzer>>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+			}
+
+			@Override
+			public void onSuccess(List<Nutzer> result) {
+				nutzerListBox.addItem("", "");
+				for (Nutzer nutzer : result) {
+					nutzerListBox.addItem(nutzer.getEmail(), nutzer.getNutzerId() + "");
+				}
+			}
+		});
+		
 		VerticalPanel spalte1 = new VerticalPanel();
 		VerticalPanel spalte2 = new VerticalPanel();
 		VerticalPanel spalte3 = new VerticalPanel();
@@ -84,7 +111,7 @@ public class FilterPanel extends HorizontalPanel {
 		spalte4.add(faelligkeitsDatumBisDateBox);
 
 		spalte5.add(nutzerLabel);
-		spalte5.add(nutzerSuggestBox);
+		spalte5.add(nutzerListBox);
 
 		spalte6.add(berechtigungLabel);
 
@@ -102,7 +129,7 @@ public class FilterPanel extends HorizontalPanel {
 	public Filterobjekt erstelleFilterobjekt() {
 		Filterobjekt filterobjekt = new Filterobjekt();
 		filterobjekt.setTitel(titelTextBox.getValue());
-		filterobjekt.setNutzer(nutzerSuggestBox.getValue());
+		filterobjekt.setNutzer(nutzerListBox.getSelectedItemText());
 		filterobjekt.setErstellDatumVon(erstellDatumVonDateBox.getValue());
 		filterobjekt.setErstellDatumBis(erstellDatumBisDateBox.getValue());
 		filterobjekt.setFaelligkeitsDatumVon(faelligkeitsDatumVonDateBox.getValue());

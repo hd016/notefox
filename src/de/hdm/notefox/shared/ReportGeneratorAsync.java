@@ -1,5 +1,7 @@
 package de.hdm.notefox.shared;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
@@ -24,5 +26,7 @@ public interface ReportGeneratorAsync {
 	void initialisieren(AsyncCallback<Void> callback);
 
 	void erstelleGefilterteNotizenReport(Filterobjekt f, AsyncCallback<AlleNotizenDesNutzersReport> callback);
+
+	void nachAllenNutzernSuchen(AsyncCallback<List<Nutzer>> callback);
 
 }

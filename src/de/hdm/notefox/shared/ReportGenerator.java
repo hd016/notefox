@@ -1,5 +1,7 @@
 package de.hdm.notefox.shared;
 
+import java.util.List;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -49,4 +51,6 @@ public interface ReportGenerator extends RemoteService {
 			throws IllegalArgumentException;
 
 	AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(Filterobjekt f) throws IllegalArgumentException;
+
+	List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException;
 }
