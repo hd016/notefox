@@ -9,8 +9,8 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
- * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle für eine
- * RPC-fähige Klasse.
+ * Zur Verwaltung des Notizobjekts eine synchrone Schnittstelle fuer eine
+ * RPC-faehige Klasse.
  */
 @RemoteServiceRelativePath("notizobjektadministration")
 public interface NotizobjektAdministration extends RemoteService {
@@ -26,13 +26,13 @@ public interface NotizobjektAdministration extends RemoteService {
 	public Notiz anlegenNotiz(Notizbuch notizbuch) throws IllegalArgumentException;
 
 	/**
-	 * Eine neues Notizbuch für einen gegebenen Nutzer anlegen.
+	 * Eine neues Notizbuch fuer einen gegebenen Nutzer anlegen.
 	 */
 	public Notizbuch anlegenNotizbuecherFuer(Nutzer n) throws IllegalArgumentException;
 
 	/**
 	 * <p>
-	 * Auslesen sämtlicher mit diesem Notizbuch in Verbindung stehenden Notizen.
+	 * Auslesen saemtlicher mit diesem Notizbuch in Verbindung stehenden Notizen.
 	 * </p>
 	 * 
 	 * @param nb das Notizbuch, dessen Notiz wir bekommen wollen.
@@ -47,7 +47,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	public List<Notiz> nachAllenNotizenDesNutzersSuchen(Nutzer n) throws IllegalArgumentException;
 
 	/**
-	 * Alle Notizbücher eines Nutzers auslesen.
+	 * Alle Notizbuecher eines Nutzers auslesen.
 	 */
 	public List<Notizbuch> nachAllenNotizbuechernDesNutzersSuchen(Nutzer n) throws IllegalArgumentException;
 
@@ -82,7 +82,7 @@ public interface NotizobjektAdministration extends RemoteService {
 	public List<Notiz> nachAllenNotizenSuchen() throws IllegalArgumentException;
 
 	/**
-	 * Alle Notizbücher auslesen.
+	 * Alle Notizbuecher auslesen.
 	 */
 	public List<Notizbuch> nachAllenNotizbuechernSuchen() throws IllegalArgumentException;
 
@@ -102,12 +102,12 @@ public interface NotizobjektAdministration extends RemoteService {
 	public Nutzer speichern(Nutzer n) throws IllegalArgumentException;
 
 	/**
-	 * Löschen der Daten eines übergegebenen Notiz-Objekts.
+	 * Loeschen der Daten eines Uebergegebenen Notiz-Objekts.
 	 */
 	public void loeschenNotiz(Notiz no) throws NutzerAusnahme;
 
 	/**
-	 * Löschen der Daten eines übergegebenen Notizbuch-Objekts.
+	 * Loeschen der Daten eines uebergegebenen Notizbuch-Objekts.
 	 */
 	public void loeschenNotizbuch(Notizbuch nb) throws NutzerAusnahme;
 

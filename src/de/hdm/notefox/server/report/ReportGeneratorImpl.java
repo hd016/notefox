@@ -23,9 +23,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		ReportGenerator {
 
 	/**
-	 * Für den Report Generator ist der Zugriff auf die
+	 * Fuer den Report Generator ist der Zugriff auf die
 	 * NotizobjektAdministration notwendig, da diese die essentiellen Methoden
-	 * für die Koexistenz von Datenobjekten bietet.
+	 * fuer die Koexistenz von Datenobjekten bietet.
 	 */
 
 	private NotizobjektAdministration administration = null;
@@ -37,7 +37,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	 * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines
 	 * anderen Konstruktors ist durch die Client-seitige Instantiierung durch
 	 * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
-	 * möglich.
+	 * moeglich.
 	 * </p>
 	 * <p>
 	 * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
@@ -66,7 +66,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * Auslesen der zugehörigen NotizobjektAdministration (interner Gebrauch).
+	 * Auslesen der zugehoerigen NotizobjektAdministration (interner Gebrauch).
 	 * 
 	 * @return das NotizobjektVerwaltungsobjekt
 	 */
@@ -75,9 +75,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	}
 
 	/**
-	 * Hinzufügen des Report-Impressums. Diese Methode ist aus den
+	 * Hinzufuegen des Report-Impressums. Diese Methode ist aus den
 	 * <code>create...</code>-Methoden ausgegliedert, da jede dieser Methoden
-	 * diese Tätigkeiten redundant auszuführen hätte. Stattdessen rufen die
+	 * diese Taetigkeiten redundant auszufuehren haette. Stattdessen rufen die
 	 * <code>create...</code>-Methoden diese Methode auf.
 	 * 
 	 * @param r
@@ -96,7 +96,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		r.setImprint(imprint);
 
 	}
-	
+
 	/**
 	 * @see NotizobjektAdministrationImpl#nachAllenNutzernSuchen()
 	 */
@@ -119,18 +119,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			return null;
 
 		/*
-		 * Zunächst legen wir uns einen leeren Report an.
+		 * Zunaechst legen wir uns einen leeren Report an.
 		 */
 		AlleNotizenDesNutzersReport result = new AlleNotizenDesNutzersReport();
 
-		// Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
 		result.setTitle("Alle Notizen aller Nutzer");
 
-		// Imressum hinzufügen
+		// Imressum hinzufuegen
 		this.addImprint(result);
 
 		/*
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		result.setCreated(new Date());
@@ -145,22 +145,22 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		// Email des Nutzers aufnehmen
 		header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
-		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+		// Hinzufuegen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
 
 		/*
-		 * Ab hier erfolgt ein zeilenweises Hinzufügen von Notiz-Informationen.
+		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von Notiz-Informationen.
 		 */
 
 		/*
-		 * Zunächst legen wir eine Kopfzeile für die Notiz-Tabelle an.
+		 * Zunaechst legen wir eine Kopfzeile fuer die Notiz-Tabelle an.
 		 */
 		Row headline = new Row();
 
 		/*
 		 * Wir wollen Zeilen mit einer Spalte in der Tabelle erzeugen. In der
 		 * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen
-		 * wir also entsprechende Überschriften ab.
+		 * wir also entsprechende Ueberschriften ab.
 		 */
 
 		headline.addColumn(new Column("Titel"));
@@ -169,12 +169,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		headline.addColumn(new Column("Faelligkeitsdatum"));
 		headline.addColumn(new Column("Berechtigungen"));
 
-		// Hinzufügen der Kopfzeile
+		// Hinzufuegen der Kopfzeile
 		result.addRow(headline);
 
 		/*
-		 * Nun werden sämtliche Notizen des Nutzers ausgelesen und deren NotizId
-		 * und sukzessive in die Tabelle eingetragen.
+		 * Nun werden saemtliche Notizen des Nutzers ausgelesen und deren
+		 * NotizId und sukzessive in die Tabelle eingetragen.
 		 */
 		List<Notiz> notizen = this.administration
 				.nachAllenNotizenDesNutzersSuchen(n);
@@ -183,14 +183,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			// Eine leere Zeile anlegen.
 			Row notizRow = new Row();
 
-			// Erste Spalte: Kontonummer hinzufügen
+			// Erste Spalte: Kontonummer hinzufuegen
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
 			notizRow.addColumn(new Column(String.valueOf(no
 					.getModifikationsdatum())));
 			notizRow.addColumn(new Column(String.valueOf(no
 					.getFaelligkeitsdatum())));
-			// notizRow.addColumn(new Column(no.getteilehabne nurzer()));
 
 			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
 			List<Berechtigung> berechtigungen = this.administration
@@ -201,12 +200,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			}
 			notizRow.addColumn(new Column(berechtigungsTabelle));
 
-			// und schließlich die Zeile dem Report hinzufügen.
+			// und schlie�lich die Zeile dem Report hinzufuegen.
 			result.addRow(notizRow);
 		}
 
 		/*
-		 * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+		 * Zum Schluss muessen wir noch den fertigen Report zurueckgeben.
 		 */
 		return result;
 	}
@@ -218,18 +217,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			return null;
 
 		/*
-		 * Zunächst legen wir uns einen leeren Report an.
+		 * Zunaechst legen wir uns einen leeren Report an.
 		 */
 		AlleNotizenDesNutzersReport result = new AlleNotizenDesNutzersReport();
 
-		// Jeder Report hat einen Titel (Bezeichnung / Überschrift).
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
 		result.setTitle("Alle Notizen aller Nutzer");
 
-		// Imressum hinzufügen
+		// Imressum hinzufuegen
 		this.addImprint(result);
 
 		/*
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		result.setCreated(new Date());
@@ -248,18 +247,18 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		result.setHeaderData(header);
 
 		/*
-		 * Ab hier erfolgt ein zeilenweises Hinzufügen von Notiz-Informationen.
+		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von Notiz-Informationen.
 		 */
 
 		/*
-		 * Zunächst legen wir eine Kopfzeile für die Notiz-Tabelle an.
+		 * Zunaechst legen wir eine Kopfzeile fuer die Notiz-Tabelle an.
 		 */
 		Row headline = new Row();
 
 		/*
 		 * Wir wollen Zeilen mit einer Spalte in der Tabelle erzeugen. In der
 		 * Spalte schreiben wir die jeweilige NutzerId. In der Kopfzeile legen
-		 * wir also entsprechende Überschriften ab.
+		 * wir also entsprechende Ueberschriften ab.
 		 */
 		headline.addColumn(new Column("Titel"));
 		headline.addColumn(new Column("Erstelldatum"));
@@ -267,12 +266,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		headline.addColumn(new Column("Faelligkeitsdatum"));
 		headline.addColumn(new Column("Berechtigungen"));
 
-		// Hinzufügen der Kopfzeile
+		// Hinzufuegen der Kopfzeile
 		result.addRow(headline);
 
 		/*
-		 * Nun werden sämtliche Notizen des Nutzers ausgelesen und deren NotizId
-		 * und sukzessive in die Tabelle eingetragen.
+		 * Nun werden saemtliche Notizen des Nutzers ausgelesen und deren
+		 * NotizId und sukzessive in die Tabelle eingetragen.
 		 */
 		List<Notiz> notizen = this.administration.nachNotizenDesFilterSuchen(f);
 
@@ -280,14 +279,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			// Eine leere Zeile anlegen.
 			Row notizRow = new Row();
 
-			// Erste Spalte: Kontonummer hinzufügen
+			// Erste Spalte: Kontonummer hinzufuegen
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
 			notizRow.addColumn(new Column(String.valueOf(no
 					.getModifikationsdatum())));
 			notizRow.addColumn(new Column(String.valueOf(no
 					.getFaelligkeitsdatum())));
-			// notizRow.addColumn(new Column(no.getteilehabne nurzer()));
 
 			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
 			List<Berechtigung> berechtigungen = this.administration
@@ -298,12 +296,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			}
 			notizRow.addColumn(new Column(berechtigungsTabelle));
 
-			// und schließlich die Zeile dem Report hinzufügen.
+			// und schlie�lich die Zeile dem Report hinzufuegen.
 			result.addRow(notizRow);
 		}
 
-		/**
-		 * Zum Schluss müssen wir noch den fertigen Report zurückgeben.
+		/*
+		 * Zum Schluss muessen wir noch den fertigen Report zurueckgeben.
 		 */
 		return result;
 	}
@@ -319,36 +317,36 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		if (this.getNotizobjektVerwaltung() == null)
 			return null;
 
-		/**
-		 * Zunächst legen wir uns einen leeren Report an.
+		/*
+		 * Zunaechst legen wir uns einen leeren Report an.
 		 */
 		AlleNotizenAllerNutzerReport result = new AlleNotizenAllerNutzerReport();
 
-		// Jeder Report hat einen Titel (Bezeichnung / überschrift).
+		// Jeder Report hat einen Titel (Bezeichnung / Ueberschrift).
 		result.setTitle("Alle Notizen aller Nutzer");
 
-		// Imressum hinzufügen
+		// Imressum hinzufuegen
 		this.addImprint(result);
 
 		/*
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		result.setCreated(new Date());
 
 		/*
 		 * Da AlleNotizenAllerNutzerReport-Objekte aus einer Sammlung von
-		 * AlleNotizenDesNutzersReport-Objekten besteht, benötigen wir keine
-		 * Kopfdaten für diesen Report-Typ. Wir geben einfach keine Kopfdaten
+		 * AlleNotizenDesNutzersReport-Objekten besteht, benoetigen wir keine
+		 * Kopfdaten fuer diesen Report-Typ. Wir geben einfach keine Kopfdaten
 		 * an...
 		 */
 
 		/*
-		 * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend
-		 * wir für jedes Nutzerobjekt n ein Aufruf von
-		 * erstelleAlleNotizenDesNutzersReport(n) durchgeführt und somit jeweils
-		 * ein AlleNotizenDesNutzersReport-Objekt erzeugt. Diese Objekte werden
-		 * sukzessive der result-Variable hinzugefügt. Sie ist vom Typ
+		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden. Anschlie�end
+		 * wir fuer jedes Nutzerobjekt n ein Aufruf von
+		 * erstelleAlleNotizenDesNutzersReport(n) durchgefuehrt und somit
+		 * jeweils ein AlleNotizenDesNutzersReport-Objekt erzeugt. Diese Objekte
+		 * werden sukzessive der result-Variable hinzugefuegt. Sie ist vom Typ
 		 * AlleNotizenAllerNutzerReport, welches eine Subklasse von
 		 * CompositeReport ist.
 		 */
@@ -356,13 +354,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 
 		for (Nutzer n : alleNutzer) {
 			/*
-			 * Anlegen des jew. Teil-Reports und Hinzufügen zum Gesamt-Report.
+			 * Anlegen des jew. Teil-Reports und Hinzufuegen zum Gesamt-Report.
 			 */
 			result.addSubReport(this.erstelleAlleNotizenDesNutzersReport(n));
 		}
 
-		/**
-		 * Zu guter Letzt müssen wir noch den fertigen Report zurückgeben.
+		/*
+		 * Zu guter Letzt muessen wir noch den fertigen Report zurueckgeben.
 		 */
 		return result;
 	}
@@ -381,14 +379,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			return null;
 
 		/*
-		 * Zunächst legen wir uns einen leeren Report an.
+		 * Zunaechst legen wir uns einen leeren Report an.
 		 */
 		AlleNotizbuecherDesNutzersReport result = new AlleNotizbuecherDesNutzersReport();
 
 		result.setTitle("Alle Notizen des Notizbuches");
 
 		/*
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		result.setCreated(new Date());
@@ -403,19 +401,19 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		// Email des Nutzers aufnehmen
 		header.addSubParagraph(new SimpleParagraph(n.getEmail()));
 
-		// Imressum hinzufügen
+		// Imressum hinzufuegen
 		this.addImprint(result);
 
-		// Hinzufügen der zusammengestellten Kopfdaten zu dem Report
+		// Hinzufuegen der zusammengestellten Kopfdaten zu dem Report
 		result.setHeaderData(header);
 
 		/*
-		 * Ab hier erfolgt ein zeilenweises Hinzufügen von
+		 * Ab hier erfolgt ein zeilenweises Hinzufuegen von
 		 * Notizbuch-Informationen.
 		 */
 
 		/**
-		 * Zunächst legen wir eine Kopfzeile für die Notizbuch-Tabelle an.
+		 * Zunaechst legen wir eine Kopfzeile fuer die Notizbuch-Tabelle an.
 		 */
 		Row headline = new Row();
 
@@ -423,14 +421,14 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 * Wir wollen Zeilen mit eine Spalte in der Tabelle erzeugen. In der
 		 * Spalte schreiben wir die jeweilige NutzerId. In der K
 		 * 
-		 * opfzeile legen wir also entsprechende Überschriften ab.
+		 * Kopfzeile legen wir also entsprechende Ueberschriften ab.
 		 */
 		headline.addColumn(new Column("Titel"));
 		headline.addColumn(new Column("Erstelldatum"));
 		headline.addColumn(new Column("Modifikationsdatum"));
 		headline.addColumn(new Column("Berechtigungen"));
 
-		// Hinzufügen der Kopfzeile
+		// Hinzufuegen der Kopfzeile
 		result.addRow(headline);
 
 		/*
@@ -444,7 +442,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			// Leere Zeile
 			Row notizbuchRow = new Row();
 
-			// Erste Spalte: NotizbuchId hinzuf�gen.
+			// Erste Spalte: NotizbuchId hinzufuegen.
 			notizbuchRow.addColumn(new Column(nb.getTitel()));
 			notizbuchRow.addColumn(new Column(String.valueOf(nb
 					.getErstelldatum())));
@@ -460,12 +458,12 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			}
 			notizbuchRow.addColumn(new Column(berechtigungsTabelle));
 
-			// Dem Report die Zeile hinzuf�gen
+			// Dem Report die Zeile hinzufuegen
 			result.addRow(notizbuchRow);
 		}
 
 		/*
-		 * Report zur�ckgeben
+		 * Report zurueckgeben
 		 */
 		return result;
 	}
@@ -489,42 +487,42 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		// Reporttitel.
 		result.setTitle("Alle Notizbuecher aller Nutzer");
 
-		// Hinzufügen des Impressums
+		// Hinzufuegen des Impressums
 		this.addImprint(result);
 
 		/**
-		 * Datum der Erstellung hinzufügen. new Date() erzeugt autom. einen
+		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen
 		 * "Timestamp" des Zeitpunkts der Instantiierung des Date-Objekts.
 		 */
 		result.setCreated(new Date());
 
 		/*
 		 * Da AlleNotizbuecherAllerNutzerReport-Objekte aus einer Sammlung von
-		 * AlleNotizbuecherDesNutzersReport-Objekten besteht, benötigen wir
-		 * keine Kopfdaten für diesen Report-Typ. Wir geben einfach keine
+		 * AlleNotizbuecherDesNutzersReport-Objekten besteht, benoetigen wir
+		 * keine Kopfdaten fuer diesen Report-Typ. Wir geben einfach keine
 		 * Kopfdaten an...
 		 */
 
 		/*
-		 * Nun müssen sämtliche Nutzer-Objekte ausgelesen werden. Anschließend
-		 * wir für jedes Nutzerobjekt n ein Aufruf von
-		 * erstelleAlleNotizbuecherDesNutzersReport(c) durchgeführt und somit
+		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden. Anschlie�end
+		 * wir fuer jedes Nutzerobjekt n ein Aufruf von
+		 * erstelleAlleNotizbuecherDesNutzersReport(c) durchgefuehrt und somit
 		 * jeweils ein AlleNotizbuecherDesNutzersReport-Objekt erzeugt. Diese
-		 * Objekte werden sukzessive der result-Variable hinzugefügt. Sie ist
+		 * Objekte werden sukzessive der result-Variable hinzugefuegt. Sie ist
 		 * vom Typ AlleNotizbuecherAllerNutzersReport, welches eine Subklasse
 		 * von CompositeReport ist.
 		 */
 		List<Nutzer> alleNutzer = this.administration.nachAllenNutzernSuchen();
 
 		for (Nutzer n : alleNutzer) {
-			/**
+			/*
 			 * Erstellen des Teil-Reports und hizuf�gen zum Gesamt-Report
 			 */
 			result.addSubReport(this
 					.erstelleAlleNotizbuecherDesNutzersReport(n));
 		}
 
-		/**
+		/*
 		 * Report zurückgeben
 		 */
 		return result;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Mutterklasse aller Reports. Reports können von dem Server an den Client
+ * Mutterklasse aller Reports. Reports koennen von dem Server an den Client
  * gesendet werden, da sie als Serializable deklariert sind. Nach der
  * Bereitstellung der Reports erfolgt der Zugriff auf diese clientseitig lokal.
  * 
@@ -89,7 +89,7 @@ public abstract class Report implements Serializable {
 
 	/**
 	 * Erstelldatum setzen. (nicht zwingend erfoderlich, da jeder Report diesen
-	 * automatisch festh�lt)
+	 * automatisch festhaelt)
 	 */
 	public void setCreated(Date created) {
 		this.created = created;

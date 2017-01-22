@@ -30,11 +30,7 @@ public class NotefoxReport implements EntryPoint {
 	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Notizen");
 
-	/**
-	 * Label notizbucherLabel = new Label("Notizbücher"); Button
-	 * notizbucherButton = new Button("Report"); //Label notizenLabel = new
-	 * Label("Notiz"); Button notizenButton = new Button("Report");
-	 */
+	
 	FilterPanel filterPanel = new FilterPanel();
 
 	HorizontalPanel mainPanel = new HorizontalPanel();
@@ -43,7 +39,7 @@ public class NotefoxReport implements EntryPoint {
 
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
-	 * zusichert, benötigen wir eine Methode
+	 * zusichert, benoetigen wir eine Methode
 	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
 	 * <code>main()</code>-Methode normaler Java-Applikationen.
 	 */
@@ -52,9 +48,9 @@ public class NotefoxReport implements EntryPoint {
 	public void onModuleLoad() {
 
 		/*
-		 * ZunÃ¤chst weisen wir dem Report-Generator eine Notizobjekt-Instanz
-		 * zu, die fÃ¼r die Darstellung der Adressdaten des Kreditinstituts
-		 * benÃ¶tigt wird.
+		 * Zunaechst weisen wir dem Report-Generator eine Notizobjekt-Instanz
+		 * zu, die fuer die Darstellung der Adressdaten des Kreditinstituts
+		 * benoetigt wird.
 		 */
 		if (reportGenerator == null) {
 			reportGenerator = ClientsideSettings.getReportGenerator();
@@ -84,7 +80,7 @@ public class NotefoxReport implements EntryPoint {
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil" für
+	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil" für
 	 * die HTML-Version des Reports.
 	 */
 
@@ -100,7 +96,7 @@ public class NotefoxReport implements EntryPoint {
 
 	/*
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltfläche zum Auslesen der Reportgenerierung und einem "Datenteil" für
+	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil" fuer
 	 * die HTML-Version des Reports.
 	 */
 
@@ -145,11 +141,11 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback
 
 /**
 <<<<<<< HEAD
- * Diese Nested Class wird als Callback fÃ¼r das Erzeugen des
+ * Diese Nested Class wird als Callback fuer das Erzeugen des
 =======
- * Diese Nested Class wird als Callback für das Erzeugen des
+ * Diese Nested Class wird als Callback fuer das Erzeugen des
 >>>>>>> refs/remotes/origin/master
- * AllAccountOfAllCustomersReport benötigt.
+ * AllAccountOfAllCustomersReport benoetigt.
  * 
  * @author rathke
  * @version 1.0

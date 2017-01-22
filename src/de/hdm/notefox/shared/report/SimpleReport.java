@@ -4,7 +4,7 @@ import java.util.Vector;
 
 /**
  * Einfacher Report weist neben den Infos der Superklasse auch eine eine Tabelle
- * mit Positionsdatwn auf.
+ * mit Positionsdaten auf.
  */
 public abstract class SimpleReport extends Report {
 
@@ -20,7 +20,7 @@ public abstract class SimpleReport extends Report {
 	private Vector<Row> table = new Vector<Row>();
 
 	/**
-	 * Eine Zeile hinzufügen.
+	 * Eine Zeile hinzufuegen.
 	 */
 	public void addRow(Row r) {
 		this.table.addElement(r);

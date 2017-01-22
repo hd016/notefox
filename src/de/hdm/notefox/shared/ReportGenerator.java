@@ -11,7 +11,7 @@ import de.hdm.notefox.shared.report.AlleNotizenAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 
 /**
- * Zur Erstellung von Reports eine synchrone Schnittstelle für eine RPC-fähige
+ * Zur Erstellung von Reports eine synchrone Schnittstelle fuer eine RPC-faehige
  * Klasse.
  */
 
