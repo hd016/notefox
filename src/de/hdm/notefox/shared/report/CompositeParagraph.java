@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * Composite stellt eine Anzahl von Absätzen dar. 
+ * Composite stellt eine Anzahl von Absaetzen dar. 
  * Als Unterabschnitte werden diese in einem Vector verwaltet.
  */
 public class CompositeParagraph extends Paragraph implements Serializable {
@@ -20,14 +20,14 @@ public class CompositeParagraph extends Paragraph implements Serializable {
   private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
 
   /**
-   * Hinzufügen eines Unterabschnitts.
+   * Hinzufuegen eines Unterabschnitts.
    */
   public void addSubParagraph(SimpleParagraph p) {
     this.subParagraphs.addElement(p);
   }
 
   /**
-   * Löschen eines Unterabschnitts.
+   * Loeschen eines Unterabschnitts.
    */
   public void removeSubParagraph(SimpleParagraph p) {
     this.subParagraphs.removeElement(p);
@@ -65,7 +65,7 @@ public String toString() {
      */
     StringBuffer result = new StringBuffer();
 
-    /** Über alle Unterabschnitte eine Schleife */
+    /** ueber alle Unterabschnitte eine Schleife */
     
     for (int i = 0; i < this.subParagraphs.size(); i++) {
       SimpleParagraph p = this.subParagraphs.elementAt(i);
@@ -78,7 +78,7 @@ public String toString() {
     }
 
     /**
-     * Umwandlung des Buffers in einen String + Rückgabe dieser String
+     * Umwandlung des Buffers in einen String + Rueckgabe dieser String
      */
     return result.toString();
   }

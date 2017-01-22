@@ -1,5 +1,6 @@
 package de.hdm.notefox.client.gui;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -66,7 +67,7 @@ public class FreigebenDialogBox extends DialogBox {
 
 		freigeben.addStyleName("gwt-Green-Button");
 		abbruch.addStyleName("gwt-Green-Button");
-		// Radio Buttons für Auswahl der Berechtigungsart
+		// Radio Buttons fuer Auswahl der Berechtigungsart
 
 		HorizontalPanel hPanelRadios = new HorizontalPanel();
 		hPanelRadios.add(lesen);
@@ -140,7 +141,7 @@ public class FreigebenDialogBox extends DialogBox {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			Window.alert("Fehler");
 
 		}
 

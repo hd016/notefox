@@ -3,8 +3,8 @@ package de.hdm.notefox.shared.report;
 import java.io.Serializable;
 
 /**
- * Column-Objekte sind Spalten eines Row-Objekts. Damit können Kopien z.B. vom
- * Server an den Clienten übertragen werden, da das Interface Serializable
+ * Column-Objekte sind Spalten eines Row-Objekts. Damit koennen Kopien z.B. vom
+ * Server an den Clienten uebertragen werden, da das Interface Serializable
  * implementiert wurde.
  */
 public class Column implements Serializable {
@@ -43,7 +43,7 @@ public class Column implements Serializable {
 	}
 
 	/**
-	 * Der aktuelle Spaltenwert wird überschrieben.
+	 * Der aktuelle Spaltenwert wird ueberschrieben.
 	 */
 	public void setValue(String value) {
 		this.value = value;

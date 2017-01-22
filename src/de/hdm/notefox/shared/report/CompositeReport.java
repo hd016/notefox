@@ -28,7 +28,7 @@ public abstract class CompositeReport
 	}
 
 	/**
-	 * Löschen des Teil-Reports
+	 * Loeschen des Teil-Reports
 	 */
 	public void removeSubReport(Report r) {
 		this.subReports.removeElement(r);

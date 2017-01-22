@@ -3,7 +3,7 @@ package de.hdm.notefox.shared.report;
 import java.io.Serializable;
 
 /**
- * Einzelne Absätze werden dargestellt. Der Inhalt der Abs�tze werden as String
+ * Einzelne Absaetze werden dargestellt. Der Inhalt der Absaetze werden as String
  * gespeichert.
  */
 public class SimpleParagraph extends Paragraph implements Serializable {
@@ -25,7 +25,7 @@ public class SimpleParagraph extends Paragraph implements Serializable {
 	}
 
 	/**
-	 * Erm�glicht den Inhalt des SimpleParagraph-Objekten bereits bei der
+	 * Ermoeglicht den Inhalt des SimpleParagraph-Objekten bereits bei der
 	 * Instantiierung anzugeben.
 	 */
 	public SimpleParagraph(String value) {
@@ -40,7 +40,7 @@ public class SimpleParagraph extends Paragraph implements Serializable {
 	}
 
 	/**
-	 * Inhalt wird �berschrieben.
+	 * Inhalt wird ueberschrieben.
 	 */
 	public void setText(String text) {
 		this.text = text;

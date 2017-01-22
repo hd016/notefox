@@ -9,7 +9,7 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 /*
  * Wird Semiautomatisch vom Google Plugin erstellt. 
- *Gegenstück des asynchronen Interface (NotizobjektAdministration).
+ *Gegenstueck des asynchronen Interface (NotizobjektAdministration).
  */
 public interface NotizobjektAdministrationAsync {
 
