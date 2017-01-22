@@ -18,7 +18,7 @@ public class Notiz extends Notizobjekt {
 	/**
 	 * Variablen der Notiz
 	 */
-	private Date faelligkeitsdatum;
+	private Date faelligkeitsdatum = new Date();
 	private String notizquelle;
 	private Notizbuch notizbuch;
 
