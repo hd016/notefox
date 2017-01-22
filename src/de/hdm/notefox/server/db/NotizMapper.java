@@ -1,19 +1,20 @@
 package de.hdm.notefox.server.db;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.Nutzer;
-import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
-import de.hdm.notefox.shared.bo.*;
+import de.hdm.notefox.shared.bo.Notiz;
+import de.hdm.notefox.shared.bo.Notizbuch;
 
 /*
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
@@ -32,11 +33,8 @@ public class NotizMapper {
 	 * saemtliche Instanzen dieser Klasse vorhanden, speichert die eizige
 	 * Instanz dieser Klasse
 	 */
-
 	private static NotizMapper notizMapper = null;
-	private static Date erstelldatum;
-	private static Date modifikationsdatum;
-
+	
 	/**
 	 * Konstruktor verhindert durch protected weitere Instanzen aus dieser
 	 * Klasse zu erzeugen

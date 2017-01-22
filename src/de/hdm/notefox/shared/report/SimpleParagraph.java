@@ -1,7 +1,6 @@
 package de.hdm.notefox.shared.report;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Einzelne Absätze werden dargestellt. Der Inhalt der Abs�tze werden as String

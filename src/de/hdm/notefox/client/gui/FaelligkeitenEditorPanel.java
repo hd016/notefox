@@ -8,13 +8,10 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
-import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.hdm.notefox.shared.bo.Notiz;
-import de.hdm.notefox.shared.bo.Notizobjekt;
 
 public class FaelligkeitenEditorPanel extends VerticalPanel {
 

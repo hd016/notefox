@@ -1,6 +1,5 @@
 package de.hdm.notefox.client;
 
-import java.util.List;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -10,18 +9,16 @@ import com.google.gwt.user.cellview.client.TreeNode;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import de.hdm.notefox.client.gui.FaelligkeitenEditorPanel;
+
 import de.hdm.notefox.client.gui.FooterPanel;
 import de.hdm.notefox.client.gui.Impressum;
 import de.hdm.notefox.client.gui.NotizBaumModel;
-import de.hdm.notefox.client.gui.NotizBerechtigungPanel;
 import de.hdm.notefox.client.gui.NotizEditorPanel;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.LoginInfo;

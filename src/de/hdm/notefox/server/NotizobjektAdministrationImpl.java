@@ -15,13 +15,11 @@ import de.hdm.notefox.server.db.BerechtigungMapper;
 import de.hdm.notefox.server.db.NotizMapper;
 import de.hdm.notefox.server.db.NotizbuchMapper;
 import de.hdm.notefox.server.db.NutzerMapper;
-import de.hdm.notefox.server.report.ReportGeneratorImpl;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
 import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.NotizobjektAdministration;
-import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.NutzerAusnahme;
 import de.hdm.notefox.shared.bo.Notiz;
@@ -109,11 +107,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 @SuppressWarnings("serial")
 public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
 
-	/**
-	 * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
-	 */
-	private Notiz notiz = null;
-	private Notizbuch notizbuch = null;
+	
 
 	private LoginService loginService;
 
