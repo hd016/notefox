@@ -218,36 +218,6 @@ public class BerechtigungMapper {
 	    return be;
 	  }
 	
-	
-//	public static void main(String[] args) {
-////	Berechtigung berechtigung = BerechtigungMapper.berechtigungMapper().nachBerechtigungSuchen(id)
-//		
-//		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
-//		Nutzer nutzer = nutzerMapper.nachNutzerIdSuchen(1000);
-//		
-//		NotizMapper notizMapper = NotizMapper.notizMapper();
-//		Notiz notiz = notizMapper.nachNotizIdSuchen(1);
-//		
-//		NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
-//		Notizbuch notizbuch = notizbuchMapper.nachNotizbuchIdSuchen(2002);
-//		
-//		Berechtigung berechtigung = new Berechtigung();
-//		berechtigung.getBrechtigungId();
-//		berechtigung.setBerechtigungsart(Berechtigungsart.EDITIEREN);	
-//		berechtigung.setNotiz(notiz);
-//		berechtigung.setNotizbuch(notizbuch);
-//		berechtigung.setBerechtigter(nutzer);
-//		
-//
-//	
-//	BerechtigungMapper berechtigungMapper = BerechtigungMapper.berechtigungMapper();
-//	berechtigungMapper.anlegenBerechtigung(berechtigung);
-//
-//	}
-	
-	
-	
-	
 	  public void berechtigungVerweigern(Berechtigung be) {
 		    Connection con = DBConnection.connection();
 

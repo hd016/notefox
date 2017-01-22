@@ -161,25 +161,7 @@ public class NotizMapper {
 
 		return null;
 	}
-
-	/**
-	 * Loeschen der Faelligkeitsdatum eines <code>Notiz</code>-Objekts aus der
-	 * Datenbank.
-	 * 
-	 */
-	public void loeschenFaelligkeitsdatum(Notiz no) {
-		Connection con = DBConnection.connection();
-
-		try {
-			Statement stmt = con.createStatement();
-
-			stmt.execute("DELETE FROM notiz " + "WHERE faelligkeitsdatum=" + no.getFaelligkeitsdatum());
-
-		} catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-	}
-
+	
 	/**
 	 * Auslesen aller Notizen.
 	 * 
@@ -431,21 +413,6 @@ public class NotizMapper {
 		 */
 		return no;
 	}
-
-	// public static void main(String[] args) {
-	// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
-	//
-	// Notiz notiz = new Notiz();
-	// notiz.setEigentuemer(nutzer);
-	// notiz.setTitel("Hallo");
-	// notiz.setSubtitel("WI7");
-	// notiz.setInhalt("hier_ist_inhalt");
-	// notiz.setErstelldatum(new Date());
-	// notiz.setModifikationsdatum(new Date());
-	//
-	// NotizMapper notizMapper = NotizMapper.notizMapper();
-	// notizMapper.anlegenNotiz(notiz);
-	// }
 
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.

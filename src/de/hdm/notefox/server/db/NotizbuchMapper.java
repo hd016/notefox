@@ -267,20 +267,6 @@ public class NotizbuchMapper {
 		return nb;
 	}
 
-	// public static void main(String[] args) {
-	// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
-	//
-	// Notizbuch notizbuch = new Notizbuch();
-	// notizbuch.setEigentuemer(nutzer);
-	// notizbuch.setTitel("Hallo");
-	// notizbuch.setSubtitel("WI7");
-	// notizbuch.setErstelldatum(new Date());
-	// notizbuch.setModifikationsdatum(new Date());
-	//
-	// NotizbuchMapper notizbuchMapper = NotizbuchMapper.notizbuchMapper();
-	// notizbuchMapper.anlegenNotizbuch(notizbuch);
-	// }
-
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 

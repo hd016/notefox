@@ -214,19 +214,6 @@ public class NutzerMapper {
 		return n;
 	}
 
-//	public static void main(String[] args) {
-//		// Nutzer nutzer = NutzerMapper.nutzerMapper().nachNutzerIdSuchen(1000);
-//
-//		Nutzer nutzer = new Nutzer();
-//		nutzer.getNutzerId();
-//		nutzer.setName("muhammed");
-//		nutzer.setEmail("muhammed1@gmail.com");
-//
-//		NutzerMapper nutzerMapper = NutzerMapper.nutzerMapper();
-//		nutzerMapper.anlegenNutzer(nutzer);
-//
-//	}
-
 	/**
 	 * Wiederholtes Schreiben eines Objekts in die Datenbank.
 	 * 
