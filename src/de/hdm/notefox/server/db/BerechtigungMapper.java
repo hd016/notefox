@@ -262,5 +262,30 @@ public class BerechtigungMapper {
 		    }
 		  }
 
+	public boolean exisitiertBerechtigung(Berechtigung berechtigung) {
+		Connection con = DBConnection.connection();
+
+		try {
+			Statement stmt = con.createStatement();
+
+			ResultSet rs = stmt
+					.executeQuery("SELECT * FROM berechtigung WHERE "
+							+ (berechtigung.getNotiz() != null ? "notiz="
+									+ berechtigung.getNotiz().getId()
+									: "notiz IS NULL")
+							+ " AND "
+							+ (berechtigung.getNotizbuch() != null ? "notizbuch="
+									+ berechtigung.getNotizbuch().getId()
+									: "notizbuch IS NULL")
+							+ " AND berechtigungsart = \""
+							+ berechtigung.getBerechtigungsart()
+							+ "\" AND berechtigter = "
+							+ berechtigung.getBerechtigter().getNutzerId());
+			return rs.next();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+		return false;
+	}
 
 }
