@@ -204,6 +204,9 @@ public class NotizEditorPanel extends HorizontalPanel {
 			vorhandendeNotiz.setSubtitel(result.getSubtitel());
 			vorhandendeNotiz.setErstelldatum(result.getErstelldatum());
 			vorhandendeNotiz.setTitel(result.getTitel());
+			
+			faelligkeiten.clear();
+			faelligkeiten.add(new FaelligkeitenEditorPanel(vorhandendeNotiz));
 			notefox.ersetzeBaum(result.getNotizbuch());
 			
 			Window.alert("Notiz gespeichert");
@@ -236,6 +239,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 			notizobjekt.setTitel(result.getTitel());
 			
 			notefox.ersetzeBaum(result);
+			
 			Window.alert("Notizbuch wurde gespeichert");
 		}
 
