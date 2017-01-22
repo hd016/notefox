@@ -1,9 +1,6 @@
 package de.hdm.notefox.shared;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import de.hdm.notefox.shared.bo.Notiz;
 
 public class Notizquelle implements Serializable {
 
@@ -21,11 +18,6 @@ public class Notizquelle implements Serializable {
 	private String notizquelleName;
 
 	private String url;
-
-	/**
-	 * ArrayList mit Objekten der verbundenen Klasse
-	 */
-	private ArrayList<Notiz> notizliste = new ArrayList<Notiz>();
 
 	/*
 	 * Auslesen und Setzen der Variablen

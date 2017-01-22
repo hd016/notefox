@@ -107,11 +107,7 @@ import de.hdm.notefox.shared.bo.Notizobjekt;
 @SuppressWarnings("serial")
 public class NotizobjektAdministrationImpl extends RemoteServiceServlet implements NotizobjektAdministration {
 
-	/**
-	 * Referenz auf das zugehörige Notiz- und Notizbuch-Objekte.
-	 */
-	private Notiz notiz = null;
-	private Notizbuch notizbuch = null;
+	
 
 	private LoginService loginService;
 

@@ -33,11 +33,8 @@ public class NotizMapper {
 	 * saemtliche Instanzen dieser Klasse vorhanden, speichert die eizige
 	 * Instanz dieser Klasse
 	 */
-
 	private static NotizMapper notizMapper = null;
-	private static Date erstelldatum;
-	private static Date modifikationsdatum;
-
+	
 	/**
 	 * Konstruktor verhindert durch protected weitere Instanzen aus dieser
 	 * Klasse zu erzeugen

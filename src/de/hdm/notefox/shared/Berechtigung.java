@@ -7,6 +7,8 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 public class Berechtigung implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public static enum Berechtigungsart {
 		LESEN, EDITIEREN, LOESCHEN
 	}

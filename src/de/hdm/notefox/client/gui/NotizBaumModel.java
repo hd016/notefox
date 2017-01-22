@@ -82,6 +82,8 @@ public class NotizBaumModel implements TreeViewModel {
 							if (value.getId() == -1){
 								sb.append(new SafeHtml() {
 									
+									private static final long serialVersionUID = 1L;
+
 									@Override
 									public String asString() {
 										return "<button class=\"buttonNeuesNotizbuch\" style=\"vertical-align:middle\"><span>Neues Notizbuch</span></button>";
@@ -119,6 +121,8 @@ public class NotizBaumModel implements TreeViewModel {
 					if (value.getId() == -1) {
 						sb.append(new SafeHtml() {
 							
+							private static final long serialVersionUID = 1L;
+
 							@Override
 							public String asString() {
 								return "<button class=\"button\" style=\"vertical-align:middle\"><span>Neue Notiz</span></button>";

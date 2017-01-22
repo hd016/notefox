@@ -10,9 +10,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import de.hdm.notefox.shared.LoginService;
-import de.hdm.notefox.shared.LoginServiceAsync;
-
 public class NotizquelleDialogBox extends DialogBox {
 
 	public NotizquelleDialogBox() {
