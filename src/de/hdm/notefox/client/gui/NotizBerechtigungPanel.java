@@ -1,9 +1,7 @@
 package de.hdm.notefox.client.gui;
 
 import static com.google.gwt.dom.client.BrowserEvents.CLICK;
-
 import java.util.List;
-
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.dom.client.Element;
@@ -19,7 +17,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -27,6 +24,13 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 
+/**
+ * Die Klasse NotizBerechtigungPanel beinhaltet einen CellTable, für die
+ * Darstellung der Berechtigungen, die erteilt wurden. Der CellTable ist im
+ * Objekt der FreigebenDialogbox, platziert.
+ * 
+ * @author Neriman Kocak und Harun Dalici
+ */
 public class NotizBerechtigungPanel extends VerticalPanel {
 
 	private final class BerechtigungAsyncCallback implements AsyncCallback<List<Berechtigung>> {
@@ -47,6 +51,10 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 
 	HTML uberschrift = new HTML("<h3>Berechtigungen</h3>");
 
+	/**
+	 * Instanziierung des Notizobjekts und des CellTables
+	 */
+
 	private Notizobjekt notizobjekt;
 
 	private CellTable<Berechtigung> table;
@@ -56,7 +64,10 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		table = new CellTable<Berechtigung>();
 		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 
-		// add email spalte
+		/**
+		 * Emailspalte für die Auflistung der Nutzer
+		 */
+
 		TextColumn<Berechtigung> emailColumn = new TextColumn<Berechtigung>() {
 			@Override
 			public String getValue(Berechtigung object) {
@@ -65,7 +76,10 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		};
 		table.addColumn(emailColumn, "Email");
 
-		// Add berechtigung spalte
+		/**
+		 * Berechtigungspalte für die Auflistung der Berechtigungsarten
+		 */
+
 		TextColumn<Berechtigung> berechtigungsartColumn = new TextColumn<Berechtigung>() {
 			@Override
 			public String getValue(Berechtigung object) {
@@ -74,7 +88,10 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		};
 		table.addColumn(berechtigungsartColumn, "Berechtigungsart");
 
-		// Add loschen spalte
+		/**
+		 * Löschenspalte für das Entfernen der Berechtigungen
+		 */
+
 		Column<Berechtigung, String> loschenColumn = new Column<Berechtigung, String>(new ClickableTextCell()) {
 
 			@Override
@@ -94,9 +111,19 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 			}
 		};
 		table.addColumn(loschenColumn, "Löschen");
+
+		/**
+		 * Es wird ein Cursor.Pointer gesetzt. Dadurch hat man eine Verbesserung
+		 * bei der Auswahl der Spalten Spalten
+		 */
+
 		table.getElement().getStyle().setCursor(Cursor.POINTER);
 
-		// Add a selection model für user auswahl
+		/**
+		 * SelectionModel für die Rückgabe der ausgewählten Nutzer/Email, wird
+		 * definiert
+		 */
+
 		final SingleSelectionModel<Berechtigung> selectionModel = new SingleSelectionModel<Berechtigung>();
 		table.setSelectionModel(selectionModel);
 		selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
@@ -118,6 +145,11 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 		refresh();
 	}
 
+	/**
+	 * Die Methode refresh() wird für das Neuladen des CellTables nach Anlegen
+	 * einer Berechtigung, genutzt
+	 */
+
 	public void refresh() {
 		if (notizobjekt instanceof Notiz) {
 			Notiz notiz = (Notiz) notizobjekt;
@@ -134,8 +166,7 @@ public class NotizBerechtigungPanel extends VerticalPanel {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-
+			Window.alert("Berechtigung wurde nicht angelegt.");
 		}
 
 		@Override
