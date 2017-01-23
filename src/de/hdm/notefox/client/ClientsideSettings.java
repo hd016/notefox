@@ -10,37 +10,43 @@ import de.hdm.notefox.shared.ReportGenerator;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 
 /**
- * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) Klasse mit Eigenschaften
- * und Diensten, die fuer alle Client-seitigen Klassen relevant sind.
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt). Die ClientsideSettings
+ * Klasse beinhaltet Eigenschaften und Dienste, die fuer alle Client-seitigen
+ * Klassen relevant sind.
  * 
- * @author thies
+ * @author Thies
  * @version 1.0
  * @since 28.02.2012
+ * 
+ * @author Neriman Kocak und Harun Dalici
  * 
  */
 public class ClientsideSettings extends CommonSettings {
 
 	/**
-	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitgen
-	 * Dienst namens <code>BankAdministration</code>.
+	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitigen
+	 * Dienst, namens <code>NotizobjektAdministrationAsync</code>.
 	 */
 
 	private static NotizobjektAdministrationAsync notizobjektVerwaltung = null;
 
 	/**
-	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitgen
-	 * Dienst namens <code>ReportGenerator</code>.
+	 * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitigen
+	 * Dienst, namens <code>ReportGeneratorAsync</code>.
 	 */
+
 	private static ReportGeneratorAsync reportGenerator = null;
 
 	/**
 	 * Name des Client-seitigen Loggers.
 	 */
+
 	private static final String LOGGER_NAME = "notefox Web Client";
 
 	/**
 	 * Instanz des Client-seitigen Loggers.
 	 */
+
 	private static final Logger log = Logger.getLogger(LOGGER_NAME);
 
 	/**
@@ -67,7 +73,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * </pre>
 	 * 
 	 * <p>
-	 * Bitte auf <em>angemessene Log Levels</em> achten! Severe und info sind
+	 * Bitte auf <em>angemessene Log Levels</em> achten! Server und Info sind
 	 * nur Beispiele.
 	 * </p>
 	 * 
@@ -77,13 +83,13 @@ public class ClientsideSettings extends CommonSettings {
 	 * bedarfsweise Einfuegen und Auskommentieren etwa von
 	 * <code>System.out.println(...);</code> steuern. Sie belassen kuenftig
 	 * sämtliches Logging im Code und können ohne abermaliges Kompilieren den
-	 * Log Level "von au�en" durch die Datei <code>logging.properties</code>
+	 * Log Level "von au�en" durch die Datei <code>logging.properties</code>
 	 * steuern. Sie finden diese Datei in Ihrem <code>war/WEB-INF</code>-Ordner.
 	 * Der dort standardmäßig vorgegebene Log Level ist <code>WARN</code>. Dies
 	 * wuerde bedeuten, dass Sie keine <code>INFO</code>-Meldungen wohl aber
 	 * <code>WARN</code>- und <code>SEVERE</code>-Meldungen erhielten. Wenn Sie
-	 * also auch Log des Levels <code>INFO</code> wollten, muessten Sie in dieser
-	 * Datei <code>.level = INFO</code> setzen.
+	 * also auch Log des Levels <code>INFO</code> wollten, muessten Sie in
+	 * dieser Datei <code>.level = INFO</code> setzen.
 	 * </p>
 	 * 
 	 * Weitere Infos siehe Dokumentation zu Java Logging.
@@ -96,30 +102,39 @@ public class ClientsideSettings extends CommonSettings {
 
 	/**
 	 * <p>
-	 * Anlegen und Auslesen der applikationsweit eindeutigen BankAdministration.
-	 * Diese Methode erstellt die BankAdministration, sofern sie noch nicht
-	 * existiert. Bei wiederholtem Aufruf dieser Methode wird stets das bereits
-	 * zuvor angelegte Objekt zurueckgegeben.
+	 * Anlegen und Auslesen der applikationsweit eindeutigen
+	 * NotizobjektAdministrationAsync. Diese Methode erstellt die
+	 * NotizobjektAdministrationAsync, sofern sie noch nicht existiert. Bei
+	 * wiederholtem Aufruf dieser Methode wird stets das bereits zuvor angelegte
+	 * Objekt zurueckgegeben.
 	 * </p>
 	 * 
 	 * <p>
-	 * Der Aufruf dieser Methode erfolgt im Client z.B. durch
-	 * <code>BankAdministrationAsync bankVerwaltung = ClientSideSettings.getBankVerwaltung()</code>
-	 * .
-	 * </p>
+	 * Der Aufruf dieser Methode erfolgt im Client.
 	 * 
-	 * @return eindeutige Instanz des Typs <code>BankAdministrationAsync</code>
+	 * @return eindeutige Instanz des Typs <code>NotizobjektAdministrationAsync</code>
 	 * @author Peter Thies
 	 * @since 28.02.2012
 	 */
 	public static NotizobjektAdministrationAsync getNotizobjektVerwaltung() {
-		// Gab es bislang noch keine BankAdministration-Instanz, dann...
+		/**
+		 * Gab es bislang noch keine NotizobjektVerwaltung-Instanz, dann...
+		 */
+
 		if (notizobjektVerwaltung == null) {
-			// ZunÃ¤chst instantiieren wir BankAdministration
+
+			/**
+			 * Zunächst instantiieren wir NotizobjektVerwaltung
+			 */
+
 			notizobjektVerwaltung = GWT.create(NotizobjektAdministration.class);
 		}
 
-		// So, nun brauchen wir die BankAdministration nur noch zurÃ¼ckzugeben.
+		/**
+		 * So, nun brauchen wir die NotizobjektVerwaltung nur noch
+		 * zurückzugeben.
+		 */
+
 		return notizobjektVerwaltung;
 	}
 
@@ -132,19 +147,24 @@ public class ClientsideSettings extends CommonSettings {
 	 * </p>
 	 * 
 	 * <p>
-	 * Der Aufruf dieser Methode erfolgt im Client z.B. durch
-	 * <code>ReportGeneratorAsync reportGenerator = ClientSideSettings.getReportGenerator()</code>
-	 * .
-	 * </p>
+	 * Der Aufruf dieser Methode erfolgt im Client
 	 * 
-	 * @return eindeutige Instanz des Typs <code>BankAdministrationAsync</code>
+	 * @return eindeutige Instanz des Typs
+	 *         <code>ReportGeneratorAsync</code>
 	 * @author Peter Thies
 	 * @since 28.02.2012
 	 */
 	public static ReportGeneratorAsync getReportGenerator() {
-		// Gab es bislang noch keine ReportGenerator-Instanz, dann...
+		/**
+		 * Gab es bislang noch keine ReportGenerator-Instanz, dann...
+		 */
+
 		if (reportGenerator == null) {
-			// ZunÃ¤chst instantiieren wir ReportGenerator
+
+			/**
+			 * ZunÃ¤chst instantiieren wir den ReportGenerator
+			 */
+
 			reportGenerator = GWT.create(ReportGenerator.class);
 
 			final AsyncCallback<Void> initReportGeneratorCallback = new AsyncCallback<Void>() {
@@ -162,7 +182,9 @@ public class ClientsideSettings extends CommonSettings {
 			reportGenerator.initialisieren(initReportGeneratorCallback);
 		}
 
-		// So, nun brauchen wir den ReportGenerator nur noch zurueckzugeben.
+		/**
+		 * So, nun brauchen wir den ReportGenerator nur noch zurueckzugeben.
+		 */
 		return reportGenerator;
 	}
 

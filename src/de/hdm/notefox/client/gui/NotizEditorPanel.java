@@ -1,7 +1,6 @@
 package de.hdm.notefox.client.gui;
 
 import java.util.List;
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,7 +17,6 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.client.Notefox;
 import de.hdm.notefox.shared.LoginInfo;
@@ -29,6 +27,14 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 
+/**
+ * Die Klasse NotizEditorPanel behinhaltet den Texteditor für die Notizen und
+ * das Formular für die Notizbücher. Die Entscheidung über die Formulare folgt
+ * über einer Abfrage des Notizobjektes über die Methode instanceof.
+ * 
+ * @author Neriman Kocak und Harun Dalici
+ *
+ */
 public class NotizEditorPanel extends HorizontalPanel {
 
 	NotizobjektAdministrationAsync notizobjektverwaltung = ClientsideSettings.getNotizobjektVerwaltung();
@@ -38,7 +44,6 @@ public class NotizEditorPanel extends HorizontalPanel {
 	Panel eigentuemer = new VerticalPanel();
 
 	Notiz ausgewahltesNotiz = null;
-	// NotizObjektTree = null;
 
 	Label Notiztitel = new Label("Titel");
 	Label eigentuemerTitel = new Label("Eigentümer");
@@ -77,6 +82,10 @@ public class NotizEditorPanel extends HorizontalPanel {
 		HorizontalPanel hPanel = new HorizontalPanel();
 		vPanel.add(hPanel);
 
+		/*
+		 * Buttons für den TextEditor erzeugen
+		 */
+
 		Button speichern = new Button("Speichern");
 		speichern.addClickHandler(new speichernClickHandler());
 		speichern.addStyleName("gwt-Green-Button");
@@ -94,12 +103,21 @@ public class NotizEditorPanel extends HorizontalPanel {
 
 	}
 
+	/**
+	 * Nach der Entscheidung über das Notizobjekt ändert sich der Editor. Bei
+	 * Notiz wird das Texteditor angezeigt. Bei Notizbuch wird das Formular für
+	 * die Verwaltung des Notizbuches angezeigt.
+	 * 
+	 * @param notizobjekt
+	 */
+
 	public void setNotizobjekt(final Notizobjekt notizobjekt) {
 		this.notizobjekt = notizobjekt;
 		titel.setValue(notizobjekt.getTitel());
 		subtitel.setValue(notizobjekt.getSubtitel());
 		area.setHTML(notizobjekt.getInhalt());
 		if (notizobjekt instanceof Notiz) {
+			notizEditor.setHTML("<h3>Notiz</h3>");
 			Notiz notiz = (Notiz) notizobjekt;
 			Rich.setVisible(true);
 			area.setVisible(true);
@@ -115,6 +133,10 @@ public class NotizEditorPanel extends HorizontalPanel {
 			notizbuchSubtitel.setVisible(true);
 			subtitel.setVisible(true);
 		}
+
+		/**
+		 * Erstellen der Listbox für die Auswahl der Eigentümer des Notizbuchs
+		 */
 
 		final ListBox besitzerListBox = new ListBox();
 		besitzerListBox.setEnabled(loginInfo.getNutzer().equals(notizobjekt.getEigentuemer()));
@@ -160,6 +182,11 @@ public class NotizEditorPanel extends HorizontalPanel {
 		eigentuemer.add(besitzerListBox);
 	}
 
+	/**
+	 * ClickHandler und AsnycCallback für das Speichern der Notizobjekte
+	 * 
+	 */
+
 	private class speichernClickHandler implements ClickHandler {
 
 		@Override
@@ -194,7 +221,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		@Override
 		public void onSuccess(Notiz result) {
 			Notiz vorhandendeNotiz = (Notiz) notizobjekt;
-			
+
 			vorhandendeNotiz.setId(result.getId());
 			vorhandendeNotiz.setFaelligkeitsdatum(result.getFaelligkeitsdatum());
 			vorhandendeNotiz.setEigentuemer(result.getEigentuemer());
@@ -204,11 +231,11 @@ public class NotizEditorPanel extends HorizontalPanel {
 			vorhandendeNotiz.setSubtitel(result.getSubtitel());
 			vorhandendeNotiz.setErstelldatum(result.getErstelldatum());
 			vorhandendeNotiz.setTitel(result.getTitel());
-			
+
 			faelligkeiten.clear();
 			faelligkeiten.add(new FaelligkeitenEditorPanel(vorhandendeNotiz));
 			notefox.ersetzeBaum(result.getNotizbuch());
-			
+
 			Window.alert("Notiz gespeichert");
 		}
 
@@ -229,7 +256,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		@Override
 		public void onSuccess(Notizbuch result) {
 			notizobjekt.setId(result.getId());
-			
+
 			notizobjekt.setId(result.getId());
 			notizobjekt.setEigentuemer(result.getEigentuemer());
 			notizobjekt.setInhalt(result.getInhalt());
@@ -237,13 +264,18 @@ public class NotizEditorPanel extends HorizontalPanel {
 			notizobjekt.setSubtitel(result.getSubtitel());
 			notizobjekt.setErstelldatum(result.getErstelldatum());
 			notizobjekt.setTitel(result.getTitel());
-			
+
 			notefox.ersetzeBaum(result);
-			
+
 			Window.alert("Notizbuch wurde gespeichert");
 		}
 
 	}
+
+	/**
+	 * ClickHandler und AsnycCallback für das Löschen der Notizobjekte
+	 * 
+	 */
 
 	private class loeschenClickHandler implements ClickHandler {
 
@@ -280,6 +312,11 @@ public class NotizEditorPanel extends HorizontalPanel {
 		}
 
 	}
+
+	/**
+	 * ClickHandler und AsnycCallback für das Freigeben der Notizobjekte
+	 * 
+	 */
 
 	private class freigebenClickHandler implements ClickHandler {
 
