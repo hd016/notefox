@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.HTML;
  * Klasse HTML. Es wird ein <div> erzeugt und der jeweilige Inhalt des
  * Impressums definiert.
  * 
- * @author Neri und Harun
+ * @author Neriman Kocak und Harun Dalici
  */
 
 public class Impressum extends HTML {
