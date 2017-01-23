@@ -1,7 +1,6 @@
 package de.hdm.notefox.client.gui;
 
 import java.util.List;
-
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -12,7 +11,6 @@ import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
-
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
@@ -21,8 +19,15 @@ import de.hdm.notefox.shared.ReportGeneratorAsync;
 
 public class FilterPanel extends HorizontalPanel {
 
+	/**
+	 * Die Klasse Filterpanel ist für das Filtern von Buttons und Datepicker der
+	 * Notizobjekte
+	 * 
+	 * @author Neriman Kocak und Harun Dalici
+	 */
+
 	ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
-	
+
 	private TextBox titelTextBox;
 	private DateBox erstellDatumVonDateBox;
 	private DateBox erstellDatumBisDateBox;
@@ -75,7 +80,11 @@ public class FilterPanel extends HorizontalPanel {
 				}
 			}
 		});
-		
+
+		/*
+		 * Instanziieren und deklarieren der VerticalPanels
+		 */
+
 		VerticalPanel spalte1 = new VerticalPanel();
 		VerticalPanel spalte2 = new VerticalPanel();
 		VerticalPanel spalte3 = new VerticalPanel();
@@ -125,6 +134,12 @@ public class FilterPanel extends HorizontalPanel {
 		spalte6.add(loeschenCheckBox);
 
 	}
+
+	/*
+	 * Instanziieren der Filterobjekte
+	 * 
+	 * @return filterobjekt
+	 */
 
 	public Filterobjekt erstelleFilterobjekt() {
 		Filterobjekt filterobjekt = new Filterobjekt();
