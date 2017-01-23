@@ -6,6 +6,8 @@ import com.google.gwt.user.client.ui.HTML;
  * Impressum-Klasse des Projekts <b>Notefox</b>. Klasse Impressum erbt von der
  * Klasse HTML. Es wird ein <div> erzeugt und der jeweilige Inhalt des
  * Impressums definiert.
+ * 
+ * @author Neri und Harun
  */
 
 public class Impressum extends HTML {
