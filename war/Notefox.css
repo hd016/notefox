@@ -350,8 +350,15 @@ Anlehnung an: http://www.w3schools.com/css/css3_buttons.asp
 	margin-left: -18px;
 }
 
+
+/*
+CSS Klasse für background-color -> Selected Element bei CellTree
+*/
+
 .com-google-gwt-user-cellview-client-CellTree-Style-cellTreeKeyboardSelectedItem {
 	background-color: #eaf1f2 !important;
 }
 
-
+.GPBYFDEJF {
+	background-color: #eaf1f2 !important;
+}
