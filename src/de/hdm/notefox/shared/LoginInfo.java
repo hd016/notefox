@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 import de.hdm.notefox.shared.Nutzer;
 
-/**
- * 
+/*
  * @author Harun Dalici & Muhammed Simsek
  */
 public class LoginInfo implements Serializable {

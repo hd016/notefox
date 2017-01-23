@@ -10,9 +10,11 @@ import de.hdm.notefox.shared.LoginInfo;
 import de.hdm.notefox.shared.LoginService;
 import de.hdm.notefox.shared.Nutzer;
 
-/**
- * TODO
- * 
+/*
+ * Implementierungsklasse des Interface <code>LoginService</code>.
+ * @see LoginService
+ * @see LoginServiceAsync
+ * @see RemoteServiceServlet
  * @author Harun Dalici & Muhammed Simsek
  *
  */

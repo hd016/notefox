@@ -5,6 +5,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.notefox.shared.Nutzer;
 
 /**
+ * Gegenstueck des asynchronen Interface (LoginService).
  * @author Harun Dalici & Muhammed Simsek
  */
 public interface LoginServiceAsync {
