@@ -87,6 +87,20 @@ public class FreigebenDialogBox extends DialogBox {
 		hPanelRadios.add(lesen);
 		hPanelRadios.add(editieren);
 		hPanelRadios.add(loeschen);
+		
+		// Schließen Button und ClickHandler mit hide()
+		Button schliessenButton = new Button("X");
+		schliessenButton.addStyleName("TopRightSchliessenButtonFreigebenDialogBoxKlasse");
+		schliessenButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+			
+		});
+		
+		
 		Label emailBoxLabel = new Label("Email: ");
 		Label Berechtigung = new Label("");
 		VerticalPanel panel = new VerticalPanel();
@@ -108,6 +122,7 @@ public class FreigebenDialogBox extends DialogBox {
 
 		hPanel.add(emailBoxLabel);
 		hPanel.add(emailBox);
+		hPanel.add(schliessenButton);
 		panel.add(hPanel);
 
 		/*

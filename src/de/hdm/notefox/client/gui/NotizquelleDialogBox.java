@@ -1,9 +1,12 @@
 package de.hdm.notefox.client.gui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -34,6 +37,20 @@ public class NotizquelleDialogBox extends DialogBox {
 		Label einleitung = new Label("Bitte Kopiere das HTML Code und füge es auf deiner Webseite ein.");
 
 		TextBox output = new TextBox();
+		Button schliessenButton = new Button("X");
+		schliessenButton.addStyleName("TopRightSchliessenButton");
+		
+		/*
+		 * Für das Schließen der Dialogbox.
+		 */
+		schliessenButton.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				hide();
+			}
+			
+		});
 		output.setReadOnly(isGlassEnabled());
 		output.addStyleName("gwt-TextBox-Dialogbox");
 
@@ -49,8 +66,11 @@ public class NotizquelleDialogBox extends DialogBox {
 						+ GWT.getHostPageBaseURL()
 						+ ";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
 		hPanel.add(einleitung);
+		hPanel.add(schliessenButton);
 		hPanelTextBox.addStyleName("gwt-DialogBox");
 		hPanelTextBox.add(output);
+		
+		
 
 		/* 
 		 * main panel = panel
@@ -79,4 +99,6 @@ public class NotizquelleDialogBox extends DialogBox {
 			break;
 		}
 	}
+	
+
 }

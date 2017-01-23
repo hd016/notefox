@@ -125,16 +125,6 @@ h5 {
 	text-align: center;
 }
 
-.gwt-Green-Button {
-	color: #008cc6;
-	margin: 0;
-	width: 10.2vw;
-	height: 2.5vw;
-	position: inherit;
-	font-size: 1vw;
-	border-radius: 0.9vw;
-}
-
 .gwt-Blue-Button {
 	color: blue;
 }
@@ -161,19 +151,6 @@ h5 {
 	margin-top: 1vw;
 	width: 10.2vw;
 	height: 2.5vw;
-	position: inherit;
-	font-size: 1vw;
-	border-radius: 0.9vw;
-}
-
-.gwt-Green-Button-big {
-	color: #008cc6;
-	margin: 0;
-	margin-bottom: 1vw;
-	margin-right: 1vw;
-	margin-top: 1vw;
-	width: 10.2vw;
-	height: 5vw;
 	position: inherit;
 	font-size: 1vw;
 	border-radius: 0.9vw;
@@ -245,12 +222,19 @@ h5 {
 	height: 25px;
 }
 
-.TopRightCloseButton {
-	float: right;
-	margin-top: -22px;
-	width: 16px;
-	height: 16px;
-	display: block;
+.TopRightSchliessenButton {
+	color: #008cc6;
+	margin-left: 42vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
+}
+.TopRightSchliessenButtonFreigebenDialogBoxKlasse {
+	color: #008cc6;
+	margin-left: 1vw;
+	position: inherit;
+	font-size: 1vw;
+	border-radius: 0.9vw;
 }
 
 .Abmelden-Link {
@@ -262,7 +246,12 @@ h5 {
 }
 
 .Startseite-Link {
-	margin-left: 37vw;
+	margin-left: 15vw;
+	
+}
+
+.headerPanel {
+	margin-left: 10px;
 }
 
 .rot {

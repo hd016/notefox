@@ -57,9 +57,10 @@ public class Notefox implements EntryPoint {
 
 	LoginInfo loginInfo;
 
-	//TODO 
-	/*
-	 * Es werden 
+ 
+	/**
+	 * Anchor Widgets für den Header Bereich
+	 *  
 	 */
 
 	public final Anchor logoutLink = new Anchor("Abmelden");
@@ -107,11 +108,18 @@ public class Notefox implements EntryPoint {
 
 	}
 
+	/**
+	 * Die weiterführende Methode der onModuleLoad() Methode nach dem erfolgreichen Einloggen.
+	 */
 	private void onModuleLoadLoggedIn() {
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		zeigeInhalt(new VerticalPanel());
 
+		/**
+		 * Überprüfung der Parameter über die Übernahme eines Fremdinhalts auf einer Webseite.
+		 */
+		
 		String urlParameter = Window.Location.getParameter("url");
 		if (urlParameter != null) {
 			administration.anlegenNotiz(urlParameter, new AsyncCallback<Notiz>() {
@@ -129,18 +137,18 @@ public class Notefox implements EntryPoint {
 		}
 
 		ersetzeBaum(null);
-		Label welcomeLabel = new Label();
-		welcomeLabel
-				.setText("Herzlich Willkommen: " + loginInfo.getNutzer().getEmail().split("@")[0] + " auf NoteFox!");
-
-		/*
-		 * Hier werden die Namen definiert, welche auf der GUI zu sehen sind
-		 */
 		
+		/**
+		 * Anzeigen des Nutzernamens nach dem Einloggen. Der Nutzername besteht aus einem String 
+		 * vor dem '@'- Zeichen bei der Anmeldungsemail.
+		 */
+		HTML welcomeLabel = new HTML();
+		welcomeLabel.setHTML("Herzlich Willkommen: " + "<b>" +loginInfo.getNutzer().getEmail().split("@")[0] + "</b>" + " auf NoteFox!");
 		
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
+		
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
 		impressumLink.addClickHandler(new ImpressumClickHandler());
@@ -148,7 +156,7 @@ public class Notefox implements EntryPoint {
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
 		/*
-		 * Nun werden Anchors den Panels zugewiesen
+		 * Anchor Zuweisung zu den Panels
 		 */
 		
 		HorizontalPanel headerPanel = new HorizontalPanel();
@@ -157,6 +165,7 @@ public class Notefox implements EntryPoint {
 		headerPanel.add(impressumLink);
 		headerPanel.add(logoutLink);
 
+		headerPanel.addStyleName("headerPanel");
 		RootPanel.get("head").add(headerPanel);
 
 		HorizontalPanel hPanelNotizNotizbuch = new HorizontalPanel();
