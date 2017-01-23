@@ -10,16 +10,16 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import de.hdm.notefox.client.gui.FilterPanel;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 import de.hdm.notefox.shared.report.AlleNotizbuecherAllerNutzerReport;
 import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
-/*
- * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) Entry-Point-Klasse des
- * Projekts <b>notefox</b>.
+/**
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) 
+ * NotefoxReport ist die Entry-Point-Klasse des
+ * Projekts <b>notefox</b> für den Report Generator.
  */
 public class NotefoxReport implements EntryPoint {
 
@@ -30,7 +30,6 @@ public class NotefoxReport implements EntryPoint {
 	Label notizenLabel = new Label("Alle Notizen aller Nutzer");
 	Button notizenButton = new Button("Notizen");
 
-	
 	FilterPanel filterPanel = new FilterPanel();
 
 	HorizontalPanel mainPanel = new HorizontalPanel();
@@ -47,16 +46,15 @@ public class NotefoxReport implements EntryPoint {
 	@Override
 	public void onModuleLoad() {
 
-		/*
+		/**
 		 * Zunaechst weisen wir dem Report-Generator eine Notizobjekt-Instanz
-		 * zu, die fuer die Darstellung der Adressdaten des Kreditinstituts
-		 * benoetigt wird.
+		 * zu, die für die Darstellung benoetigt wird.
 		 */
+
 		if (reportGenerator == null) {
 			reportGenerator = ClientsideSettings.getReportGenerator();
 		}
 
-		// vPanelNotizen.add(notizenLabel);
 		erstPanel.add(filterPanel);
 		zweitPanel.add(notizenButton);
 		mainPanel.add(erstPanel);
@@ -70,18 +68,15 @@ public class NotefoxReport implements EntryPoint {
 		notizenButton.addClickHandler(new notizReportClickHandler());
 		notizbucherButton.addClickHandler(new notizbuchReportClickHandler());
 
-		// vPanelNotizbucher.addStyleName("ReportLabel");
-		// vPanelNotizen.addStyleName("ReportLabel");
-
 		mainPanel.addStyleName("ReportMain");
 		RootPanel.get("nav").add(mainPanel);
 
 	}
 
-	/*
+	/**
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil" für
-	 * die HTML-Version des Reports.
+	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * für die HTML-Version des Reports.
 	 */
 
 	private class notizbuchReportClickHandler implements ClickHandler {
@@ -94,10 +89,10 @@ public class NotefoxReport implements EntryPoint {
 
 	}
 
-	/*
+	/**
 	 * Die Reportanwendung besteht aus einem "Navigationsteil" mit der
-	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil" fuer
-	 * die HTML-Version des Reports.
+	 * Schaltflaeche zum Auslesen der Reportgenerierung und einem "Datenteil"
+	 * fuer die HTML-Version des Reports.
 	 */
 
 	private class notizReportClickHandler implements ClickHandler {
@@ -112,8 +107,7 @@ public class NotefoxReport implements EntryPoint {
 }
 
 /**
- * Diese Nested Class wird als Callback für das Erzeugen des
- * AllAccountOfAllCustomersReport benötigt.
+ * Diese Nested Class wird als Callback für das Erzeugen des Report benötigt.
  * 
  * @author rathke
  * @version 1.0
@@ -121,9 +115,11 @@ public class NotefoxReport implements EntryPoint {
 class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback<AlleNotizbuecherAllerNutzerReport> {
 	@Override
 	public void onFailure(Throwable caught) {
-		/*
+
+		/**
 		 * Wenn ein Fehler auftritt, dann geben wir eine kurze Log Message aus.
 		 */
+
 		ClientsideSettings.getLogger().severe("Erzeugen des Reports fehlgeschlagen!");
 
 	}
@@ -140,12 +136,7 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback
 }
 
 /**
-<<<<<<< HEAD
- * Diese Nested Class wird als Callback fuer das Erzeugen des
-=======
- * Diese Nested Class wird als Callback fuer das Erzeugen des
->>>>>>> refs/remotes/origin/master
- * AllAccountOfAllCustomersReport benoetigt.
+ * Diese Nested Class wird als Callback fuer das Erzeugen des Report benoetigt.
  * 
  * @author rathke
  * @version 1.0
@@ -153,9 +144,11 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback
 class erstelleAlleNotizenAllerNutzerReportCallback implements AsyncCallback<AlleNotizenDesNutzersReport> {
 	@Override
 	public void onFailure(Throwable caught) {
-		/*
+
+		/**
 		 * Wenn ein Fehler auftritt, dann geben wir eine kurze Log Message aus.
 		 */
+
 		ClientsideSettings.getLogger().severe("Erzeugen des Reports fehlgeschlagen!");
 
 	}
