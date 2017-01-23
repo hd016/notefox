@@ -1,6 +1,5 @@
 package de.hdm.notefox.client.gui;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -16,7 +15,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.Berechtigung.Berechtigungsart;
@@ -26,11 +24,23 @@ import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 import de.hdm.notefox.shared.bo.Notizobjekt;
 
+/**
+ * Dialogbox für das Freigeben der Notizbücher und Notizen. Beinhaltet die
+ * Radiobuttons 'Lesen, Editieren, Löschen'. Die Klasse beinhaltet den Panel für
+ * den NotizBerechtigungPanel
+ * 
+ * @author Neriman Kocak und Harun Dalici
+ */
+
 public class FreigebenDialogBox extends DialogBox {
 
 	private NotizobjektAdministrationAsync notizobjektadministration = ClientsideSettings.getNotizobjektVerwaltung();
 
 	private final TextBox emailBox = new TextBox();
+
+	/*
+	 * Es werden Radiobuttons für 'Lesen, Editieren, Loeschen' erzeugt
+	 */
 
 	private final RadioButton lesen = new RadioButton("berechtigung", "Lesen");
 	private final RadioButton editieren = new RadioButton("berechtigung", "Editieren");
@@ -43,7 +53,7 @@ public class FreigebenDialogBox extends DialogBox {
 	FreigebenDialogBox(Notizobjekt notizobjekt) {
 
 		lesen.setValue(true);
-		
+
 		this.notizobjekt = notizobjekt;
 		nbPanel = new NotizBerechtigungPanel(notizobjekt);
 
@@ -67,7 +77,11 @@ public class FreigebenDialogBox extends DialogBox {
 
 		freigeben.addStyleName("gwt-Green-Button");
 		abbruch.addStyleName("gwt-Green-Button");
-		// Radio Buttons fuer Auswahl der Berechtigungsart
+
+		/*
+		 * Nun werden Radio Buttons fuer die Auswahl der Berechtigungsart,
+		 * definiert
+		 */
 
 		HorizontalPanel hPanelRadios = new HorizontalPanel();
 		hPanelRadios.add(lesen);
@@ -78,16 +92,28 @@ public class FreigebenDialogBox extends DialogBox {
 		VerticalPanel panel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 		HorizontalPanel hPanelDown = new HorizontalPanel();
-		// main panel = panel
+
+		/*
+		 * main panel = panel
+		 */
+		
 		panel.setHeight("300");
 		panel.setWidth("500");
 		panel.setSpacing(10);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		// emailtitel + emailinput = hpanel
+
+		/*
+		 * emailtitel + emailinput = hpanel
+		 */
+
 		hPanel.add(emailBoxLabel);
 		hPanel.add(emailBox);
 		panel.add(hPanel);
-		// hPanelDown = button panel
+
+		/*
+		 * hPanelDown = button panel
+		 */
+
 		hPanelDown.add(freigeben);
 		hPanelDown.add(abbruch);
 		panel.add(Berechtigung);
@@ -111,6 +137,10 @@ public class FreigebenDialogBox extends DialogBox {
 
 	}
 
+	/**
+	 * Nun wird der ClickHandler für das Freigeben erzeugt
+	 *
+	 */
 	private class FreigebenClickHandler implements ClickHandler {
 
 		@Override
@@ -136,6 +166,12 @@ public class FreigebenDialogBox extends DialogBox {
 		}
 
 	}
+
+	/**
+	 * Es wird der AbfrageAsnycCallback für das Abfragen der Nutzer der Einträge
+	 * in der Datenbank, erzeugt
+	 *
+	 */
 
 	private class AbfrageAsnyCallback implements AsyncCallback<Nutzer> {
 
