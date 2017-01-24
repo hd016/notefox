@@ -7,7 +7,7 @@ import java.util.Vector;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.*;
 
-/*
+/**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
@@ -18,13 +18,6 @@ import de.hdm.notefox.shared.bo.*;
  */
 
 public class NutzerMapper {
-	
-	
-// Zwischen Connector wegen Connection Socket Fehler
-	// Auskommentieren um den blockierten Socket wieder freizugeben
-//	public static void main(String[] args) {
-//		NutzerMapper.nutzerMapper().nachNutzerEmailSuchen("ppppp@example.com");
-//	}
 
 	/**
 	 * Eimalige Instantiierung der Klasse NutzerMapper (Singleton) Einmal fuer
@@ -68,14 +61,13 @@ public class NutzerMapper {
 			// angelegt
 			Statement stmt = con.createStatement();
 
-			// Das Statement wird ausgefï¿½llt und an die Datebank verschickt
+			// Das Statement wird ausgefuellt und an die Datebank verschickt
 			ResultSet rs = stmt
-					.executeQuery("SELECT nutzerId, name, email FROM nutzer "
-							+ "WHERE nutzerId=" + nutzerId);
+					.executeQuery("SELECT nutzerId, name, email FROM nutzer " + "WHERE nutzerId=" + nutzerId);
 
 			/*
 			 * An dieser Stelle kann man pruefen ob bereits ein Ergebnis
-			 * vorliegt. Man erhï¿½lt maximal 1 Tupel, da es sich bei id um einen
+			 * vorliegt. Man erhaelt maximal 1 Tupel, da es sich bei id um einen
 			 * Primaerschluessel handelt.
 			 */
 			if (rs.next()) {
@@ -109,10 +101,10 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
-					+ "FROM nutzer " + "ORDER BY name");
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email " + "FROM nutzer " + "ORDER BY name");
 
-			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene ein
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
+			// ein
 			// Nutzer Objekt erstellt
 
 			while (rs.next()) {
@@ -120,7 +112,6 @@ public class NutzerMapper {
 				n.setNutzerId(rs.getInt("nutzerId"));
 				n.setEmail(rs.getString("email"));
 				n.setName(rs.getString("name"));
-
 
 				// Es wird ein neues Objekt hinzugefuegt
 				result.add(n);
@@ -143,11 +134,11 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email "
-					+ "FROM nutzer " + "WHERE email LIKE '" + name
-					+ "' ORDER BY email");
+			ResultSet rs = stmt.executeQuery("SELECT nutzerId, name, email " + "FROM nutzer " + "WHERE email LIKE '"
+					+ name + "' ORDER BY email");
 
-			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene ein
+			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
+			// ein
 			// Nutzer Objekt erstellt
 
 			while (rs.next()) {
@@ -155,7 +146,6 @@ public class NutzerMapper {
 				n.setNutzerId(rs.getInt("nutzerId"));
 				n.setEmail(rs.getString("email"));
 				n.setName(rs.getString("name"));
-
 
 				// Es wird ein neues Objekt hinzugefuegt
 				return n;
@@ -178,10 +168,9 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			// Der hoechste Primïaerschluesselwert wird ueberprueft
+			// Der hoechste Primaeaerschluesselwert wird ueberprueft
 
-			ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid "
-					+ "FROM nutzer ");
+			ResultSet rs = stmt.executeQuery("SELECT MAX(nutzerId) AS maxid " + "FROM nutzer ");
 
 			// Sollte etwas zurueckgegeben werden, so kann dies nur einzeilig
 			// sein
@@ -195,9 +184,8 @@ public class NutzerMapper {
 				stmt = con.createStatement();
 
 				// Hier erfolgt die entscheidende Einfuegeoperation
-				String sql = "INSERT INTO nutzer (nutzerId, email, name) "
-						+ "VALUES (" + n.getNutzerId() + ", \"" + n.getEmail()
-						+ "\", \"" + n.getName() + "\")";
+				String sql = "INSERT INTO nutzer (nutzerId, email, name) " + "VALUES (" + n.getNutzerId() + ", \""
+						+ n.getEmail() + "\", \"" + n.getName() + "\")";
 				System.out.println(sql);
 				stmt.executeUpdate(sql);
 			}
@@ -224,8 +212,8 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("UPDATE nutzer " + "SET email=\"" + n.getEmail() + n.getName()
-					+ "\", " + "\" " + "WHERE NutzerId=" + n.getNutzerId());
+			stmt.executeUpdate("UPDATE nutzer " + "SET email=\"" + n.getEmail() + n.getName() + "\", " + "\" "
+					+ "WHERE NutzerId=" + n.getNutzerId());
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -245,8 +233,7 @@ public class NutzerMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId="
-					+ n.getNutzerId());
+			stmt.executeUpdate("DELETE FROM nutzer " + "WHERE NutzerId=" + n.getNutzerId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

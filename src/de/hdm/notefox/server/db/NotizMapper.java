@@ -16,7 +16,7 @@ import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
-/*
+/**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * 
  * Unsere Mapper-Klassen erfuellen den Zweck unsere Objekte auf eine relationale
@@ -34,7 +34,7 @@ public class NotizMapper {
 	 * Instanz dieser Klasse
 	 */
 	private static NotizMapper notizMapper = null;
-	
+
 	/**
 	 * Konstruktor verhindert durch protected weitere Instanzen aus dieser
 	 * Klasse zu erzeugen
@@ -70,8 +70,8 @@ public class NotizMapper {
 			Statement stmt = con.createStatement();
 
 			// Das Statement wird ausgefuellt und an die Datebank verschickt
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON notiz.eigentuemer = nutzer.nutzerId "
 							+ " WHERE notiz.id=" + id);
 
 			/*
@@ -90,14 +90,13 @@ public class NotizMapper {
 				no.setInhalt(rs.getString("notiz.inhalt"));
 				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
-			
+
 				Notizbuch nb = new Notizbuch();
 				nb.setId(rs.getInt("notizbuch.id"));
 				nb.setTitel(rs.getString("notizbuch.titel"));
 				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
 				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-				nb.setModifikationsdatum(rs
-						.getDate("notizbuch.modifikationsdatum"));
+				nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
 				no.setNotizbuch(nb);
 
 				Nutzer nutzer = new Nutzer();
@@ -161,7 +160,7 @@ public class NotizMapper {
 
 		return null;
 	}
-	
+
 	/**
 	 * Auslesen aller Notizen.
 	 * 
@@ -175,8 +174,8 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT nutzer.*, notiz.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
+			ResultSet rs = stmt.executeQuery(
+					"SELECT nutzer.*, notiz.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON  nutzer.nutzerId = notiz.id "
 							+ " ORDER BY nutzerId");
 
 			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
@@ -193,16 +192,15 @@ public class NotizMapper {
 				no.setInhalt(rs.getString("notiz.inhalt"));
 				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
-				
+
 				Notizbuch nb = new Notizbuch();
 				nb.setId(rs.getInt("notizbuch.id"));
 				nb.setTitel(rs.getString("notizbuch.titel"));
 				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
 				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-				nb.setModifikationsdatum(rs
-						.getDate("notizbuch.modifikationsdatum"));
+				nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
 				no.setNotizbuch(nb);
-				
+
 				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
@@ -234,9 +232,8 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
 							+ " WHERE notiz.notizbuch=" + id);
 
 			// Fuer jeden Eintrag im Suchergebnis wird nun ein Notiz-Objekt
@@ -254,16 +251,15 @@ public class NotizMapper {
 				no.setInhalt(rs.getString("notiz.inhalt"));
 				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
-				
+
 				Notizbuch nb = new Notizbuch();
 				nb.setId(rs.getInt("notizbuch.id"));
 				nb.setTitel(rs.getString("notizbuch.titel"));
 				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
 				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-				nb.setModifikationsdatum(rs
-						.getDate("notizbuch.modifikationsdatum"));
+				nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
 				no.setNotizbuch(nb);
-				
+
 				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Hinzufuegen des neuen Objekts zur Ergebnisliste
@@ -287,11 +283,9 @@ public class NotizMapper {
 		try {
 			Statement stmt = con.createStatement();
 
-			ResultSet rs = stmt
-					.executeQuery("SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
-							+ " WHERE notiz.eigentuemer= "
-							+ id
-							+ " ORDER BY id");
+			ResultSet rs = stmt.executeQuery(
+					"SELECT notiz.*, nutzer.*, notizbuch.* FROM notiz LEFT JOIN notizbuch ON notiz.notizbuch = notizbuch.id LEFT JOIN nutzer ON nutzer.nutzerId = notiz.eigentuemer"
+							+ " WHERE notiz.eigentuemer= " + id + " ORDER BY id");
 
 			// Jetzt werden die Eintraege durchsucht und fuer jedes gefundene
 			// ein Notiz Objekt erstellt
@@ -307,16 +301,15 @@ public class NotizMapper {
 				no.setInhalt(rs.getString("notiz.inhalt"));
 				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
-				
+
 				Notizbuch nb = new Notizbuch();
 				nb.setId(rs.getInt("notizbuch.id"));
 				nb.setTitel(rs.getString("notizbuch.titel"));
 				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
 				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-				nb.setModifikationsdatum(rs
-						.getDate("notizbuch.modifikationsdatum"));
+				nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
 				no.setNotizbuch(nb);
-				
+
 				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefuegt
@@ -353,11 +346,10 @@ public class NotizMapper {
 		/*
 		 * Wir bedienen uns hier einfach an dem NotizbuchMapper. Diesem geben
 		 * wir einfach den in dem Notiz-Objekt enthaltenen Fremdschluessel fuer
-		 * das Notizbuch. Der NotizbuchMapper loest uns dann diese ID in ein Objekt
-		 * auf.
+		 * das Notizbuch. Der NotizbuchMapper loest uns dann diese ID in ein
+		 * Objekt auf.
 		 */
-		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(
-				no.getNotizbuch().getId());
+		return NotizbuchMapper.notizbuchMapper().nachNotizbuchIdSuchen(no.getNotizbuch().getId());
 	}
 
 	/**
@@ -380,18 +372,12 @@ public class NotizMapper {
 				// dem Wert 1 inkrementiert wird
 				no.setId(rs.getInt("maxid") + 1);
 
-				
 				stmt = con.createStatement();
 
 				// Hier erfolgt die entscheidende Einfuegeoperation
 				String sql = "INSERT INTO notiz (id, eigentuemer, titel, subtitel, inhalt, erstelldatum, modifikationsdatum, notizbuch, faelligkeitsdatum ) "
-						+ "VALUES (?, ?, ?, ?, ? "
-						+ ", NOW(), NOW()"
-						+ ", "
-						+ no.getNotizbuch().getId()
-						+ ", \""
-						+ new SimpleDateFormat("yyyy-MM-dd").format(no
-								.getFaelligkeitsdatum()) + "\")";
+						+ "VALUES (?, ?, ?, ?, ? " + ", NOW(), NOW()" + ", " + no.getNotizbuch().getId() + ", \""
+						+ new SimpleDateFormat("yyyy-MM-dd").format(no.getFaelligkeitsdatum()) + "\")";
 				PreparedStatement prepareStatement = con.prepareStatement(sql);
 				prepareStatement.setInt(1, no.getId());
 				prepareStatement.setInt(2, no.getEigentuemer().getNutzerId());
@@ -408,8 +394,8 @@ public class NotizMapper {
 		/*
 		 * Sollte es korrigierte Notizen geben, so werden diese zurueckgegeben
 		 * 
-		 * So besteht die Moeglichkeit anzudeuten ob sich ein Objekt
-		 * veraendert hat, waehrend die Methode ausgefuehrt wurde
+		 * So besteht die Moeglichkeit anzudeuten ob sich ein Objekt veraendert
+		 * hat, waehrend die Methode ausgefuehrt wurde
 		 */
 		return no;
 	}
@@ -513,16 +499,15 @@ public class NotizMapper {
 				no.setInhalt(rs.getString("notiz.inhalt"));
 				no.setErstelldatum(rs.getDate("notiz.erstelldatum"));
 				no.setModifikationsdatum(rs.getDate("notiz.modifikationsdatum"));
-				
+
 				Notizbuch nb = new Notizbuch();
 				nb.setId(rs.getInt("notizbuch.id"));
 				nb.setTitel(rs.getString("notizbuch.titel"));
 				nb.setSubtitel(rs.getString("notizbuch.subtitel"));
 				nb.setErstelldatum(rs.getDate("notizbuch.erstelldatum"));
-				nb.setModifikationsdatum(rs
-						.getDate("notizbuch.modifikationsdatum"));
+				nb.setModifikationsdatum(rs.getDate("notizbuch.modifikationsdatum"));
 				no.setNotizbuch(nb);
-				
+
 				no.setFaelligkeitsdatum(rs.getDate("notiz.faelligkeitsdatum"));
 
 				// Der Ergebnisliste wird ein neues Objekt hinzugefügt
@@ -544,6 +529,7 @@ public class NotizMapper {
 		return standardDatum(date, new Date(0));
 	}
 
+	@SuppressWarnings("deprecation")
 	private java.sql.Date standardDatumBis(Date date) {
 		/*
 		 * Datum in ferner Zukunft (sollte immer zutreffen)
