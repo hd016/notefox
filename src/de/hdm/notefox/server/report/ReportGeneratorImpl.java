@@ -19,8 +19,7 @@ import de.hdm.notefox.shared.ReportGenerator;
  * ReportGenerator-Interface wird implementiert.
  */
 @SuppressWarnings("serial")
-public class ReportGeneratorImpl extends RemoteServiceServlet implements
-		ReportGenerator {
+public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator {
 
 	/**
 	 * Fuer den Report Generator ist der Zugriff auf die
@@ -100,8 +99,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	/**
 	 * @see NotizobjektAdministrationImpl#nachAllenNutzernSuchen()
 	 */
-	public List<Nutzer> nachAllenNutzernSuchen()
-			throws IllegalArgumentException {
+	public List<Nutzer> nachAllenNutzernSuchen() throws IllegalArgumentException {
 		return administration.nachAllenNutzernSuchen();
 	}
 
@@ -112,8 +110,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	 *            das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
 	 * @return der fertige Report
 	 */
-	public AlleNotizenDesNutzersReport erstelleAlleNotizenDesNutzersReport(
-			Nutzer n) throws IllegalArgumentException {
+	public AlleNotizenDesNutzersReport erstelleAlleNotizenDesNutzersReport(Nutzer n) throws IllegalArgumentException {
 
 		if (this.getNotizobjektVerwaltung() == null)
 			return null;
@@ -176,8 +173,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 * Nun werden saemtliche Notizen des Nutzers ausgelesen und deren
 		 * NotizId und sukzessive in die Tabelle eingetragen.
 		 */
-		List<Notiz> notizen = this.administration
-				.nachAllenNotizenDesNutzersSuchen(n);
+		List<Notiz> notizen = this.administration.nachAllenNotizenDesNutzersSuchen(n);
 
 		for (Notiz no : notizen) {
 			// Eine leere Zeile anlegen.
@@ -186,21 +182,17 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			// Erste Spalte: Kontonummer hinzufuegen
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
-			notizRow.addColumn(new Column(String.valueOf(no
-					.getModifikationsdatum())));
-			notizRow.addColumn(new Column(String.valueOf(no
-					.getFaelligkeitsdatum())));
+			notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
+			notizRow.addColumn(new Column(String.valueOf(no.getFaelligkeitsdatum())));
 
 			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
-			List<Berechtigung> berechtigungen = this.administration
-					.nachAllenBerechtigungenDerNotizSuchen(no);
+			List<Berechtigung> berechtigungen = this.administration.nachAllenBerechtigungenDerNotizSuchen(no);
 			for (Berechtigung be : berechtigungen) {
-				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail()
-						+ " / " + be.getBerechtigungsart();
+				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail() + " / " + be.getBerechtigungsart();
 			}
 			notizRow.addColumn(new Column(berechtigungsTabelle));
 
-			// und schlie�lich die Zeile dem Report hinzufuegen.
+			// und schliesslich die Zeile dem Report hinzufuegen.
 			result.addRow(notizRow);
 		}
 
@@ -210,8 +202,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		return result;
 	}
 
-	public AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(
-			Filterobjekt f) throws IllegalArgumentException {
+	public AlleNotizenDesNutzersReport erstelleGefilterteNotizenReport(Filterobjekt f) throws IllegalArgumentException {
 
 		if (this.getNotizobjektVerwaltung() == null)
 			return null;
@@ -282,21 +273,17 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 			// Erste Spalte: Kontonummer hinzufuegen
 			notizRow.addColumn(new Column(no.getTitel()));
 			notizRow.addColumn(new Column(String.valueOf(no.getErstelldatum())));
-			notizRow.addColumn(new Column(String.valueOf(no
-					.getModifikationsdatum())));
-			notizRow.addColumn(new Column(String.valueOf(no
-					.getFaelligkeitsdatum())));
+			notizRow.addColumn(new Column(String.valueOf(no.getModifikationsdatum())));
+			notizRow.addColumn(new Column(String.valueOf(no.getFaelligkeitsdatum())));
 
 			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
-			List<Berechtigung> berechtigungen = this.administration
-					.nachAllenBerechtigungenDerNotizSuchen(no);
+			List<Berechtigung> berechtigungen = this.administration.nachAllenBerechtigungenDerNotizSuchen(no);
 			for (Berechtigung be : berechtigungen) {
-				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail()
-						+ " / " + be.getBerechtigungsart();
+				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail() + " / " + be.getBerechtigungsart();
 			}
 			notizRow.addColumn(new Column(berechtigungsTabelle));
 
-			// und schlie�lich die Zeile dem Report hinzufuegen.
+			// und schliesslich die Zeile dem Report hinzufuegen.
 			result.addRow(notizRow);
 		}
 
@@ -311,8 +298,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	 * 
 	 * @return der fertige Report
 	 */
-	public AlleNotizenAllerNutzerReport erstelleAlleNotizenAllerNutzerReport()
-			throws IllegalArgumentException {
+	public AlleNotizenAllerNutzerReport erstelleAlleNotizenAllerNutzerReport() throws IllegalArgumentException {
 
 		if (this.getNotizobjektVerwaltung() == null)
 			return null;
@@ -342,8 +328,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 */
 
 		/*
-		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden. Anschlie�end
-		 * wir fuer jedes Nutzerobjekt n ein Aufruf von
+		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden.
+		 * Anschliessend wir fuer jedes Nutzerobjekt n ein Aufruf von
 		 * erstelleAlleNotizenDesNutzersReport(n) durchgefuehrt und somit
 		 * jeweils ein AlleNotizenDesNutzersReport-Objekt erzeugt. Diese Objekte
 		 * werden sukzessive der result-Variable hinzugefuegt. Sie ist vom Typ
@@ -372,8 +358,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 	 *            das Nutzerobjekt bzgl. dessen der Report erstellt werden soll.
 	 * @return der fertige Report
 	 */
-	public AlleNotizbuecherDesNutzersReport erstelleAlleNotizbuecherDesNutzersReport(
-			Nutzer n) throws IllegalArgumentException {
+	public AlleNotizbuecherDesNutzersReport erstelleAlleNotizbuecherDesNutzersReport(Nutzer n)
+			throws IllegalArgumentException {
 
 		if (this.getNotizobjektVerwaltung() == null)
 			return null;
@@ -435,8 +421,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 * Alle Notizbuecher des Nutzers auslesen und sukzessives Eintragen der
 		 * NotizbuchId in die Tabelle.
 		 */
-		List<Notizbuch> notizbuecher = this.administration
-				.nachAllenNotizbuechernDesNutzersSuchen(n);
+		List<Notizbuch> notizbuecher = this.administration.nachAllenNotizbuechernDesNutzersSuchen(n);
 
 		for (Notizbuch nb : notizbuecher) {
 			// Leere Zeile
@@ -444,17 +429,13 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 
 			// Erste Spalte: NotizbuchId hinzufuegen.
 			notizbuchRow.addColumn(new Column(nb.getTitel()));
-			notizbuchRow.addColumn(new Column(String.valueOf(nb
-					.getErstelldatum())));
-			notizbuchRow.addColumn(new Column(String.valueOf(nb
-					.getModifikationsdatum())));
+			notizbuchRow.addColumn(new Column(String.valueOf(nb.getErstelldatum())));
+			notizbuchRow.addColumn(new Column(String.valueOf(nb.getModifikationsdatum())));
 
 			String berechtigungsTabelle = "Nutzer / Berechtigungsart";
-			List<Berechtigung> berechtigungen = this.administration
-					.nachAllenBerechtigungenDesNotizbuchesSuchen(nb);
+			List<Berechtigung> berechtigungen = this.administration.nachAllenBerechtigungenDesNotizbuchesSuchen(nb);
 			for (Berechtigung be : berechtigungen) {
-				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail()
-						+ " / " + be.getBerechtigungsart();
+				berechtigungsTabelle += "\n " + be.getBerechtigter().getEmail() + " / " + be.getBerechtigungsart();
 			}
 			notizbuchRow.addColumn(new Column(berechtigungsTabelle));
 
@@ -504,8 +485,8 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 */
 
 		/*
-		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden. Anschlie�end
-		 * wir fuer jedes Nutzerobjekt n ein Aufruf von
+		 * Nun muessen saemtliche Nutzer-Objekte ausgelesen werden.
+		 * Anschliessend wir fuer jedes Nutzerobjekt n ein Aufruf von
 		 * erstelleAlleNotizbuecherDesNutzersReport(c) durchgefuehrt und somit
 		 * jeweils ein AlleNotizbuecherDesNutzersReport-Objekt erzeugt. Diese
 		 * Objekte werden sukzessive der result-Variable hinzugefuegt. Sie ist
@@ -516,10 +497,9 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 
 		for (Nutzer n : alleNutzer) {
 			/*
-			 * Erstellen des Teil-Reports und hizuf�gen zum Gesamt-Report
+			 * Erstellen des Teil-Reports und hizufuegen zum Gesamt-Report
 			 */
-			result.addSubReport(this
-					.erstelleAlleNotizbuecherDesNutzersReport(n));
+			result.addSubReport(this.erstelleAlleNotizbuecherDesNutzersReport(n));
 		}
 
 		/*
