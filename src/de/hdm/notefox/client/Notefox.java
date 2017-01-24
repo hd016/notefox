@@ -31,11 +31,12 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
  * Entry-Point-Klasse des Projekts <b>Notefox</b>.
+ * @author Harun Dalici, Neriman Kocak, Muhammed Simsek
  */
 
 public class Notefox implements EntryPoint {
 
-	/*
+	/**
 	 * Es werden Panels erzeugt und jeweils zugewiesen.
 	 */
 
@@ -57,10 +58,8 @@ public class Notefox implements EntryPoint {
 
 	LoginInfo loginInfo;
 
- 
 	/**
 	 * Anchor Widgets für den Header Bereich
-	 *  
 	 */
 
 	public final Anchor logoutLink = new Anchor("Abmelden");
@@ -79,7 +78,7 @@ public class Notefox implements EntryPoint {
 	 * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
 	 * <code>main()</code>-Methode normaler Java-Applikationen.
 	 */
-	
+
 	@Override
 	public void onModuleLoad() {
 
@@ -108,18 +107,20 @@ public class Notefox implements EntryPoint {
 
 	}
 
-	/*
-	 * Die weiterführende Methode der onModuleLoad() Methode nach dem erfolgreichen Einloggen.
+	/**
+	 * Die weiterführende Methode der onModuleLoad() Methode nach dem
+	 * erfolgreichen Einloggen.
 	 */
 	private void onModuleLoadLoggedIn() {
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		schlieseInhalt();
 
-		/*
-		 * Überprüfung der Parameter über die Übernahme eines Fremdinhalts auf einer Webseite.
+		/**
+		 * Überprüfung der Parameter über die Übernahme eines Fremdinhalts auf
+		 * einer Webseite.
 		 */
-		
+
 		String urlParameter = Window.Location.getParameter("url");
 		if (urlParameter != null) {
 			administration.anlegenNotiz(urlParameter, new AsyncCallback<Notiz>() {
@@ -137,28 +138,29 @@ public class Notefox implements EntryPoint {
 		}
 
 		ersetzeBaum(null);
-		
-		/*
-		 * Anzeigen des Nutzernamens nach dem Einloggen. Der Nutzername besteht aus einem String 
-		 * vor dem '@'- Zeichen bei der Anmeldungsemail.
+
+		/**
+		 * Anzeigen des Nutzernamens nach dem Einloggen. Der Nutzername besteht
+		 * aus einem String vor dem '@'- Zeichen bei der Anmeldungsemail.
 		 */
 		HTML welcomeLabel = new HTML();
-		welcomeLabel.setHTML("Herzlich Willkommen: " + "<b>" +loginInfo.getNutzer().getEmail().split("@")[0] + "</b>" + " auf NoteFox!");
-		
+		welcomeLabel.setHTML("Herzlich Willkommen: " + "<b>" + loginInfo.getNutzer().getEmail().split("@")[0] + "</b>"
+				+ " auf NoteFox!");
+
 		logoutLink.addStyleName("Abmelden-Link");
 		impressumLink.addStyleName("Impressum-Link");
 		startseiteLink.addStyleName("Startseite-Link");
-		
+
 		logoutLink.setHref(loginInfo.getLogoutUrl());
 
 		impressumLink.addClickHandler(new ImpressumClickHandler());
 
 		startseiteLink.setHref(GWT.getHostPageBaseURL());
 
-		/*
+		/**
 		 * Anchor Zuweisung zu den Panels
 		 */
-		
+
 		HorizontalPanel headerPanel = new HorizontalPanel();
 		headerPanel.add(welcomeLabel);
 		headerPanel.add(startseiteLink);
@@ -201,17 +203,16 @@ public class Notefox implements EntryPoint {
 
 	}
 
-	
 	/**
-	 * Zeigt das Panel im Content Bereich an 
+	 * Zeigt das Panel im Content Bereich an
 	 */
 	public void zeigeInhalt() {
 		notizeditorpanel.setVisible(true);
-		
+
 	}
 
 	/**
-	 * Schließt den Content Panel 
+	 * Schließt den Content Panel
 	 */
 	public void schlieseInhalt() {
 		notizeditorpanel.setVisible(false);
@@ -219,6 +220,7 @@ public class Notefox implements EntryPoint {
 
 	/**
 	 * Legt die neue Notiz an.
+	 * 
 	 * @param notizbuch
 	 */
 	public void neueNotiz(final Notizbuch notizbuch) {
@@ -241,6 +243,7 @@ public class Notefox implements EntryPoint {
 
 	/**
 	 * Zeigt die jeweilige Notiz an.
+	 * 
 	 * @param notiz
 	 */
 	public void zeigeNotiz(Notiz notiz) {
@@ -250,6 +253,7 @@ public class Notefox implements EntryPoint {
 
 	/**
 	 * Zeigt das jeweilige Notizbuch an.
+	 * 
 	 * @param notizbuch
 	 */
 	public void zeigeNotizbuch(Notizbuch notizbuch) {
@@ -259,6 +263,7 @@ public class Notefox implements EntryPoint {
 
 	/**
 	 * Gibt die CellTree Komponente zurück.
+	 * 
 	 * @return
 	 */
 	public CellTree getCelltree() {
@@ -288,7 +293,9 @@ public class Notefox implements EntryPoint {
 		for (int i = 0; i < rootTreeNode.getChildCount(); i++) {
 			if (rootTreeNode.isChildOpen(i)) {
 				/*
-				 * Nach xy wird die CellTree zuerst geschlossen und danach wieder geöffnet.
+				 * Nach einer neuen Notiz oder neues Notizbuch wird 
+				 * die CellTree zuerst geschlossen und danach
+				 * wieder geöffnet. Dies dient dann als eine sog. refresh() Methode.
 				 * 
 				 */
 				rootTreeNode.setChildOpen(i, false);
@@ -297,6 +304,9 @@ public class Notefox implements EntryPoint {
 		}
 	}
 
+	/**
+	 * ClickHandler für das Anzeigen der Impressum.	
+	 */
 	private class ImpressumClickHandler implements ClickHandler {
 
 		@Override
@@ -309,6 +319,9 @@ public class Notefox implements EntryPoint {
 
 	}
 
+	/**
+	 * ClickHandler für die Möglichkeit um ein Nutzer Account zu löschen.	 
+	 */
 	private class NutzerLoeschenClickHandler implements ClickHandler {
 
 		@Override
@@ -324,6 +337,10 @@ public class Notefox implements EntryPoint {
 
 	}
 
+	/**
+	 * Das AsnycCallback für den NutzerLoeschenClickHandler.
+	 *
+	 */
 	private class NutzerLoeschenAsyncCallback implements AsyncCallback<Void> {
 
 		@Override

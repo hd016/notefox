@@ -83,7 +83,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * bedarfsweise Einfuegen und Auskommentieren etwa von
 	 * <code>System.out.println(...);</code> steuern. Sie belassen kuenftig
 	 * sämtliches Logging im Code und können ohne abermaliges Kompilieren den
-	 * Log Level "von au�en" durch die Datei <code>logging.properties</code>
+	 * Log Level "von aussen" durch die Datei <code>logging.properties</code>
 	 * steuern. Sie finden diese Datei in Ihrem <code>war/WEB-INF</code>-Ordner.
 	 * Der dort standardmäßig vorgegebene Log Level ist <code>WARN</code>. Dies
 	 * wuerde bedeuten, dass Sie keine <code>INFO</code>-Meldungen wohl aber

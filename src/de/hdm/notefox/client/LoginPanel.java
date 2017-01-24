@@ -10,6 +10,8 @@ import de.hdm.notefox.shared.LoginInfo;
  * Klasse VerticalPanel. Zunächst wird ein neues Label erzeugt und definiert.
  * Diese Klasse ist somit die erste Starteseite, bevor man auf das eigentliche
  * Notizssystem zugreifen kann.
+ * @author Harun Dalici, Muhammed Simsek
+
  */
 
 public class LoginPanel extends VerticalPanel {
