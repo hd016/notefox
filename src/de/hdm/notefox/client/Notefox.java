@@ -114,7 +114,7 @@ public class Notefox implements EntryPoint {
 	private void onModuleLoadLoggedIn() {
 
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
-		zeigeInhalt(new VerticalPanel());
+		schlieseInhalt();
 
 		/*
 		 * Überprüfung der Parameter über die Übernahme eines Fremdinhalts auf einer Webseite.
@@ -201,17 +201,26 @@ public class Notefox implements EntryPoint {
 
 	}
 
-	public void zeigeInhalt(Panel panel) {
-		notizeditorpanel.setVisible(false);
-		if (panel != null) {
-			panel.setVisible(true);
-		}
+	
+	/**
+	 * Zeigt das Panel im Content Bereich an 
+	 */
+	public void zeigeInhalt() {
+		notizeditorpanel.setVisible(true);
+		
 	}
 
+	/**
+	 * Schließt den Content Panel 
+	 */
 	public void schlieseInhalt() {
-		zeigeInhalt(null);
+		notizeditorpanel.setVisible(false);
 	}
 
+	/**
+	 * Legt die neue Notiz an.
+	 * @param notizbuch
+	 */
 	public void neueNotiz(final Notizbuch notizbuch) {
 		Notiz notiz = new Notiz();
 		notiz.setNotizbuch(notizbuch);
@@ -220,6 +229,9 @@ public class Notefox implements EntryPoint {
 		zeigeNotiz(notiz);
 	}
 
+	/**
+	 * Legt ein neues Notizbuch an.
+	 */
 	public void neuesNotizbuch() {
 		Notizbuch notizbuch = new Notizbuch();
 		notizbuch.setEigentuemer(loginInfo.getNutzer());
@@ -227,20 +239,35 @@ public class Notefox implements EntryPoint {
 		zeigeNotizbuch(notizbuch);
 	}
 
+	/**
+	 * Zeigt die jeweilige Notiz an.
+	 * @param notiz
+	 */
 	public void zeigeNotiz(Notiz notiz) {
-		zeigeInhalt(notizeditorpanel);
+		zeigeInhalt();
 		((NotizEditorPanel) notizeditorpanel).setNotizobjekt(notiz);
 	}
 
+	/**
+	 * Zeigt das jeweilige Notizbuch an.
+	 * @param notizbuch
+	 */
 	public void zeigeNotizbuch(Notizbuch notizbuch) {
-		zeigeInhalt(notizeditorpanel);
+		zeigeInhalt();
 		((NotizEditorPanel) notizeditorpanel).setNotizobjekt(notizbuch);
 	}
 
+	/**
+	 * Gibt die CellTree Komponente zurück.
+	 * @return
+	 */
 	public CellTree getCelltree() {
 		return celltree;
 	}
 
+	/**
+	 * Erneuert den CellTree.
+	 */
 	public void ersetzeBaum(Notizbuch notizbuch) {
 		NotizBaumModel viewModel = new NotizBaumModel(this, notizbuch);
 		celltree = new CellTree(viewModel, null);
@@ -253,10 +280,17 @@ public class Notefox implements EntryPoint {
 		vPanel.add(br);
 	}
 
+	/**
+	 * Aktuallisiert den aktuellen Zweig von dem CellTree.
+	 */
 	public void baumNeuOeffnen() {
 		TreeNode rootTreeNode = celltree.getRootTreeNode();
 		for (int i = 0; i < rootTreeNode.getChildCount(); i++) {
 			if (rootTreeNode.isChildOpen(i)) {
+				/*
+				 * Nach xy wird die CellTree zuerst geschlossen und danach wieder geöffnet.
+				 * 
+				 */
 				rootTreeNode.setChildOpen(i, false);
 				rootTreeNode.setChildOpen(i, true);
 			}

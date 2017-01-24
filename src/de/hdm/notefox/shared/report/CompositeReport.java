@@ -21,7 +21,7 @@ public abstract class CompositeReport
 	private Vector<Report> subReports = new Vector<Report>();
 
 	/**
-	 * Teil-Report wird hinzugefügt.
+	 * Teil-Report wird hinzugefÃ¼gt.
 	 */
 	public void addSubReport(Report r) {
 		this.subReports.addElement(r);
