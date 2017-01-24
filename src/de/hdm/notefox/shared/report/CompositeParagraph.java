@@ -4,82 +4,82 @@ import java.io.Serializable;
 import java.util.Vector;
 
 /**
- * Composite stellt eine Anzahl von Absaetzen dar. 
- * Als Unterabschnitte werden diese in einem Vector verwaltet.
+ * Composite stellt eine Anzahl von Absaetzen dar. Als Unterabschnitte werden
+ * diese in einem Vector verwaltet.
  */
 public class CompositeParagraph extends Paragraph implements Serializable {
 
-  /**
-   * Unique IDentifier
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * Unique IDentifier
+	 */
+	private static final long serialVersionUID = 1L;
 
-  /**
-   * Unterabschnitte werden hier gespeichert.
-   */
-  private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
+	/**
+	 * Unterabschnitte werden hier gespeichert.
+	 */
+	private Vector<SimpleParagraph> subParagraphs = new Vector<SimpleParagraph>();
 
-  /**
-   * Hinzufuegen eines Unterabschnitts.
-   */
-  public void addSubParagraph(SimpleParagraph p) {
-    this.subParagraphs.addElement(p);
-  }
+	/**
+	 * Hinzufuegen eines Unterabschnitts.
+	 */
+	public void addSubParagraph(SimpleParagraph p) {
+		this.subParagraphs.addElement(p);
+	}
 
-  /**
-   * Loeschen eines Unterabschnitts.
-   */
-  public void removeSubParagraph(SimpleParagraph p) {
-    this.subParagraphs.removeElement(p);
-  }
+	/**
+	 * Loeschen eines Unterabschnitts.
+	 */
+	public void removeSubParagraph(SimpleParagraph p) {
+		this.subParagraphs.removeElement(p);
+	}
 
-  /**
-   * Alle Unterabschnitte werden ausgelesen.
-   */
-  public Vector<SimpleParagraph> getSubParagraphs() {
-    return this.subParagraphs;
-  }
+	/**
+	 * Alle Unterabschnitte werden ausgelesen.
+	 */
+	public Vector<SimpleParagraph> getSubParagraphs() {
+		return this.subParagraphs;
+	}
 
-  /**
-   * Die Anzahl der Unterabschnitte werden ausgelesen.
-   */
-  public int getNumParagraphs() {
-    return this.subParagraphs.size();
-  }
+	/**
+	 * Die Anzahl der Unterabschnitte werden ausgelesen.
+	 */
+	public int getNumParagraphs() {
+		return this.subParagraphs.size();
+	}
 
-  /**
-   * Einzelne Unterabschnitts werden ausgelesen.
-   */
-  public SimpleParagraph getParagraphAt(int i) {
-    return this.subParagraphs.elementAt(i);
-  }
+	/**
+	 * Einzelne Unterabschnitts werden ausgelesen.
+	 */
+	public SimpleParagraph getParagraphAt(int i) {
+		return this.subParagraphs.elementAt(i);
+	}
 
-  /**
-   * CompositeParagraph wird damit in einen String umgewandelt.
-   */
+	/**
+	 * CompositeParagraph wird damit in einen String umgewandelt.
+	 */
 
-public String toString() {
-    /**
-     * Erstellen eines leeren Buffers, alle sukzessive String-Darstellungen 
-     * der Unterabschnitte werden eingetragen.
-     */
-    StringBuffer result = new StringBuffer();
+	public String toString() {
+		/**
+		 * Erstellen eines leeren Buffers, alle sukzessive String-Darstellungen
+		 * der Unterabschnitte werden eingetragen.
+		 */
+		StringBuffer result = new StringBuffer();
 
-    /** ueber alle Unterabschnitte eine Schleife */
-    
-    for (int i = 0; i < this.subParagraphs.size(); i++) {
-      SimpleParagraph p = this.subParagraphs.elementAt(i);
+		/** ueber alle Unterabschnitte eine Schleife */
 
-      /**
-       * Jeweiliger Unterabschnitt wird in einen String umgewandelt 
-       * und anschließend an den Buffer angehängt.
-       */
-      result.append(p.toString() + "\n");
-    }
+		for (int i = 0; i < this.subParagraphs.size(); i++) {
+			SimpleParagraph p = this.subParagraphs.elementAt(i);
 
-    /**
-     * Umwandlung des Buffers in einen String + Rueckgabe dieser String
-     */
-    return result.toString();
-  }
+			/**
+			 * Jeweiliger Unterabschnitt wird in einen String umgewandelt und
+			 * anschließend an den Buffer angehängt.
+			 */
+			result.append(p.toString() + "\n");
+		}
+
+		/**
+		 * Umwandlung des Buffers in einen String + Rueckgabe dieser String
+		 */
+		return result.toString();
+	}
 }

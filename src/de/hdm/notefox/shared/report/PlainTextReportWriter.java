@@ -51,8 +51,8 @@ public class PlainTextReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * Text-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in Text-Form. (Schritt fuer Schritt).
 		 */
 		result.append("*** " + r.getTitle() + " ***\n\n");
 		result.append(r.getHeaderData() + "\n");
@@ -94,8 +94,8 @@ public class PlainTextReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * Text-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in Text-Form. (Schritt fuer Schritt).
 		 */
 		result.append("*** " + r.getTitle() + " ***\n\n");
 
@@ -107,9 +107,9 @@ public class PlainTextReportWriter extends ReportWriter {
 		/*
 		 * r enthält eine Menge von Teil-Reports des Typs
 		 * AlleNotizenDesNutzersReport, da AlleNotizenAllerNutzerReport ein
-		 * CompositeReport ist. processAlleNotizbuecherDesNutzersReport wird fuer
-		 * jeden dieser Teil-Reports aufgerufen. Dem Buffer wird das Ergebnis
-		 * des jew. Aufrufs hinzugefuegt.
+		 * CompositeReport ist. processAlleNotizbuecherDesNutzersReport wird
+		 * fuer jeden dieser Teil-Reports aufgerufen. Dem Buffer wird das
+		 * Ergebnis des jew. Aufrufs hinzugefuegt.
 		 */
 		for (int i = 0; i < r.getNumSubReports(); i++) {
 
@@ -149,8 +149,8 @@ public class PlainTextReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * Text-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in Text-Form. (Schritt fuer Schritt).
 		 */
 		result.append("*** " + r.getTitle() + " ***\n\n");
 		result.append(r.getHeaderData() + "\n");
@@ -188,8 +188,8 @@ public class PlainTextReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * Text-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in Text-Form. (Schritt fuer Schritt).
 		 */
 		result.append("*** " + r.getTitle() + " ***\n\n");
 

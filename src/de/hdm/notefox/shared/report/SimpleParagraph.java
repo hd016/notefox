@@ -3,8 +3,8 @@ package de.hdm.notefox.shared.report;
 import java.io.Serializable;
 
 /**
- * Einzelne Absaetze werden dargestellt. Der Inhalt der Absaetze werden as String
- * gespeichert.
+ * Einzelne Absaetze werden dargestellt. Der Inhalt der Absaetze werden as
+ * String gespeichert.
  */
 public class SimpleParagraph extends Paragraph implements Serializable {
 

@@ -73,7 +73,7 @@ public class HTMLReportWriter extends ReportWriter {
 	 */
 
 	public void process(AlleNotizenDesNutzersReport r) {
-		// Löschen der Ergebnisse vorhergehender Prozessierungen. 
+		// Löschen der Ergebnisse vorhergehender Prozessierungen.
 		this.resetReportText();
 
 		/**
@@ -83,8 +83,8 @@ public class HTMLReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * HTML-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
@@ -137,8 +137,8 @@ public class HTMLReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * HTML-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
@@ -184,14 +184,14 @@ public class HTMLReportWriter extends ReportWriter {
 		this.resetReportText();
 
 		/**
-		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, 
-		 *  waehrend der Prozessierung
+		 * Sukzessives Schreiben der Ergebnisse in diesen Buffer, waehrend der
+		 * Prozessierung
 		 */
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * HTML-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table><tr>");
@@ -239,7 +239,7 @@ public class HTMLReportWriter extends ReportWriter {
 	 * uebergebener Report und Ablage im Zielformat.
 	 */
 	public void process(AlleNotizbuecherAllerNutzerReport r) {
-		/** Loeschen der Ergebnisse vorhergehender Prozessierungen.*/
+		/** Loeschen der Ergebnisse vorhergehender Prozessierungen. */
 		this.resetReportText();
 
 		/**
@@ -249,8 +249,8 @@ public class HTMLReportWriter extends ReportWriter {
 		StringBuffer result = new StringBuffer();
 
 		/*
-		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen in
-		 * HTML-Form. (Schritt fuer Schritt).
+		 * Auslesen der einzelnen Bestandteile des Reports und das uebersetzen
+		 * in HTML-Form. (Schritt fuer Schritt).
 		 */
 		result.append("<H1>" + r.getTitle() + "</H1>");
 		result.append("<table><tr>");
