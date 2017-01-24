@@ -15,8 +15,8 @@ import de.hdm.notefox.shared.Nutzer;
 public interface LoginService extends RemoteService {
 
 	/**
-	 * Ausfuehren des Logins und ablegen aller relevanten Nutzer Informationen in
-	 * einem LoginInfo Objekt
+	 * Ausfuehren des Logins und ablegen aller relevanten Nutzer Informationen
+	 * in einem LoginInfo Objekt
 	 * 
 	 * @param requestUri
 	 *            Die Basis URL der aufrufenden Seite (ermittelt ueber

@@ -119,11 +119,3 @@ public class Filterobjekt implements Serializable {
 	}
 
 }
-
-
-
-
-
-
-
-

@@ -19,7 +19,7 @@ public class Notizquelle implements Serializable {
 
 	private String url;
 
-	/*
+	/**
 	 * Auslesen und Setzen der Variablen
 	 */
 	public int getNotizquelleId() {

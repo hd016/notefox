@@ -7,13 +7,3 @@ package de.hdm.notefox.shared;
 public class CommonSettings {
 
 }
-
-
-
-
-
-
-
-
-
-

@@ -7,9 +7,9 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
-/*
- * Wird Semiautomatisch vom Google Plugin erstellt. 
- *Gegenstueck des asynchronen Interface (NotizobjektAdministration).
+/**
+ * Wird Semiautomatisch vom Google Plugin erstellt. Gegenstueck des asynchronen
+ * Interface (NotizobjektAdministration).
  */
 public interface NotizobjektAdministrationAsync {
 

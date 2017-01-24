@@ -32,10 +32,12 @@ public interface NotizobjektAdministration extends RemoteService {
 
 	/**
 	 * <p>
-	 * Auslesen saemtlicher mit diesem Notizbuch in Verbindung stehenden Notizen.
+	 * Auslesen saemtlicher mit diesem Notizbuch in Verbindung stehenden
+	 * Notizen.
 	 * </p>
 	 * 
-	 * @param nb das Notizbuch, dessen Notiz wir bekommen wollen.
+	 * @param nb
+	 *            das Notizbuch, dessen Notiz wir bekommen wollen.
 	 * @return eine Liste aller Notizen
 	 * @throws IllegalArgumentException
 	 */

@@ -3,9 +3,10 @@ package de.hdm.notefox.shared;
 import java.io.Serializable;
 
 /**
- * Ausnahme um Meldungen vom Backend ans Frontend zu kommunizieren. Danach werden die Meldungen
- * mit Window.alert() angezeigt.
- * @author DHarun
+ * Ausnahme um Meldungen vom Backend ans Frontend zu kommunizieren. Danach
+ * werden die Meldungen mit Window.alert() angezeigt.
+ * 
+ * @author Harun Dalici
  *
  */
 public class NutzerAusnahme extends RuntimeException implements Serializable {

@@ -6,6 +6,7 @@ import de.hdm.notefox.shared.Nutzer;
 
 /**
  * Gegenstueck des asynchronen Interface (LoginService).
+ * 
  * @author Harun Dalici & Muhammed Simsek
  */
 public interface LoginServiceAsync {
@@ -15,15 +16,3 @@ public interface LoginServiceAsync {
 	void getCurrentNutzer(AsyncCallback<Nutzer> callback);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

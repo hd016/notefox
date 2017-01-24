@@ -28,7 +28,7 @@ public class Nutzer implements Serializable {
 
 	private ArrayList<Notizbuch> notizbuchliste = new ArrayList<Notizbuch>();
 
-	/*
+	/**
 	 * Auslesen und Setzen der Variablen
 	 */
 	public int getNutzerId() {
