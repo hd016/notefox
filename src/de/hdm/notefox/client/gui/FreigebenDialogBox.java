@@ -78,7 +78,7 @@ public class FreigebenDialogBox extends DialogBox {
 		freigeben.addStyleName("gwt-Green-Button");
 		abbruch.addStyleName("gwt-Green-Button");
 
-		/*
+		/**
 		 * Nun werden Radio Buttons fuer die Auswahl der Berechtigungsart,
 		 * definiert
 		 */
@@ -87,36 +87,35 @@ public class FreigebenDialogBox extends DialogBox {
 		hPanelRadios.add(lesen);
 		hPanelRadios.add(editieren);
 		hPanelRadios.add(loeschen);
-		
+
 		// Schließen Button und ClickHandler mit hide()
 		Button schliessenButton = new Button("X");
 		schliessenButton.addStyleName("TopRightSchliessenButtonFreigebenDialogBoxKlasse");
-		schliessenButton.addClickHandler(new ClickHandler(){
+		schliessenButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
 			}
-			
+
 		});
-		
-		
+
 		Label emailBoxLabel = new Label("Email: ");
 		Label Berechtigung = new Label("");
 		VerticalPanel panel = new VerticalPanel();
 		HorizontalPanel hPanel = new HorizontalPanel();
 		HorizontalPanel hPanelDown = new HorizontalPanel();
 
-		/*
+		/**
 		 * main panel = panel
 		 */
-		
+
 		panel.setHeight("300");
 		panel.setWidth("500");
 		panel.setSpacing(10);
 		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-		/*
+		/**
 		 * emailtitel + emailinput = hpanel
 		 */
 
@@ -125,7 +124,7 @@ public class FreigebenDialogBox extends DialogBox {
 		hPanel.add(schliessenButton);
 		panel.add(hPanel);
 
-		/*
+		/**
 		 * hPanelDown = button panel
 		 */
 

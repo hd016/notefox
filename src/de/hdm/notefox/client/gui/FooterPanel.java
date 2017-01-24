@@ -19,7 +19,7 @@ public class FooterPanel extends VerticalPanel {
 
 	public FooterPanel() {
 
-		/*
+		/**
 		 * Image für Notefox einbinden
 		 */
 
@@ -28,21 +28,21 @@ public class FooterPanel extends VerticalPanel {
 		footerImage.getElement().getStyle().setCursor(Cursor.POINTER);
 		footerImage.addClickHandler(new NotizquelleClickHandler());
 
-		/*
+		/**
 		 * Image für HdM einbinden
 		 */
 
 		Image footerHdM = new Image("/images/logohdm.png");
 		footerHdM.addStyleName("footerHDM");
 
-		/*
+		/**
 		 * Image für Wirtschaftsinformatik einbinden
 		 */
 
 		Image footerWi = new Image("/images/logowi.png");
 		footerWi.addStyleName("footerWi");
 
-		/*
+		/**
 		 * Es wird ein neues HorizontalPanel erzeugt und die verschiedenen
 		 * Images hinzugefügt.
 		 * 

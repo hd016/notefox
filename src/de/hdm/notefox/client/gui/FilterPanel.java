@@ -1,19 +1,19 @@
 package de.hdm.notefox.client.gui;
 
 import java.util.List;
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
+
 import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Filterobjekt;
-import de.hdm.notefox.shared.NotizobjektAdministrationAsync;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
 
@@ -135,7 +135,7 @@ public class FilterPanel extends HorizontalPanel {
 
 	}
 
-	/*
+	/**
 	 * Instanziieren der Filterobjekte
 	 * 
 	 * @return filterobjekt

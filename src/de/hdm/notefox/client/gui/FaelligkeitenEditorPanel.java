@@ -14,9 +14,9 @@ import de.hdm.notefox.shared.bo.Notiz;
 /**
  * 
  * Die Klasse FaelligkeitenEditorPanel, ist für das Anzeigen der "Ampel", auch
- * Trafic Lights gennant. Zweck ist für die Berechnung der restlichen Tage bis zum
- * Faelligkeitsdatum. Diese Ampel befindet sich oberhalb auf der rechten Seite
- * der Notiz Editors.
+ * Trafic Lights gennant. Zweck ist für die Berechnung der restlichen Tage bis
+ * zum Faelligkeitsdatum. Diese Ampel befindet sich oberhalb auf der rechten
+ * Seite der Notiz Editors.
  * 
  * @author Neriman Kocak und Harun Dalici
  *

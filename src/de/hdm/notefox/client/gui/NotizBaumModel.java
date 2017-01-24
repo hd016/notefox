@@ -43,10 +43,17 @@ public class NotizBaumModel implements TreeViewModel {
 		this.geoeffnet = geoeffnet;
 	}
 
-	@Override
+	/**
+	 * Get the {@link NodeInfo} that provides the children of the specified
+	 * value.
+	 */
 	public <T> NodeInfo<?> getNodeInfo(T value) {
 		if (value == null) {
 
+			/**
+			 * Create some data in a data provider. Use the parent value as a
+			 * prefix for the next level.
+			 */
 			AsyncDataProvider<Notizbuch> notizbuchProvider = new AsyncDataProvider<Notizbuch>() {
 
 				@Override
@@ -111,6 +118,10 @@ public class NotizBaumModel implements TreeViewModel {
 				}
 
 			});
+			/**
+			 * Überprüfung der Instanz und setzen der Dummy Notiz als
+			 * Platzhalter.
+			 */
 		} else if (value instanceof Notizbuch) {
 			final Notizbuch notizbuch = (Notizbuch) value;
 			List<Notiz> notizen = notizbuch.getNotizen();
@@ -153,6 +164,10 @@ public class NotizBaumModel implements TreeViewModel {
 		return null;
 	}
 
+	/**
+	 * Check if the specified value represents a leaf node. Leaf nodes cannot be
+	 * opened.
+	 */
 	@Override
 	public boolean isLeaf(Object value) {
 

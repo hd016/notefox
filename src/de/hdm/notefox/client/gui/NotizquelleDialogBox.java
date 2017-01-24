@@ -14,9 +14,9 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Die Klasse NotizquelleDialogbox, stellt einen Dialogbox zur Verfügung. Davon kann
- * der Nutzer, den Javascript Code für die Einbettung der Notizquellenübernahme
- * auf seiner eigenen Website, übermitteln
+ * Die Klasse NotizquelleDialogbox, stellt einen Dialogbox zur Verfügung. Davon
+ * kann der Nutzer, den Javascript Code für die Einbettung der
+ * Notizquellenübernahme auf seiner eigenen Website, übermitteln
  * 
  * @author Neriman Kocak und Harun Dalici
  */
@@ -39,25 +39,25 @@ public class NotizquelleDialogBox extends DialogBox {
 		TextBox output = new TextBox();
 		Button schliessenButton = new Button("X");
 		schliessenButton.addStyleName("TopRightSchliessenButton");
-		
-		/*
+
+		/**
 		 * Für das Schließen der Dialogbox.
 		 */
-		schliessenButton.addClickHandler(new ClickHandler(){
+		schliessenButton.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				hide();
 			}
-			
+
 		});
 		output.setReadOnly(isGlassEnabled());
 		output.addStyleName("gwt-TextBox-Dialogbox");
 
-		/* 
+		/*
 		 * Javascript Code für die Einbettung der Notefox+ Button
 		 */
-		
+
 		output.setText("<a id=\"note-fox-link\" href=\"#\">Link</a><script>var notefoxUrl = \""
 				+ GWT.getHostPageBaseURL()
 				+ "\";document.getElementById(\"note-fox-link\").setAttribute(\"href\", notefoxUrl + \"?url=\" + window.location);</script>");
@@ -69,13 +69,11 @@ public class NotizquelleDialogBox extends DialogBox {
 		hPanel.add(schliessenButton);
 		hPanelTextBox.addStyleName("gwt-DialogBox");
 		hPanelTextBox.add(output);
-		
-		
 
-		/* 
+		/**
 		 * main panel = panel
 		 */
-		
+
 		panel.add(hPanel);
 		panel.add(hPanelTextBox);
 		panel.setSpacing(10);
@@ -87,7 +85,7 @@ public class NotizquelleDialogBox extends DialogBox {
 	/**
 	 * Die Methode beschreibt das Schließen des Dialogboxes
 	 */
-	
+
 	protected void onPreviewNativeEvent(NativePreviewEvent event) {
 		super.onPreviewNativeEvent(event);
 		switch (event.getTypeInt()) {
@@ -99,6 +97,5 @@ public class NotizquelleDialogBox extends DialogBox {
 			break;
 		}
 	}
-	
 
 }
