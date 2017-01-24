@@ -12,9 +12,11 @@ import de.hdm.notefox.shared.Nutzer;
 
 /**
  * Implementierungsklasse des Interface <code>LoginService</code>.
+ * 
  * @see LoginService
  * @see LoginServiceAsync
  * @see RemoteServiceServlet
+ * 
  * @author Harun Dalici & Muhammed Simsek
  *
  */

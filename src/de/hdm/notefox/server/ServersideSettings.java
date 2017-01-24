@@ -60,9 +60,9 @@ public class ServersideSettings extends CommonSettings {
 	 * bedarfsweise Einfuegen und Auskommentieren etwa von
 	 * <code>System.out.println(...);</code> steuern. Sie belassen kuenftig
 	 * saemtliches Logging im Code und koennen ohne abermaliges Kompilieren den
-	 * Log Level "von auﬂen" durch die Datei <code>logging.properties</code>
+	 * Log Level "von aussen" durch die Datei <code>logging.properties</code>
 	 * steuern. Sie finden diese Datei in dem <code>war/WEB-INF</code>-Ordner
-	 * Ihres Projekts. Der dort standardmaeﬂig vorgegebene Log Level ist
+	 * Ihres Projekts. Der dort standardmaessig vorgegebene Log Level ist
 	 * <code>WARN</code>. Dies wuerde bedeuten, dass Sie keine <code>INFO</code>
 	 * -Meldungen wohl aber <code>WARN</code>- und <code>SEVERE</code>-Meldungen
 	 * erhielten. Wenn Sie also auch Log des Levels <code>INFO</code> wollten,
