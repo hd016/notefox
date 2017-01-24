@@ -17,11 +17,11 @@ import de.hdm.notefox.shared.report.AlleNotizenDesNutzersReport;
 import de.hdm.notefox.shared.report.HTMLReportWriter;
 
 /**
- * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) 
- * NotefoxReport ist die Entry-Point-Klasse des
- * Projekts <b>notefox</b> für den Report Generator.
+ * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt) NotefoxReport ist die
+ * Entry-Point-Klasse des Projekts <b>notefox</b> für den Report Generator.
+ * 
  * @author Harun Dalici, Neriman Kocak, Muhammed Simsek
-
+ * 
  */
 public class NotefoxReport implements EntryPoint {
 
@@ -112,6 +112,7 @@ public class NotefoxReport implements EntryPoint {
 /**
  * Diese Nested Class wird als Callback für das Erzeugen des Report benötigt.
  * Anlehnung an das Bankprojekt.
+ * 
  * @author rathke
  * @version 1.0
  */
@@ -141,6 +142,7 @@ class erstelleAlleNotizbuecherAllerNutzerReportCallback implements AsyncCallback
 /**
  * Diese Nested Class wird als Callback fuer das Erzeugen des Report benoetigt.
  * Anlehnung an das Bankprojekt.
+ * 
  * @author rathke
  * @version 1.0
  */

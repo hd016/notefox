@@ -112,7 +112,8 @@ public class ClientsideSettings extends CommonSettings {
 	 * <p>
 	 * Der Aufruf dieser Methode erfolgt im Client.
 	 * 
-	 * @return eindeutige Instanz des Typs <code>NotizobjektAdministrationAsync</code>
+	 * @return eindeutige Instanz des Typs
+	 *         <code>NotizobjektAdministrationAsync</code>
 	 * @author Peter Thies
 	 * @since 28.02.2012
 	 */
@@ -149,8 +150,7 @@ public class ClientsideSettings extends CommonSettings {
 	 * <p>
 	 * Der Aufruf dieser Methode erfolgt im Client
 	 * 
-	 * @return eindeutige Instanz des Typs
-	 *         <code>ReportGeneratorAsync</code>
+	 * @return eindeutige Instanz des Typs <code>ReportGeneratorAsync</code>
 	 * @author Peter Thies
 	 * @since 28.02.2012
 	 */

@@ -31,6 +31,7 @@ import de.hdm.notefox.shared.bo.Notizbuch;
 
 /**
  * Entry-Point-Klasse des Projekts <b>Notefox</b>.
+ * 
  * @author Harun Dalici, Neriman Kocak, Muhammed Simsek
  */
 
@@ -293,9 +294,9 @@ public class Notefox implements EntryPoint {
 		for (int i = 0; i < rootTreeNode.getChildCount(); i++) {
 			if (rootTreeNode.isChildOpen(i)) {
 				/*
-				 * Nach einer neuen Notiz oder neues Notizbuch wird 
-				 * die CellTree zuerst geschlossen und danach
-				 * wieder geöffnet. Dies dient dann als eine sog. refresh() Methode.
+				 * Nach einer neuen Notiz oder neues Notizbuch wird die CellTree
+				 * zuerst geschlossen und danach wieder geöffnet. Dies dient
+				 * dann als eine sog. refresh() Methode.
 				 * 
 				 */
 				rootTreeNode.setChildOpen(i, false);
@@ -305,7 +306,7 @@ public class Notefox implements EntryPoint {
 	}
 
 	/**
-	 * ClickHandler für das Anzeigen der Impressum.	
+	 * ClickHandler für das Anzeigen der Impressum.
 	 */
 	private class ImpressumClickHandler implements ClickHandler {
 
@@ -320,7 +321,7 @@ public class Notefox implements EntryPoint {
 	}
 
 	/**
-	 * ClickHandler für die Möglichkeit um ein Nutzer Account zu löschen.	 
+	 * ClickHandler für die Möglichkeit um ein Nutzer Account zu löschen.
 	 */
 	private class NutzerLoeschenClickHandler implements ClickHandler {
 
