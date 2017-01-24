@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Businessobjekt.java ist die Superklasse aller relevanten Klassen im Objekt.
  * Die Business Objekts repraesentieren reale betriebswirtschaftliche Objekte,
- * die fuer die Umsetzung des Fachkonzepts wichtig sind. Jedes Businessobjekt hat
- * einen Primaerschluessel, die das Objekt in einer relationalen
+ * die fuer die Umsetzung des Fachkonzepts wichtig sind. Jedes Businessobjekt
+ * hat einen Primaerschluessel, die das Objekt in einer relationalen
  * Datenbankeindeutig identifizieren. Sie implementiert das Interface
- * >>Serializable<<, dadurch koennen die Objekte in eine textuelle Form Ueberfuehrt
- * werden. Dies wird benoetigt, damit der Client und der Server Objekte unter
- * sich austauschen kann.
+ * >>Serializable<<, dadurch koennen die Objekte in eine textuelle Form
+ * Ueberfuehrt werden. Dies wird benoetigt, damit der Client und der Server
+ * Objekte unter sich austauschen kann.
  */
 public abstract class BusinessObject implements Serializable {
 
