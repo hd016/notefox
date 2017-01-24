@@ -383,7 +383,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements
 		 */
 		AlleNotizbuecherDesNutzersReport result = new AlleNotizbuecherDesNutzersReport();
 
-		result.setTitle("Alle Notizen des Notizbuches");
+		result.setTitle("Alle Notizbücher des Nutzers");
 
 		/*
 		 * Datum der Erstellung hinzufuegen. new Date() erzeugt autom. einen

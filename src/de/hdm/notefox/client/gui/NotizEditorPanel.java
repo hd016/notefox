@@ -117,7 +117,7 @@ public class NotizEditorPanel extends HorizontalPanel {
 		subtitel.setValue(notizobjekt.getSubtitel());
 		area.setHTML(notizobjekt.getInhalt());
 		if (notizobjekt instanceof Notiz) {
-			notizEditor.setHTML("<h3>Notiz</h3>");
+			notizEditor.setHTML("<h3>Notiz Editor</h3>");
 			Notiz notiz = (Notiz) notizobjekt;
 			Rich.setVisible(true);
 			area.setVisible(true);

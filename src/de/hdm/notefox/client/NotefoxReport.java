@@ -32,9 +32,10 @@ public class NotefoxReport implements EntryPoint {
 
 	FilterPanel filterPanel = new FilterPanel();
 
-	HorizontalPanel mainPanel = new HorizontalPanel();
+	VerticalPanel mainPanel = new VerticalPanel();
 	VerticalPanel erstPanel = new VerticalPanel();
 	VerticalPanel zweitPanel = new VerticalPanel();
+	HorizontalPanel buttonPanel = new HorizontalPanel();
 
 	/**
 	 * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
@@ -56,11 +57,11 @@ public class NotefoxReport implements EntryPoint {
 		}
 
 		erstPanel.add(filterPanel);
-		zweitPanel.add(notizenButton);
+		buttonPanel.add(notizenButton);
+		buttonPanel.add(notizbucherButton);
 		mainPanel.add(erstPanel);
 		mainPanel.add(zweitPanel);
-
-		mainPanel.add(notizbucherButton);
+		mainPanel.add(buttonPanel);
 
 		notizenButton.addStyleName("Report-Button");
 		notizbucherButton.addStyleName("Report-Button");

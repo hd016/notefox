@@ -108,7 +108,7 @@ public class Notefox implements EntryPoint {
 
 	}
 
-	/**
+	/*
 	 * Die weiterführende Methode der onModuleLoad() Methode nach dem erfolgreichen Einloggen.
 	 */
 	private void onModuleLoadLoggedIn() {
@@ -116,7 +116,7 @@ public class Notefox implements EntryPoint {
 		notizeditorpanel = new NotizEditorPanel(this, loginInfo);
 		zeigeInhalt(new VerticalPanel());
 
-		/**
+		/*
 		 * Überprüfung der Parameter über die Übernahme eines Fremdinhalts auf einer Webseite.
 		 */
 		
@@ -138,7 +138,7 @@ public class Notefox implements EntryPoint {
 
 		ersetzeBaum(null);
 		
-		/**
+		/*
 		 * Anzeigen des Nutzernamens nach dem Einloggen. Der Nutzername besteht aus einem String 
 		 * vor dem '@'- Zeichen bei der Anmeldungsemail.
 		 */
