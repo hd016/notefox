@@ -3,6 +3,10 @@ package de.hdm.notefox.shared.bo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Das BusinessObjekt: Notizbuch. Erbt vom Notizobjekt. 
+ *
+ */
 public class Notizbuch extends Notizobjekt {
 
 	/**

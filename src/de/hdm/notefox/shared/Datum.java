@@ -3,6 +3,11 @@ package de.hdm.notefox.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Die Klasse Datum für die Umsetzung der Funktion Fälligkeiten bei Notizen.
+ *
+ */
+
 public class Datum implements Serializable {
 
 	/**

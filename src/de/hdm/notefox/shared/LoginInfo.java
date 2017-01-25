@@ -5,6 +5,8 @@ import java.io.Serializable;
 import de.hdm.notefox.shared.Nutzer;
 
 /**
+ * Die Klasse LoginInfo beinhaltet alle Login Informationen eines
+ * Nutzers. 
  * @author Harun Dalici & Muhammed Simsek
  */
 public class LoginInfo implements Serializable {

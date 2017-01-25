@@ -5,6 +5,12 @@ import java.io.Serializable;
 import de.hdm.notefox.shared.bo.Notiz;
 import de.hdm.notefox.shared.bo.Notizbuch;
 
+/**
+ * 
+ * Die Klasse Berechtigung implementiert die Serialisierung. Außerdem stellt es durch ein Enumeration
+ * folgende Berechtiungsarten zur Verfügung: LESEN, EDITIEREN, LÖSCHEN.
+ *
+ */
 public class Berechtigung implements Serializable {
 
 	private static final long serialVersionUID = 1L;

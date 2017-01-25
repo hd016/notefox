@@ -2,6 +2,8 @@ package de.hdm.notefox.client.gui;
 
 import java.util.List;
 
+
+
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.CheckBox;
@@ -16,6 +18,14 @@ import de.hdm.notefox.client.ClientsideSettings;
 import de.hdm.notefox.shared.Filterobjekt;
 import de.hdm.notefox.shared.Nutzer;
 import de.hdm.notefox.shared.ReportGeneratorAsync;
+
+/**
+ * Diese Klasse stellt für die Report GUI die Filter Objekte zur Verfügung. Die Instanz dieser
+ * Klasse wird in der Klasse NotefoxReport instanziiert.
+ * 
+ * @author Harun Dalici
+ *
+ */
 
 public class FilterPanel extends HorizontalPanel {
 

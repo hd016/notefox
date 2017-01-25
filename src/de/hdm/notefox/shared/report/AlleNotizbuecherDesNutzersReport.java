@@ -1,6 +1,6 @@
 package de.hdm.notefox.shared.report;
 
-/*
+/**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * <p>
  * Alle Notizbuecher des Nutzers werden mit diesem Report dargestellt.
@@ -10,6 +10,8 @@ package de.hdm.notefox.shared.report;
  * objektorientiert umgehen zu koennen.
  * 
  * @author Thies
+ * 
+ * Alle Notizbucher des Nutzers werden mit diesem Report dargestellt.
  */
 public class AlleNotizbuecherDesNutzersReport extends SimpleReport {
 

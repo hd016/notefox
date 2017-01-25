@@ -2,6 +2,12 @@ package de.hdm.notefox.shared.bo;
 
 import java.util.Date;
 
+/**
+ * Das BusinessObjekt: Notiz. Erbt vom Notizobjekt. 
+ * 
+ *
+ */
+
 public class Notiz extends Notizobjekt {
 
 	/**

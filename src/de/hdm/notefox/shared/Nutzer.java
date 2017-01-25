@@ -1,6 +1,10 @@
 package de.hdm.notefox.shared;
 
 import java.io.Serializable;
+
+/**
+ * Die Klasse Nutzer ist kein Business Object. 
+ */
 import java.util.ArrayList;
 
 import de.hdm.notefox.shared.bo.Notiz;

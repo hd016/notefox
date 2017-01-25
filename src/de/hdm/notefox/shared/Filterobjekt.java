@@ -3,6 +3,11 @@ package de.hdm.notefox.shared;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Die Klasse FilterObjekt ermöglicht dem Reportgenerator Filter Objekte zu erstellen.
+ * @author DHarun
+ *
+ */
 public class Filterobjekt implements Serializable {
 
 	/**

@@ -6,6 +6,10 @@ import java.util.List;
 import de.hdm.notefox.shared.Berechtigung;
 import de.hdm.notefox.shared.Nutzer;
 
+/**
+ *  Das BusinessObjekt: Notizobjekt. Ist die Superklasse von Notiz und Notizbuch.
+ *
+ */
 public abstract class Notizobjekt extends BusinessObject {
 
 	/**

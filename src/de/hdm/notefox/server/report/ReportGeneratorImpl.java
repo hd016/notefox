@@ -55,7 +55,7 @@ public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportG
 	 * @see #ReportGeneratorImpl()
 	 */
 	public void initialisieren() throws IllegalArgumentException {
-		/*
+		/**
 		 * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf
 		 * eine NotizobjektVerwaltungImpl-Instanz.
 		 */

@@ -2,7 +2,7 @@ package de.hdm.notefox.shared.report;
 
 import java.io.Serializable;
 
-/*
+/**
  * Anlehnung an Herr Thies & Herr Rathke (Bankprojekt)
  * <p>
  * Alle Notizbuecher aller Nutzer werden in diesem Report dargestellt.
@@ -11,8 +11,10 @@ import java.io.Serializable;
  * dennoch wichtig, um bestimmte Typen von Reports deklarieren und mit Ihnen 
  * objektorientiert umgehen zu koennen.
  * 
- *  
+ * 
+ * Alle Notizbucher aller Nutzer werden mit diesem Report dargestellt.
  */
+ 
 public class AlleNotizbuecherAllerNutzerReport extends CompositeReport implements Serializable {
 
 	/**

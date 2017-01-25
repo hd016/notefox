@@ -2,6 +2,10 @@ package de.hdm.notefox.shared;
 
 import java.io.Serializable;
 
+/**
+ * Die Klasse Notizquelle wird bei einer Übernahme einer Fremdinhalt benutzt. 
+ *
+ */
 public class Notizquelle implements Serializable {
 
 	/**

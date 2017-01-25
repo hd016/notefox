@@ -8,6 +8,15 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+
+/**
+ * Diese Klasse stellt die Bilder für den Footer Panel bei Notefox.java zur Verfügung. Die Klasse
+ * beinhaltet drei Bilder: notefox+ Logo, Wirtschaftsinformatik und digitale Medien Logo und die Logo
+ * der Hochschule der Medien Stuttgart.
+ * 
+ * @author Harun Dalici
+ *
+ */
 public class FooterPanel extends VerticalPanel {
 
 	/**
